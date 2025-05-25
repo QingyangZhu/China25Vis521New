@@ -1,0 +1,3347 @@
+{
+    "overview":{
+  "nodes": [
+    {
+      "name": "水系",
+      "depth": 0,
+      "itemStyle": {
+        "color": "#3498db"
+      }
+    },
+    {
+      "name": "气候",
+      "depth": 0,
+      "itemStyle": {
+        "color": "#e74c3c"
+      }
+    },
+    {
+      "name": "植被",
+      "depth": 0,
+      "itemStyle": {
+        "color": "#27ae60"
+      }
+    },
+    {
+      "name": "无改道",
+      "depth": 1,
+      "itemStyle": {
+        "color": "#85c1e9"
+      }
+    },
+    {
+      "name": "轻微改道",
+      "depth": 1,
+      "itemStyle": {
+        "color": "#5dade2"
+      }
+    },
+    {
+      "name": "频繁改道",
+      "depth": 1,
+      "itemStyle": {
+        "color": "#2980b9"
+      }
+    },
+    {
+      "name": "暴雨洪水",
+      "depth": 1,
+      "itemStyle": {
+        "color": "#f1948a"
+      }
+    },
+    {
+      "name": "大雪寒潮",
+      "depth": 1,
+      "itemStyle": {
+        "color": "#ec7063"
+      }
+    },
+    {
+      "name": "干旱大风",
+      "depth": 1,
+      "itemStyle": {
+        "color": "#e74c3c"
+      }
+    },
+    {
+      "name": "沙尘暴",
+      "depth": 1,
+      "itemStyle": {
+        "color": "#922b21"
+      }
+    },
+    {
+      "name": "针叶林",
+      "depth": 1,
+      "itemStyle": {
+        "color": "#7fb3d3"
+      }
+    },
+    {
+      "name": "阔叶林",
+      "depth": 1,
+      "itemStyle": {
+        "color": "#52c41a"
+      }
+    },
+    {
+      "name": "混交林",
+      "depth": 1,
+      "itemStyle": {
+        "color": "#389e0d"
+      }
+    },
+    {
+      "name": "草原草甸",
+      "depth": 1,
+      "itemStyle": {
+        "color": "#95de64"
+      }
+    },
+    {
+      "name": "交通运输",
+      "depth": 2,
+      "itemStyle": {
+        "color": "#f39c12"
+      }
+    },
+    {
+      "name": "防洪排水",
+      "depth": 2,
+      "itemStyle": {
+        "color": "#e67e22"
+      }
+    },
+    {
+      "name": "生活用水",
+      "depth": 2,
+      "itemStyle": {
+        "color": "#d35400"
+      }
+    },
+    {
+      "name": "城市景观",
+      "depth": 2,
+      "itemStyle": {
+        "color": "#ff9f43"
+      }
+    },
+    {
+      "name": "农业灌溉",
+      "depth": 2,
+      "itemStyle": {
+        "color": "#feca57"
+      }
+    },
+    {
+      "name": "城市防御",
+      "depth": 2,
+      "itemStyle": {
+        "color": "#ff6b6b"
+      }
+    },
+    {
+      "name": "政治象征",
+      "depth": 2,
+      "itemStyle": {
+        "color": "#fd79a8"
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "水系",
+      "target": "无改道",
+      "value": 612
+    },
+    {
+      "source": "水系",
+      "target": "轻微改道",
+      "value": 59
+    },
+    {
+      "source": "水系",
+      "target": "频繁改道",
+      "value": 61
+    },
+    {
+      "source": "气候",
+      "target": "暴雨洪水",
+      "value": 8
+    },
+    {
+      "source": "气候",
+      "target": "大雪寒潮",
+      "value": 4
+    },
+    {
+      "source": "气候",
+      "target": "干旱大风",
+      "value": 3
+    },
+    {
+      "source": "气候",
+      "target": "沙尘暴",
+      "value": 1
+    },
+    {
+      "source": "植被",
+      "target": "针叶林",
+      "value": 16
+    },
+    {
+      "source": "植被",
+      "target": "阔叶林",
+      "value": 19
+    },
+    {
+      "source": "植被",
+      "target": "混交林",
+      "value": 5
+    },
+    {
+      "source": "植被",
+      "target": "草原草甸",
+      "value": 8
+    },
+    {
+      "source": "频繁改道",
+      "target": "防洪排水",
+      "value": 34
+    },
+    {
+      "source": "频繁改道",
+      "target": "交通运输",
+      "value": 9
+    },
+    {
+      "source": "频繁改道",
+      "target": "农业灌溉",
+      "value": 2
+    },
+    {
+      "source": "频繁改道",
+      "target": "城市防御",
+      "value": 2
+    },
+    {
+      "source": "频繁改道",
+      "target": "政治象征",
+      "value": 1
+    },
+    {
+      "source": "频繁改道",
+      "target": "生活用水",
+      "value": 1
+    },
+    {
+      "source": "轻微改道",
+      "target": "交通运输",
+      "value": 20
+    },
+    {
+      "source": "轻微改道",
+      "target": "防洪排水",
+      "value": 16
+    },
+    {
+      "source": "轻微改道",
+      "target": "生活用水",
+      "value": 10
+    },
+    {
+      "source": "轻微改道",
+      "target": "农业灌溉",
+      "value": 5
+    },
+    {
+      "source": "轻微改道",
+      "target": "城市景观",
+      "value": 5
+    },
+    {
+      "source": "轻微改道",
+      "target": "政治象征",
+      "value": 3
+    },
+    {
+      "source": "轻微改道",
+      "target": "城市防御",
+      "value": 3
+    },
+    {
+      "source": "无改道",
+      "target": "交通运输",
+      "value": 83
+    },
+    {
+      "source": "无改道",
+      "target": "生活用水",
+      "value": 49
+    },
+    {
+      "source": "无改道",
+      "target": "防洪排水",
+      "value": 46
+    },
+    {
+      "source": "无改道",
+      "target": "城市景观",
+      "value": 34
+    },
+    {
+      "source": "无改道",
+      "target": "农业灌溉",
+      "value": 22
+    },
+    {
+      "source": "无改道",
+      "target": "城市防御",
+      "value": 17
+    },
+    {
+      "source": "无改道",
+      "target": "政治象征",
+      "value": 5
+    }
+  ]
+},
+    "上古": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "政治象征",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#fd79a8"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "政治象征",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 1
+        }
+      ]
+    },
+    "远古": {
+      "nodes": [],
+      "links": []
+    },
+    "夏": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        },
+        {
+          "name": "混交林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#389e0d"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "混交林",
+          "value": 1
+        }
+      ]
+    },
+    "商": {
+      "nodes": [],
+      "links": []
+    },
+    "先秦": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "频繁改道",
+          "value": 2
+        },
+        {
+          "source": "频繁改道",
+          "target": "无明确功能",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 1
+        }
+      ]
+    },
+    "先秦-西周": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        },
+        {
+          "name": "政治象征",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#fd79a8"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "政治象征",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "无明确功能",
+          "value": 1
+        }
+      ]
+    },
+    "先秦-东周": {
+      "nodes": [],
+      "links": []
+    },
+    "先秦-春秋": {
+      "nodes": [],
+      "links": []
+    },
+    "先秦-战国": {
+      "nodes": [],
+      "links": []
+    },
+    "秦": {
+      "nodes": [],
+      "links": []
+    },
+    "汉": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 1
+        }
+      ]
+    },
+    "汉-西汉": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "混交林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#389e0d"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "无明确功能",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "混交林",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 1
+        }
+      ]
+    },
+    "汉-东汉": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "轻微改道",
+          "value": 3
+        },
+        {
+          "source": "轻微改道",
+          "target": "无明确功能",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "生活用水",
+          "value": 1
+        }
+      ]
+    },
+    "三国": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 1
+        }
+      ]
+    },
+    "西晋": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 3
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 1
+        }
+      ]
+    },
+    "十六国": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 1
+        }
+      ]
+    },
+    "南朝": {
+      "nodes": [],
+      "links": []
+    },
+    "北朝": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 1
+        }
+      ]
+    },
+    "北朝-北魏": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        },
+        {
+          "name": "经济林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#8fbc8f"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "频繁改道",
+          "value": 2
+        },
+        {
+          "source": "频繁改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "生活用水",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "经济林",
+          "value": 1
+        }
+      ]
+    },
+    "北朝-东魏": {
+      "nodes": [],
+      "links": []
+    },
+    "北朝-西魏": {
+      "nodes": [],
+      "links": []
+    },
+    "北朝-北齐": {
+      "nodes": [],
+      "links": []
+    },
+    "北朝-北周": {
+      "nodes": [],
+      "links": []
+    },
+    "隋": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 4
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 2
+        },
+        {
+          "source": "水系",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "无明确功能",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 2
+        }
+      ]
+    },
+    "唐": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 2
+        }
+      ]
+    },
+    "五代十国": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "宋": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "政治象征",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#fd79a8"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "轻微改道",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "政治象征",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 1
+        }
+      ]
+    },
+    "宋-北宋": {
+      "nodes": [],
+      "links": []
+    },
+    "宋-南宋": {
+      "nodes": [],
+      "links": []
+    },
+    "辽": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "频繁改道",
+          "value": 2
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 2
+        }
+      ]
+    },
+    "金": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "大雪寒潮",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#ec7063"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        },
+        {
+          "name": "混交林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#389e0d"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 11
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 7
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "农业灌溉",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "生活用水",
+          "value": 1
+        },
+        {
+          "source": "气候",
+          "target": "大雪寒潮",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "混交林",
+          "value": 1
+        }
+      ]
+    },
+    "元": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        },
+        {
+          "name": "政治象征",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#fd79a8"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "沙尘暴",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#922b21"
+          }
+        },
+        {
+          "name": "大雪",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        },
+        {
+          "name": "混交林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#389e0d"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "频繁改道",
+          "value": 7
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 3
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 3
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "政治象征",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 35
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 10
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 20
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 6
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 4
+        },
+        {
+          "source": "无改道",
+          "target": "政治象征",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "轻微改道",
+          "value": 5
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 4
+        },
+        {
+          "source": "轻微改道",
+          "target": "生活用水",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "气候",
+          "target": "沙尘暴",
+          "value": 1
+        },
+        {
+          "source": "气候",
+          "target": "大雪",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "混交林",
+          "value": 1
+        }
+      ]
+    },
+    "明": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        },
+        {
+          "name": "经济林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#8fbc8f"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "频繁改道",
+          "value": 7
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 5
+        },
+        {
+          "source": "频繁改道",
+          "target": "无明确功能",
+          "value": 2
+        },
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 9
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "农业灌溉",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "轻微改道",
+          "value": 7
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 4
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "生活用水",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "经济林",
+          "value": 1
+        }
+      ]
+    },
+    "清": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "暴雨洪水",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#f1948a"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        },
+        {
+          "name": "经济林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#8fbc8f"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 42
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 10
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 14
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 21
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 4
+        },
+        {
+          "source": "无改道",
+          "target": "农业灌溉",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 8
+        },
+        {
+          "source": "水系",
+          "target": "频繁改道",
+          "value": 40
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 29
+        },
+        {
+          "source": "频繁改道",
+          "target": "无明确功能",
+          "value": 11
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 4
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "轻微改道",
+          "value": 17
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "无明确功能",
+          "value": 10
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 5
+        },
+        {
+          "source": "气候",
+          "target": "暴雨洪水",
+          "value": 5
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "经济林",
+          "value": 1
+        }
+      ]
+    },
+    "近代": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 4
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 4
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 1
+        }
+      ]
+    },
+    "近代-民国": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "高温寒潮大风",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#cc0000"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "轻微改道",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "气候",
+          "target": "高温寒潮大风",
+          "value": 1
+        }
+      ]
+    },
+    "现代": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 1
+        }
+      ]
+    },
+    "无明确朝代信息": {
+      "nodes": [
+        {
+          "name": "水系",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "气候",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "植被",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "无明确功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        },
+        {
+          "name": "未知改道情况",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#a9a9a9"
+          }
+        },
+        {
+          "name": "高温干旱大风",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#ff4500"
+          }
+        },
+        {
+          "name": "干旱",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#deb887"
+          }
+        },
+        {
+          "name": "大风",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#add8e6"
+          }
+        },
+        {
+          "name": "无",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "暴雨",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#ff6347"
+          }
+        },
+        {
+          "name": "暴雨洪水",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#f1948a"
+          }
+        },
+        {
+          "name": "混交林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#389e0d"
+          }
+        },
+        {
+          "name": "阔叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#52c41a"
+          }
+        },
+        {
+          "name": "草原",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#9acd32"
+          }
+        },
+        {
+          "name": "针叶林",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#7fb3d3"
+          }
+        },
+        {
+          "name": "落叶灌丛",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#bdb76b"
+          }
+        },
+        {
+          "name": "灌草丛",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#f0e68c"
+          }
+        },
+        {
+          "name": "草甸",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#CCCCCC"
+          }
+        },
+        {
+          "name": "农田",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#fafad2"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "水系",
+          "target": "无改道",
+          "value": 377
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 16
+        },
+        {
+          "source": "无改道",
+          "target": "无明确功能",
+          "value": 327
+        },
+        {
+          "source": "无改道",
+          "target": "农业灌溉",
+          "value": 13
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 3
+        },
+        {
+          "source": "水系",
+          "target": "频繁改道",
+          "value": 10
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 4
+        },
+        {
+          "source": "频繁改道",
+          "target": "无明确功能",
+          "value": 4
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "水系",
+          "target": "轻微改道",
+          "value": 11
+        },
+        {
+          "source": "轻微改道",
+          "target": "农业灌溉",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 4
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "无明确功能",
+          "value": 3
+        },
+        {
+          "source": "水系",
+          "target": "未知改道情况",
+          "value": 1
+        },
+        {
+          "source": "未知改道情况",
+          "target": "生活用水",
+          "value": 1
+        },
+        {
+          "source": "气候",
+          "target": "高温干旱大风",
+          "value": 1
+        },
+        {
+          "source": "气候",
+          "target": "干旱",
+          "value": 1
+        },
+        {
+          "source": "气候",
+          "target": "大风",
+          "value": 1
+        },
+        {
+          "source": "气候",
+          "target": "无",
+          "value": 2
+        },
+        {
+          "source": "气候",
+          "target": "暴雨",
+          "value": 2
+        },
+        {
+          "source": "气候",
+          "target": "暴雨洪水",
+          "value": 1
+        },
+        {
+          "source": "植被",
+          "target": "混交林",
+          "value": 3
+        },
+        {
+          "source": "植被",
+          "target": "阔叶林",
+          "value": 6
+        },
+        {
+          "source": "植被",
+          "target": "草原",
+          "value": 4
+        },
+        {
+          "source": "植被",
+          "target": "针叶林",
+          "value": 5
+        },
+        {
+          "source": "植被",
+          "target": "落叶灌丛",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "灌草丛",
+          "value": 2
+        },
+        {
+          "source": "植被",
+          "target": "草甸",
+          "value": 4
+        },
+        {
+          "source": "植被",
+          "target": "农田",
+          "value": 1
+        }
+      ]
+    }
+  }

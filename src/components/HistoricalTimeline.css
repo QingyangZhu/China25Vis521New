@@ -1,0 +1,365 @@
+.historical-timeline {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-family: 'Noto Serif SC', serif;
+  background-color: var(--panel-bg);
+  border: none;
+  box-shadow: var(--shadow);
+  border-radius: 6px;
+}
+
+/* 添加纸张质感纹理 */
+.historical-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23a08c79' fill-opacity='0.04' fill-rule='evenodd'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+/* 添加纸张纹理效果 */
+.historical-timeline::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23867a67' fill-opacity='0.04' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* 时间轴滚动容器 */
+.timeline-scroll-container {
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  cursor: grab;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-color) var(--bg-color);
+}
+
+.timeline-scroll-container:active {
+  cursor: grabbing;
+}
+
+/* 自定义滚动条样式 */
+.timeline-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.timeline-scroll-container::-webkit-scrollbar-track {
+  background: var(--bg-color);
+  border-radius: 3px;
+}
+
+.timeline-scroll-container::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color);
+  border-radius: 3px;
+}
+
+/* 时间轴内容容器 */
+.timeline-content {
+  height: 100%;
+  position: relative;
+  padding-top: 2px;
+}
+
+/* 水平刻度线 */
+.timeline-content::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 39px; /* 位于年份刻度和朝代之间 */
+  height: 1px;
+  background-color: var(--primary-color);
+  z-index: 1;
+  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+
+/* 历史数据图表容器 */
+.history-chart-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 35px;
+  width: 100%;
+  z-index: 3;
+}
+
+/* 折线图样式 */
+.line-chart {
+  overflow: visible;
+}
+
+/* 图例样式 */
+.chart-legend {
+  opacity: 0.9;
+}
+
+.legend-item {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.legend-item:hover {
+  opacity: 1;
+}
+
+/* 折线组 */
+.line-group {
+  transition: opacity 0.3s ease;
+}
+
+.line-path {
+  stroke-width: 1.2;
+  fill: none;
+  transition: all 0.3s ease;
+}
+
+.data-point {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.data-point.highlighted {
+  stroke-width: 1;
+  filter: drop-shadow(0px 0px 3px rgba(255, 255, 255, 0.8));
+}
+
+.hover-point circle {
+  stroke-width: 1;
+  filter: drop-shadow(0px 0px 3px rgba(0,0,0,0.4));
+}
+
+.hover-point text {
+  font-family: 'Noto Serif SC', serif;
+  filter: drop-shadow(0px 0px 1px rgba(255,255,255,0.9));
+  font-weight: 500;
+}
+
+/* 年份刻度样式 */
+.year-markers {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  height: 8px;
+  width: 100%;
+  z-index: 2;
+}
+
+.year-marker {
+  position: absolute;
+  top: 0;
+  height: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marker-line {
+  width: 1px;
+  height: 8px;
+  background-color: var(--text-color);
+  opacity: 0.5;
+  margin-bottom: 2px;
+}
+
+.marker-label {
+  font-size: 7px;
+  color: var(--text-color);
+  opacity: 0.8;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: 'Noto Serif SC', serif;
+}
+
+/* 重要年份刻度样式 */
+.year-marker.important-year .marker-line {
+  height: 12px;
+  width: 1.5px;
+  background-color: var(--primary-color);
+  opacity: 0.8;
+}
+
+.year-marker.important-year .marker-label {
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 8px;
+}
+
+/* 朝代容器样式 */
+.dynasty-container {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  height: 20px;
+  width: 100%;
+}
+
+/* 单个朝代项样式 */
+.dynasty-item {
+  position: absolute;
+  height: 15px;
+  top: 0;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: none;
+  cursor: pointer;
+  background-color: transparent;
+  border-left: 2px solid var(--primary-color);
+  border-right: 2px solid var(--primary-color);
+  border-top: none;
+  border-bottom: none;
+}
+
+.dynasty-item:hover {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+  z-index: 10;
+  background-color: rgba(255,255,255,0.2);
+}
+
+.dynasty-item.selected {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+  z-index: 20;
+  border-width: 3px;
+  border-top: 2px solid var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+}
+
+/* 子朝代容器 */
+.sub-dynasties {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  height: 5px;
+  width: 100%;
+}
+
+/* 子朝代项样式 */
+.sub-dynasty-item {
+  position: absolute;
+  height: 5px;
+  top: 0;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: transparent;
+  border-left: 1px solid var(--primary-color);
+  border-right: 1px solid var(--primary-color);
+  border-top: none;
+  border-bottom: none;
+}
+
+.sub-dynasty-item:hover {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  z-index: 10;
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* 朝代名称样式 */
+.dynasty-name {
+  font-size: 8px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text-color);
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.dynasty-item:hover .dynasty-name {
+  transform: translateY(-1px);
+  color: var(--primary-color);
+  text-shadow: 0 0 1px rgba(255,255,255,0.8);
+}
+
+.dynasty-item.selected .dynasty-name {
+  transform: translateY(-1px);
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+/* 子朝代名称样式 */
+.sub-dynasty-name {
+  font-size: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: all 0.2s ease;
+  color: var(--text-color);
+  letter-spacing: 0.5px;
+  pointer-events: none;
+}
+
+.sub-dynasty-item:hover .sub-dynasty-name {
+  opacity: 1;
+  transform: translateY(-10px);
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 2px 4px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  color: var(--primary-color);
+}
+
+/* 信息栏样式 */
+.timeline-info-bar {
+  height: 18px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 10px;
+  color: var(--text-color);
+  font-family: 'Noto Serif SC', serif;
+  position: relative;
+  z-index: 5;
+}
+
+.timeline-info-bar::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+}
+
+.selected-dynasty-info {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.hovered-year-info {
+  color: var(--text-color);
+  opacity: 0.9;
+  font-weight: 400;
+} 

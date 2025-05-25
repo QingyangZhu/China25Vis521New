@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #8C6D46; /* 古铜色，象征历史感 */
+  --secondary-color: #BF9D7E; /* 浅棕色，搭配古铜色 */
+  --text-color: #4A4A4A; /* 深灰色文字，易于阅读 */
+  --bg-color: #F5F1E4; /* 更接近宣纸的淡米色背景 */
+  --accent-color: #9E2B25; /* 朱砂红，中国传统色彩 */
+  --border-color: #DCD1BB; /* 浅褐色边框 */
+  --timeline-border: #8C6D46; /* 时间轴边框颜色 */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --panel-bg: rgba(251, 248, 240, 0.85); /* 稍微透明的面板背景 */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Noto Serif SC', serif;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23dcd1bb' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23baa89a' fill-opacity='0.06'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  z-index: -1;
+  opacity: 0.8;
+}
+
+/* 添加纸张纹理效果 */
+.paper-texture {
+  position: relative;
+}
+
+.paper-texture::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.05' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  z-index: -1;
+  pointer-events: none;
+}
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* 自定义标题样式 */
+.custom-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.custom-header h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-align: center;
+  letter-spacing: 1px;
+  margin: 0 15px;
+  position: relative;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.header-dynasty-info {
+  position: absolute;
+  right: 20px;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+/* 标题样式 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Noto Serif SC', serif;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 1.2rem;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background-color: var(--accent-color);
+}
+
+/* 主要容器样式 */
+.chart-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: var(--panel-bg);
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(220, 209, 187, 0.5);
+}
+
+.chart-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+  opacity: 0.5;
+}
+
+/* 为容器添加纸张纹理 */
+.chart-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23a08c79' fill-opacity='0.04' fill-rule='evenodd'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* 时间轴样式 */
+.timeline-container {
+  border: 1px solid var(--border-color);
+  padding: 15px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.dynasty-container {
+  background-color: transparent; /* 朝代容器无颜色 */
+  border-left: 3px solid var(--timeline-border);
+  border-right: 3px solid var(--timeline-border);
+  padding: 10px;
+  position: relative;
+}
+
+.dynasty-name {
+  font-weight: 500;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.dynasty-year {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+/* 按钮和交互元素样式 */
+button, select, input {
+  font-family: 'Noto Serif SC', serif;
+  background-color: var(--bg-color);
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 5px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover, select:hover {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+}
+
+/* 地图区域样式 */
+.map-container {
+  border: 1px solid var(--border-color);
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+/* 保留原有的动画 */
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: var(--primary-color);
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--bg-color);
+  box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.App-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.App-link:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 768px) {
+  .chart-container {
+    padding: 10px;
+  }
+  
+  h3 {
+    font-size: 1rem;
+  }
+  
+  .header-decoration {
+    display: none;
+  }
+  
+  .custom-header h1 {
+    font-size: 1.2rem;
+  }
+}

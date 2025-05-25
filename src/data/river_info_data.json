@@ -1,0 +1,5588 @@
+{
+    "overview":{
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "政治象征",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#fd79a8"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 64
+        },
+        {
+          "source": "永定河",
+          "target": "轻微改道",
+          "value": 19
+        },
+        {
+          "source": "永定河",
+          "target": "频繁改道",
+          "value": 46
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 20
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 8
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 8
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 10
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "生活用水",
+          "value": 2
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 17
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 2
+        },
+        {
+          "source": "频繁改道",
+          "target": "生活用水",
+          "value": 2
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 5
+        },
+        {
+          "source": "频繁改道",
+          "target": "城市防御",
+          "value": 5
+        },
+        {
+          "source": "频繁改道",
+          "target": "城市景观",
+          "value": 4
+        },
+        {
+          "source": "频繁改道",
+          "target": "政治象征",
+          "value": 3
+        }
+      ]
+    },
+    "桑乾河": {
+      "nodes": [
+        {
+          "name": "桑乾河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "政治象征",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#fd79a8"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "桑乾河",
+          "target": "无改道",
+          "value": 50
+        },
+        {
+          "source": "桑乾河",
+          "target": "轻微改道",
+          "value": 4
+        },
+        {
+          "source": "桑乾河",
+          "target": "频繁改道",
+          "value": 6
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 7
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 4
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "政治象征",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "城市防御",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "上古": {},
+  "远古": {},
+  "夏": {},
+  "商": {},
+  "先秦": {
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "政治象征",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#fd79a8"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "政治象征",
+          "value": 1
+        }
+      ]
+    },
+    "㶟水": {
+      "nodes": [
+        {
+          "name": "㶟水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "㶟水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "治水": {
+      "nodes": [
+        {
+          "name": "治水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "治水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "台水": {
+      "nodes": [
+        {
+          "name": "台水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "台水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "浴水": {
+      "nodes": [
+        {
+          "name": "浴水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#9b59b6"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "浴水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "先秦-西周": {
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        },
+        {
+          "name": "政治象征",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#fd79a8"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "政治象征",
+          "value": 1
+        }
+      ]
+    },
+    "琉璃河": {
+      "nodes": [
+        {
+          "name": "琉璃河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "琉璃河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "大石河": {
+      "nodes": [
+        {
+          "name": "大石河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "大石河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "圣水": {
+      "nodes": [
+        {
+          "name": "圣水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#9b59b6"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "圣水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "先秦-东周": {
+    "古蓟城及金中都地区的水井": {
+      "nodes": [
+        {
+          "name": "古蓟城及金中都地区的水井",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "古蓟城及金中都地区的水井",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "先秦-春秋": {},
+  "先秦-战国": {},
+  "秦": {},
+  "汉": {
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        },
+        {
+          "source": "永定河",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 1
+        }
+      ]
+    },
+    "㶟水": {
+      "nodes": [
+        {
+          "name": "㶟水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "㶟水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "㶟水",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 1
+        }
+      ]
+    },
+    "治水": {
+      "nodes": [
+        {
+          "name": "治水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "治水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "黄水河": {
+      "nodes": [
+        {
+          "name": "黄水河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "黄水河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "妫水河": {
+      "nodes": [
+        {
+          "name": "妫水河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#9b59b6"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "妫水河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "汉-西汉": {
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "白河": {
+      "nodes": [
+        {
+          "name": "白河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "白河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "治水": {
+      "nodes": [
+        {
+          "name": "治水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "治水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "古蓟城及金中都地区的水井": {
+      "nodes": [
+        {
+          "name": "古蓟城及金中都地区的水井",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#9b59b6"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "古蓟城及金中都地区的水井",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "汉-东汉": {
+    "㶟水": {
+      "nodes": [
+        {
+          "name": "㶟水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "㶟水",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 2
+        },
+        {
+          "source": "㶟水",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "潞河": {
+      "nodes": [
+        {
+          "name": "潞河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "潞河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "鲍邱水": {
+      "nodes": [
+        {
+          "name": "鲍邱水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "鲍邱水",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "鲍邱水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "笥沟": {
+      "nodes": [
+        {
+          "name": "笥沟",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#9b59b6"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "笥沟",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "笥沟",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "沽水": {
+      "nodes": [
+        {
+          "name": "沽水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#34495e"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "沽水",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "三国": {
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        }
+      ]
+    },
+    "高梁河": {
+      "nodes": [
+        {
+          "name": "高梁河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#7f8c8d"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "高梁河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        }
+      ]
+    },
+    "㶟水": {
+      "nodes": [
+        {
+          "name": "㶟水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "㶟水",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "农业灌溉",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "西晋": {
+    "清夷水": {
+      "nodes": [
+        {
+          "name": "清夷水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "清夷水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "沧河": {
+      "nodes": [
+        {
+          "name": "沧河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "沧河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "地裂沟水": {
+      "nodes": [
+        {
+          "name": "地裂沟水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#9b59b6"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "地裂沟水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "㶟水": {
+      "nodes": [
+        {
+          "name": "㶟水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "㶟水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "清泉河": {
+      "nodes": [
+        {
+          "name": "清泉河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#34495e"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "清泉河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "十六国": {},
+  "南朝": {},
+  "北朝": {
+    "㶟水": {
+      "nodes": [
+        {
+          "name": "㶟水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "㶟水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "桑乾水": {
+      "nodes": [
+        {
+          "name": "桑乾水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "桑乾水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "灅水": {
+      "nodes": [
+        {
+          "name": "灅水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "灅水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "湿水": {
+      "nodes": [
+        {
+          "name": "湿水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#9b59b6"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "湿水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "清泉河": {
+      "nodes": [
+        {
+          "name": "清泉河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#34495e"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "清泉河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "北朝-北魏": {
+    "㶟水": {
+      "nodes": [
+        {
+          "name": "㶟水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "㶟水",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "㶟水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 1
+        }
+      ]
+    },
+    "如浑水": {
+      "nodes": [
+        {
+          "name": "如浑水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "如浑水",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "生活用水",
+          "value": 1
+        }
+      ]
+    },
+    "御河": {
+      "nodes": [
+        {
+          "name": "御河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "御河",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "生活用水",
+          "value": 1
+        }
+      ]
+    },
+    "齐齐尔汉河": {
+      "nodes": [
+        {
+          "name": "齐齐尔汉河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#9b59b6"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "齐齐尔汉河",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "生活用水",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "北朝-东魏": {},
+  "北朝-西魏": {},
+  "北朝-北齐": {},
+  "北朝-北周": {},
+  "隋": {
+    "永济渠": {
+      "nodes": [
+        {
+          "name": "永济渠",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永济渠",
+          "target": "无改道",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 3
+        }
+      ]
+    },
+    "桑乾河": {
+      "nodes": [
+        {
+          "name": "桑乾河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "桑乾河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "㶟水": {
+      "nodes": [
+        {
+          "name": "㶟水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "㶟水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "江南河": {
+      "nodes": [
+        {
+          "name": "江南河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "江南河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "唐": {
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "桑乾河": {
+      "nodes": [
+        {
+          "name": "桑乾河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "桑乾河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "永济渠": {
+      "nodes": [
+        {
+          "name": "永济渠",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永济渠",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "㶟水": {
+      "nodes": [
+        {
+          "name": "㶟水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "㶟水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "古蓟城及金中都地区的水井": {
+      "nodes": [
+        {
+          "name": "古蓟城及金中都地区的水井",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "古蓟城及金中都地区的水井",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "五代十国": {
+    "永济渠": {
+      "nodes": [
+        {
+          "name": "永济渠",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永济渠",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "桑乾河": {
+      "nodes": [
+        {
+          "name": "桑乾河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "桑乾河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "盐沟河": {
+      "nodes": [
+        {
+          "name": "盐沟河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "盐沟河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "雅河": {
+      "nodes": [
+        {
+          "name": "雅河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#9b59b6"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "雅河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "宋": {
+    "桑乾河": {
+      "nodes": [
+        {
+          "name": "桑乾河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "桑乾河",
+          "target": "无改道",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "桑乾河",
+          "target": "轻微改道",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 2
+        }
+      ]
+    },
+    "永济渠": {
+      "nodes": [
+        {
+          "name": "永济渠",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永济渠",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 2
+        }
+      ]
+    },
+    "卢沟河": {
+      "nodes": [
+        {
+          "name": "卢沟河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#8e44ad"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "卢沟河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 2
+        },
+        {
+          "source": "卢沟河",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 1
+        }
+      ]
+    },
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "政治象征",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#fd79a8"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "政治象征",
+          "value": 1
+        },
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "清河": {
+      "nodes": [
+        {
+          "name": "清河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "清河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "宋-北宋": {},
+  "宋-南宋": {},
+  "辽": {
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "频繁改道",
+          "value": 2
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 2
+        },
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "白河": {
+      "nodes": [
+        {
+          "name": "白河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "白河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "潮河": {
+      "nodes": [
+        {
+          "name": "潮河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "潮河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "桑乾河": {
+      "nodes": [
+        {
+          "name": "桑乾河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "桑乾河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "卢沟河": {
+      "nodes": [
+        {
+          "name": "卢沟河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#8e44ad"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "卢沟河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "金": {
+    "金口河": {
+      "nodes": [
+        {
+          "name": "金口河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "金口河",
+          "target": "无改道",
+          "value": 4
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 4
+        },
+        {
+          "source": "金口河",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "高梁河": {
+      "nodes": [
+        {
+          "name": "高梁河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#7f8c8d"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "高梁河",
+          "target": "无改道",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 1
+        }
+      ]
+    },
+    "卢沟河": {
+      "nodes": [
+        {
+          "name": "卢沟河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#8e44ad"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "卢沟河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "卢沟河",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "漕河": {
+      "nodes": [
+        {
+          "name": "漕河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "漕河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "元": {
+    "通惠河": {
+      "nodes": [
+        {
+          "name": "通惠河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#f1c40f"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "通惠河",
+          "target": "无改道",
+          "value": 5
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "通惠河",
+          "target": "轻微改道",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "生活用水",
+          "value": 1
+        }
+      ]
+    },
+    "金口河": {
+      "nodes": [
+        {
+          "name": "金口河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        },
+        {
+          "name": "政治象征",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#fd79a8"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "金口河",
+          "target": "轻微改道",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "金口河",
+          "target": "频繁改道",
+          "value": 2
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "金口河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市防御",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "政治象征",
+          "value": 1
+        }
+      ]
+    },
+    "高梁河": {
+      "nodes": [
+        {
+          "name": "高梁河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#7f8c8d"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "高梁河",
+          "target": "无改道",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "高梁河",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "生活用水",
+          "value": 1
+        }
+      ]
+    },
+    "金水河": {
+      "nodes": [
+        {
+          "name": "金水河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "政治象征",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#fd79a8"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "金水河",
+          "target": "无改道",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "政治象征",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    },
+    "浑河": {
+      "nodes": [
+        {
+          "name": "浑河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "浑河",
+          "target": "频繁改道",
+          "value": 2
+        },
+        {
+          "source": "频繁改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "浑河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "明": {
+    "浑河": {
+      "nodes": [
+        {
+          "name": "浑河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "浑河",
+          "target": "频繁改道",
+          "value": 4
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 3
+        },
+        {
+          "source": "频繁改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "浑河",
+          "target": "轻微改道",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "浑河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 1
+        }
+      ]
+    },
+    "桑乾河": {
+      "nodes": [
+        {
+          "name": "桑乾河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "未知改道情况",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#D5DBDB"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "桑乾河",
+          "target": "频繁改道",
+          "value": 3
+        },
+        {
+          "source": "频繁改道",
+          "target": "未知功能",
+          "value": 2
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "桑乾河",
+          "target": "未知改道情况",
+          "value": 1
+        },
+        {
+          "source": "未知改道情况",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "桑乾河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "城市防御",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff6b6b"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "频繁改道",
+          "value": 3
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市防御",
+          "value": 1
+        }
+      ]
+    },
+    "通惠河": {
+      "nodes": [
+        {
+          "name": "通惠河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#f1c40f"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "通惠河",
+          "target": "轻微改道",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 2
+        }
+      ]
+    },
+    "泡子河": {
+      "nodes": [
+        {
+          "name": "泡子河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "泡子河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "清": {
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "频繁改道",
+          "value": 23
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 17
+        },
+        {
+          "source": "频繁改道",
+          "target": "未知功能",
+          "value": 6
+        },
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 19
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 10
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 9
+        },
+        {
+          "source": "永定河",
+          "target": "轻微改道",
+          "value": 10
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 5
+        },
+        {
+          "source": "轻微改道",
+          "target": "未知功能",
+          "value": 4
+        },
+        {
+          "source": "轻微改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "城市景观",
+          "value": 1
+        }
+      ]
+    },
+    "浑河": {
+      "nodes": [
+        {
+          "name": "浑河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#e74c3c"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "浑河",
+          "target": "频繁改道",
+          "value": 6
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 4
+        },
+        {
+          "source": "频繁改道",
+          "target": "未知功能",
+          "value": 2
+        },
+        {
+          "source": "浑河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 2
+        },
+        {
+          "source": "浑河",
+          "target": "轻微改道",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "未知功能",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 1
+        }
+      ]
+    },
+    "长河": {
+      "nodes": [
+        {
+          "name": "长河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#7f8c8d"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "长河",
+          "target": "轻微改道",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "农业灌溉",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "长河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "通惠河": {
+      "nodes": [
+        {
+          "name": "通惠河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#f1c40f"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "通惠河",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "北京城的水井": {
+      "nodes": [
+        {
+          "name": "北京城的水井",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "北京城的水井",
+          "target": "无改道",
+          "value": 2
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "近代": {
+    "白土河": {
+      "nodes": [
+        {
+          "name": "白土河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "白土河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "应州水": {
+      "nodes": [
+        {
+          "name": "应州水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "应州水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "武州川水": {
+      "nodes": [
+        {
+          "name": "武州川水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#9b59b6"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "武州川水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "周川水": {
+      "nodes": [
+        {
+          "name": "周川水",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#34495e"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "周川水",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "十里河": {
+      "nodes": [
+        {
+          "name": "十里河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#f1c40f"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "十里河",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "近代-民国": {
+    "大明濠": {
+      "nodes": [
+        {
+          "name": "大明濠",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "大明濠",
+          "target": "无改道",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "大明濠",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 1
+        }
+      ]
+    },
+    "东沟": {
+      "nodes": [
+        {
+          "name": "东沟",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2ecc71"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "东沟",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 1
+        }
+      ]
+    },
+    "御河": {
+      "nodes": [
+        {
+          "name": "御河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#9b59b6"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "御河",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 1
+        }
+      ]
+    },
+    "龙须沟": {
+      "nodes": [
+        {
+          "name": "龙须沟",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#34495e"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "龙须沟",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 1
+        }
+      ]
+    },
+    "护城河": {
+      "nodes": [
+        {
+          "name": "护城河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#f1c40f"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "护城河",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "现代": {},
+  "无明确朝代信息": {
+    "桑乾河": {
+      "nodes": [
+        {
+          "name": "桑乾河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#27ae60"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "桑乾河",
+          "target": "无改道",
+          "value": 39
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 39
+        },
+        {
+          "source": "桑乾河",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "永定河": {
+      "nodes": [
+        {
+          "name": "永定河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "防洪排水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#e67e22"
+          }
+        },
+        {
+          "name": "生活用水",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#d35400"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        },
+        {
+          "name": "交通运输",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#f39c12"
+          }
+        },
+        {
+          "name": "城市景观",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#ff9f43"
+          }
+        },
+        {
+          "name": "农业灌溉",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#feca57"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "永定河",
+          "target": "无改道",
+          "value": 22
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 15
+        },
+        {
+          "source": "无改道",
+          "target": "防洪排水",
+          "value": 3
+        },
+        {
+          "source": "无改道",
+          "target": "生活用水",
+          "value": 2
+        },
+        {
+          "source": "永定河",
+          "target": "频繁改道",
+          "value": 6
+        },
+        {
+          "source": "频繁改道",
+          "target": "防洪排水",
+          "value": 2
+        },
+        {
+          "source": "频繁改道",
+          "target": "未知功能",
+          "value": 2
+        },
+        {
+          "source": "永定河",
+          "target": "轻微改道",
+          "value": 4
+        },
+        {
+          "source": "轻微改道",
+          "target": "农业灌溉",
+          "value": 2
+        },
+        {
+          "source": "轻微改道",
+          "target": "交通运输",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "防洪排水",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "城市景观",
+          "value": 1
+        },
+        {
+          "source": "无改道",
+          "target": "农业灌溉",
+          "value": 1
+        }
+      ]
+    },
+    "清水河": {
+      "nodes": [
+        {
+          "name": "清水河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#3498db"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "清水河",
+          "target": "无改道",
+          "value": 12
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 12
+        }
+      ]
+    },
+    "壶流河": {
+      "nodes": [
+        {
+          "name": "壶流河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#16a085"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "频繁改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#2980b9"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "壶流河",
+          "target": "无改道",
+          "value": 18
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 18
+        },
+        {
+          "source": "壶流河",
+          "target": "频繁改道",
+          "value": 1
+        },
+        {
+          "source": "频繁改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    },
+    "洋河": {
+      "nodes": [
+        {
+          "name": "洋河",
+          "depth": 0,
+          "itemStyle": {
+            "color": "#1abc9c"
+          }
+        },
+        {
+          "name": "无改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#85c1e9"
+          }
+        },
+        {
+          "name": "未知功能",
+          "depth": 2,
+          "itemStyle": {
+            "color": "#B0BEC5"
+          }
+        },
+        {
+          "name": "轻微改道",
+          "depth": 1,
+          "itemStyle": {
+            "color": "#5dade2"
+          }
+        }
+      ],
+      "links": [
+        {
+          "source": "洋河",
+          "target": "无改道",
+          "value": 11
+        },
+        {
+          "source": "无改道",
+          "target": "未知功能",
+          "value": 11
+        },
+        {
+          "source": "洋河",
+          "target": "轻微改道",
+          "value": 1
+        },
+        {
+          "source": "轻微改道",
+          "target": "未知功能",
+          "value": 1
+        }
+      ]
+    }
+  }
+}
