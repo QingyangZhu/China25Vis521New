@@ -7,121 +7,13 @@ const HistoricalTimeline = () => {
   // 使用Zustand store
   const { selectedDynasties, toggleDynasty } = useDynastyStore();
 
-  // 多组历史数据 - 代表不同维度的历史信息
-  const multipleHistoricalData = [
-    // 历史事件记载密度
-    {
-      id: 'events',
-      name: '历史事件',
-      color: '#8596b0', // 青灰色
-      data: [
-        { year: -2000, value: 10 },
-        { year: -1500, value: 15 },
-        { year: -1000, value: 25 },
-        { year: -500, value: 40 },
-        { year: -221, value: 70 }, // 秦朝
-        { year: -100, value: 60 },
-        { year: 0, value: 65 },
-        { year: 100, value: 55 },
-        { year: 200, value: 45 },
-        { year: 300, value: 35 },
-        { year: 400, value: 40 },
-        { year: 500, value: 50 },
-        { year: 600, value: 60 },
-        { year: 700, value: 80 }, // 唐朝盛世
-        { year: 800, value: 70 },
-        { year: 900, value: 50 },
-        { year: 1000, value: 65 },
-        { year: 1100, value: 55 },
-        { year: 1200, value: 60 },
-        { year: 1300, value: 65 },
-        { year: 1400, value: 70 },
-        { year: 1500, value: 80 },
-        { year: 1600, value: 85 },
-        { year: 1700, value: 75 },
-        { year: 1800, value: 90 },
-        { year: 1900, value: 100 },
-        { year: 1950, value: 110 },
-        { year: 2000, value: 120 }
-      ]
-    },
-    // 人口增长趋势
-    {
-      id: 'population',
-      name: '人口趋势',
-      color: '#a06e58', // 赭石色
-      data: [
-        { year: -2000, value: 5 },
-        { year: -1000, value: 10 },
-        { year: -500, value: 15 },
-        { year: 0, value: 25 },
-        { year: 200, value: 20 },
-        { year: 400, value: 15 },
-        { year: 600, value: 20 },
-        { year: 800, value: 30 },
-        { year: 1000, value: 40 },
-        { year: 1200, value: 50 },
-        { year: 1400, value: 60 },
-        { year: 1600, value: 70 },
-        { year: 1700, value: 80 },
-        { year: 1800, value: 90 },
-        { year: 1900, value: 110 },
-        { year: 1950, value: 120 },
-        { year: 2000, value: 140 }
-      ]
-    },
-    // 自然灾害频率
-    {
-      id: 'disasters',
-      name: '自然灾害',
-      color: '#7d9b8e', // 青瓷色
-      data: [
-        { year: -1800, value: 15 },
-        { year: -1500, value: 20 },
-        { year: -1000, value: 25 },
-        { year: -500, value: 15 },
-        { year: 0, value: 30 },
-        { year: 200, value: 40 },
-        { year: 400, value: 25 },
-        { year: 600, value: 35 },
-        { year: 800, value: 45 },
-        { year: 1000, value: 30 },
-        { year: 1200, value: 40 },
-        { year: 1400, value: 55 },
-        { year: 1600, value: 40 },
-        { year: 1800, value: 50 },
-        { year: 1900, value: 35 },
-        { year: 2000, value: 40 }
-      ]
-    }
-  ];
-
-  // 计算插值的历史数据点，以获得更平滑的折线图
-  const getInterpolatedData = (sourceData) => {
-    const result = [];
-    const step = 20; // 每20年一个数据点
-    
-    for (let year = -3000; year <= 2025; year += step) {
-      // 找到最近的两个点进行线性插值
-      let value = 0;
-      const before = sourceData.filter(d => d.year <= year).pop();
-      const after = sourceData.find(d => d.year > year);
-      
-      if (before && after) {
-        // 线性插值
-        const ratio = (year - before.year) / (after.year - before.year);
-        value = before.value + ratio * (after.value - before.value);
-      } else if (before) {
-        value = before.value;
-      } else if (after) {
-        value = after.value;
-      }
-      
-      result.push({ year, value });
-    }
-    
-    return result;
-  };
+  // 历史数据状态
+  const [historicalData, setHistoricalData] = useState({
+    disasters: [],
+    reforms: []
+  });
+  const [isDataLoading, setIsDataLoading] = useState(true);
+  const [dataLoadError, setDataLoadError] = useState(null);
 
   // 时间轴滚动相关状态
   const [isDragging, setIsDragging] = useState(false);
@@ -131,7 +23,8 @@ const HistoricalTimeline = () => {
   
   // 悬停状态
   const [hoveredYear, setHoveredYear] = useState(null);
-  const [hoveredDataset, setHoveredDataset] = useState(null);
+  const [hoveredDataType, setHoveredDataType] = useState(null);
+  const [hoveredEventInfo, setHoveredEventInfo] = useState(null);
 
   // 定义一些常量用于绘制时间轴
   const MIN_YEAR = -3000; // 展示范围的最小年份
@@ -139,8 +32,70 @@ const HistoricalTimeline = () => {
   const YEAR_RANGE = MAX_YEAR - MIN_YEAR;
   const PIXEL_PER_YEAR = 0.8; // 调整每年占用的像素宽度
   const TIMELINE_WIDTH = YEAR_RANGE * PIXEL_PER_YEAR; // 总宽度
-  const MAX_BAR_HEIGHT = 40; // 折线图最大高度
+  const MAX_BAR_HEIGHT = 35; // 柱状图最大高度
   const LEFT_PADDING = 40; // 左侧填充
+
+  // 加载CSV数据
+  useEffect(() => {
+    const loadHistoricalData = async () => {
+      try {
+        setIsDataLoading(true);
+        setDataLoadError(null);
+
+        // 加载两个CSV文件
+        const [disasterResponse, reformResponse] = await Promise.all([
+          fetch('/data/坐标轴_灾变.csv'),
+          fetch('/data/坐标轴_制度改革.csv')
+        ]);
+
+        if (!disasterResponse.ok) {
+          throw new Error(`Failed to load disaster data: ${disasterResponse.status}`);
+        }
+        if (!reformResponse.ok) {
+          throw new Error(`Failed to load reform data: ${reformResponse.status}`);
+        }
+
+        const disasterText = await disasterResponse.text();
+        const reformText = await reformResponse.text();
+
+        // 简单的CSV解析（不使用PapaParse避免依赖问题）
+        const parseCSV = (text) => {
+          const lines = text.trim().split('\n');
+          const headers = lines[0].split(',').map(h => h.trim());
+          const data = [];
+          
+          for (let i = 1; i < lines.length; i++) {
+            const values = lines[i].split(',');
+            if (values.length >= 2) {
+              const year = parseInt(values[0]);
+              const scale = parseInt(values[1]);
+              if (!isNaN(year) && !isNaN(scale)) {
+                data.push({ exact_year: year, scale: scale });
+              }
+            }
+          }
+          return data;
+        };
+
+        const disasters = parseCSV(disasterText);
+        const reforms = parseCSV(reformText);
+
+        console.log('加载的数据:', { disasters: disasters.length, reforms: reforms.length });
+
+        setHistoricalData({
+          disasters,
+          reforms
+        });
+        setIsDataLoading(false);
+      } catch (error) {
+        console.error('Error loading historical data:', error);
+        setDataLoadError(error.message);
+        setIsDataLoading(false);
+      }
+    };
+
+    loadHistoricalData();
+  }, []);
 
   // 处理朝代点击事件
   const handleDynastyClick = (dynasty) => {
@@ -173,12 +128,27 @@ const HistoricalTimeline = () => {
       const x = e.clientX - rect.left + timelineRef.current.scrollLeft;
       const year = Math.floor((x - LEFT_PADDING) / PIXEL_PER_YEAR) + MIN_YEAR;
       setHoveredYear(year);
+      
+      // 查找当前年份的事件
+      const yearDisasters = historicalData.disasters.filter(d => d.exact_year === year);
+      const yearReforms = historicalData.reforms.filter(r => r.exact_year === year);
+      
+      if (yearDisasters.length > 0 || yearReforms.length > 0) {
+        setHoveredEventInfo({
+          year,
+          disasters: yearDisasters,
+          reforms: yearReforms
+        });
+      } else {
+        setHoveredEventInfo(null);
+      }
     }
   };
 
   const handleTimelineLeave = () => {
     setHoveredYear(null);
-    setHoveredDataset(null);
+    setHoveredDataType(null);
+    setHoveredEventInfo(null);
   };
 
   // 将年份转换为相对位置（像素）
@@ -218,138 +188,148 @@ const HistoricalTimeline = () => {
     return markers;
   };
 
-  // 生成历史数据折线图（多条）
-  const renderMultipleHistoricalLineCharts = () => {
-    const maxValue = 140; // 所有数据集中的最大值
+  // 生成密集柱状图
+  const renderDenseBarChart = () => {
+    if (isDataLoading || historicalData.disasters.length === 0) {
+      return null;
+    }
+
+    // 分别计算两个数据集的scale范围进行标准化
+    const disasterScales = historicalData.disasters.map(d => d.scale);
+    const reformScales = historicalData.reforms.map(r => r.scale);
     
-    // 为每个数据集创建折线图
-    const linesAndPoints = multipleHistoricalData.map((dataset, datasetIndex) => {
-      const interpolatedData = getInterpolatedData(dataset.data);
+    const disasterMin = Math.min(...disasterScales); // -3
+    const disasterMax = Math.max(...disasterScales); // 5
+    const disasterRange = disasterMax - disasterMin; // 8
+    
+    const reformMin = Math.min(...reformScales); // 0
+    const reformMax = Math.max(...reformScales); // 5  
+    const reformRange = reformMax - reformMin; // 5
+
+    // 按年份分组数据
+    const dataByYear = {};
+    
+    // 处理灾变数据
+    historicalData.disasters.forEach(item => {
+      const year = item.exact_year;
+      if (!dataByYear[year]) dataByYear[year] = { disasters: [], reforms: [] };
+      dataByYear[year].disasters.push(item.scale);
+    });
+
+    // 处理制度改革数据
+    historicalData.reforms.forEach(item => {
+      const year = item.exact_year;
+      if (!dataByYear[year]) dataByYear[year] = { disasters: [], reforms: [] };
+      dataByYear[year].reforms.push(item.scale);
+    });
+
+    // 生成柱状图
+    const bars = [];
+    
+    Object.keys(dataByYear).forEach(year => {
+      const yearNum = parseInt(year);
+      const x = yearToPosition(yearNum);
+      const yearData = dataByYear[year];
       
-      // 创建SVG路径数据
-      let pathData = '';
+      let disasterCurrentHeight = 0;
+      let reformCurrentHeight = 0;
       
-      // 生成折线路径
-      interpolatedData.forEach((item, index) => {
-        const x = yearToPosition(item.year);
-        const y = MAX_BAR_HEIGHT - (item.value / maxValue) * MAX_BAR_HEIGHT;
-        
-        if (index === 0) {
-          pathData += `M ${x} ${y}`;
+      // 渲染灾变事件（红色系）- 分别标准化
+      yearData.disasters.forEach((scale, index) => {
+        // 灾变数据标准化：将[-3,5]映射到[0,1]
+        let normalizedScale;
+        if (disasterRange > 0) {
+          normalizedScale = (scale - disasterMin) / disasterRange;
         } else {
-          pathData += ` L ${x} ${y}`;
-        }
-      });
-      
-      // 生成数据点
-      const dataPoints = interpolatedData.map((item, index) => {
-        // 只显示部分数据点，避免过于密集
-        if (index % 8 !== 0 && !dataset.data.some(d => d.year === item.year)) {
-          return null;
+          normalizedScale = 0.5; // 如果范围为0，使用中等高度
         }
         
-        const x = yearToPosition(item.year);
-        const y = MAX_BAR_HEIGHT - (item.value / maxValue) * MAX_BAR_HEIGHT;
-        const isHighlighted = hoveredYear && 
-          Math.abs(hoveredYear - item.year) < 10 && 
-          (hoveredDataset === dataset.id || !hoveredDataset);
+        // 最小高度为2px，确保scale=0的事件也能看见
+        const minBarHeight = 2;
+        const barHeight = Math.max(minBarHeight, normalizedScale * (MAX_BAR_HEIGHT * 0.8)) + 
+                         (scale < 0 ? 1 : 0); // 负scale值稍微降低显示高度
         
-        // 只有在悬停时或每5个点显示一个点
-        if (!isHighlighted && index % 5 !== 0) return null;
+        const isHighlighted = hoveredYear && Math.abs(hoveredYear - yearNum) < 2;
         
-        return (
-          <circle
-            key={`point-${dataset.id}-${item.year}`}
-            className={`data-point ${isHighlighted ? 'highlighted' : ''}`}
-            cx={x}
-            cy={y}
-            r={isHighlighted ? 3 : 1.5}
-            fill={dataset.color}
-            stroke="white"
-            strokeWidth={isHighlighted ? 1 : 0.5}
-            title={`${dataset.name} ${item.year}年: ${Math.round(item.value)}`}
-            onMouseOver={() => setHoveredDataset(dataset.id)}
-            onMouseOut={() => setHoveredDataset(null)}
+        bars.push(
+          <rect
+            key={`disaster-${year}-${index}`}
+            x={x - 1.5}
+            y={MAX_BAR_HEIGHT - disasterCurrentHeight - barHeight}
+            width={1.5}
+            height={barHeight}
+            fill={isHighlighted ? '#ff4757' : '#ff6b7a'}
+            stroke={isHighlighted ? '#ff3838' : 'none'}
+            strokeWidth={isHighlighted ? 0.5 : 0}
+            opacity={hoveredDataType && hoveredDataType !== 'disasters' ? 0.3 : 0.8}
+            onMouseOver={() => setHoveredDataType('disasters')}
+            onMouseOut={() => setHoveredDataType(null)}
+            title={`${year}年 灾变 (scale: ${scale}, 标准化: ${normalizedScale.toFixed(2)})`}
           />
         );
-      }).filter(Boolean);
-      
-      // 悬浮点
-      const hoverPoint = hoveredYear && hoveredDataset === dataset.id && interpolatedData.some(d => Math.abs(d.year - hoveredYear) < 20) && (
-        (() => {
-          const nearestPoint = interpolatedData.reduce((prev, curr) => 
-            Math.abs(curr.year - hoveredYear) < Math.abs(prev.year - hoveredYear) ? curr : prev
-          );
-          const x = yearToPosition(nearestPoint.year);
-          const y = MAX_BAR_HEIGHT - (nearestPoint.value / maxValue) * MAX_BAR_HEIGHT;
-          
-          return (
-            <g className="hover-point" key={`hover-${dataset.id}`}>
-              <circle
-                cx={x}
-                cy={y}
-                r={4}
-                fill={dataset.color}
-                stroke="white"
-                strokeWidth={1.5}
-              />
-              <text
-                x={x}
-                y={y - 7}
-                textAnchor="middle"
-                fontSize="7"
-                fill="#333"
-                fontWeight="bold"
-              >
-                {Math.round(nearestPoint.value)}
-              </text>
-            </g>
-          );
-        })()
-      );
-      
-      return (
-        <g key={`line-${dataset.id}`} className="line-group">
-          <path
-            className="line-path"
-            d={pathData}
-            stroke={dataset.color}
-            strokeWidth={1.5}
-            fill="none"
-            opacity={hoveredDataset && hoveredDataset !== dataset.id ? 0.3 : 0.8}
+        disasterCurrentHeight += barHeight;
+      });
+
+      // 渲染制度改革事件（蓝色系）- 分别标准化
+      yearData.reforms.forEach((scale, index) => {
+        // 制度改革数据标准化：将[0,5]映射到[0,1]
+        let normalizedScale;
+        if (reformRange > 0) {
+          normalizedScale = (scale - reformMin) / reformRange;
+        } else {
+          normalizedScale = 0.5;
+        }
+        
+        // scale=0的制度改革事件显示很小的高度（表示存在但影响很小）
+        const minBarHeight = scale === 0 ? 1 : 2;
+        const barHeight = Math.max(minBarHeight, normalizedScale * (MAX_BAR_HEIGHT * 0.8));
+        
+        const isHighlighted = hoveredYear && Math.abs(hoveredYear - yearNum) < 2;
+        
+        bars.push(
+          <rect
+            key={`reform-${year}-${index}`}
+            x={x + 0.5}
+            y={MAX_BAR_HEIGHT - reformCurrentHeight - barHeight}
+            width={1.5}
+            height={barHeight}
+            fill={isHighlighted ? '#3742fa' : '#5352ed'}
+            stroke={isHighlighted ? '#2f3542' : 'none'}
+            strokeWidth={isHighlighted ? 0.5 : 0}
+            opacity={hoveredDataType && hoveredDataType !== 'reforms' ? 0.3 : 0.8}
+            onMouseOver={() => setHoveredDataType('reforms')}
+            onMouseOut={() => setHoveredDataType(null)}
+            title={`${year}年 制度改革 (scale: ${scale}, 标准化: ${normalizedScale.toFixed(2)})`}
           />
-          {dataPoints}
-          {hoverPoint}
-        </g>
-      );
+        );
+        reformCurrentHeight += barHeight;
+      });
     });
-    
+
     // 图例
     const legend = (
       <g className="chart-legend" transform="translate(10, 5)">
-        {multipleHistoricalData.map((dataset, index) => (
-          <g 
-            key={`legend-${dataset.id}`} 
-            transform={`translate(${index * 70}, 0)`}
-            className="legend-item"
-            onMouseOver={() => setHoveredDataset(dataset.id)}
-            onMouseOut={() => setHoveredDataset(null)}
-          >
-            <line 
-              x1="0" y1="3" 
-              x2="15" y2="3" 
-              stroke={dataset.color} 
-              strokeWidth="1.5" 
-            />
-            <text x="20" y="5" fontSize="6" fill="#333">{dataset.name}</text>
-          </g>
-        ))}
+        <g className="legend-item">
+          <rect x="0" y="0" width="15" height="3" fill="#ff6b7a" />
+          <text x="20" y="4" fontSize="7" fill="#333">
+            灾变事件 (scale: {disasterMin}~{disasterMax})
+          </text>
+        </g>
+        <g className="legend-item" transform="translate(120, 0)">
+          <rect x="0" y="0" width="15" height="3" fill="#5352ed" />
+          <text x="20" y="4" fontSize="7" fill="#333">
+            制度改革 (scale: {reformMin}~{reformMax})
+          </text>
+        </g>
+        <text x="0" y="15" fontSize="6" fill="#666">
+          * 各数据集独立标准化显示
+        </text>
       </g>
     );
-    
+
     return (
-      <svg className="line-chart" width="100%" height={MAX_BAR_HEIGHT}>
-        {linesAndPoints}
+      <svg className="bar-chart" width="100%" height={MAX_BAR_HEIGHT}>
+        {bars}
         {legend}
       </svg>
     );
@@ -447,20 +427,55 @@ const HistoricalTimeline = () => {
     }
   }, []);
 
+  // 如果数据正在加载
+  if (isDataLoading) {
+    return (
+      <div className="historical-timeline">
+        <div className="timeline-info-bar">
+          <div style={{ textAlign: 'center', width: '100%' }}>正在加载历史数据...</div>
+        </div>
+      </div>
+    );
+  }
+
+  // 如果数据加载失败
+  if (dataLoadError) {
+    return (
+      <div className="historical-timeline">
+        <div className="timeline-info-bar">
+          <div style={{ textAlign: 'center', width: '100%', color: 'red' }}>
+            数据加载失败: {dataLoadError}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="historical-timeline">
-      {/* 显示当前选中的朝代信息 */}
+      {/* 显示当前选中的朝代信息和悬停事件信息 */}
       <div className="timeline-info-bar">
         <div className="selected-dynasty-info">
           {selectedDynasties.includes('overview') 
             ? '全局总览' 
             : `已选择 ${selectedDynasties.length} 个时期: ${selectedDynasties.join(', ')}`
           }
+          {!isDataLoading && (
+            <span style={{ marginLeft: '10px', fontSize: '8px', opacity: 0.8 }}>
+              [灾变:{historicalData.disasters.length}条 | 制度改革:{historicalData.reforms.length}条]
+            </span>
+          )}
         </div>
-        {hoveredYear && (
+        {hoveredEventInfo && (
           <div className="hovered-year-info">
-            当前年份: {hoveredYear < 0 ? hoveredYear + "BCE" : hoveredYear + "CE"}
-            {hoveredDataset && ` | ${multipleHistoricalData.find(d => d.id === hoveredDataset)?.name || ''}`}
+            {hoveredEventInfo.year < 0 ? hoveredEventInfo.year + "BCE" : hoveredEventInfo.year + "CE"}: 
+            {hoveredEventInfo.disasters.length > 0 && ` 灾变${hoveredEventInfo.disasters.length}次(${hoveredEventInfo.disasters.map(d => d.scale).join(',')})`}
+            {hoveredEventInfo.reforms.length > 0 && ` 制度改革${hoveredEventInfo.reforms.length}次(${hoveredEventInfo.reforms.map(r => r.scale).join(',')})`}
+          </div>
+        )}
+        {hoveredYear && !hoveredEventInfo && (
+          <div className="hovered-year-info">
+            {hoveredYear < 0 ? hoveredYear + "BCE" : hoveredYear + "CE"}
           </div>
         )}
       </div>
@@ -475,9 +490,9 @@ const HistoricalTimeline = () => {
           className="timeline-content"
           style={{ width: `${TIMELINE_WIDTH + LEFT_PADDING * 2}px` }}
         >
-          {/* 历史数据折线图（多条） */}
+          {/* 历史数据柱状图 */}
           <div className="history-chart-container">
-            {renderMultipleHistoricalLineCharts()}
+            {renderDenseBarChart()}
           </div>
           
           {/* 年份标记 */}
@@ -495,4 +510,4 @@ const HistoricalTimeline = () => {
   );
 };
 
-export default HistoricalTimeline; 
+export default HistoricalTimeline;
