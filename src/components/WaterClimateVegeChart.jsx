@@ -3,14 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as echarts from 'echarts';
 import useDynastyStore from '../store/dynastyStore';
 
-// Import the JSON data
-import riverInfoDataRaw from '../data/river_info_data.json';
-import riverClimateVegeDataRaw from '../data/river_climate_vege_data.json';
-
-// Use more descriptive names for the imported data
-const riverDataByDynasty = riverInfoDataRaw;
-const climateVegeDataByDynasty = riverClimateVegeDataRaw;
-
 // Default图例 (can remain as is, or be made dynamic if needed)
 const defaultLegend = [
   { color: '#3498db', label: '水系数据源' },
@@ -230,14 +222,58 @@ const BeijingEcology = ({
   const [chartData, setChartData] = useState({ nodes: [], links: [] });
   const [availableWaterSystems, setAvailableWaterSystems] = useState([]);
   const [dataSourceText, setDataSourceText] = useState(initialDataSourceText);
+  
+  // 数据加载状态
+  const [riverDataByDynasty, setRiverDataByDynasty] = useState({});
+  const [climateVegeDataByDynasty, setClimateVegeDataByDynasty] = useState({});
+  const [isDataLoading, setIsDataLoading] = useState(true);
+  const [dataLoadError, setDataLoadError] = useState(null);
 
   // 获取当前要显示的朝代（取第一个选中的朝代或使用传入的prop）
   const currentDynasty = selectedDynasties.includes('overview') 
     ? 'overview' 
     : selectedDynasties[0] || dynastyToDisplay;
 
+  // 异步加载JSON数据
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setIsDataLoading(true);
+        setDataLoadError(null);
+        
+        // 并行加载两个JSON文件
+        const [riverResponse, climateResponse] = await Promise.all([
+          fetch('/data/river_info_data.json'),
+          fetch('/data/river_climate_vege_data.json')
+        ]);
+
+        if (!riverResponse.ok) {
+          throw new Error(`Failed to load river data: ${riverResponse.status}`);
+        }
+        if (!climateResponse.ok) {
+          throw new Error(`Failed to load climate data: ${climateResponse.status}`);
+        }
+
+        const riverData = await riverResponse.json();
+        const climateData = await climateResponse.json();
+
+        setRiverDataByDynasty(riverData);
+        setClimateVegeDataByDynasty(climateData);
+        setIsDataLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setDataLoadError(error.message);
+        setIsDataLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
   // Effect to update available water systems and selectedWaterSystem when currentDynasty or viewMode changes
   useEffect(() => {
+    if (isDataLoading || Object.keys(riverDataByDynasty).length === 0) return;
+    
     // Use the 'overview' data from riverDataByDynasty as a fallback if specific dynasty data is missing
     const currentDynastyRiverInfo = riverDataByDynasty[currentDynasty] || riverDataByDynasty.overview || {};
 
@@ -255,10 +291,12 @@ const BeijingEcology = ({
     } else {
       setAvailableWaterSystems([]); // Clear if not in waterSystem view
     }
-  }, [currentDynasty, viewMode, selectedWaterSystem]);
+  }, [currentDynasty, viewMode, selectedWaterSystem, riverDataByDynasty, isDataLoading]);
 
   // Effect to load chart data based on selections
   useEffect(() => {
+    if (isDataLoading || Object.keys(climateVegeDataByDynasty).length === 0) return;
+    
     let newNodes = [];
     let newLinks = [];
     let newDataSourceText = '';
@@ -351,7 +389,7 @@ const BeijingEcology = ({
     setChartData({ nodes: newNodes, links: newLinks });
     setDataSourceText(newDataSourceText);
 
-  }, [currentDynasty, selectedDynasties, viewMode, selectedWaterSystem]);
+  }, [currentDynasty, selectedDynasties, viewMode, selectedWaterSystem, climateVegeDataByDynasty, riverDataByDynasty, isDataLoading]);
 
   const handleViewModeChange = (e) => {
     setViewMode(e.target.value);
@@ -360,6 +398,28 @@ const BeijingEcology = ({
   const handleWaterSystemChange = (e) => {
     setSelectedWaterSystem(e.target.value);
   };
+
+  // 如果数据正在加载
+  if (isDataLoading) {
+    return (
+      <div style={styles.container}>
+        <div style={styles.noDataMessage}>
+          正在加载数据，请稍候...
+        </div>
+      </div>
+    );
+  }
+
+  // 如果数据加载失败
+  if (dataLoadError) {
+    return (
+      <div style={styles.container}>
+        <div style={styles.noDataMessage}>
+          数据加载失败: {dataLoadError}
+        </div>
+      </div>
+    );
+  }
 
   const hasData = chartData.nodes.length > 0 && chartData.links.length > 0;
   const showChart = hasData && !(viewMode === 'waterSystem' && !selectedWaterSystem);
