@@ -168,8 +168,8 @@ const GeoChart = () => {
             if (name) {
               marker.bindTooltip(name, {
                 permanent: true,
-                direction: 'right',
-                offset: [6, 0],
+                direction: 'center',
+                offset: [12, -12],
                 className: 'label-tooltip'
               });
             }
@@ -225,112 +225,6 @@ const GeoChart = () => {
     setIsLoading(false);
   }
 };
-
-// const loadMapData = async () => {
-//   if (!mapInstanceRef.current) return;
-
-//   try {
-//     setIsLoading(true);
-//     setError(null);
-
-//     const layerUrls = [
-//       '/data/population.geojson',
-//       '/data/river.geojson',
-//       '/data/lake.geojson',
-//       '/data/ocean.geojson',
-//       '/data/urban.geojson'
-//     ];
-
-//     const layerJsons = await Promise.all(layerUrls.map(url => 
-//       fetch(url).then(res => {
-//         if (!res.ok) throw new Error(`请求失败: ${res.status}`);
-//         return res.json();
-//       })
-//     ));
-
-// const getFeatureCenter = (feature) => {
-//   const coords = feature.geometry.coordinates;
-//   const type = feature.geometry.type;
-
-//   let latlngs = [];
-
-//   if (type === 'Polygon') {
-//     latlngs = coords[0].map(([lng, lat]) => [lat, lng]);
-//   } else if (type === 'MultiPolygon') {
-//     latlngs = coords.flat(2).map(([lng, lat]) => [lat, lng]);
-//   } else if (type === 'LineString') {
-//     latlngs = coords.map(([lng, lat]) => [lat, lng]);
-//   } else if (type === 'MultiLineString') {
-//     latlngs = coords.flat().map(([lng, lat]) => [lat, lng]);
-//   } else {
-//     return null;
-//   }
-
-//   const bounds = L.latLngBounds(latlngs);
-//   return bounds.getCenter();
-// };
-
-
-//     const layerNames = ['population', 'river', 'lake', 'ocean', 'urban'];
-//     const layerData = Object.fromEntries(layerNames.map((name, i) => [name, layerJsons[i]]));
-
-//     // 1️⃣ 创建矢量图层并添加到地图
-//     const allFeatures = [];
-//     layerNames.forEach(layerName => {
-//       const geojson = layerData[layerName];
-//       if (geojson?.features) {
-//         allFeatures.push(...geojson.features);
-//         const layer = L.geoJSON(geojson, {
-//   style: layerStyles[layerName],
-
-// onEachFeature: (feature, layer) => {
-//   const name = feature.properties?.name_zh || feature.properties?.NAME_ZH || feature.properties?.name;
-
-//   if (name) {
-//     // 中文名弹窗
-//     layer.bindPopup(`${layerName}: ${name}`);
-
-//     // 添加中文名称标签，仅对 line 和 polygon 显示中心位置
-//     const center = getFeatureCenter(feature);
-//     if (center && ['river', 'lake', 'population'].includes(layerName)) {
-//       const label = L.tooltip({
-//         permanent: true,
-//         direction: 'center',
-//         className: 'label-tooltip'
-//       })
-//         .setLatLng(center)
-//         .setContent(name);
-//       label.addTo(mapInstanceRef.current);
-//     }
-//   }
-// }
-
-// });
-
-//         layer.addTo(mapInstanceRef.current);
-//         layersRef.current[layerName] = layer;
-//       }
-//     });
-
-//     // 2️⃣ 获取所有矢量图层的边界范围
-//     const geojsonLayer = L.geoJSON({ type: "FeatureCollection", features: allFeatures });
-//     const bounds = geojsonLayer.getBounds();
-
-//     // 3️⃣ 添加与 GeoJSON 匹配的 relief.png 图层
-//     L.imageOverlay('/data/relief.png', bounds, { opacity: 0.5 }).addTo(mapInstanceRef.current);
-
-//     // 4️⃣ 自动缩放到数据边界
-//     mapInstanceRef.current.fitBounds(bounds);
-
-//     updateMarkers();
-//     setIsLoading(false);
-//   } catch (err) {
-//     setError('加载地图数据失败: ' + err.message);
-//     setIsLoading(false);
-//   }
-// };
-
-
   // 添加地名标记
   const updateMarkers = useCallback(() => {
     if (!mapInstanceRef.current) return;
