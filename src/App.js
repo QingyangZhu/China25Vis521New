@@ -6,6 +6,7 @@ import GridLayout from './components/GridLayout';
 import HistoricalTimeline from './components/HistoricalTimeline';
 import BeijingEcology from "./components/WaterClimateVegeChart";
 import useDynastyStore from './store/dynastyStore';
+import GeoChart from "./components/GeoChart";
 
 function App() {
   // 从Zustand store获取选中的朝代
@@ -119,21 +120,24 @@ function App() {
   );
 
   const centerBottom = (
-      <div className="chart-container">
-        <h3>文化空间分布</h3>
-        <EChartsChart option={barChartOption}/>
+      <div className="chart-container map-container">
+          <h3>古城地图</h3>
+          {/* 地图组件 - 确保有足够的高度显示 */}
+          <div style={{height: 'calc(100% - 40px)', width: '100%'}}>
+              <GeoChart/>
+          </div>
       </div>
   );
 
-  const rightTop = (
-    <div className="chart-container">
-      <h3>历史气候与环境事件</h3>
-      <EChartsChart option={barChartOption} />
-    </div>
-  );
+    const rightTop = (
+        <div className="chart-container">
+            <h3>历史气候与环境事件</h3>
+            <EChartsChart option={barChartOption}/>
+        </div>
+    );
 
-  const rightBottom = (
-    <div className="chart-container">
+    const rightBottom = (
+        <div className="chart-container">
       <h3>建筑文化遗产</h3>
       <EChartsChart option={barChartOption} />
     </div>
