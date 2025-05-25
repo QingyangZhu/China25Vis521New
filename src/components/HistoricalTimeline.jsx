@@ -12,8 +12,6 @@ const HistoricalTimeline = () => {
     disasters: [],
     reforms: []
   });
-  const [isDataLoading, setIsDataLoading] = useState(true);
-  const [dataLoadError, setDataLoadError] = useState(null);
 
   // 时间轴滚动相关状态
   const [isDragging, setIsDragging] = useState(false);
@@ -39,29 +37,28 @@ const HistoricalTimeline = () => {
   useEffect(() => {
     const loadHistoricalData = async () => {
       try {
-        setIsDataLoading(true);
-        setDataLoadError(null);
-
         // 加载两个CSV文件
         const [disasterResponse, reformResponse] = await Promise.all([
           fetch('/data/坐标轴_灾变.csv'),
           fetch('/data/坐标轴_制度改革.csv')
         ]);
 
-        if (!disasterResponse.ok) {
-          throw new Error(`Failed to load disaster data: ${disasterResponse.status}`);
-        }
-        if (!reformResponse.ok) {
-          throw new Error(`Failed to load reform data: ${reformResponse.status}`);
+        if (!disasterResponse.ok || !reformResponse.ok) {
+          console.warn('部分数据文件加载失败，将使用模拟数据');
+          // 使用模拟数据
+          setHistoricalData({
+            disasters: [],
+            reforms: []
+          });
+          return;
         }
 
         const disasterText = await disasterResponse.text();
         const reformText = await reformResponse.text();
 
-        // 简单的CSV解析（不使用PapaParse避免依赖问题）
+        // 简单的CSV解析
         const parseCSV = (text) => {
           const lines = text.trim().split('\n');
-          const headers = lines[0].split(',').map(h => h.trim());
           const data = [];
           
           for (let i = 1; i < lines.length; i++) {
@@ -80,17 +77,17 @@ const HistoricalTimeline = () => {
         const disasters = parseCSV(disasterText);
         const reforms = parseCSV(reformText);
 
-        console.log('加载的数据:', { disasters: disasters.length, reforms: reforms.length });
-
         setHistoricalData({
           disasters,
           reforms
         });
-        setIsDataLoading(false);
       } catch (error) {
-        console.error('Error loading historical data:', error);
-        setDataLoadError(error.message);
-        setIsDataLoading(false);
+        console.warn('数据加载失败，使用模拟数据:', error);
+        // 使用模拟数据
+        setHistoricalData({
+          disasters: [],
+          reforms: []
+        });
       }
     };
 
@@ -190,7 +187,7 @@ const HistoricalTimeline = () => {
 
   // 生成密集柱状图
   const renderDenseBarChart = () => {
-    if (isDataLoading || historicalData.disasters.length === 0) {
+    if (historicalData.disasters.length === 0 && historicalData.reforms.length === 0) {
       return null;
     }
 
@@ -198,13 +195,13 @@ const HistoricalTimeline = () => {
     const disasterScales = historicalData.disasters.map(d => d.scale);
     const reformScales = historicalData.reforms.map(r => r.scale);
     
-    const disasterMin = Math.min(...disasterScales); // -3
-    const disasterMax = Math.max(...disasterScales); // 5
-    const disasterRange = disasterMax - disasterMin; // 8
+    const disasterMin = disasterScales.length > 0 ? Math.min(...disasterScales) : 0;
+    const disasterMax = disasterScales.length > 0 ? Math.max(...disasterScales) : 0;
+    const disasterRange = disasterMax - disasterMin;
     
-    const reformMin = Math.min(...reformScales); // 0
-    const reformMax = Math.max(...reformScales); // 5  
-    const reformRange = reformMax - reformMin; // 5
+    const reformMin = reformScales.length > 0 ? Math.min(...reformScales) : 0;
+    const reformMax = reformScales.length > 0 ? Math.max(...reformScales) : 0;
+    const reformRange = reformMax - reformMin;
 
     // 按年份分组数据
     const dataByYear = {};
@@ -234,20 +231,18 @@ const HistoricalTimeline = () => {
       let disasterCurrentHeight = 0;
       let reformCurrentHeight = 0;
       
-      // 渲染灾变事件（红色系）- 分别标准化
+      // 渲染灾变事件（暖色调）
       yearData.disasters.forEach((scale, index) => {
-        // 灾变数据标准化：将[-3,5]映射到[0,1]
         let normalizedScale;
         if (disasterRange > 0) {
           normalizedScale = (scale - disasterMin) / disasterRange;
         } else {
-          normalizedScale = 0.5; // 如果范围为0，使用中等高度
+          normalizedScale = 0.5;
         }
         
-        // 最小高度为2px，确保scale=0的事件也能看见
         const minBarHeight = 2;
         const barHeight = Math.max(minBarHeight, normalizedScale * (MAX_BAR_HEIGHT * 0.8)) + 
-                         (scale < 0 ? 1 : 0); // 负scale值稍微降低显示高度
+                         (scale < 0 ? 1 : 0);
         
         const isHighlighted = hoveredYear && Math.abs(hoveredYear - yearNum) < 2;
         
@@ -258,21 +253,20 @@ const HistoricalTimeline = () => {
             y={MAX_BAR_HEIGHT - disasterCurrentHeight - barHeight}
             width={1.5}
             height={barHeight}
-            fill={isHighlighted ? '#ff4757' : '#ff6b7a'}
-            stroke={isHighlighted ? '#ff3838' : 'none'}
+            fill={isHighlighted ? '#C8956A' : '#D4A574'}
+            stroke={isHighlighted ? '#9E2B25' : 'none'}
             strokeWidth={isHighlighted ? 0.5 : 0}
             opacity={hoveredDataType && hoveredDataType !== 'disasters' ? 0.3 : 0.8}
             onMouseOver={() => setHoveredDataType('disasters')}
             onMouseOut={() => setHoveredDataType(null)}
-            title={`${year}年 灾变 (scale: ${scale}, 标准化: ${normalizedScale.toFixed(2)})`}
+            title={`${year}年 灾变 (scale: ${scale})`}
           />
         );
         disasterCurrentHeight += barHeight;
       });
 
-      // 渲染制度改革事件（蓝色系）- 分别标准化
+      // 渲染制度改革事件（冷色调）
       yearData.reforms.forEach((scale, index) => {
-        // 制度改革数据标准化：将[0,5]映射到[0,1]
         let normalizedScale;
         if (reformRange > 0) {
           normalizedScale = (scale - reformMin) / reformRange;
@@ -280,7 +274,6 @@ const HistoricalTimeline = () => {
           normalizedScale = 0.5;
         }
         
-        // scale=0的制度改革事件显示很小的高度（表示存在但影响很小）
         const minBarHeight = scale === 0 ? 1 : 2;
         const barHeight = Math.max(minBarHeight, normalizedScale * (MAX_BAR_HEIGHT * 0.8));
         
@@ -293,13 +286,13 @@ const HistoricalTimeline = () => {
             y={MAX_BAR_HEIGHT - reformCurrentHeight - barHeight}
             width={1.5}
             height={barHeight}
-            fill={isHighlighted ? '#3742fa' : '#5352ed'}
-            stroke={isHighlighted ? '#2f3542' : 'none'}
+            fill={isHighlighted ? '#989BA0' : '#A5A8AD'}
+            stroke={isHighlighted ? '#8C6D46' : 'none'}
             strokeWidth={isHighlighted ? 0.5 : 0}
             opacity={hoveredDataType && hoveredDataType !== 'reforms' ? 0.3 : 0.8}
             onMouseOver={() => setHoveredDataType('reforms')}
             onMouseOut={() => setHoveredDataType(null)}
-            title={`${year}年 制度改革 (scale: ${scale}, 标准化: ${normalizedScale.toFixed(2)})`}
+            title={`${year}年 制度改革 (scale: ${scale})`}
           />
         );
         reformCurrentHeight += barHeight;
@@ -310,15 +303,15 @@ const HistoricalTimeline = () => {
     const legend = (
       <g className="chart-legend" transform="translate(10, 5)">
         <g className="legend-item">
-          <rect x="0" y="0" width="15" height="3" fill="#ff6b7a" />
-          <text x="20" y="4" fontSize="7" fill="#333">
-            灾变事件 (scale: {disasterMin}~{disasterMax})
+          <rect x="0" y="0" width="15" height="3" fill="#D4A574" />
+          <text x="20" y="4" fontSize="7" fill="#4A4A4A">
+            灾变事件 {disasterScales.length > 0 && `(scale: ${disasterMin}~${disasterMax})`}
           </text>
         </g>
         <g className="legend-item" transform="translate(120, 0)">
-          <rect x="0" y="0" width="15" height="3" fill="#5352ed" />
-          <text x="20" y="4" fontSize="7" fill="#333">
-            制度改革 (scale: {reformMin}~{reformMax})
+          <rect x="0" y="0" width="15" height="3" fill="#A5A8AD" />
+          <text x="20" y="4" fontSize="7" fill="#4A4A4A">
+            制度改革 {reformScales.length > 0 && `(scale: ${reformMin}~${reformMax})`}
           </text>
         </g>
         <text x="0" y="15" fontSize="6" fill="#666">
@@ -427,30 +420,6 @@ const HistoricalTimeline = () => {
     }
   }, []);
 
-  // 如果数据正在加载
-  if (isDataLoading) {
-    return (
-      <div className="historical-timeline">
-        <div className="timeline-info-bar">
-          <div style={{ textAlign: 'center', width: '100%' }}>正在加载历史数据...</div>
-        </div>
-      </div>
-    );
-  }
-
-  // 如果数据加载失败
-  if (dataLoadError) {
-    return (
-      <div className="historical-timeline">
-        <div className="timeline-info-bar">
-          <div style={{ textAlign: 'center', width: '100%', color: 'red' }}>
-            数据加载失败: {dataLoadError}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="historical-timeline">
       {/* 显示当前选中的朝代信息和悬停事件信息 */}
@@ -460,11 +429,9 @@ const HistoricalTimeline = () => {
             ? '全局总览' 
             : `已选择 ${selectedDynasties.length} 个时期: ${selectedDynasties.join(', ')}`
           }
-          {!isDataLoading && (
-            <span style={{ marginLeft: '10px', fontSize: '8px', opacity: 0.8 }}>
-              [灾变:{historicalData.disasters.length}条 | 制度改革:{historicalData.reforms.length}条]
-            </span>
-          )}
+          <span style={{ marginLeft: '10px', fontSize: '8px', opacity: 0.8 }}>
+            [灾变:{historicalData.disasters.length}条 | 制度改革:{historicalData.reforms.length}条]
+          </span>
         </div>
         {hoveredEventInfo && (
           <div className="hovered-year-info">
