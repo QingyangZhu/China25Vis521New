@@ -7,6 +7,8 @@ import HistoricalTimeline from './components/HistoricalTimeline';
 import BeijingEcology from "./components/WaterClimateVegeChart";
 import useDynastyStore from './store/dynastyStore';
 import GeoChart from "./components/GeoChart";
+import ProductVis from "./components/ProductVis";
+
 
 function App() {
   // 从Zustand store获取选中的朝代
@@ -129,12 +131,14 @@ function App() {
       </div>
   );
 
-    const rightTop = (
-        <div className="chart-container">
-            <h3>历史气候与环境事件</h3>
-            <EChartsChart option={barChartOption}/>
-        </div>
-    );
+const rightTop = (
+  <div className="chart-container">
+      <h3>物产分布与演变</h3>
+      <div style={{height: 'calc(100% - 40px)', width: '100%'}}>
+          <ProductVis />
+      </div>
+  </div>
+);
 
     const rightBottom = (
         <div className="chart-container">
