@@ -90,3 +90,12 @@
     min-height: 250px !important;
   }
 }
+
+.nightingale-chart {
+  position: absolute;
+  z-index: 999;
+  pointer-events: auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
