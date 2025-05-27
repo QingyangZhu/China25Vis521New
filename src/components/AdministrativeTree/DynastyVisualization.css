@@ -1,0 +1,37 @@
+.chart-container {
+    border: 1px solid #b4a293;
+    margin: 10px 0;
+    background: #fffaf5;
+  }
+  
+  .loading-spinner {
+    text-align: center;
+    padding: 20px;
+    font-family: '楷体';
+    color: #5d493f;
+  }
+  
+  .spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #ad8d66;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .error-message {
+    color: #a94442;
+    background: #f2dede;
+    padding: 15px;
+    margin: 10px;
+    border: 1px solid #ebccd1;
+    border-radius: 4px;
+    font-family: '楷体';
+  }

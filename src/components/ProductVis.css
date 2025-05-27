@@ -8,32 +8,36 @@
 
 .circle-view {
   width: 100%;
-  height: 45%;
+  height: 30%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.circle-view svg {
+.bubble-timeline {
+  width: 100%;
+  height: 25%;
+  position: relative;
+  border-top: 1px solid rgba(140, 109, 70, 0.2);
+  border-bottom: 1px solid rgba(140, 109, 70, 0.2);
+  overflow-y: auto;
+}
+
+.force-view {
+  width: 100%;
+  height: 45%;
+  position: relative;
+}
+
+.circle-view svg,
+.bubble-timeline svg,
+.force-view svg {
   position: absolute;
   width: 100%;
   height: 100%;
   max-width: 100%;
   max-height: 100%;
-}
-
-.force-view {
-  width: 100%;
-  height: 55%;
-  position: relative;
-  border-top: 1px solid rgba(140, 109, 70, 0.2);
-}
-
-.force-view svg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
 }
 
 .tooltip {
@@ -48,4 +52,23 @@
   opacity: 0;
   transition: opacity 0.2s;
   z-index: 1000;
+}
+
+/* 自定义滚动条样式 */
+.bubble-timeline::-webkit-scrollbar {
+  width: 8px;
+}
+
+.bubble-timeline::-webkit-scrollbar-track {
+  background: rgba(140, 109, 70, 0.1);
+  border-radius: 4px;
+}
+
+.bubble-timeline::-webkit-scrollbar-thumb {
+  background: rgba(140, 109, 70, 0.3);
+  border-radius: 4px;
+}
+
+.bubble-timeline::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 109, 70, 0.5);
 } 
