@@ -5,6 +5,7 @@ import EChartsChart from './components/EChartsChart.jsx';
 import GridLayout from './components/GridLayout';
 import HistoricalTimeline from './components/HistoricalTimeline';
 import BeijingEcology from "./components/WaterClimateVegeChartTest";
+import HistoricalDataClusterAnalysis from './components/HistoricalDataClusterAnalysis';
 import useDynastyStore from './store/dynastyStore';
 import GeoChart from "./components/GeoChart";
 import ProductVis from "./components/ProductVis";
@@ -115,9 +116,8 @@ function App() {
 
   const centerTop = (
       <div className="chart-container">
-        <h3>古城地图与空间变迁</h3>
-        <p style={{textAlign: 'center', paddingTop: '20px'}}>(地图展示区域)</p>
-        <EChartsChart option={barChartOption}/>
+        {/* 替换为历史数据聚类与相关性分析组件 */}
+        <HistoricalDataClusterAnalysis />
       </div>
   );
 
