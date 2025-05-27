@@ -273,3 +273,15 @@ button:hover, select:hover {
     font-size: 1.2rem;
   }
 }
+#chart svg {
+  padding: 0;
+  margin: 0; /* 也可以设置 margin 为 0 */
+  width: 100%; /* 可选，确保 SVG 占满容器 */
+  
+}
+
+#chart1 svg {
+  padding: 0;
+  margin: 0; /* 也可以设置 margin 为 0 */
+  width: 100%; /* 可选，确保 SVG 占满容器 */ height: auto; /* 可选，保持高度自适应 */
+}
