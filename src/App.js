@@ -117,34 +117,7 @@ function App() {
   const leftBottom = (
       <div className="chart-container">
         <h3>水利工程与城市发展</h3>
-        <div className="container">
-      <div className="row" style={{ width: 590, marginTop: 2 }}>
-        {/* 左侧信息面板 */}
-        <div className="col-md-3" style={{ border: '1px solid #b4a293', padding: 0 }}>
-          <div className="row" style={{ padding: 0, height: 5, backgroundColor: '#ad8d66', margin: 0 }} />
-          
-          <div className="row" style={{ margin: 2 }}>
-            <img src={qinImage} alt="秦朝" style={{ height: 80, padding: 0 }} />
-          </div>
-          
-          <InfoRow label="建制制度：" value="郡县制" bold />
-          <InfoRow label="行政机构：" value="郡守" />
-          <InfoRow label="军事机构：" value="郡尉" />
-          <InfoRow label="是否为都城：" value="否" />
-        </div>
-
-        {/* 主图表区域 */}
-        <div className="col-md-9" id="main" style={{ padding: 0 }}>
-           <AdministrativeTree />
-        </div>
-      </div>
-
-      {/* 下方图表区域 */}
-      <div className="row" style={{ width: 650, marginTop: 2, padding: 0 }} id="chart" />
-      <Event />
-      <div className="row" style={{ width: 650, marginTop: 2, padding: 0, fontFamily: '楷体' }} id="chart1" />
-      <Merce />
-    </div>
+        
       </div>
   );
 
@@ -177,7 +150,34 @@ const rightTop = (
     const rightBottom = (
         <div className="chart-container">
       <h3>建筑文化遗产</h3>
-      <EChartsChart option={barChartOption} />
+      <div className="container">
+      <div className="row" style={{ width: 590, marginTop: 2 }}>
+        {/* 左侧信息面板 */}
+        <div className="col-md-3" style={{ border: '1px solid #b4a293', padding: 0 }}>
+          <div className="row" style={{ padding: 0, height: 5, backgroundColor: '#ad8d66', margin: 0 }} />
+          
+          <div className="row" style={{ margin: 2 }}>
+            <img src={qinImage} alt="秦朝" style={{ height: 80, padding: 0 }} />
+          </div>
+          
+          <InfoRow label="建制制度：" value="郡县制" bold />
+          <InfoRow label="行政机构：" value="郡守" />
+          <InfoRow label="军事机构：" value="郡尉" />
+          <InfoRow label="是否为都城：" value="否" />
+        </div>
+
+        {/* 主图表区域 */}
+        <div className="col-md-9" id="main" style={{ padding: 0 }}>
+           <AdministrativeTree />
+        </div>
+      </div>
+
+      {/* 下方图表区域 */}
+      <div className="row" style={{ width: 650, marginTop: 2, padding: 0 }} id="chart" />
+      <Event />
+      <div className="row" style={{ width: 650, marginTop: 2, padding: 0, fontFamily: '楷体' }} id="chart1" />
+      <Merce />
+    </div>
     </div>
   );
 
