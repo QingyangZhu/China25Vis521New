@@ -114,7 +114,7 @@ function App() {
       </div>
   );
 
-  const leftBottom = (
+  const rightBottom = (
       <div className="chart-container">
         <h3>水利工程与城市发展</h3>
         
@@ -147,7 +147,7 @@ const rightTop = (
   </div>
 );
 
-    const rightBottom = (
+    const leftBottom = (
         <div className="chart-container">
       <h3>建筑文化遗产</h3>
       <div className="container">
