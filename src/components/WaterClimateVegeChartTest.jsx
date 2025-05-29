@@ -75,7 +75,7 @@ const SankeyChart = ({ nodes = [], links = [], onHoverWaterNode, onLeaveChart })
 
     if (onHoverWaterNode) {
       chart.on('mouseover', (params) => {
-        if (params?.dataType === 'node' && params?.data?.depth === 0) {
+        if (params?.dataType === 'node' && params?.data?.depth === 0 && params?.data?.name === '水系') {
           const { offsetX, offsetY } = params.event;
           onHoverWaterNode({ x: offsetX, y: offsetY });
         }
@@ -97,7 +97,7 @@ const SankeyChart = ({ nodes = [], links = [], onHoverWaterNode, onLeaveChart })
   return <div ref={chartRef} style={{ width: '100%', height: '100%' }} />;
 };
 
-const RiverDetailPopup = ({ children, position }) => {
+const RiverDetailPopup = ({ children, position, onClose }) => {
   const maxWidth = window.innerWidth * 0.7;
   const maxHeight = window.innerHeight * 0.6;
 
@@ -120,19 +120,31 @@ const RiverDetailPopup = ({ children, position }) => {
     boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
     zIndex: 9999,
     borderRadius: '4px',
-    pointerEvents: 'none',
     overflow: 'hidden',
   };
 
   const innerStyle = {
     width: '100%',
     height: '100%',
-    pointerEvents: 'auto',
+    position: 'relative',
+  };
+
+  const closeButtonStyle = {
+    position: 'absolute',
+    top: 8,
+    right: 12,
+    cursor: 'pointer',
+    fontSize: 14,
+    color: '#888',
+    zIndex: 10000,
+    background: '#fff',
+    border: 'none',
   };
 
   return ReactDOM.createPortal(
     <div style={style}>
       <div style={innerStyle}>
+        <button style={closeButtonStyle} onClick={onClose}>✖</button>
         {React.cloneElement(children, { chartWidth: width, chartHeight: height })}
       </div>
     </div>,
@@ -289,9 +301,12 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
               } : null}
             />
             {showHoverChart && viewMode === 'overview' && (
-              <RiverDetailPopup position={{ x: hoverPos.x + 10, y: hoverPos.y + 10 }}>
+                <RiverDetailPopup
+                  position={{ x: hoverPos.x + 10, y: hoverPos.y + 10 }}
+                  onClose={() => setShowHoverChart(false)}
+                >
                 <RiverDetailSankey selectedDynasties={selectedDynasties} />
-              </RiverDetailPopup>
+                </RiverDetailPopup>
             )}
           </>
         ) : (
