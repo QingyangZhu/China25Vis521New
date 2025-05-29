@@ -5,9 +5,17 @@ import EChartsChart from './components/EChartsChart.jsx';
 import GridLayout from './components/GridLayout';
 import HistoricalTimeline from './components/HistoricalTimeline';
 import BeijingEcology from "./components/WaterClimateVegeChartTest";
+import HistoricalDataClusterAnalysis from './components/HistoricalDataClusterAnalysis';
 import useDynastyStore from './store/dynastyStore';
 import GeoChart from "./components/GeoChart";
 import ProductVis from "./components/ProductVis";
+// 在 App.js 或主组件顶部添加
+import 'bootstrap/dist/css/bootstrap.min.css';
+import AdministrativeTree from './components/AdministrativeTree/AdministrativeTree';
+import Event from './components/ReformTimeline/Event';
+import Merce from './components/Merce/Merce';
+// 图片需要放到项目public目录或使用import
+import qinImage from './images/秦.png';
 
 
 function App() {
@@ -106,18 +114,17 @@ function App() {
       </div>
   );
 
-  const leftBottom = (
+  const rightBottom = (
       <div className="chart-container">
         <h3>水利工程与城市发展</h3>
-        <EChartsChart option={barChartOption}/>
+        
       </div>
   );
 
   const centerTop = (
       <div className="chart-container">
-        <h3>古城地图与空间变迁</h3>
-        <p style={{textAlign: 'center', paddingTop: '20px'}}>(地图展示区域)</p>
-        <EChartsChart option={barChartOption}/>
+        {/* 替换为历史数据聚类与相关性分析组件 */}
+        <HistoricalDataClusterAnalysis />
       </div>
   );
 
@@ -140,10 +147,37 @@ const rightTop = (
   </div>
 );
 
-    const rightBottom = (
+    const leftBottom = (
         <div className="chart-container">
       <h3>建筑文化遗产</h3>
-      <EChartsChart option={barChartOption} />
+      <div className="container">
+      <div className="row" style={{ width: 590, marginTop: 2 }}>
+        {/* 左侧信息面板 */}
+        <div className="col-md-3" style={{ border: '1px solid #b4a293', padding: 0 }}>
+          <div className="row" style={{ padding: 0, height: 5, backgroundColor: '#ad8d66', margin: 0 }} />
+          
+          <div className="row" style={{ margin: 2 }}>
+            <img src={qinImage} alt="秦朝" style={{ height: 80, padding: 0 }} />
+          </div>
+          
+          <InfoRow label="建制制度：" value="郡县制" bold />
+          <InfoRow label="行政机构：" value="郡守" />
+          <InfoRow label="军事机构：" value="郡尉" />
+          <InfoRow label="是否为都城：" value="否" />
+        </div>
+
+        {/* 主图表区域 */}
+        <div className="col-md-9" id="main" style={{ padding: 0 }}>
+           <AdministrativeTree />
+        </div>
+      </div>
+
+      {/* 下方图表区域 */}
+      <div className="row" style={{ width: 650, marginTop: 2, padding: 0 }} id="chart" />
+      <Event />
+      <div className="row" style={{ width: 650, marginTop: 2, padding: 0, fontFamily: '楷体' }} id="chart1" />
+      <Merce />
+    </div>
     </div>
   );
 
@@ -165,5 +199,11 @@ const rightTop = (
     </div>
   );
 }
+// 子组件 - 信息行
+const InfoRow = ({ label, value, bold = false }) => (
+  <div className="row" style={{ fontFamily: '楷体', fontSize: bold ? 'inherit' : 12, fontWeight: bold ? 'bold' : 'normal' }}>
+    <label>{label}<span>{value}</span></label>
+  </div>
+);
 
 export default App;

@@ -1,0 +1,52 @@
+{
+  "dynasties": [
+    "上古", "远古", "夏", "商", "先秦", "先秦-西周", "先秦-东周", "先秦-春秋", "先秦-战国",
+    "秦", "汉", "汉-西汉", "汉-东汉", "三国", "西晋", "十六国", "南朝", "北朝", "北朝-北魏",
+    "北朝-东魏", "北朝-西魏", "北朝-北齐", "北朝-北周", "隋", "唐", "五代十国", "宋", "宋-北宋",
+    "宋-南宋", "辽", "金", "元", "明", "清", "近代", "近代-民国", "现代"
+  ],
+  "categories": {
+    "民族": ["汉族", "蒙古族", "女真族", "契丹族", "其他少数民族"],
+    "职业": ["农业", "手工业", "商业", "军事", "官吏", "其他"],
+    "分布": ["城区", "近郊", "远郊", "边境地区"]
+  },
+  "data": [
+    { "dynasty": "上古", "population": 1000 },
+    { "dynasty": "远古", "population": 1000 },
+    { "dynasty": "夏", "population": 1200000 },
+    { "dynasty": "商", "population": 2000 },
+    { "dynasty": "先秦", "population": 3000 },
+    { "dynasty": "先秦-西周", "population": 3000 },
+    { "dynasty": "先秦-东周", "population": 3000 },
+    { "dynasty": "先秦-春秋", "population": 3000 },
+    { "dynasty": "先秦-战国", "population": 3000 },
+    { "dynasty": "秦", "population": 5000 },
+    { "dynasty": "汉", "population": 10000 },
+    { "dynasty": "汉-西汉", "population": 10000 },
+    { "dynasty": "汉-东汉", "population": 10000 },
+    { "dynasty": "三国", "population": 998000 },
+    { "dynasty": "西晋", "population": 668000 },
+    { "dynasty": "十六国", "population": 998000 },
+    { "dynasty": "南朝", "population": 12000 },
+    { "dynasty": "北朝", "population": 12000 },
+    { "dynasty": "北朝-北魏", "population": 12000 },
+    { "dynasty": "北朝-东魏", "population": 12000 },
+    { "dynasty": "北朝-西魏", "population": 12000 },
+    { "dynasty": "北朝-北齐", "population": 12000 },
+    { "dynasty": "北朝-北周", "population": 12000 },
+    { "dynasty": "隋", "population": 20000 },
+    { "dynasty": "唐", "population": 50000 },
+    { "dynasty": "五代十国", "population": 40000 },
+    { "dynasty": "宋", "population": 80000 },
+    { "dynasty": "宋-北宋", "population": 80000 },
+    { "dynasty": "宋-南宋", "population": 80000 },
+    { "dynasty": "辽", "population": 8000000 },
+    { "dynasty": "金", "population": 100000 },
+    { "dynasty": "元", "population": 150000 },
+    { "dynasty": "明", "population": 5000000 },
+    { "dynasty": "清", "population": 600000 },
+    { "dynasty": "近代", "population": 800000 },
+    { "dynasty": "近代-民国", "population": 1100000 },
+    { "dynasty": "现代", "population": 2000000 }
+  ]
+} 
