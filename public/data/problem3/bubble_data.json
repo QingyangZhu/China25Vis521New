@@ -1,0 +1,4937 @@
+[
+  {
+    "dynasty": "远古",
+    "category": "粮食",
+    "product": "粟",
+    "count": 1,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "商",
+    "category": "粮食",
+    "product": "黍",
+    "count": 1,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "商",
+    "category": "粮食",
+    "product": "稷",
+    "count": 1,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "商",
+    "category": "粮食",
+    "product": "粟",
+    "count": 1,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "商",
+    "category": "粮食",
+    "product": "麦",
+    "count": 1,
+    "dynasty_count": 6
+  },
+  {
+    "dynasty": "商",
+    "category": "畜牧",
+    "product": "马",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "商",
+    "category": "畜牧",
+    "product": "牛",
+    "count": 1,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "商",
+    "category": "畜牧",
+    "product": "羊",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "商",
+    "category": "畜牧",
+    "product": "猪",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "先秦-西周",
+    "category": "粮食",
+    "product": "梁栗类",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "先秦-西周",
+    "category": "畜牧",
+    "product": "牛",
+    "count": 2,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "先秦-西周",
+    "category": "畜牧",
+    "product": "羊",
+    "count": 2,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "先秦-西周",
+    "category": "畜牧",
+    "product": "狗",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "先秦-西周",
+    "category": "畜牧",
+    "product": "猪",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "先秦-西周",
+    "category": "畜牧",
+    "product": "马",
+    "count": 2,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "先秦-西周",
+    "category": "畜牧",
+    "product": "鸡",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "先秦-西周",
+    "category": "粮食",
+    "product": "黍",
+    "count": 1,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "先秦-西周",
+    "category": "粮食",
+    "product": "稷",
+    "count": 1,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "先秦-西周",
+    "category": "粮食",
+    "product": "粟",
+    "count": 1,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "先秦-西周",
+    "category": "粮食",
+    "product": "麦",
+    "count": 1,
+    "dynasty_count": 6
+  },
+  {
+    "dynasty": "先秦-战国",
+    "category": "果木",
+    "product": "枣",
+    "count": 2,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "先秦-战国",
+    "category": "果木",
+    "product": "栗",
+    "count": 2,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "先秦-战国",
+    "category": "矿产",
+    "product": "铁",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "先秦-战国",
+    "category": "粮食",
+    "product": "黍",
+    "count": 1,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "先秦-战国",
+    "category": "粮食",
+    "product": "稷",
+    "count": 1,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "先秦-战国",
+    "category": "粮食",
+    "product": "豆",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "先秦-战国",
+    "category": "粮食",
+    "product": "麻",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "先秦-战国",
+    "category": "酒",
+    "product": "(酒)",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "粮食",
+    "product": "稻",
+    "count": 2,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "粮食",
+    "product": "麦",
+    "count": 1,
+    "dynasty_count": 6
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "粮食",
+    "product": "粟",
+    "count": 1,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "粮食",
+    "product": "黍",
+    "count": 1,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "粮食",
+    "product": "稷",
+    "count": 1,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "粮食",
+    "product": "高粱",
+    "count": 1,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "粮食",
+    "product": "荞麦",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "粮食",
+    "product": "豆类",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "畜牧",
+    "product": "狗",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "畜牧",
+    "product": "猪",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "畜牧",
+    "product": "羊",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "畜牧",
+    "product": "鸡",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "汉-东汉",
+    "category": "畜牧",
+    "product": "鸭",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "三国",
+    "category": "畜牧",
+    "product": "马",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "三国",
+    "category": "畜牧",
+    "product": "筋角",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "三国",
+    "category": "粮食",
+    "product": "水稻",
+    "count": 1,
+    "dynasty_count": 8
+  },
+  {
+    "dynasty": "北朝-北魏",
+    "category": "粮食",
+    "product": "水稻",
+    "count": 1,
+    "dynasty_count": 8
+  },
+  {
+    "dynasty": "北朝-北齐",
+    "category": "粮食",
+    "product": "水稻",
+    "count": 1,
+    "dynasty_count": 8
+  },
+  {
+    "dynasty": "唐",
+    "category": "粮食",
+    "product": "粟",
+    "count": 3,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "唐",
+    "category": "粮食",
+    "product": "小麦",
+    "count": 3,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "唐",
+    "category": "粮食",
+    "product": "水稻",
+    "count": 4,
+    "dynasty_count": 8
+  },
+  {
+    "dynasty": "唐",
+    "category": "粮食",
+    "product": "芝麻",
+    "count": 5,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "唐",
+    "category": "粮食",
+    "product": "豌豆",
+    "count": 4,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "唐",
+    "category": "粮食",
+    "product": "大麦",
+    "count": 4,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "唐",
+    "category": "粮食",
+    "product": "穬麦",
+    "count": 4,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "唐",
+    "category": "粮食",
+    "product": "荞麦",
+    "count": 3,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "唐",
+    "category": "果木",
+    "product": "枣",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "唐",
+    "category": "果木",
+    "product": "栗",
+    "count": 2,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "唐",
+    "category": "果木",
+    "product": "干鲜果品",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "唐",
+    "category": "药材",
+    "product": "人参",
+    "count": 4,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "唐",
+    "category": "药材",
+    "product": "麝香",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "唐",
+    "category": "果木",
+    "product": "木材",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "唐",
+    "category": "丝织",
+    "product": "绫",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "唐",
+    "category": "丝织",
+    "product": "绢",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "唐",
+    "category": "矿产",
+    "product": "铁",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "唐",
+    "category": "矿产",
+    "product": "盐",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "唐",
+    "category": "矿产",
+    "product": "白玉石",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "唐",
+    "category": "矿产",
+    "product": "汉白玉",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "唐",
+    "category": "矿产",
+    "product": "铜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "辽",
+    "category": "果木",
+    "product": "金粟梨",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "辽",
+    "category": "果木",
+    "product": "天生子)",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "辽",
+    "category": "矿产",
+    "product": "金",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "辽",
+    "category": "矿产",
+    "product": "银",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "辽",
+    "category": "矿产",
+    "product": "铜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "辽",
+    "category": "矿产",
+    "product": "铁",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "辽",
+    "category": "药材",
+    "product": "滑石",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "辽",
+    "category": "药材",
+    "product": "半夏",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "辽",
+    "category": "药材",
+    "product": "苍术",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "辽",
+    "category": "药材",
+    "product": "代赭石",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "辽",
+    "category": "药材",
+    "product": "白龙骨",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "辽",
+    "category": "药材",
+    "product": "薄荷",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "辽",
+    "category": "药材",
+    "product": "五味子",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "辽",
+    "category": "药材",
+    "product": "白牵牛",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "粮食",
+    "count": 4,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "辽",
+    "category": "蔬菜",
+    "product": "蔬菜",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "辽",
+    "category": "丝织",
+    "product": "丝织",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "稻米",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "黄米",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "水稻",
+    "count": 1,
+    "dynasty_count": 8
+  },
+  {
+    "dynasty": "辽",
+    "category": "果木",
+    "product": "栗子",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "黑豆",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "小豆",
+    "count": 1,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "绿豆",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "白豆",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "赤豆",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "红小豆",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "豌豆",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "板豆",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "羊眼豆",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "辽",
+    "category": "粮食",
+    "product": "十八豆",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "黑豆",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "小豆",
+    "count": 1,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "绿豆",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "白豆",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "赤豆",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "红小豆",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "豌豆",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "板豆",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "羊眼豆",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "十八豆",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "粮食",
+    "count": 5,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "稻",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "麦",
+    "count": 1,
+    "dynasty_count": 6
+  },
+  {
+    "dynasty": "金",
+    "category": "粮食",
+    "product": "黄米",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "金",
+    "category": "药材",
+    "product": "滑石",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "金",
+    "category": "药材",
+    "product": "半夏",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "金",
+    "category": "药材",
+    "product": "苍术",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "金",
+    "category": "药材",
+    "product": "五味子",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "金",
+    "category": "药材",
+    "product": "白牵牛",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "林木",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "桃",
+    "count": 3,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "杏",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "梨",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "枣",
+    "count": 2,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "栗",
+    "count": 3,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "柿",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "榛",
+    "count": 3,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "核桃",
+    "count": 3,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "苜蓿",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "粮食",
+    "count": 6,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "元",
+    "category": "畜牧",
+    "product": "牧马",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "小麦",
+    "count": 1,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "大麦",
+    "count": 1,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "荞麦",
+    "count": 2,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "黍",
+    "count": 2,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "稷",
+    "count": 2,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "谷",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "高粱",
+    "count": 2,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "各种豆类",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "水稻",
+    "count": 1,
+    "dynasty_count": 8
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "白菜",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "萝卜",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "茄子",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "葱韭蒜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "瓜类",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "畜牧",
+    "product": "马",
+    "count": 9,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "元",
+    "category": "畜牧",
+    "product": "牛",
+    "count": 9,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "元",
+    "category": "畜牧",
+    "product": "羊",
+    "count": 9,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "元",
+    "category": "畜牧",
+    "product": "驼",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "畜牧",
+    "product": "骆驼",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "畜牧",
+    "product": "驴",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "京西稻",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "稻",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "大小麦",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "高苗青",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "诈张柳",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "撑破仓",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "八棱",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "狗见愁",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "饿杀狗",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "毛谷",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "白糙",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "临熟变",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "狗虫青",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "奈风斗",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "麻熟",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "糯黍",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "小黍",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "秫黍",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "黄豆",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "小豆",
+    "count": 1,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "绿豆",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "豌豆",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "黑豆",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "芝麻",
+    "count": 1,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "元",
+    "category": "粮食",
+    "product": "紫苏",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "甜菜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "蔓菁",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "王瓜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "茄",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "菠菜",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "胎心菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "天青葵",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "苦菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "冬瓜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "稍瓜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "蒲",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "筍",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "葱",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "韭",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "蒜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "韭黄",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "芦菔",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "苋",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "匏",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "青瓜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "塔儿葱",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "回回葱",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "壮菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "蕨菜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "解聪",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "黄连芽",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "木兰芽",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "山药",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "戏马菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "山韭",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "马齿苋",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "七击菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "香蕈",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "蔬菜",
+    "product": "沙菌",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "葡萄",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "苹婆",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "李子",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "林擒",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "西瓜",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "甜瓜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "黄瓜",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "苦瓜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "胡桃",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "香水梨",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "银丝枣",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "大小枣",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "御黄子",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "频婆",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "柰子",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "红果子",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "松子",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "莲",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "藕",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "元",
+    "category": "果木",
+    "product": "菱",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "元",
+    "category": "丝织",
+    "product": "棉花",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "畜牧",
+    "product": "马",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "明",
+    "category": "畜牧",
+    "product": "牛",
+    "count": 1,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "明",
+    "category": "畜牧",
+    "product": "羊",
+    "count": 1,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "明",
+    "category": "畜牧",
+    "product": "牧马",
+    "count": 3,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "蔬菜",
+    "count": 4,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "花卉",
+    "count": 3,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "黍",
+    "count": 7,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "稷",
+    "count": 2,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "稻",
+    "count": 4,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "麦",
+    "count": 1,
+    "dynasty_count": 6
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "粟",
+    "count": 5,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "高粱",
+    "count": 3,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "豆类",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "水稻",
+    "count": 6,
+    "dynasty_count": 8
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "棉花",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "大麦",
+    "count": 7,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "荞麦",
+    "count": 2,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "小米",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "橹豆",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "黑豆",
+    "count": 4,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "小麦",
+    "count": 7,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "军屯",
+    "count": 5,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "四季时令蔬菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "畜牧",
+    "product": "御马",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "畜牧",
+    "product": "战马",
+    "count": 6,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "畜牧",
+    "product": "鸡",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "畜牧",
+    "product": "鸭",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "畜牧",
+    "product": "鹅",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "林木",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "谷子",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "栗",
+    "count": 5,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "核桃",
+    "count": 4,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "杏",
+    "count": 5,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "桃",
+    "count": 4,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "梨",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "灌木",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "蔓青",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "菘菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "果树",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "苗圃",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "牡丹",
+    "count": 3,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "芍药",
+    "count": 3,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "瓜果",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "丝织",
+    "product": "棉花",
+    "count": 6,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "蜀黍",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "绿豆",
+    "count": 3,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "白豆",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "芝麻",
+    "count": 6,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "枣",
+    "count": 5,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "明",
+    "category": "丝织",
+    "product": "桑",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "丝织",
+    "product": "丝",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "丝织",
+    "product": "绵",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "丝织",
+    "product": "绢",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "丝织",
+    "product": "布",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "玉米",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "甘薯",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "文官果",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "林檎",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "苹婆",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "秋子",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "八旦杏",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "李",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "胡桃",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "白樱桃",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "梅花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "山茶花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "水仙花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "探春花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "海棠花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "丁香花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "桃花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "李花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "孪枝",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "石榴花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "蜀葵",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "莺粟",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "凤仙",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "鸡冠",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "玉簪",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "十姊妹",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "乌斯菊",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "望江南",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "红白蓼",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "木槿",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "金钱",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "秋海棠",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "木樨",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "菊花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "夏荷",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "长春",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "紫薇",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "夹竹桃",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "花卉",
+    "product": "玫瑰)",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "苹果",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "薥黍",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "杂豆",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "山椒",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "榛",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "沙果",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "葡萄",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "樱桃",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "火腊槟",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "果木",
+    "product": "西瓜",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "丝瓜",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "黄瓜",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "姜",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "豆芽",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "扁豆",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "韭菜",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "苔菜",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "芹菜",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "茄子",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "山药",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "菠菜",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "芥菜",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "白菜",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "土豆",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "芫荽",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "大蒜",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "葱",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "茴香",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "胡萝卜",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "水萝卜",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "银苗菜",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "羊肚菜",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "谷",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "粮食",
+    "product": "豆",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "明",
+    "category": "蔬菜",
+    "product": "甘薯",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "京西稻",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "蔬菜",
+    "count": 5,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "粮食",
+    "count": 2,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "玉米",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "芝麻",
+    "count": 7,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "高粱",
+    "count": 2,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "粟米",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "小麦",
+    "count": 5,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "莜麦",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "稻",
+    "count": 3,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "大豆",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "小豆",
+    "count": 2,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "糜子",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "晚豆",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "甘薯",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "莉头菜",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "西瓜",
+    "count": 5,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "梨",
+    "count": 8,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "苹婆",
+    "count": 5,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "葡萄",
+    "count": 9,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "枣",
+    "count": 8,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "杏",
+    "count": 8,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "桃",
+    "count": 9,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "李子",
+    "count": 4,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "樱桃",
+    "count": 8,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "椹",
+    "count": 4,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "瓜",
+    "count": 4,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "粟",
+    "count": 2,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "黍",
+    "count": 5,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "稷",
+    "count": 4,
+    "dynasty_count": 7
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "水稻",
+    "count": 3,
+    "dynasty_count": 8
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "旱稻",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "粱",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "大麦",
+    "count": 4,
+    "dynasty_count": 4
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "蜀秫",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "玉蜀秫",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "荞麦",
+    "count": 4,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "豆",
+    "count": 3,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "苏子",
+    "count": 4,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "芹",
+    "count": 4,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "白菜",
+    "count": 5,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "菠菜",
+    "count": 5,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "菁",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "荼",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "蔓青",
+    "count": 3,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "萝卜",
+    "count": 4,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "胡萝卜",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "蕨",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "芥",
+    "count": 4,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "山药",
+    "count": 3,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "葫芦",
+    "count": 5,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "瓠",
+    "count": 5,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "莴苣",
+    "count": 5,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "黄瓜",
+    "count": 3,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "稍瓜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "南瓜",
+    "count": 4,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "倭瓜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "冬瓜",
+    "count": 3,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "茄",
+    "count": 4,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "丝瓜",
+    "count": 4,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "木耳",
+    "count": 4,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "葱",
+    "count": 6,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "蒜",
+    "count": 6,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "薇",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "花椒",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "秦椒",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "土芋",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "茴香",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "藓蘑菇",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "人荇菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "笔管菜",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "茨椿头",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "乐利菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "苹婆果",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "沙果",
+    "count": 4,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "核桃",
+    "count": 3,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "栗",
+    "count": 3,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "榛",
+    "count": 3,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "杜梨",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "李",
+    "count": 4,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "石榴",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "山楂",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "柰子",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "槟子",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "柿子",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "羊枣",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "白果",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "无花果",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "桑葚",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "香瓜",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "甜瓜",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "瓯梨",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "文官果",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "山葡萄",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "阳桃",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "芍药",
+    "count": 5,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "秋海棠",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "荷",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "榆叶梅",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "丁香",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "菊",
+    "count": 4,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "玉簪",
+    "count": 4,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "迎春",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "凤仙",
+    "count": 5,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "探春",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "长春",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "金钱",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "金银藤",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "木瓜海棠",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "黄刺梅",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "荷包牡丹",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "石竹",
+    "count": 4,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "木槿",
+    "count": 3,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "月季",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "金盏",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "玫瑰",
+    "count": 4,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "十样锦",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "紫荆",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "郁李",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "蝴蝶花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "马兰",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "江西腊",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "红蓼",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "转枝莲",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "鸡冠",
+    "count": 4,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "北茉莉",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "百日红",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "莴苣莲",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "琼花",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "虞美人",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "翠雀",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "墨葵",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "夹竹桃",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "鼓子",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "望江南",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "八仙",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "珍珠花",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "翠蛾眉",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "蜷丹",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "合欢",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "谷",
+    "count": 3,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "革黍",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "粳米",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "稗",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "麻子",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "薏苡米",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "韭",
+    "count": 4,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "茄子",
+    "count": 2,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "苋",
+    "count": 3,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "瓜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "黄花",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "龙芽",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "椿芽",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "薇蕨菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "蕈",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "猴头蘑",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "米心菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "丝织",
+    "product": "棉花",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "蒜苗",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "香菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "唐白菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "油菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "瓴儿菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "甜菜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "苦费菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "莴苣菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "扫帚菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "蔓菁",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "白花菜",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "黄花菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "茭白",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "芹菜",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "辣椒",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "蘑菇",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "苤蓝",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "薯蓣",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "芋",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "百合",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "香椿芽",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "豆苗菜",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "木兰菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "龙须菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "苜蓿菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "甘露",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "菱藕",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "云豆",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "王瓜)",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "麦",
+    "count": 1,
+    "dynasty_count": 6
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "秫",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "黑豆",
+    "count": 2,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "黄豆",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "绿豆",
+    "count": 2,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "薤",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "豇豆",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "扁豆",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "豌豆",
+    "count": 2,
+    "dynasty_count": 5
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "胡荽",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "山葱",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "山韭",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "白萝卜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "红萝卜",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "山菠菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "玉蔓青",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "拳头菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "王瓜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "菜瓜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "胡桃",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "忽喇毕",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "葵",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "莲",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "萱草",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "玉梅",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "腊梅",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "山丹",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "松丹",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "蔓枝莲",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "丁香花",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "六月菊",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "金雀花",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "吴丝菊",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "水红花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "白玉簪",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "红旱稻",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "白旱稻",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "薏苡",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "秔",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "稗子",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "胡麻",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "白麻",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "西瓜",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "甜瓜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "水萝卜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "苋菜",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "长豆角",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "短豆角",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "黄芽菜",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "箭杆菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "绿豆芽",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "黄豆芽",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "杏叶菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "屈麻菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "柿",
+    "count": 3,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "苹果",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "荸荠",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "郁李",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "酸枣",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "小绣球",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "敷地锦",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "甘菊",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "爬山虎",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "榴",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "碧桃",
+    "count": 3,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "海棠",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "穿枝莲",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "罂粟",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "地棠",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "蜀葵",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "十姊妹",
+    "count": 2,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "蔷薇",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "剪秋罗",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "月月红",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "梅花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "杏花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "桃花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "桂花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "石榴花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "海棠花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "紫薇",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "小绣花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "牡丹花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "瑞香花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "迎春花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "探春花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "蔷薇花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "十姊妹花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "荼蘼",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "刺蘼",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "紫藤花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "红花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "向日莲",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "金莲花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "荷花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "晚香玉",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "青棠",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "山丹花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "鸡冠花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "金钱花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "石竹花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "草茉莉",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "剪春萝",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "剪秋萝",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "杜鹃",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "映山红",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "马兰花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "米囊花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "金银花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "兰枝花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "菊花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "金铃",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "棣棠",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "牵牛花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "水仙花",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "胡蝶花",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "仙人掌",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "花卉",
+    "count": 3,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "羊角密",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "葫芦酥",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "青皮脆",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "金陵坠",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "蛤蟆酥",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "红沙瓤西瓜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "黄沙瓤西瓜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "三白西瓜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "粮食作物",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "水果",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "畜牧",
+    "product": "蜂蜜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "果",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "虎喇槟",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "松子",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "莲子",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "耦",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "菱",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "芡",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "慈姑",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "铁梨",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "马奶葡萄",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "公领孙葡萄",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "琐琐葡萄",
+    "count": 2,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "赤豆",
+    "count": 1,
+    "dynasty_count": 3
+  },
+  {
+    "dynasty": "清",
+    "category": "粮食",
+    "product": "观音粟",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "蚕豆",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "蕨菜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "芥菜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "龙牙菜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "韭菜",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "蔬菜",
+    "product": "生瓜",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "瓶儿枣",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "果木",
+    "product": "杜梨子",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "牡丹",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "剪春",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "千叶莲",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "石榴",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "珍珠",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "夜落",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "萱",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "花卉",
+    "product": "扁竹",
+    "count": 1,
+    "dynasty_count": 1
+  },
+  {
+    "dynasty": "清",
+    "category": "药材",
+    "product": "人参",
+    "count": 1,
+    "dynasty_count": 2
+  },
+  {
+    "dynasty": "近代-民国",
+    "category": "矿产",
+    "product": "煤矿",
+    "count": 1,
+    "dynasty_count": 1
+  }
+]
