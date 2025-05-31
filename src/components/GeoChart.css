@@ -1,101 +1,184 @@
 /* GeoChart.css */
 
-/* 地图容器样式 */
-.chart-container.map-container {
-  height: 100% !important;
-  min-height: 400px !important;
+/* --- 基本页面和布局样式 --- */
+.geochart-page-container {
+  width: 100%;
+  height: 100%; /* 占满整个视口高度 */
+  display: flex;
+  flex-direction: column; /* 主方向为列，虽然通常只有一个主行子元素 */
+  overflow: hidden; /* 防止外层出现不必要的滚动条 */
 }
 
-.chart-container.map-container > div:last-child {
-  height: calc(100% - 50px) !important;
-  min-height: 350px !important;
+.geochart-main-layout {
+  display: flex;
+  flex-direction: row; /* 地图和侧边栏并排 */
+  flex-grow: 1; /* 占据父容器的剩余垂直空间 */
+  min-height: 0; /* 允许子元素在此flex容器内正确滚动，非常重要！ */
+  overflow: hidden; /* 防止此行本身出现滚动条 */
 }
 
-/* Leaflet 地图样式 */
-.leaflet-container {
-  height: 100% !important;
-  width: 100% !important;
-  background: #f8f8f8;
-  min-height: 400px;
-  outline: 0;
+.geochart-map-area {
+  flex-grow: 1; /* 地图区域占据剩余的水平宽度 */
+  height: 100%; /* 地图区域撑满父容器（geochart-main-layout）的高度 */
+  position: relative; /* Leaflet地图和覆盖层需要 */
+  background: #f0f0f0; /* 地图加载前的背景色 */
 }
 
-.map-container .leaflet-container {
-  height: 100% !important;
-  width: 100% !important;
+.geochart-sidebar {
+  width: 370px; /* 侧边栏固定宽度 */
+  min-width: 370px; /* 防止被压缩得过小 */
+  height: 100%; /* 侧边栏撑满父容器（geochart-main-layout）的高度 */
+  display: flex;
+  flex-direction: column; /* 图表在侧边栏中垂直排列 */
+  padding: 12px; /* 侧边栏内边距 */
+  row-gap: 10px; /* 图表之间的垂直间距 (使用gap替代margin) */
+  background-color: #f8f9fa; /* 侧边栏背景色 */
+  border-left: 1px solid #dee2e6; /* 左边框作为分隔线 */
+  overflow-y: auto; /* 如果图表总高度超过侧边栏高度，允许垂直滚动 */
+  box-sizing: border-box; /* padding和border包含在width/height内 */
 }
 
-/* 地图图层正常显示 */
-.leaflet-overlay-pane {
-  overflow: visible;
+.geochart-item-container {
+  width: 100%;
+  /* height 和 minHeight 由 GeoChart.jsx 中的 CHART_CONTAINER_HEIGHT 常量通过内联样式设置 */
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  padding: 8px;
+  box-sizing: border-box;
+  /* margin-bottom 已被 .geochart-sidebar 的 row-gap 替代 */
 }
 
-.leaflet-overlay-pane svg {
-  pointer-events: auto;
+.chart-no-data-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #6c757d;
+  font-size: 0.9rem;
+  padding: 1rem;
+  text-align: center;
 }
 
-/* 自定义圆点标记（如人口点） */
-.leaflet-div-icon {
-  background: transparent !important;
-  border: none !important;
-}
-
-.label-tooltip {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  font-size: 12px;
-  color: #333;
-  white-space: nowrap;
-  padding: 0;
-  margin: 0;
-  pointer-events: none; /* 鼠标穿透，避免干扰交互 */
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6); /* 可选：让文字在浅色地形上更清晰 */
-}
-
-/* 弹出框美化 */
-.leaflet-popup-content-wrapper {
-  border-radius: 8px;
-  box-shadow: 0 3px 14px rgba(0,0,0,0.4);
-}
-
-.leaflet-popup-content {
-  margin: 10px 15px;
-  line-height: 1.4;
-}
-
-/* 缩放控件优化 */
-.leaflet-control-zoom {
-  border: none;
-  border-radius: 4px;
-}
-
-.leaflet-control-zoom a {
-  background-color: rgba(255, 255, 255, 0.9);
-  border-bottom: 1px solid #ccc;
-  color: #333;
-}
-
-.leaflet-control-zoom a:hover {
-  background-color: #f4f4f4;
-}
-
-/* 响应式支持 */
-@media (max-width: 768px) {
-  .chart-container.map-container {
-    min-height: 300px !important;
-  }
-
-  .chart-container.map-container > div:last-child {
-    min-height: 250px !important;
-  }
-}
-
-.nightingale-chart {
+/* --- 消息覆盖层样式 (加载中/错误) --- */
+.geochart-message-overlay {
   position: absolute;
-  z-index: 999;
-  pointer-events: auto;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  inset: 0; /* 等同于 top:0; right:0; bottom:0; left:0; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* 确保在地图之上 */
+  padding: 1rem;
+  text-align: center;
+}
+
+.geochart-error-message {
+  background-color: rgba(255, 224, 224, 0.95);
+  color: #b91c1c;
+  font-size: 0.875rem; /* 约等于 text-sm */
+  line-height: 1.5;
+}
+.geochart-error-message strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem; /* 约等于 text-base */
+}
+.geochart-error-message p {
+  font-size: 0.75rem; /* 约等于 text-xs */
+}
+
+.geochart-loading-message {
+  background-color: rgba(255, 255, 255, 0.85);
+  font-size: 1.125rem; /* 约等于 text-lg */
+  padding: 1.25rem; /* p-5 */
+  background-color: #f3f4f6; /* bg-gray-100 */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); /* shadow-md */
+}
+
+/* --- Leaflet 基础样式 (来自您之前的CSS，大部分可保留) --- */
+.leaflet-container {
+  height: 100% !important; /* 填充 .geochart-map-area */
+  width: 100% !important;  /* 填充 .geochart-map-area */
+  background: #f8f8f8; /* 地图瓦片加载前的背景 */
+  outline: 0; /* 移除默认的outline */
+  /* min-height: 400px; -- 已移除，让flex布局控制高度 */
+}
+
+.leaflet-overlay-pane { 
+  overflow: visible; /* 确保自定义图标或弹出框不会被意外裁剪 */
+}
+.leaflet-overlay-pane svg { 
+  pointer-events: auto; /* 确保SVG元素可以响应鼠标事件 */
+}
+
+.leaflet-div-icon { 
+  background: transparent !important; /* 用于自定义divIcon，如果SVG图标是img则此条不直接相关 */
+  border: none !important; 
+}
+
+/* 人口图层的文字标签基础样式 */
+.label-tooltip {
+  background: transparent !important; 
+  border: none !important; 
+  box-shadow: none !important;
+  font-size: 12px; /* 默认/最大字体大小，会被下面的缩放规则覆盖 */
+  color: #333; 
+  white-space: nowrap; 
+  padding: 0; 
+  margin: 0;
+  pointer-events: none; /* 鼠标事件穿透 */
+  text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white; /* 轻微白色描边，增强可读性 */
+}
+
+/* --- 新增：根据地图缩放级别调整人口图层文字标签大小 --- */
+/* mapRef (geochart-map-area) 会被添加这些类名 */
+.geochart-map-area.map-zoom-small .label-tooltip {
+  font-size: 9px !important; /* 您可以调整这些值 */
+  opacity: 0.85;
+}
+.geochart-map-area.map-zoom-medium .label-tooltip {
+  font-size: 10px !important;
+}
+.geochart-map-area.map-zoom-large .label-tooltip {
+  font-size: 12px !important; /* 恢复到基础大小 */
+}
+
+/* Leaflet 弹出框美化 */
+.leaflet-popup-content-wrapper { 
+  border-radius: 8px; 
+  box-shadow: 0 3px 14px rgba(0,0,0,0.4); 
+}
+.leaflet-popup-content { 
+  margin: 10px 15px; 
+  line-height: 1.4; 
+}
+
+/* Leaflet 缩放控件优化 */
+.leaflet-control-zoom { 
+  border: none !important; /* 移除边框 */
+  border-radius: 4px; 
+  box-shadow: 0 1px 5px rgba(0,0,0,0.65); /* 添加一点阴影 */
+}
+.leaflet-control-zoom a { 
+  background-color: rgba(255, 255, 255, 0.95); 
+  border-bottom: 1px solid #ccc; 
+  color: #333; 
+  width: 30px !important; /* 确保按钮足够大 */
+  height: 30px !important;
+  line-height: 30px !important;
+  font-size: 1.2rem !important;
+}
+.leaflet-control-zoom a:hover { 
+  background-color: #f4f4f4; 
+}
+.leaflet-control-zoom a:first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.leaflet-control-zoom a:last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom: none; /* 移除最后一个按钮的下边框 */
 }

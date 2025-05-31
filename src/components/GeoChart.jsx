@@ -1,68 +1,134 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import L from 'leaflet';
 import Papa from 'papaparse';
-import './GeoChart.css';
+import './GeoChart.css'; 
 import 'leaflet/dist/leaflet.css';
-import * as echarts from 'echarts';
-import 'echarts/lib/chart/pie';
+import * as echarts from 'echarts/core';
+import { PieChart } from 'echarts/charts';
+import { TooltipComponent, TitleComponent, LegendComponent } from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';
 import useDynastyStore from '../store/dynastyStore';
 
-// 修复 Leaflet 默认图标问题
+echarts.use([PieChart, TooltipComponent, TitleComponent, LegendComponent, CanvasRenderer]);
+
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-  iconUrl:
-    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-  shadowUrl:
-    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
+
+const ICON_BASE_PATH = '/icons/';
+const BASE_SVG_ICON_SIZE = [28, 28];
+
+const createSvgIcon = (iconUrl, sizeArray) => {
+  const [width, height] = sizeArray;
+  return L.icon({
+    iconUrl: iconUrl, iconSize: [width, height], iconAnchor: [width / 2, height], popupAnchor: [0, -height],      
+  });
+};
+
+const warIcon = createSvgIcon(`${ICON_BASE_PATH}war.svg`, BASE_SVG_ICON_SIZE);
+const disasterIcon = createSvgIcon(`${ICON_BASE_PATH}disaster.svg`, BASE_SVG_ICON_SIZE);
+const eventIcon = createSvgIcon(`${ICON_BASE_PATH}event.svg`, BASE_SVG_ICON_SIZE);
+
+const CHART_CONTAINER_HEIGHT = '190px'; 
 
 const GeoChart = () => {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const layersRef = useRef({});
-  const markersRef = useRef([]);
   const isInitializedRef = useRef(false);
-  const chartLayerRef = useRef(null);
 
-  const [csvData, setCsvData] = useState([]);
+  const [warData, setWarData] = useState([]);
+  const [disasterData, setDisasterData] = useState([]);
+  const [eventData, setEventData] = useState([]);
+
+  const warMarkersRef = useRef([]);
+  const disasterMarkersRef = useRef([]);
+  const eventMarkersRef = useRef([]);
+
+  const warChartContainerRef = useRef(null);
+  const disasterChartContainerRef = useRef(null);
+  const eventChartContainerRef = useRef(null);
+
+  const warChartInstanceRef = useRef(null);
+  const disasterChartInstanceRef = useRef(null);
+  const eventChartInstanceRef = useRef(null);
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  // 从 store 获取选中的朝代
   const selectedDynasties = useDynastyStore((state) => state.selectedDynasties);
   const isOverview = selectedDynasties.includes('overview');
 
-  // 初始化地图
+  const scaledIconCache = useRef({});
+
+  const getScaledIcon = useCallback((iconType, zoomLevel) => {
+    const baseIconUrl = {
+      war: `${ICON_BASE_PATH}war.svg`, disaster: `${ICON_BASE_PATH}disaster.svg`, event: `${ICON_BASE_PATH}event.svg`,
+    };
+    let scaleFactor = 1.0; let scaleKey = 'large';
+    if (zoomLevel <= 4) { scaleFactor = 0.6; scaleKey = 'small'; } 
+    else if (zoomLevel <= 6) { scaleFactor = 0.8; scaleKey = 'medium'; }
+    const cacheKey = `${iconType}-${scaleKey}`;
+    if (scaledIconCache.current[cacheKey]) return scaledIconCache.current[cacheKey];
+    const newWidth = Math.round(BASE_SVG_ICON_SIZE[0] * scaleFactor);
+    const newHeight = Math.round(BASE_SVG_ICON_SIZE[1] * scaleFactor);
+    const newIcon = createSvgIcon(baseIconUrl[iconType], [newWidth, newHeight]);
+    scaledIconCache.current[cacheKey] = newIcon;
+    return newIcon;
+  }, []); 
+
+  const handleZoomEnd = useCallback(() => {
+    if (!mapInstanceRef.current) return;
+    const currentZoom = mapInstanceRef.current.getZoom();
+
+    warMarkersRef.current.forEach(marker => marker.setIcon(getScaledIcon('war', currentZoom)));
+    disasterMarkersRef.current.forEach(marker => marker.setIcon(getScaledIcon('disaster', currentZoom)));
+    eventMarkersRef.current.forEach(marker => marker.setIcon(getScaledIcon('event', currentZoom)));
+
+    const popLayer = layersRef.current.population;
+    if (popLayer && popLayer.eachLayer) {
+      let newRadius = 5; 
+      if (currentZoom <= 4) newRadius = 3; else if (currentZoom <= 6) newRadius = 4;
+      popLayer.eachLayer(layer => { if (layer.setRadius) layer.setRadius(newRadius); });
+    }
+    if (mapRef.current) {
+      mapRef.current.classList.remove('map-zoom-small', 'map-zoom-medium', 'map-zoom-large');
+      if (currentZoom <= 4) mapRef.current.classList.add('map-zoom-small');
+      else if (currentZoom <= 6) mapRef.current.classList.add('map-zoom-medium');
+      else mapRef.current.classList.add('map-zoom-large');
+    }
+  }, [getScaledIcon]); 
+
   const initializeMap = useCallback(() => {
+    // ... (内容保持不变, 确保调用 handleZoomEnd) ...
     if (!mapRef.current || isInitializedRef.current) return false;
     try {
       mapInstanceRef.current = L.map(mapRef.current, {
-        center: [40.0, 116.4],
-        zoom: 5,
-        preferCanvas: true,
+        center: [38.0, 105.0], zoom: 4, preferCanvas: true,
       });
       isInitializedRef.current = true;
+      setTimeout(() => {
+        mapInstanceRef.current?.invalidateSize();
+        handleZoomEnd(); 
+      } , 150);
+      mapInstanceRef.current.on('zoomend', handleZoomEnd);
       return true;
     } catch (err) {
       setError('地图初始化失败: ' + err.message);
       return false;
     }
-  }, []);
+  }, [handleZoomEnd]); 
 
-  // 加载 Natural Earth GeoJSON 图层
-  const loadMapData = async () => {
+  const loadBaseMapLayers = async () => {
+    // ... (内容保持不变, 确保调用 handleZoomEnd) ...
+    if (!mapInstanceRef.current) return;
     try {
-      setIsLoading(true);
-      setError(null);
-
       const layerUrls = [
-        '/data/population.geojson',
-        '/data/river.geojson',
-        '/data/lake.geojson',
-        '/data/ocean.geojson',
-        '/data/urban.geojson',
+        '/data/population.geojson', '/data/river.geojson', '/data/lake.geojson',
+        '/data/ocean.geojson', '/data/urban.geojson',
       ];
       const layerStyles = {
         population: { fillColor: '#8C6D46', weight: 1, opacity: 0.8, color: '#BF9D7E', fillOpacity: 0.5 },
@@ -71,69 +137,35 @@ const GeoChart = () => {
         ocean: { fillColor: '#2E5266', weight: 1, opacity: 0.8, color: '#2E5266', fillOpacity: 0.4 },
         urban: { fillColor: '#8B4513', weight: 0.5, opacity: 0.6, color: '#654321', fillOpacity: 0.3 },
       };
-
       const layerJsons = await Promise.all(layerUrls.map(url =>
-        fetch(url).then(res => {
-          if (!res.ok) throw new Error(`请求失败: ${res.status}`);
-          return res.json();
-        })
+        fetch(url).then(res => { if (!res.ok) throw new Error(`请求失败: ${res.status} for ${url}`); return res.json(); })
       ));
-
-      // helper: 计算要素中心
       const getFeatureCenter = (feature) => {
-        const coords = feature.geometry.coordinates;
-        let latlngs = [];
-        const type = feature.geometry.type;
-        if (type === 'Polygon') {
-          latlngs = coords[0].map(([lng, lat]) => [lat, lng]);
-        } else if (type === 'MultiPolygon') {
-          latlngs = coords.flat(2).map(([lng, lat]) => [lat, lng]);
-        } else if (type === 'LineString') {
-          latlngs = coords.map(([lng, lat]) => [lat, lng]);
-        } else if (type === 'MultiLineString') {
-          latlngs = coords.flat().map(([lng, lat]) => [lat, lng]);
-        } else {
-          return null;
-        }
-        return L.latLngBounds(latlngs).getCenter();
+        const coords = feature.geometry.coordinates; let latlngs = []; const type = feature.geometry.type;
+        if (type === 'Polygon') latlngs = coords[0].map(([lng, lat]) => [lat, lng]);
+        else if (type === 'MultiPolygon') latlngs = coords.flat(2).map(([lng, lat]) => [lat, lng]);
+        else if (type === 'LineString') latlngs = coords.map(([lng, lat]) => [lat, lng]);
+        else if (type === 'MultiLineString') latlngs = coords.flat().map(([lng, lat]) => [lat, lng]);
+        else return null;
+        if (latlngs.length === 0 || !latlngs.every(ll => Array.isArray(ll) && ll.length === 2 && typeof ll[0] === 'number' && typeof ll[1] === 'number')) return null;
+        try { return L.latLngBounds(latlngs).getCenter(); } catch (e) { console.warn("Error calculating feature center:", feature, e); return null; }
       };
-
       const layerNames = ['population', 'river', 'lake', 'ocean', 'urban'];
       const allFeatures = [];
-
-      layerNames.forEach((layerName, i) => {
-        const geojson = layerJsons[i];
-        if (!geojson?.features) return;
-        allFeatures.push(...geojson.features);
-
+      layerNames.forEach((layerName, i) => { 
+        const geojson = layerJsons[i]; if (!geojson?.features) return; allFeatures.push(...geojson.features);
+        let layerToAdd;
         if (layerName === 'population') {
-          // 用圆点 + tooltip
-          const popLayer = L.geoJSON(geojson, {
+          layerToAdd = L.geoJSON(geojson, {
             pointToLayer: (feature, latlng) => {
               const name = feature.properties?.NAME_ZH || feature.properties?.name || '';
-              const marker = L.circleMarker(latlng, {
-                radius: 5,
-                fillColor: '#8C6D46',
-                color: '#000',
-                weight: 1,
-                opacity: 1,
-                fillOpacity: 1,
-              });
-              if (name) {
-                marker.bindTooltip(name, {
-                  permanent: true,
-                  direction: 'center',
-                  className: 'label-tooltip'
-                });
-              }
+              const marker = L.circleMarker(latlng, { radius: 5, fillColor: '#8C6D46', color: '#000', weight: 1, opacity: 1, fillOpacity: 1 });
+              if (name) marker.bindTooltip(name, { permanent: true, direction: 'center', className: 'label-tooltip' });
               return marker;
             }
           });
-          popLayer.addTo(mapInstanceRef.current);
-          layersRef.current.population = popLayer;
-        } else {
-          // 其他图层
-          const lyr = L.geoJSON(geojson, {
+        } else { 
+          layerToAdd = L.geoJSON(geojson, {
             style: layerStyles[layerName],
             onEachFeature: (feature, layer) => {
               const name = feature.properties?.name_zh || feature.properties?.NAME_ZH || feature.properties?.name;
@@ -141,326 +173,239 @@ const GeoChart = () => {
                 layer.bindPopup(`${layerName}: ${name}`);
                 if (['river','lake'].includes(layerName)) {
                   const center = getFeatureCenter(feature);
-                  if (center) {
-                    L.tooltip({
-                      permanent: true,
-                      direction: 'center',
-                      className: 'label-tooltip'
-                    })
-                      .setLatLng(center)
-                      .setContent(name)
-                      .addTo(mapInstanceRef.current);
-                  }
+                  if (center) L.tooltip({ permanent: true, direction: 'center', className: 'label-tooltip' }).setLatLng(center).setContent(name).addTo(mapInstanceRef.current);
                 }
               }
             }
           });
-          lyr.addTo(mapInstanceRef.current);
-          layersRef.current[layerName] = lyr;
         }
+        layerToAdd.addTo(mapInstanceRef.current); layersRef.current[layerName] = layerToAdd;
       });
-
-      // relief.png 叠加
-      const bounds = L.geoJSON({ type: "FeatureCollection", features: allFeatures }).getBounds();
-      L.imageOverlay('/data/relief.png', bounds, { opacity: 0.5 }).addTo(mapInstanceRef.current);
-      mapInstanceRef.current.fitBounds(bounds);
-
-      setIsLoading(false);
-      // 地图 + 图层就绪后，加载 CSV 并绘制一次标记
-      updateMarkers();
+      if (allFeatures.length > 0) {
+        const bounds = L.geoJSON({ type: "FeatureCollection", features: allFeatures }).getBounds();
+        if (bounds.isValid()) {
+          L.imageOverlay('/data/relief.png', bounds, { opacity: 0.5 }).addTo(mapInstanceRef.current);
+           if(isInitializedRef.current && (!selectedDynasties.length || selectedDynasties.includes('overview'))) {
+             mapInstanceRef.current.fitBounds(bounds);
+          }
+        } else console.warn("Calculated bounds for relief map are invalid.");
+      }
+       if (mapInstanceRef.current) { handleZoomEnd(); }
     } catch (err) {
-      setError('加载地图数据失败: ' + err.message);
-      setIsLoading(false);
+      setError(prev => prev ? `${prev}\n加载地图图层数据失败: ${err.message}` : `加载地图图层数据失败: ${err.message}`);
     }
   };
 
-  // 读取 CSV
-  useEffect(() => {
-    fetch('/data/output_with_coordinates.csv')
-      .then(res => res.text())
-      .then(txt => {
-        const { data } = Papa.parse(txt, { header: true });
-        // 只保留必要字段
-        const clean = data
-          .filter(r => r.latitude && r.longitude)
-          .map(r => ({
-            dynasty: r.dynasty,
-            position: r.position,
-            war_name: r.war_name,
-            latitude: parseFloat(r.latitude),
-            longitude: parseFloat(r.longitude),
-            regime_change: Number(r.regime_change || 0),
-            urban_reconstruction: Number(r.urban_reconstruction || 0),
-            urban_expansion: Number(r.urban_expansion || 0),
-            population_change: Number(r.population_change || 0),
-            economic_cultural_impact: Number(r.economic_cultural_impact || 0),
-          }));
-        setCsvData(clean);
-      })
-      .catch(err => setError('CSV 加载失败: ' + err.message));
+  useEffect(() => { // CSV Data loading effect
+    // ... (内容保持不变) ...
+    setIsLoading(true); setError(null);
+    const parseOptions = { header: true, skipEmptyLines: true };
+    const processRowAttributes = (r) => ({
+      regime_change: Number(r.regime_change || 0), urban_reconstruction: Number(r.urban_reconstruction || 0),
+      urban_expansion: Number(r.urban_expansion || 0), population_change: Number(r.population_change || 0),
+      economic_cultural_impact: Number(r.economic_cultural_impact || 0),
+    });
+    Promise.all([
+      fetch('/data/战争定位.csv').then(res => res.ok ? res.text() : Promise.reject(new Error(`HTTP ${res.status} for 战争定位.csv`))).then(txt => Papa.parse(txt, parseOptions).data),
+      fetch('/data/灾害定位.csv').then(res => res.ok ? res.text() : Promise.reject(new Error(`HTTP ${res.status} for 灾害定位.csv`))).then(txt => Papa.parse(txt, parseOptions).data),
+      fetch('/data/事件定位.csv').then(res => res.ok ? res.text() : Promise.reject(new Error(`HTTP ${res.status} for 事件定位.csv`))).then(txt => Papa.parse(txt, parseOptions).data)
+    ])
+    .then(([warRes, disasterRes, eventRes]) => {
+      setWarData(warRes.filter(r => r.latitude && r.longitude).map(r => ({ ...r, latitude: parseFloat(r.latitude), longitude: parseFloat(r.longitude), ...processRowAttributes(r) })));
+      setDisasterData(disasterRes.filter(r => r.latitude && r.longitude && r.disaster_type).map(r => ({ ...r, latitude: parseFloat(r.latitude), longitude: parseFloat(r.longitude), ...processRowAttributes(r) })));
+      setEventData(eventRes.filter(r => r.latitude && r.longitude && r.event_name).map(r => ({ ...r, latitude: parseFloat(r.latitude), longitude: parseFloat(r.longitude), ...processRowAttributes(r) })));
+      setIsLoading(false);
+    })
+    .catch(err => {
+      console.error('CSV 数据加载或解析失败:', err);
+      setError(`CSV 数据加载失败: ${err.message}. 请确保所有CSV文件均为 UTF-8 编码且位于 public/data/ 目录下。`);
+      setIsLoading(false);
+    });
   }, []);
 
-//南丁格尔图
-const createNightingaleChartLayer = (periodData) => {
-  if (!mapInstanceRef.current || !periodData.length || isOverview) return;
+  const renderNightingaleChartInContainer = (
+    chartInstanceRef, 
+    containerElement, 
+    data, 
+    title, 
+    attributeConfig,
+    showLegend // NEW: Parameter to control legend visibility
+  ) => {
+    if (!containerElement) return;
+    if (chartInstanceRef.current) { chartInstanceRef.current.dispose(); chartInstanceRef.current = null; }
+    containerElement.innerHTML = ''; 
 
-  // 计算五类属性聚合值
-  const sum = (field) => periodData.reduce((acc, r) => acc + Number(r[field] || 0), 0);
-  const absSum = (field) => Math.abs(sum(field));
-  const sign = (field) => Math.sign(sum(field));
-
-  // 先计算各字段的总和
-  const totalPopulationChange = sum('population_change');
-  const totalEconomicImpact = sum('economic_cultural_impact');
-
-
-  const values = [
-    { name: '政权更替', value: sum('regime_change') },
-    { name: '城市重建', value: sum('urban_reconstruction') },
-    { name: '城市扩建', value: sum('urban_expansion') },
-    {
-      // 根据总和的符号决定显示名称
-      name: totalPopulationChange > 0 
-        ? '人口流入' 
-        : totalPopulationChange < 0 
-          ? '人口流出' 
-          : '人口稳定',
-      value: absSum('population_change')
-    },
-    {
-      // 根据总和的符号决定显示名称
-      name: totalEconomicImpact > 0 
-        ? '文化兴盛' 
-        : totalEconomicImpact < 0 
-          ? '文化衰退' 
-          : '文化稳定',
-      value: absSum('economic_cultural_impact')
+    if (!data || data.length === 0) {
+      const noDataEl = document.createElement('div');
+      noDataEl.innerText = `${title.replace('属性', '').trim()}: 无相关数据`;
+      noDataEl.className = 'chart-no-data-message';
+      containerElement.appendChild(noDataEl);
+      return;
     }
-  ];
-
-  // 创建 ECharts 图表容器
-  const chartContainer = document.createElement('div');
-  chartContainer.style.width = '350px'; // 增加宽度以容纳完整标签
-  chartContainer.style.height = '350px';
-  chartContainer.style.position = 'relative'; // 为点击提示定位做准备
-
-  const chart = echarts.init(chartContainer);
   
-  // 解决点击事件不响应的问题
-  chartContainer.style.pointerEvents = 'auto';
-  
-  const option = {
-    title: { 
-      text: `${selectedDynasties.join('、')}时期属性图`, 
-      left: 'center', 
-      top: 0,
-      textStyle: {
-        fontSize: 12
-      }
-    },
-    tooltip: { 
-      trigger: 'item',
-      formatter: '{a} <br/>{b}: {c} ({d}%)'
-    },
-    legend: {
-      top: '10%',
-      left: 'center'
-    },
-    series: [{
-      name: '属性值',
-      type: 'pie',
-      radius: [40, 120], // 调整内半径给标签更多空间
-      center: ['50%', '50%'],
-      roseType: 'area',
-      itemStyle: { 
-        borderRadius: 8,
-        emphasis: {
-          shadowBlur: 10,
-          shadowOffsetX: 0,
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
+    const sum = (field) => data.reduce((acc, r) => acc + Number(r[field] || 0), 0);
+    const absSum = (field) => Math.abs(sum(field));
+    
+    // NEW: Conditional labeling logic
+    const chartValues = attributeConfig.map(attr => {
+        const total = sum(attr.key); 
+        let name = attr.label;
+        if (attr.positiveLabel && attr.negativeLabel) {
+          if (total > 0) name = attr.positiveLabel; 
+          else if (total < 0) name = attr.negativeLabel; 
+          else name = attr.neutralLabel || attr.label;
         }
+        const value = (attr.positiveLabel || attr.isMagnitude) ? absSum(attr.key) : sum(attr.key);
+        
+        // Determine if this specific sector should show a label
+        const showLabelForThisSector = (name === '人口流入' || name === '文化兴盛') && value > 0;
+
+        return { 
+            name, 
+            value,
+            label: {
+                show: showLabelForThisSector,
+                position: 'outside', // Or 'inner', 'center'
+                formatter: '{b}', // Only show name for these specific labels
+                fontSize: 9,
+                // distanceToLabelLine: 2, // Adjust if needed
+            },
+            labelLine: {
+                show: showLabelForThisSector,
+                // length: 4, // Adjust if needed
+                // length2: 6, // Adjust if needed
+            }
+        };
+    });
+  
+    const chart = echarts.init(containerElement);
+    const option = {
+      title: { 
+        text: title, 
+        left: 'center', 
+        top: 8, 
+        textStyle: { fontSize: 13, fontWeight: '600' }
       },
-      label: {
-        show: true,
-        formatter: (params) => {
-          // 缩短过长的标签
-          const name = params.name.length > 4 ? params.name.substring(0, 4) + '...' : params.name;
-          return `${name}: ${params.value}`;
+      tooltip: { trigger: 'item', formatter: '{a} <br/>{b}: {c} ({d}%)' },
+      legend: { 
+        show: showLegend, // NEW: Control legend visibility
+        top: showLegend ? 30 : 'auto', // Adjust legend top if shown
+        left: 'center', 
+        textStyle: { fontSize: 10 } 
+      },
+      series: [{
+        name: '属性值', 
+        type: 'pie', 
+        radius: [15, 55], // Adjusted radius for 190px height, may need further tuning
+        center: ['50%', showLegend ? '62%' : '55%'], // Center a bit lower if legend is shown
+        roseType: 'area',
+        itemStyle: { borderRadius: 4, emphasis: { shadowBlur: 8, shadowOffsetX: 0, shadowColor: 'rgba(0,0,0,0.4)' }},
+        // Default label/labelLine (mostly overridden by data item specific config)
+        label: { 
+            show: false, // Default to false
         },
-        position: 'outside',
-        alignTo: 'labelLine',
-        bleedMargin: 5,
-        distanceToLabelLine: 5
-      },
-      labelLine: {
-        show: true,
-        length: 10,
-        length2: 10,
-        smooth: true
-      },
-      data: values,
-      emphasis: {
-        label: {
-          show: true,
-          fontSize: '14',
-          fontWeight: 'bold'
-        }
-      }
-    }]
+        labelLine: { 
+            show: false, // Default to false
+        },
+        data: chartValues,
+      }]
+    };
+    chart.setOption(option);
+    chartInstanceRef.current = chart;
   };
 
-  chart.setOption(option);
-
-  // 点击事件处理 - 修复不响应问题
-  let tooltip = null;
+  const COMMON_ATTRIBUTE_CONFIG = [
+    { key: 'regime_change', label: '政权更替', isMagnitude: true }, 
+    { key: 'urban_reconstruction', label: '城市重建', isMagnitude: true },
+    { key: 'urban_expansion', label: '城市扩建', isMagnitude: true }, 
+    { key: 'population_change', label: '人口变化', positiveLabel: '人口流入', negativeLabel: '人口流出', neutralLabel: '人口稳定' },
+    { key: 'economic_cultural_impact', label: '文经影响', positiveLabel: '文化兴盛', negativeLabel: '文化衰退', neutralLabel: '文化稳定' }
+  ];
   
-  chart.on('click', (params) => {
-    // 移除之前的提示框
-    if (tooltip) {
-      chartContainer.removeChild(tooltip);
-    }
-    
-    // 创建新的提示框
-    tooltip = document.createElement('div');
-    tooltip.style.position = 'absolute';
-    tooltip.style.backgroundColor = 'rgba(50, 50, 50, 0.9)';
-    tooltip.style.color = 'white';
-    tooltip.style.padding = '8px 12px';
-    tooltip.style.borderRadius = '6px';
-    tooltip.style.zIndex = '9999';
-    tooltip.style.fontSize = '14px';
-    tooltip.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
-    
-    // 计算位置 - 确保在图表容器内
-    const mouseX = params.event.event.offsetX;
-    const mouseY = params.event.event.offsetY;
-    
-    tooltip.style.left = `${Math.min(mouseX + 15, 250)}px`;
-    tooltip.style.top = `${Math.min(mouseY + 15, 300)}px`;
-    
-    tooltip.innerHTML = `
-      <div style="margin-bottom:4px;"><strong>${params.name}</strong></div>
-      <div style="margin-bottom:2px;">数值: ${params.value}</div>
-      <div>占比: ${params.percent}%</div>
-    `;
-    
-    chartContainer.appendChild(tooltip);
-    
-    // 5秒后自动移除
-    setTimeout(() => {
-      if (tooltip && chartContainer.contains(tooltip)) {
-        chartContainer.removeChild(tooltip);
-        tooltip = null;
-      }
-    }, 5000);
-  });
+  const updateVisualizations = useCallback(() => {
+    // ... (内容保持不变, 确保调用 renderNightingaleChartInContainer 时传递 showLegend) ...
+    if (!mapInstanceRef.current || isLoading) return;
 
-  // 鼠标移出图表时移除提示
-  chartContainer.addEventListener('mouseleave', () => {
-    if (tooltip) {
-      chartContainer.removeChild(tooltip);
-      tooltip = null;
-    }
-  });
+    [...warMarkersRef.current, ...disasterMarkersRef.current, ...eventMarkersRef.current].forEach(m => mapInstanceRef.current.removeLayer(m));
+    warMarkersRef.current = []; disasterMarkersRef.current = []; eventMarkersRef.current = [];
 
-  // 转为 Leaflet 图层
-  const chartLatLng = L.latLng(39.9042, 116.4074);
-  const chartIcon = L.divIcon({
-    html: chartContainer,
-    className: 'echarts-tooltip-container', // 添加类名以便样式控制
-    iconSize: [350, 350], // 增大尺寸
-    iconAnchor: [175, 175]
-  });
-
-  // 清除旧图层
-  if (chartLayerRef.current) {
-    mapInstanceRef.current.removeLayer(chartLayerRef.current);
-  }
-
-  const marker = L.marker(chartLatLng, { 
-    icon: chartIcon,
-    interactive: true // 确保可交互
-  });
-  marker.addTo(mapInstanceRef.current);
-  chartLayerRef.current = marker;
-};
-
-  // 增加标记
-  const updateMarkers = useCallback(() => {
-    if (!mapInstanceRef.current) return;
-
-    // 先清除旧标记
-    markersRef.current.forEach(m => mapInstanceRef.current.removeLayer(m));
-    markersRef.current = [];
-    
-    // 清除图表
-    if (chartLayerRef.current) {
-      mapInstanceRef.current.removeLayer(chartLayerRef.current);
-      chartLayerRef.current = null;
-    }
-
-    // 如果是全局总览，不显示任何标记
-    if (isOverview) return;
-
-    // 筛选符合选中朝代的记录
-    const toShow = csvData.filter(row => {
-      const rowDynasties = row.dynasty.split('、').map(d => d.trim());
-      return selectedDynasties.some(dynasty => rowDynasties.includes(dynasty));
+    const currentDynastyNames = selectedDynasties.filter(d => d !== 'overview').join('、') || '所有时期';
+    const filterByDynasty = (data) => data.filter(row => {
+        const rowDynasties = String(row.dynasty || '').split('、').map(d => d.trim());
+        return selectedDynasties.some(dynasty => dynasty !== 'overview' && rowDynasties.includes(dynasty));
     });
 
-    // 添加标记
-    toShow.forEach(loc => {
-      const marker = L.marker([loc.latitude, loc.longitude]);
-      marker.bindPopup(
-        `<div style="text-align:center;">
-          <h3 style="margin:0 0 5px;">${loc.position}</h3>
-          <p style="margin:0;">${loc.war_name}</p>
-        </div>`
-      );
-      marker.addTo(mapInstanceRef.current);
-      markersRef.current.push(marker);
-    });
+    let warToShow = [], disasterToShow = [], eventToShow = [];
+    const specificDynastySelected = !isOverview && selectedDynasties.filter(d => d !== 'overview').length > 0;
 
-    // 创建图表
-    createNightingaleChartLayer(toShow);
-  }, [csvData, selectedDynasties, isOverview]);
+    if (specificDynastySelected) {
+        warToShow = filterByDynasty(warData);
+        disasterToShow = filterByDynasty(disasterData);
+        eventToShow = filterByDynasty(eventData);
 
-  // 首次初始化地图 & 加载图层
-  useEffect(() => {
+        const currentZoom = mapInstanceRef.current.getZoom();
+        const initialWarIcon = getScaledIcon('war', currentZoom);
+        warToShow.forEach(loc => { const marker = L.marker([loc.latitude, loc.longitude], { icon: initialWarIcon }); marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.position || '未知地点'}</h3><p style="margin:0;">${loc.war_name}</p></div>`); marker.addTo(mapInstanceRef.current); warMarkersRef.current.push(marker); });
+        const initialDisasterIcon = getScaledIcon('disaster', currentZoom);
+        disasterToShow.forEach(loc => { const marker = L.marker([loc.latitude, loc.longitude], { icon: initialDisasterIcon }); marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.disaster_type}</h3><p style="margin:0;">${loc.position || ''}</p></div>`); marker.addTo(mapInstanceRef.current); disasterMarkersRef.current.push(marker); });
+        const initialEventIcon = getScaledIcon('event', currentZoom);
+        eventToShow.forEach(loc => { const marker = L.marker([loc.latitude, loc.longitude], { icon: initialEventIcon }); marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.event_name}</h3><p style="margin:0;">${loc.position || ''}</p></div>`); marker.addTo(mapInstanceRef.current); eventMarkersRef.current.push(marker); });
+    }
+    
+    const chartTitleSuffix = isOverview ? "总览概况" : currentDynastyNames;
+    const dataForChart = (data) => specificDynastySelected ? data : [];
+
+    renderNightingaleChartInContainer(warChartInstanceRef, warChartContainerRef.current, dataForChart(warToShow), `${chartTitleSuffix}战争属性`, COMMON_ATTRIBUTE_CONFIG, true); // Show legend for the first chart
+    renderNightingaleChartInContainer(disasterChartInstanceRef, disasterChartContainerRef.current, dataForChart(disasterToShow), `${chartTitleSuffix}灾害属性`, COMMON_ATTRIBUTE_CONFIG, false); // Hide for others
+    renderNightingaleChartInContainer(eventChartInstanceRef, eventChartContainerRef.current, dataForChart(eventToShow), `${chartTitleSuffix}事件属性`, COMMON_ATTRIBUTE_CONFIG, false); // Hide for others
+
+  }, [warData, disasterData, eventData, selectedDynasties, isOverview, isLoading, getScaledIcon]);
+
+
+  useEffect(() => { // Main map initialization and cleanup
     if (initializeMap()) {
-      loadMapData();
+      loadBaseMapLayers();
     }
     return () => {
-      mapInstanceRef.current?.remove();
-      isInitializedRef.current = false;
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.off('zoomend', handleZoomEnd);
+      }
+      warChartInstanceRef.current?.dispose(); disasterChartInstanceRef.current?.dispose(); eventChartInstanceRef.current?.dispose();
+      mapInstanceRef.current?.remove(); mapInstanceRef.current = null; isInitializedRef.current = false;
     };
-  }, [initializeMap]);
+  }, [initializeMap, handleZoomEnd]);
 
-  // 每当选中朝代或 csvData 变化时，刷新标记
-  useEffect(() => {
-    if (isInitializedRef.current) {
-      updateMarkers();
+  useEffect(() => { // Update visualizations when data or selections change
+    if (isInitializedRef.current && mapInstanceRef.current && !isLoading) {
+      updateVisualizations();
+      mapInstanceRef.current.invalidateSize(false);
     }
-  }, [selectedDynasties, csvData, updateMarkers]);
+  }, [selectedDynasties, warData, disasterData, eventData, isLoading, updateVisualizations]);
 
   return (
-    <div className="w-full h-full flex flex-col">
-      {/* 地图容器 */}
-      <div
-        ref={mapRef}
-        className="flex-1 relative"
-        style={{ minHeight: '500px', background: '#f0f0f0' }}
-      >
-        {error && (
-          <div className="absolute inset-0 flex items-center justify-center bg-red-100 text-red-600 z-10">
-            错误: {error}
-          </div>
-        )}
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-60 z-10">
-            正在加载地图...
-          </div>
-        )}
+    <div className="geochart-page-container">
+      <div className="geochart-main-layout">
+        <div ref={mapRef} className="geochart-map-area">
+            {error && (
+              <div className="geochart-message-overlay geochart-error-message">
+                <strong>发生错误!</strong>
+                {error.split('\n').map((line, i) => <p key={i}>{line}</p>)}
+              </div>
+            )}
+            {isLoading && !error && (
+              <div className="geochart-message-overlay geochart-loading-message">
+                ⏳ 正在加载地图和数据...
+              </div>
+            )}
+        </div>
+        {/* NEW: Wrapper for the group of charts */}
+        <div className="geochart-sidebar">
+            <div className="charts-group-container"> {/* This div will have the overall style */}
+                <div ref={warChartContainerRef} className="geochart-chart-instance" style={{ height: CHART_CONTAINER_HEIGHT, minHeight: CHART_CONTAINER_HEIGHT }}></div>
+                <div ref={disasterChartContainerRef} className="geochart-chart-instance" style={{ height: CHART_CONTAINER_HEIGHT, minHeight: CHART_CONTAINER_HEIGHT }}></div>
+                <div ref={eventChartContainerRef} className="geochart-chart-instance" style={{ height: CHART_CONTAINER_HEIGHT, minHeight: CHART_CONTAINER_HEIGHT }}></div>
+            </div>
+        </div>
       </div>
     </div>
   );

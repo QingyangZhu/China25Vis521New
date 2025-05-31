@@ -254,9 +254,9 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
-      <div style={{ fontSize: '13px', color: '#7f8c8d', marginBottom: '10px', textAlign: 'center' }}>
+      {/*<div style={{ fontSize: '13px', color: '#7f8c8d', marginBottom: '10px', textAlign: 'center' }}>
         生态环境演化分析
-      </div>
+      </div>*/}
 
       <div>
         <label>视图模式：</label>
