@@ -1,0 +1,377 @@
+.transportation-network {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(135deg, #faf8f5 0%, #f5f3f0 100%);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: 'Noto Serif SC', serif;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 顶部控制区域样式 */
+.transportation-top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(140, 109, 70, 0.1);
+  border-bottom: 1px solid rgba(140, 109, 70, 0.2);
+  min-height: 60px;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+/* 底部控制区域样式 */
+.transportation-bottom-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(140, 109, 70, 0.1);
+  border-top: 1px solid rgba(140, 109, 70, 0.2);
+  min-height: 60px;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+.dynasty-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dynasty-selector label {
+  font-size: 14px;
+  color: #8C6D46;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.dynasty-select {
+  padding: 6px 12px;
+  border: 1px solid #DCD1BB;
+  border-radius: 4px;
+  background: white;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 13px;
+  color: #4A4A4A;
+  cursor: pointer;
+  min-width: 120px;
+  transition: border-color 0.2s ease;
+  position: relative;
+  z-index: 1001;
+  pointer-events: auto;
+}
+
+.dynasty-select:hover {
+  border-color: #8C6D46;
+}
+
+.dynasty-select:focus {
+  outline: none;
+  border-color: #8C6D46;
+  box-shadow: 0 0 0 2px rgba(140, 109, 70, 0.1);
+}
+
+.layer-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(140, 109, 70, 0.2);
+  position: relative;
+  z-index: 1001;
+  pointer-events: auto;
+}
+
+.layer-controls label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: #6B5B47;
+  cursor: pointer;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+.layer-controls input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  accent-color: #8C6D46;
+  width: 16px;
+  height: 16px;
+}
+
+.opacity-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(140, 109, 70, 0.2);
+  position: relative;
+  z-index: 1001;
+  pointer-events: auto;
+}
+
+.opacity-control label {
+  font-size: 13px;
+  color: #6B5B47;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+.opacity-control input[type="range"] {
+  width: 80px;
+  cursor: pointer;
+  pointer-events: auto;
+  accent-color: #8C6D46;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, 
+    rgba(140, 109, 70, 0.2) 0%, 
+    rgba(140, 109, 70, 0.6) 100%);
+  outline: none;
+}
+
+.opacity-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #8C6D46;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.opacity-control input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #8C6D46;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.opacity-control input[type="range"]::-webkit-slider-track {
+  background: rgba(140, 109, 70, 0.2);
+  height: 4px;
+  border-radius: 2px;
+}
+
+.opacity-control input[type="range"]::-moz-range-track {
+  background: rgba(140, 109, 70, 0.2);
+  height: 4px;
+  border-radius: 2px;
+  border: none;
+}
+
+.route-stats {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  color: #6B5B47;
+  flex-wrap: wrap;
+}
+
+.route-stats span {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(140, 109, 70, 0.2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.route-stats span:last-child {
+  background: rgba(140, 109, 70, 0.1);
+  border-color: rgba(140, 109, 70, 0.3);
+  font-weight: 600;
+}
+
+.transportation-map {
+  width: 100%;
+  flex: 1;
+  min-height: 400px;
+  position: relative;
+  z-index: 1;
+}
+
+/* 确保Leaflet地图容器正确显示 */
+.transportation-map .leaflet-container {
+  font-family: 'Noto Serif SC', serif;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* 隐藏Leaflet attribution控件 */
+.transportation-map .leaflet-control-attribution {
+  display: none !important;
+}
+
+/* 自定义标记样式 */
+.custom-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Leaflet弹窗样式优化 */
+.transportation-map .leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.transportation-map .leaflet-popup-content {
+  font-family: 'Noto Serif SC', serif;
+  margin: 12px;
+  line-height: 1.4;
+}
+
+/* Leaflet控制按钮样式 */
+.transportation-map .leaflet-control-zoom {
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.transportation-map .leaflet-control-zoom a {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(140, 109, 70, 0.2);
+  color: #8C6D46;
+  font-family: 'Noto Serif SC', serif;
+  font-weight: bold;
+}
+
+.transportation-map .leaflet-control-zoom a:hover {
+  background-color: rgba(140, 109, 70, 0.1);
+}
+
+.transportation-loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: linear-gradient(135deg, #faf8f5 0%, #f5f3f0 100%);
+  color: #8C6D46;
+  font-family: 'Noto Serif SC', serif;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(140, 109, 70, 0.1);
+  border-top: 3px solid #8C6D46;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.transportation-loading p {
+  font-size: 14px;
+  margin: 0;
+  text-align: center;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+  .transportation-top-controls,
+  .transportation-bottom-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px;
+    min-height: 120px;
+  }
+  
+  .dynasty-selector,
+  .layer-controls,
+  .opacity-control {
+    justify-content: center;
+  }
+  
+  .route-stats {
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .transportation-top-controls,
+  .transportation-bottom-controls {
+    min-height: 140px;
+  }
+  
+  .layer-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .route-stats span {
+    font-size: 12px;
+    padding: 3px 6px;
+  }
+}
+
+/* 自定义滚动条样式 */
+.transportation-network ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.transportation-network ::-webkit-scrollbar-track {
+  background: rgba(140, 109, 70, 0.1);
+  border-radius: 3px;
+}
+
+.transportation-network ::-webkit-scrollbar-thumb {
+  background: rgba(140, 109, 70, 0.3);
+  border-radius: 3px;
+}
+
+.transportation-network ::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 109, 70, 0.5);
+}
+
+/* 图表容器样式优化 */
+.transportation-chart canvas {
+  border-radius: 4px;
+}
+
+/* 图例样式优化 */
+.transportation-chart .echarts-legend {
+  font-family: 'Noto Serif SC', serif !important;
+}
+
+/* 工具提示样式优化 */
+.transportation-chart .echarts-tooltip {
+  font-family: 'Noto Serif SC', serif !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+} 

@@ -9,6 +9,7 @@ import HistoricalDataClusterAnalysis from './components/HistoricalDataClusterAna
 import useDynastyStore from './store/dynastyStore';
 import GeoChart from "./components/GeoChart";
 import ProductVis from "./components/ProductVis";
+import TransportationNetwork from "./components/TransportationNetwork";
 // 在 App.js 或主组件顶部添加
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AdministrativeTree from './components/AdministrativeTree/AdministrativeTree';
@@ -116,8 +117,10 @@ function App() {
 
   const rightBottom = (
       <div className="chart-container">
-        <h3>水利工程与城市发展</h3>
-        
+        <h3>历朝历代交通路网</h3>
+        <div style={{height: 'calc(100% - 40px)', width: '100%'}}>
+          <TransportationNetwork />
+        </div>
       </div>
   );
 
