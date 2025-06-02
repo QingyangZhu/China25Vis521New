@@ -105,7 +105,10 @@ export default function RiverSankeyMerged({
       if (!uniqueNodes.has(name)) {
         uniqueNodes.set(name, {
           name,
-          itemStyle: { color: name === '人工河流' ? '#1f77b4' : '#ff7f0e', borderColor: 'transparent' },
+          itemStyle: {
+            color: name === '人工河流' ? '#CBD8D0' : '#B7C8BD',
+            borderColor: 'transparent'
+          },
           depth: 0, // 指定深度，保证左侧一列
         });
       }
@@ -115,7 +118,7 @@ export default function RiverSankeyMerged({
       if (!uniqueNodes.has(name)) {
         uniqueNodes.set(name, {
           name,
-          itemStyle: { color: '#aec7e8', borderColor: 'transparent' },
+          itemStyle: { color: '#F5D9A4', borderColor: 'transparent' },
           depth: 1, // 中间一列
         });
       }
@@ -125,7 +128,7 @@ export default function RiverSankeyMerged({
       if (!uniqueNodes.has(river.name)) {
         uniqueNodes.set(river.name, {
           name: river.name,
-          itemStyle: { color: '#9edae5', borderColor: 'transparent' },
+          itemStyle: { color: '#DFE7D9', borderColor: 'transparent' },
           depth: 2, // 右侧一列
         });
       }
