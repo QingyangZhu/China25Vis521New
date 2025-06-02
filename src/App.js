@@ -4,7 +4,7 @@ import './App.css';
 import EChartsChart from './components/EChartsChart.jsx';
 import GridLayout from './components/GridLayout';
 import HistoricalTimeline from './components/HistoricalTimeline';
-import BeijingEcology from "./components/WaterClimateVegeChartTest";
+import BeijingEcology from "./components/WaterClimateVegeChartTestEnhanced";
 import HistoricalDataClusterAnalysis from './components/HistoricalDataClusterAnalysis';
 import useDynastyStore from './store/dynastyStore';
 import GeoChart from "./components/GeoChart";
