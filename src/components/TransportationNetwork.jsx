@@ -713,15 +713,20 @@ const TransportationNetwork = () => {
       const primaryRouteId = nodeInfo.routes[0];
       const color = routeColorMapping.get(primaryRouteId) || '#8C6D46';
       
+      // 判断是否是重要节点（多条路线交汇）
+      const isImportantNode = nodeInfo.routes.length > 1;
+      
       // 创建自定义图标
       const iconHtml = `
-        <div style="
+        <div class="${isImportantNode ? 'node-pulse' : ''}" style="
           width: ${nodeInfo.isOverseas ? 16 : 12}px;
           height: ${nodeInfo.isOverseas ? 16 : 12}px;
           background-color: ${color};
           border: ${nodeInfo.isOverseas ? '2px solid #FF4444' : '2px solid white'};
           border-radius: 50%;
           box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+          transition: all 0.3s ease;
+          cursor: pointer;
         "></div>
       `;
       
@@ -736,12 +741,31 @@ const TransportationNetwork = () => {
         icon: customIcon
       });
 
+      // 添加节点悬停效果
+      marker.on('mouseover', function() {
+        const iconElement = this.getElement().querySelector('div');
+        if (iconElement) {
+          iconElement.style.transform = 'scale(1.3)';
+          iconElement.style.zIndex = '1000';
+        }
+      });
+      
+      marker.on('mouseout', function() {
+        const iconElement = this.getElement().querySelector('div');
+        if (iconElement) {
+          iconElement.style.transform = 'scale(1)';
+          iconElement.style.zIndex = '';
+        }
+      });
+
       const locationInfo = nodeInfo.isOverseas ? '（海外地点）' : '（中国境内）';
       const routesList = [...new Set(nodeInfo.routeNames)].join(', ');
+      const routeCount = nodeInfo.routes.length;
+      const importanceInfo = routeCount > 1 ? `<br/><strong>重要交通枢纽（${routeCount}条路线交汇）</strong>` : '';
       
       marker.bindPopup(`
         <div style="font-family: 'Noto Serif SC', serif;">
-          <strong>${nodeInfo.name}</strong>${locationInfo}<br/>
+          <strong>${nodeInfo.name}</strong>${locationInfo}${importanceInfo}<br/>
           朝代: ${nodeInfo.dynasty}<br/>
           相关路线: ${routesList}
         </div>
@@ -788,23 +812,43 @@ const TransportationNetwork = () => {
       const polyline = L.polyline(smoothCoordinates, {
         color: color,
         weight: isInternational ? 4 : 3,
-        opacity: isInternational ? 0.8 : 0.7,
-        dashArray: isInternational ? '10, 5' : null,
+        opacity: isInternational ? 0.9 : 0.8,
+        dashArray: null, // 移除默认的dashArray，让CSS控制
         lineJoin: 'round',
         lineCap: 'round',
-        smoothFactor: 1.0
+        smoothFactor: 1.0,
+        className: `route-flow-animation ${isInternational ? 'international' : 'domestic'}`
+      });
+      
+      // 添加路线悬停效果
+      polyline.on('mouseover', function() {
+        this.setStyle({
+          weight: (isInternational ? 4 : 3) + 2,
+          opacity: 1
+        });
+      });
+      
+      polyline.on('mouseout', function() {
+        this.setStyle({
+          weight: isInternational ? 4 : 3,
+          opacity: isInternational ? 0.9 : 0.8
+        });
       });
       
       const routeInfo = isInternational ? '（国际路线）' : '（境内路线）';
       polyline.bindPopup(`
         <div style="font-family: 'Noto Serif SC', serif;">
           <strong>${routeName}</strong>${routeInfo}<br/>
-          朝代: ${dynasty}
+          朝代: ${dynasty}<br/>
+          <small>点击路线查看详细信息</small>
         </div>
       `);
       
       polyline.addTo(mapRef.current);
       linesRef.current.push(polyline);
+      
+      // 创建沿路径移动的动画点
+      createMovingMarker(smoothCoordinates, color, isInternational);
     });
 
     console.log('地图路网更新完成', { 
@@ -840,6 +884,75 @@ const TransportationNetwork = () => {
   // 防止地图事件干扰控制面板
   const handleControlClick = (e) => {
     e.stopPropagation();
+  };
+
+  // 创建沿路径移动的动画点
+  const createMovingMarker = (path, color, isInternational) => {
+    if (path.length < 2) return;
+    
+    // 创建移动点的图标
+    const movingIcon = L.divIcon({
+      html: `
+        <div style="
+          width: 8px;
+          height: 8px;
+          background-color: ${color};
+          border: 1px solid white;
+          border-radius: 50%;
+          box-shadow: 0 0 10px ${color};
+          animation: glow 1s ease-in-out infinite alternate;
+        "></div>
+      `,
+      className: 'moving-marker',
+      iconSize: [10, 10],
+      iconAnchor: [5, 5]
+    });
+    
+    // 创建移动标记
+    const movingMarker = L.marker(path[0], { icon: movingIcon });
+    movingMarker.addTo(mapRef.current);
+    
+    // 动画参数
+    const duration = isInternational ? 8000 : 6000; // 国际路线动画时间更长
+    const startTime = Date.now();
+    
+    // 动画函数
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = (elapsed % duration) / duration;
+      
+      if (progress >= 1) {
+        // 动画完成，重新开始
+        setTimeout(() => animate(), 1000); // 1秒延迟后重新开始
+        return;
+      }
+      
+      // 计算当前位置
+      const pathIndex = progress * (path.length - 1);
+      const currentIndex = Math.floor(pathIndex);
+      const nextIndex = Math.min(currentIndex + 1, path.length - 1);
+      const segmentProgress = pathIndex - currentIndex;
+      
+      if (currentIndex < path.length - 1) {
+        const currentPos = path[currentIndex];
+        const nextPos = path[nextIndex];
+        
+        // 插值计算当前位置
+        const lat = currentPos[0] + (nextPos[0] - currentPos[0]) * segmentProgress;
+        const lng = currentPos[1] + (nextPos[1] - currentPos[1]) * segmentProgress;
+        
+        movingMarker.setLatLng([lat, lng]);
+      }
+      
+      requestAnimationFrame(animate);
+    };
+    
+    // 延迟启动动画，错开不同路线的动画时间
+    const delay = Math.random() * 2000;
+    setTimeout(() => animate(), delay);
+    
+    // 将移动标记添加到清理列表
+    markersRef.current.push(movingMarker);
   };
 
   if (loading) {

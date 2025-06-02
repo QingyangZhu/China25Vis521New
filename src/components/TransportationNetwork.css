@@ -374,4 +374,80 @@
   font-family: 'Noto Serif SC', serif !important;
   border-radius: 6px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 路线流动动画样式 */
+.route-flow-animation {
+  stroke-dasharray: 10, 5;
+  animation: route-flow 3s linear infinite;
+}
+
+.route-flow-animation.international {
+  stroke-dasharray: 15, 8;
+  animation: route-flow-international 4s linear infinite;
+}
+
+@keyframes route-flow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 30;
+  }
+}
+
+@keyframes route-flow-international {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 46;
+  }
+}
+
+/* 路线悬停效果 */
+.transportation-map .leaflet-interactive:hover {
+  stroke-width: 5 !important;
+  filter: brightness(1.2);
+}
+
+/* 节点脉冲动画 */
+.node-pulse {
+  animation: node-pulse 2s ease-in-out infinite;
+}
+
+@keyframes node-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 移动标记发光动画 */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px currentColor;
+    opacity: 0.8;
+  }
+  100% {
+    box-shadow: 0 0 15px currentColor, 0 0 25px currentColor;
+    opacity: 1;
+  }
+}
+
+/* 移动标记样式 */
+.moving-marker {
+  z-index: 1000 !important;
+}
+
+.moving-marker div {
+  transition: none !important;
 } 
