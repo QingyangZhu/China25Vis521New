@@ -1,5 +1,5 @@
 // src/components/WaterClimateVegeChartTestEnhanced.jsx
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import * as echarts from 'echarts';
 import ReactDOM from 'react-dom';
 import useDynastyStore from '../store/dynastyStore';
@@ -96,17 +96,38 @@ const SankeyChart = ({ nodes = [], links = [], onHoverWaterNode, onLeaveChart })
   return <div ref={chartRef} style={{ width: '100%', height: '100%' }} />;
 };
 
-const RiverDetailPopup = ({ children, position, onClose }) => {
+// 🔧 修复弹窗交互问题：添加鼠标进入/离开事件处理
+const RiverDetailPopup = ({ children, position, onClose, onMouseEnter, onMouseLeave }) => {
   const maxWidth = window.innerWidth * 0.7;
   const maxHeight = window.innerHeight * 0.6;
 
   const width = Math.max(400, Math.min(maxWidth, 600));
   const height = Math.max(300, Math.min(maxHeight, 450));
 
+  // 增加弹窗偏移距离到50px，避免遮挡触发区域
+  const minOffset = 50;
+  let finalLeft = position.x + minOffset;
+  let finalTop = position.y + minOffset;
+
+  // 智能定位：如果右下方没有足够空间，尝试其他位置
   const maxX = window.innerWidth - width - 10;
   const maxY = window.innerHeight - height - 10;
-  const finalLeft = Math.min(position.x, maxX);
-  const finalTop = Math.min(position.y, maxY);
+  
+  // 如果右下方超出边界，尝试左上方
+  if (finalLeft > maxX || finalTop > maxY) {
+    // 尝试左上方
+    const leftX = position.x - width - minOffset;
+    const topY = position.y - height - minOffset;
+    
+    if (leftX >= 10 && topY >= 10) {
+      finalLeft = leftX;
+      finalTop = topY;
+    } else {
+      // 最后兜底：确保在屏幕范围内
+      finalLeft = Math.max(10, Math.min(position.x + minOffset, maxX));
+      finalTop = Math.max(10, Math.min(position.y + minOffset, maxY));
+    }
+  }
 
   const style = {
     position: 'fixed',
@@ -141,7 +162,12 @@ const RiverDetailPopup = ({ children, position, onClose }) => {
   };
 
   return ReactDOM.createPortal(
-    <div style={style}>
+    <div 
+      style={style}
+      // 🔧 关键修复：添加鼠标事件监听
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <div style={innerStyle}>
         <button style={closeButtonStyle} onClick={onClose}>✖</button>
         {React.cloneElement(children, { chartWidth: width, chartHeight: height })}
@@ -188,6 +214,10 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
   const [hoverPos, setHoverPos] = useState({ x: 100, y: 100 });
   const lastHoverPos = useRef({ x: 0, y: 0 });
   const hideTimeoutRef = useRef(null);
+  const showTimeoutRef = useRef(null);
+
+  // 🔧 新增状态：跟踪鼠标是否在弹窗内
+  const [isMouseInPopup, setIsMouseInPopup] = useState(false);
 
   // 视图模式控制
   const [viewMode, setViewMode] = useState('overview');
@@ -199,6 +229,88 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
   const [riverInfo, setRiverInfo] = useState({});
   const [isDataLoading, setIsDataLoading] = useState(true);
   const [dataLoadError, setDataLoadError] = useState(null);
+
+  // 🔧 新增：弹窗鼠标进入处理函数
+  const handlePopupMouseEnter = useCallback(() => {
+    setIsMouseInPopup(true);
+    // 清除隐藏定时器，因为鼠标进入了弹窗
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = null;
+    }
+  }, []);
+
+  // 🔧 新增：弹窗鼠标离开处理函数
+  const handlePopupMouseLeave = useCallback(() => {
+    setIsMouseInPopup(false);
+    // 当鼠标离开弹窗时，启动隐藏倒计时
+    hideTimeoutRef.current = setTimeout(() => {
+      setShowHoverChart(false);
+      lastHoverPos.current = { x: 0, y: 0 };
+    }, 300); // 给用户一些时间重新回到弹窗或图表
+  }, []);
+
+  // 🔧 改进的图表离开处理函数
+  const handleChartLeave = useCallback(() => {
+    // 清除显示定时器
+    if (showTimeoutRef.current) {
+      clearTimeout(showTimeoutRef.current);
+      showTimeoutRef.current = null;
+    }
+    
+    // 只有当鼠标不在弹窗内时才启动隐藏倒计时
+    if (!isMouseInPopup) {
+      hideTimeoutRef.current = setTimeout(() => {
+        // 双重检查：确保鼠标仍然不在弹窗内
+        if (!isMouseInPopup) {
+          setShowHoverChart(false);
+          lastHoverPos.current = { x: 0, y: 0 };
+        }
+      }, 800);
+    }
+  }, [isMouseInPopup]);
+
+  // 🔧 改进的水系节点悬停处理函数
+  const handleWaterNodeHover = useCallback((pos) => {
+    // 清除之前的隐藏定时器
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = null;
+    }
+    
+    // 清除之前的显示定时器
+    if (showTimeoutRef.current) {
+      clearTimeout(showTimeoutRef.current);
+    }
+
+    // 添加300ms稳定期，确认用户真的想查看详情
+    showTimeoutRef.current = setTimeout(() => {
+      // 提高移动阈值从5px到15px，减少敏感性
+      const dx = Math.abs(pos.x - lastHoverPos.current.x);
+      const dy = Math.abs(pos.y - lastHoverPos.current.y);
+      if (dx > 15 || dy > 15 || !showHoverChart) {
+        setHoverPos(pos);
+        setShowHoverChart(true);
+        lastHoverPos.current = pos;
+      }
+    }, 300);
+  }, [showHoverChart]);
+
+  // 🔧 改进的弹窗关闭处理函数
+  const handleClosePopup = useCallback(() => {
+    // 清除所有定时器
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = null;
+    }
+    if (showTimeoutRef.current) {
+      clearTimeout(showTimeoutRef.current);
+      showTimeoutRef.current = null;
+    }
+    setShowHoverChart(false);
+    setIsMouseInPopup(false);
+    lastHoverPos.current = { x: 0, y: 0 };
+  }, []);
 
   // 异步加载数据
   useEffect(() => {
@@ -232,7 +344,7 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
     loadData();
   }, []);
 
-  // 🔧 修复：更新可选水系列表 - 支持多朝代合并
+  // 更新可选水系列表 - 支持多朝代合并
   useEffect(() => {
     if (viewMode === 'waterSystem' && !isDataLoading) {
       const dynastiesToCheck = selectedDynasties.includes('overview') 
@@ -255,7 +367,7 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
     }
   }, [viewMode, riverInfo, selectedDynasties, selectedWaterSystem, isDataLoading]);
 
-  // 🔧 修复：主要数据加载和合并逻辑 - 支持水系分析的多朝代合并
+  // 主要数据加载和合并逻辑 - 支持水系分析的多朝代合并
   useEffect(() => {
     if (isDataLoading) return;
 
@@ -334,7 +446,7 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
       }
 
     } else if (viewMode === 'waterSystem' && selectedWaterSystem) {
-      // 🆕 水系模式：实现多朝代数据合并
+      // 水系模式：实现多朝代数据合并
       const dynastiesToUse = selectedDynasties.includes('overview') 
         ? Object.keys(riverInfo).filter(d => d !== 'overview')
         : selectedDynasties.filter(d => d !== 'overview');
@@ -349,7 +461,7 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
         const totalFlow = newLinks.reduce((sum, l) => sum + (l.value || 0), 0);
         newDataSourceText = `数据来源：北京历史时空数据 (${dynasty}) - 水系: ${selectedWaterSystem} | 总流量: ${totalFlow}`;
       } else if (dynastiesToUse.length > 1) {
-        // 🆕 多朝代水系数据合并
+        // 多朝代水系数据合并
         const combinedNodes = new Map();
         const combinedLinks = [];
         
@@ -474,27 +586,17 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
             <SankeyChart
               nodes={chartData.nodes}
               links={chartData.links}
-              onHoverWaterNode={viewMode === 'overview' ? (pos) => {
-                clearTimeout(hideTimeoutRef.current);
-                const dx = Math.abs(pos.x - lastHoverPos.current.x);
-                const dy = Math.abs(pos.y - lastHoverPos.current.y);
-                if (dx > 5 || dy > 5) {
-                  setHoverPos(pos);
-                  setShowHoverChart(true);
-                  lastHoverPos.current = pos;
-                }
-              } : null}
-              onLeaveChart={viewMode === 'overview' ? () => {
-                hideTimeoutRef.current = setTimeout(() => {
-                  setShowHoverChart(false);
-                  lastHoverPos.current = { x: 0, y: 0 };
-                }, 150);
-              } : null}
+              onHoverWaterNode={viewMode === 'overview' ? handleWaterNodeHover : null}
+              onLeaveChart={viewMode === 'overview' ? handleChartLeave : null}
             />
+            
+            {/* 🔧 修复：传递弹窗鼠标事件处理函数 */}
             {showHoverChart && viewMode === 'overview' && (
               <RiverDetailPopup
-                position={{ x: hoverPos.x + 10, y: hoverPos.y + 10 }}
-                onClose={() => setShowHoverChart(false)}
+                position={hoverPos}
+                onClose={handleClosePopup}
+                onMouseEnter={handlePopupMouseEnter}
+                onMouseLeave={handlePopupMouseLeave}
               >
                 <RiverDetailSankey selectedDynasties={selectedDynasties} />
               </RiverDetailPopup>
