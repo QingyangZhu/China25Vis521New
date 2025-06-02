@@ -1,3 +1,4 @@
+// src/components/ShowAllWaterChart.jsx
 import React, { useState, useMemo, useEffect } from 'react';
 import ReactECharts from 'echarts-for-react';
 
@@ -30,8 +31,8 @@ function hasFunction(river, func) {
 }
 
 function getSiltationColor(siltation) {
-  if (!siltation || siltation === '无' || siltation === 0 || siltation === '0') return '#2ca02c';
-  return '#d62728';
+  if (!siltation || siltation === '无' || siltation === 0 || siltation === '0') return '#B8C49E';
+  return '#E5B8A2';
 }
 
 export default function RiverSankeyMerged({
@@ -220,6 +221,65 @@ export default function RiverSankeyMerged({
         left: 'center'
       },
       tooltip: { trigger: 'item', triggerOn: 'mousemove' },
+      graphic: [
+        {
+          type: 'group',
+          left: 'center',
+          bottom: 15,
+          children: [
+            // 第一个图例项 - 河流状况良好
+            {
+              type: 'rect',
+              left: -80,
+              top: 0,
+              shape: {
+                x: 0,
+                y: 0,
+                width: 20,
+                height: 12
+              },
+              style: {
+                fill: '#B8C49E'
+              }
+            },
+            {
+              type: 'text',
+              left: -55,
+              top: 6,
+              style: {
+                text: '河流状况良好',
+                fontSize: 12,
+                fill: '#333'
+              }
+            },
+            // 第二个图例项 - 河流存在淤积
+            {
+              type: 'rect',
+              left: 30,
+              top: 0,
+              shape: {
+                x: 0,
+                y: 0,
+                width: 20,
+                height: 12
+              },
+              style: {
+                fill: '#E5B8A2'
+              }
+            },
+            {
+              type: 'text',
+              left: 55,
+              top: 6,
+              style: {
+                text: '河流存在淤积',
+                fontSize: 12,
+                fill: '#333'
+              }
+            }
+          ]
+        }
+      ],
       series: [
         {
           type: 'sankey',
@@ -230,7 +290,7 @@ export default function RiverSankeyMerged({
           top: '8%',
           right: '12%',
           left: '5%',
-          bottom: '8%',
+          bottom: '15%', // 增加底部空间给图例
           nodeWidth: 12,  // 节点宽度减小
           nodeGap: 10,    // 节点间距减小
           layoutIterations: 32,
