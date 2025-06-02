@@ -232,19 +232,30 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
     loadData();
   }, []);
 
-  // 更新可选水系列表
+  // 🔧 修复：更新可选水系列表 - 支持多朝代合并
   useEffect(() => {
     if (viewMode === 'waterSystem' && !isDataLoading) {
-      const dynasty = selectedDynasties.includes('overview') ? 'overview' : selectedDynasties[0];
-      const systems = Object.keys(riverInfo[dynasty] || {});
-      setAvailableWaterSystems(systems);
-      if (!systems.includes(selectedWaterSystem)) {
-        setSelectedWaterSystem(systems[0] || '');
+      const dynastiesToCheck = selectedDynasties.includes('overview') 
+        ? Object.keys(riverInfo) 
+        : selectedDynasties.filter(d => d !== 'overview');
+
+      // 合并所有选中朝代的水系列表
+      const allSystems = new Set();
+      dynastiesToCheck.forEach(dynasty => {
+        const systems = Object.keys(riverInfo[dynasty] || {});
+        systems.forEach(system => allSystems.add(system));
+      });
+
+      const systemsArray = Array.from(allSystems);
+      setAvailableWaterSystems(systemsArray);
+      
+      if (!systemsArray.includes(selectedWaterSystem)) {
+        setSelectedWaterSystem(systemsArray[0] || '');
       }
     }
   }, [viewMode, riverInfo, selectedDynasties, selectedWaterSystem, isDataLoading]);
 
-  // 主要数据加载和合并逻辑
+  // 🔧 修复：主要数据加载和合并逻辑 - 支持水系分析的多朝代合并
   useEffect(() => {
     if (isDataLoading) return;
 
@@ -268,7 +279,7 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
         newLinks = dataSet.links || [];
         newDataSourceText = `数据来源：北京历史时空数据 (${dynasty}) - 生态环境总览`;
       } else {
-        // 多朝代数据合并 - 核心逻辑
+        // 多朝代数据合并
         const combinedNodes = new Map();
         const combinedLinks = [];
         
@@ -323,14 +334,72 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
       }
 
     } else if (viewMode === 'waterSystem' && selectedWaterSystem) {
-      // 水系模式
-      const dynasty = selectedDynasties.includes('overview') ? 'overview' : selectedDynasties[0];
-      const systemData = riverInfo[dynasty]?.[selectedWaterSystem] || {};
-      newNodes = systemData.nodes || [];
-      newLinks = systemData.links || [];
+      // 🆕 水系模式：实现多朝代数据合并
+      const dynastiesToUse = selectedDynasties.includes('overview') 
+        ? Object.keys(riverInfo).filter(d => d !== 'overview')
+        : selectedDynasties.filter(d => d !== 'overview');
 
-      const totalFlow = newLinks.reduce((sum, l) => sum + (l.value || 0), 0);
-      newDataSourceText = `数据来源：北京历史时空数据 (${dynasty === 'overview' ? '全局总览' : dynasty}) - 水系: ${selectedWaterSystem} | 总流量: ${totalFlow}`;
+      if (dynastiesToUse.length === 1) {
+        // 单个朝代
+        const dynasty = dynastiesToUse[0];
+        const systemData = riverInfo[dynasty]?.[selectedWaterSystem] || {};
+        newNodes = systemData.nodes || [];
+        newLinks = systemData.links || [];
+
+        const totalFlow = newLinks.reduce((sum, l) => sum + (l.value || 0), 0);
+        newDataSourceText = `数据来源：北京历史时空数据 (${dynasty}) - 水系: ${selectedWaterSystem} | 总流量: ${totalFlow}`;
+      } else if (dynastiesToUse.length > 1) {
+        // 🆕 多朝代水系数据合并
+        const combinedNodes = new Map();
+        const combinedLinks = [];
+        
+        dynastiesToUse.forEach(dynasty => {
+          const systemData = riverInfo[dynasty]?.[selectedWaterSystem] || {};
+          const nodes = systemData.nodes || [];
+          const links = systemData.links || [];
+          
+          // 合并节点（避免重复）
+          nodes.forEach(node => {
+            const key = `${node.name}_${node.depth || 0}`;
+            if (!combinedNodes.has(key)) {
+              combinedNodes.set(key, { ...node });
+            } else {
+              // 如果节点已存在，可以考虑合并某些属性
+              const existing = combinedNodes.get(key);
+              if (node.value && existing.value) {
+                existing.value += node.value; // 累加节点值
+              }
+            }
+          });
+          
+          // 合并连接（相同source-target的值求和）
+          links.forEach(link => {
+            const existingLink = combinedLinks.find(l => 
+              l.source === link.source && l.target === link.target
+            );
+            if (existingLink) {
+              existingLink.value += link.value || 0;
+            } else {
+              combinedLinks.push({ ...link });
+            }
+          });
+        });
+        
+        newNodes = Array.from(combinedNodes.values());
+        newLinks = combinedLinks;
+        
+        const totalFlow = newLinks.reduce((sum, l) => sum + (l.value || 0), 0);
+        const displayNames = dynastiesToUse.join('、');
+        newDataSourceText = `数据来源：北京历史时空数据 (${displayNames}合并) - 水系: ${selectedWaterSystem} | 总流量: ${totalFlow}`;
+      } else {
+        // 无有效朝代
+        newDataSourceText = `数据来源：北京历史时空数据 - 水系: ${selectedWaterSystem} (当前选择无有效数据)`;
+      }
+    } else if (viewMode === 'waterSystem' && !selectedWaterSystem) {
+      const displayNames = selectedDynasties.includes('overview') 
+        ? '全局总览' 
+        : getSelectedDisplayNames().join('、');
+      newDataSourceText = `数据来源：北京历史时空数据 (${displayNames}) - 请选择一个水系`;
     }
 
     setChartData({ nodes: newNodes, links: newLinks });
@@ -360,22 +429,41 @@ const BeijingEcology = ({ legendItems = defaultLegend }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
       {/* 控制面板 */}
-      <div style={{ marginBottom: '10px' }}>
-        <label>视图模式：</label>
-        <select value={viewMode} onChange={(e) => setViewMode(e.target.value)} style={{ marginRight: '20px' }}>
-          <option value="overview">生态环境总览</option>
-          <option value="waterSystem">主要水系分析</option>
-        </select>
+      <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div>
+          <label style={{ marginRight: '8px' }}>视图模式：</label>
+          <select 
+            value={viewMode} 
+            onChange={(e) => setViewMode(e.target.value)}
+            style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc' }}
+          >
+            <option value="overview">生态环境总览</option>
+            <option value="waterSystem">主要水系分析</option>
+          </select>
+        </div>
 
         {viewMode === 'waterSystem' && (
-          <>
-            <label>选择水系：</label>
-            <select value={selectedWaterSystem} onChange={(e) => setSelectedWaterSystem(e.target.value)}>
-              {availableWaterSystems.map((ws) => (
-                <option key={ws} value={ws}>{ws}</option>
-              ))}
+          <div>
+            <label style={{ marginRight: '8px' }}>选择水系：</label>
+            <select 
+              value={selectedWaterSystem} 
+              onChange={(e) => setSelectedWaterSystem(e.target.value)}
+              style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc' }}
+            >
+              {availableWaterSystems.length > 0 ? (
+                availableWaterSystems.map((ws) => (
+                  <option key={ws} value={ws}>{ws}</option>
+                ))
+              ) : (
+                <option value="">无可用水系</option>
+              )}
             </select>
-          </>
+            {availableWaterSystems.length === 0 && (
+              <span style={{ marginLeft: '8px', fontSize: '12px', color: '#666' }}>
+                (当前朝代组合无可选水系)
+              </span>
+            )}
+          </div>
         )}
       </div>
 
