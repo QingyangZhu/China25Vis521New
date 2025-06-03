@@ -175,30 +175,57 @@ const TransportationNetwork = () => {
 
   // 创建平滑曲线的函数
   const createSmoothCurve = (coordinates) => {
-    if (coordinates.length < 2) return coordinates;
-    if (coordinates.length === 2) {
+    // 首先验证输入坐标的有效性
+    const validCoordinates = coordinates.filter(coord => {
+      return Array.isArray(coord) && 
+            coord.length >= 2 && 
+            !isNaN(coord[0]) && !isNaN(coord[1]) && 
+            isFinite(coord[0]) && isFinite(coord[1]);
+    });
+    
+    if (validCoordinates.length < 2) return [];
+    
+    if (validCoordinates.length === 2) {
       // 对于只有两个点的情况，添加一个中间点来创建轻微的弧形
-      const start = coordinates[0];
-      const end = coordinates[1];
+      const start = validCoordinates[0];
+      const end = validCoordinates[1];
+      
+      // 验证起点和终点
+      if (start[0] === end[0] && start[1] === end[1]) {
+        return [start]; // 如果是同一个点，只返回一个点
+      }
+      
       const midLat = (start[0] + end[0]) / 2;
       const midLng = (start[1] + end[1]) / 2;
       
-      // 添加轻微的偏移来创建弧形效果
+      // 计算距离，避免除零错误
       const distance = Math.sqrt(Math.pow(end[0] - start[0], 2) + Math.pow(end[1] - start[1], 2));
+      
+      if (distance === 0 || !isFinite(distance)) {
+        return [start]; // 如果距离为0或无效，只返回起点
+      }
+      
+      // 添加轻微的偏移来创建弧形效果
       const offset = distance * 0.1; // 偏移量为距离的10%
       
-      // 计算垂直方向的偏移
+      // 计算垂直方向的偏移，确保不会产生NaN
       const perpLat = -(end[1] - start[1]) / distance * offset;
       const perpLng = (end[0] - start[0]) / distance * offset;
       
-      return [start, [midLat + perpLat, midLng + perpLng], end];
+      // 验证计算结果
+      const midPoint = [midLat + perpLat, midLng + perpLng];
+      if (isNaN(midPoint[0]) || isNaN(midPoint[1]) || !isFinite(midPoint[0]) || !isFinite(midPoint[1])) {
+        return [start, end]; // 如果中点计算失败，返回原始两点
+      }
+      
+      return [start, midPoint, end];
     }
 
     const smoothCoordinates = [];
     
-    for (let i = 0; i < coordinates.length - 1; i++) {
-      const current = coordinates[i];
-      const next = coordinates[i + 1];
+    for (let i = 0; i < validCoordinates.length - 1; i++) {
+      const current = validCoordinates[i];
+      const next = validCoordinates[i + 1];
       
       smoothCoordinates.push(current);
       
@@ -213,14 +240,14 @@ const TransportationNetwork = () => {
         
         // 如果有前一个点，使用它来计算控制点
         if (i > 0) {
-          const prev = coordinates[i - 1];
+          const prev = validCoordinates[i - 1];
           controlLat += (current[0] - prev[0]) * 0.2;
           controlLng += (current[1] - prev[1]) * 0.2;
         }
         
         // 如果有后续点，也考虑它
-        if (i < coordinates.length - 2) {
-          const afterNext = coordinates[i + 2];
+        if (i < validCoordinates.length - 2) {
+          const afterNext = validCoordinates[i + 2];
           controlLat += (afterNext[0] - next[0]) * 0.1;
           controlLng += (afterNext[1] - next[1]) * 0.1;
         }
@@ -229,13 +256,23 @@ const TransportationNetwork = () => {
         const lat = current[0] * (1 - t) * (1 - t) + 2 * controlLat * (1 - t) * t + next[0] * t * t;
         const lng = current[1] * (1 - t) * (1 - t) + 2 * controlLng * (1 - t) * t + next[1] * t * t;
         
-        smoothCoordinates.push([lat, lng]);
+        // 验证插值结果
+        if (!isNaN(lat) && !isNaN(lng) && isFinite(lat) && isFinite(lng)) {
+          smoothCoordinates.push([lat, lng]);
+        }
       }
     }
     
     // 添加最后一个点
-    smoothCoordinates.push(coordinates[coordinates.length - 1]);
-    return smoothCoordinates;
+    if (validCoordinates.length > 0) {
+      smoothCoordinates.push(validCoordinates[validCoordinates.length - 1]);
+    }
+    
+    // 最终验证所有坐标
+    return smoothCoordinates.filter(coord => 
+      !isNaN(coord[0]) && !isNaN(coord[1]) && 
+      isFinite(coord[0]) && isFinite(coord[1])
+    );
   };
 
   // 地图初始化函数
@@ -474,8 +511,8 @@ const TransportationNetwork = () => {
               exact_year: columns[2],
               route_name: columns[3],
               place_name: columns[4],
-              latitude: parseFloat(columns[5]) || 0,
-              longitude: parseFloat(columns[6]) || 0,
+              latitude: isNaN(parseFloat(columns[5])) ? 0 : parseFloat(columns[5]),
+              longitude: isNaN(parseFloat(columns[6])) ? 0 : parseFloat(columns[6]),
               place_type: columns[7],
               place_years: columns[8],
               place_parent: columns[9],
@@ -681,8 +718,14 @@ const TransportationNetwork = () => {
     const nodeMap = new Map();
     
     filteredData.details.forEach(detail => {
-      // 过滤掉无效的经纬度
-      if (detail.longitude === 0 && detail.latitude === 0) return;
+      // 过滤掉无效的经纬度 - 更严格的检查
+      const lat = detail.latitude;
+      const lng = detail.longitude;
+      if (isNaN(lat) || isNaN(lng) || !isFinite(lat) || !isFinite(lng) ||
+          (lat === 0 && lng === 0) ||
+          lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+        return;
+      }
       
       const key = `${detail.latitude},${detail.longitude}`;
       if (!nodeMap.has(key)) {
@@ -715,31 +758,31 @@ const TransportationNetwork = () => {
       
       // 判断是否是重要节点（多条路线交汇）
       const isImportantNode = nodeInfo.routes.length > 1;
-      
-      // 创建自定义图标
-      const iconHtml = `
+        
+        // 创建自定义图标
+        const iconHtml = `
         <div class="${isImportantNode ? 'node-pulse' : ''}" style="
           width: ${nodeInfo.isOverseas ? 16 : 12}px;
           height: ${nodeInfo.isOverseas ? 16 : 12}px;
-          background-color: ${color};
+            background-color: ${color};
           border: ${nodeInfo.isOverseas ? '2px solid #FF4444' : '2px solid white'};
-          border-radius: 50%;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
           transition: all 0.3s ease;
           cursor: pointer;
-        "></div>
-      `;
-      
-      const customIcon = L.divIcon({
-        html: iconHtml,
-        className: 'custom-marker',
+          "></div>
+        `;
+        
+        const customIcon = L.divIcon({
+          html: iconHtml,
+          className: 'custom-marker',
         iconSize: [nodeInfo.isOverseas ? 20 : 16, nodeInfo.isOverseas ? 20 : 16],
         iconAnchor: [nodeInfo.isOverseas ? 10 : 8, nodeInfo.isOverseas ? 10 : 8]
-      });
+        });
 
       const marker = L.marker([lat, lng], {
-        icon: customIcon
-      });
+          icon: customIcon
+        });
 
       // 添加节点悬停效果
       marker.on('mouseover', function() {
@@ -788,28 +831,62 @@ const TransportationNetwork = () => {
     Object.entries(routeGroups).forEach(([routeId, routePoints]) => {
       if (routePoints.length < 2) return;
       
-      // 过滤掉无效的经纬度
-      routePoints = routePoints.filter(point => !(point.longitude === 0 && point.latitude === 0));
-      if (routePoints.length < 2) return;
-      
-      // 按顺序排序
-      routePoints.sort((a, b) => a.order_in_route - b.order_in_route);
-      
-      const dynasty = routePoints[0].dynasty;
-      const routeName = routePoints[0].route_name;
-      const color = routeColorMapping.get(routeId) || '#8C6D46';
-      
-      // 创建路线坐标数组
-      const coordinates = routePoints.map(point => [point.latitude, point.longitude]);
+    // 过滤掉无效的经纬度 - 更严格的检查
+    routePoints = routePoints.filter(point => {
+      const lat = point.latitude;
+      const lng = point.longitude;
+      // 检查是否为有效数字且不为0且在合理范围内
+      return !isNaN(lat) && !isNaN(lng) && 
+            isFinite(lat) && isFinite(lng) &&
+            !(lat === 0 && lng === 0) &&
+            lat >= -90 && lat <= 90 &&
+            lng >= -180 && lng <= 180;
+    });
+
+    if (routePoints.length < 2) return;
+
+    // 按顺序排序
+    routePoints.sort((a, b) => a.order_in_route - b.order_in_route);
+
+    const dynasty = routePoints[0].dynasty;
+    const routeName = routePoints[0].route_name;
+    const color = routeColorMapping.get(routeId) || '#8C6D46';
+
+    // 创建路线坐标数组 - 添加额外验证
+    const coordinates = routePoints.map(point => [point.latitude, point.longitude])
+      .filter(coord => !isNaN(coord[0]) && !isNaN(coord[1]) && isFinite(coord[0]) && isFinite(coord[1]));
+
+    // 再次检查过滤后的坐标数组
+    if (coordinates.length < 2) return;
       
       // 检查是否是国际路线
       const isInternational = routePoints.some(point => !isInChina(point.longitude, point.latitude));
       
       // 创建平滑曲线
       const smoothCoordinates = createSmoothCurve(coordinates);
-      
+
+      // 最终验证平滑坐标
+      if (smoothCoordinates.length < 2) {
+        console.warn(`路线 ${routeId} 的平滑坐标少于2个点，跳过创建`);
+        return;
+      }
+
+      // 再次验证所有坐标都是有效的
+      const finalCoordinates = smoothCoordinates.filter(coord => 
+        Array.isArray(coord) && coord.length >= 2 &&
+        !isNaN(coord[0]) && !isNaN(coord[1]) && 
+        isFinite(coord[0]) && isFinite(coord[1])
+      );
+
+      if (finalCoordinates.length < 2) {
+        console.warn(`路线 ${routeId} 经过最终验证后坐标少于2个点，跳过创建`);
+        return;
+      }
+
+      console.log(`创建路线 ${routeId}，坐标数量: ${finalCoordinates.length}`);
+
       // 创建路线
-      const polyline = L.polyline(smoothCoordinates, {
+      const polyline = L.polyline(finalCoordinates, {
         color: color,
         weight: isInternational ? 4 : 3,
         opacity: isInternational ? 0.9 : 0.8,
@@ -848,7 +925,7 @@ const TransportationNetwork = () => {
       linesRef.current.push(polyline);
       
       // 创建沿路径移动的动画点
-      createMovingMarker(smoothCoordinates, color, isInternational);
+      createMovingMarker(finalCoordinates, color, isInternational);
     });
 
     console.log('地图路网更新完成', { 
@@ -1032,8 +1109,8 @@ const TransportationNetwork = () => {
             卫星图
           </label>
         </div>
-      </div>
-      
+        </div>
+        
       {/* 中间地图区域 */}
       <div 
         ref={mapContainerRef}
