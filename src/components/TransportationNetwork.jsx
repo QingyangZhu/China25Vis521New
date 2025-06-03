@@ -862,40 +862,56 @@ const TransportationNetwork = () => {
       // 检查是否是国际路线
       const isInternational = routePoints.some(point => !isInChina(point.longitude, point.latitude));
       
-      // 创建平滑曲线
-      const smoothCoordinates = createSmoothCurve(coordinates);
+      // // 创建平滑曲线
+      // const smoothCoordinates = createSmoothCurve(coordinates);
 
-      // 最终验证平滑坐标
-      if (smoothCoordinates.length < 2) {
-        console.warn(`路线 ${routeId} 的平滑坐标少于2个点，跳过创建`);
-        return;
-      }
+      // // 最终验证平滑坐标
+      // if (smoothCoordinates.length < 2) {
+      //   console.warn(`路线 ${routeId} 的平滑坐标少于2个点，跳过创建`);
+      //   return;
+      // }
 
-      // 再次验证所有坐标都是有效的
-      const finalCoordinates = smoothCoordinates.filter(coord => 
-        Array.isArray(coord) && coord.length >= 2 &&
-        !isNaN(coord[0]) && !isNaN(coord[1]) && 
-        isFinite(coord[0]) && isFinite(coord[1])
-      );
+      // // 再次验证所有坐标都是有效的
+      // const finalCoordinates = smoothCoordinates.filter(coord => 
+      //   Array.isArray(coord) && coord.length >= 2 &&
+      //   !isNaN(coord[0]) && !isNaN(coord[1]) && 
+      //   isFinite(coord[0]) && isFinite(coord[1])
+      // );
 
-      if (finalCoordinates.length < 2) {
-        console.warn(`路线 ${routeId} 经过最终验证后坐标少于2个点，跳过创建`);
-        return;
-      }
+      // if (finalCoordinates.length < 2) {
+      //   console.warn(`路线 ${routeId} 经过最终验证后坐标少于2个点，跳过创建`);
+      //   return;
+      // }
 
-      console.log(`创建路线 ${routeId}，坐标数量: ${finalCoordinates.length}`);
+      // console.log(`创建路线 ${routeId}，坐标数量: ${finalCoordinates.length}`);
 
-      // 创建路线
-      const polyline = L.polyline(finalCoordinates, {
-        color: color,
-        weight: isInternational ? 4 : 3,
-        opacity: isInternational ? 0.9 : 0.8,
-        dashArray: null, // 移除默认的dashArray，让CSS控制
-        lineJoin: 'round',
-        lineCap: 'round',
-        smoothFactor: 1.0,
-        className: `route-flow-animation ${isInternational ? 'international' : 'domestic'}`
-      });
+      // // 创建路线
+      // const polyline = L.polyline(finalCoordinates, {
+      // 直接使用直线连接，不需要平滑曲线
+        console.log(`创建路线 ${routeId}，坐标数量: ${coordinates.length}`);
+
+        // 创建路线
+      //   const polyline = L.polyline(coordinates, {
+      //   color: color,
+      //   weight: isInternational ? 4 : 3,
+      //   opacity: isInternational ? 0.9 : 0.8,
+      //   dashArray: null, // 移除默认的dashArray，让CSS控制
+      //   lineJoin: 'round',
+      //   lineCap: 'round',
+      //   smoothFactor: 1.0,
+      //   className: `route-flow-animation ${isInternational ? 'international' : 'domestic'}`
+      // });
+// 创建路线
+const polyline = L.polyline(coordinates, {
+  color: color,
+  weight: isInternational ? 4 : 3,
+  opacity: isInternational ? 0.9 : 0.8,
+  dashArray: '', // 显式设置为空字符串确保实线
+  lineJoin: 'round',
+  lineCap: 'round',
+  smoothFactor: 1.0
+  // 移除className以避免CSS干扰
+});
       
       // 添加路线悬停效果
       polyline.on('mouseover', function() {
@@ -925,7 +941,7 @@ const TransportationNetwork = () => {
       linesRef.current.push(polyline);
       
       // 创建沿路径移动的动画点
-      createMovingMarker(finalCoordinates, color, isInternational);
+      createMovingMarker(coordinates, color, isInternational);
     });
 
     console.log('地图路网更新完成', { 
