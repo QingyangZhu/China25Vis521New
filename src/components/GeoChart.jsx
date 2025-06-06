@@ -193,13 +193,57 @@ const GeoChart = () => {
         }
         layerToAdd.addTo(mapInstanceRef.current); layersRef.current[layerName] = layerToAdd;
       });
+
       if (allFeatures.length > 0) {
         const bounds = L.geoJSON({ type: "FeatureCollection", features: allFeatures }).getBounds();
         if (bounds.isValid()) {
           L.imageOverlay('/data/relief.png', bounds, { opacity: 0.5 }).addTo(mapInstanceRef.current);
-           if(isInitializedRef.current && (!selectedDynasties.length || selectedDynasties.includes('overview'))) {
-             mapInstanceRef.current.fitBounds(bounds);
+
+          mapInstanceRef.current.setMaxBounds(bounds);
+          mapInstanceRef.current.options.maxBoundsViscosity = 1.0; 
+
+          let zoomLevelToShowAllData;
+
+          if (isInitializedRef.current && (!selectedDynasties.length || selectedDynasties.includes('overview'))) {
+            mapInstanceRef.current.fitBounds(bounds); // fitBounds 会适应这些边界并设置当前 zoom
+            zoomLevelToShowAllData = mapInstanceRef.current.getZoom();
+          } else {
+            // 如果没有调用 fitBounds，我们根据 bounds 计算一个合适的缩放级别
+            // map.getBoundsZoom(bounds) 会返回完整显示 bounds 所需的最佳缩放级别
+            zoomLevelToShowAllData = mapInstanceRef.current.getBoundsZoom(bounds);
+            // 确保当前地图的缩放级别不低于这个计算出来的值（如果需要立即应用的话）
+            // if (mapInstanceRef.current.getZoom() < zoomLevelToShowAllData) {
+            //   mapInstanceRef.current.setZoom(zoomLevelToShowAllData);
+            // }
           }
+          
+          // --- 核心修改点：调整 minZoom ---
+          let newMinZoom = zoomLevelToShowAllData;
+
+          // 如果您希望最小缩放级别更“近”一些，可以尝试增加 newMinZoom 的值。
+          // 例如增加 0.5 或 1.0。这将使得在达到最小缩放时，
+          // 地图数据区域占据更多屏幕空间，但代价是 maxBounds 的边缘部分
+          // 在这个最小缩放级别下可能不会完全显示在视口内（即被轻微“裁剪”）。
+          // 请根据您的视觉需求调整这个增量值，或者不增加（如果当前行为可接受）。
+          //
+          // 示例：
+          // newMinZoom += 0.5; // 尝试增加0.5
+          // 或者
+          newMinZoom += 1;   // 尝试增加1 (这个效果会更明显)
+
+          mapInstanceRef.current.setMinZoom(newMinZoom);
+
+          // 确保在设置了新的 minZoom 后，如果当前地图的 zoom 小于这个新的 minZoom，
+          // Leaflet 会自动调整到 minZoom。如果 fitBounds 刚被调用，
+          // 它的 zoom 通常会 >= newMinZoom (如果 newMinZoom = zoomLevelToShowAllData),
+          // 或者可能需要调整到新的 minZoom (如果 newMinZoom > zoomLevelToShowAllData).
+          // 通常 Leaflet 会在下一次用户交互或 invalidateSize 时处理好。
+          // 为确保立即生效，可以再检查一次：
+          if (mapInstanceRef.current.getZoom() < newMinZoom) {
+            mapInstanceRef.current.setZoom(newMinZoom);
+          }
+
+
         } else console.warn("Calculated bounds for relief map are invalid.");
       }
        if (mapInstanceRef.current) { handleZoomEnd(); }
@@ -263,7 +307,7 @@ const GeoChart = () => {
   ) => {
     if (!containerElement) return;
     if (chartInstanceRef.current) { chartInstanceRef.current.dispose(); chartInstanceRef.current = null; }
-    containerElement.innerHTML = ''; 
+    containerElement.innerHTML = '';
 
     if (!data || data.length === 0) {
       const noDataEl = document.createElement('div');
@@ -272,97 +316,96 @@ const GeoChart = () => {
       containerElement.appendChild(noDataEl);
       return;
     }
-  
+
     const sum = (field) => data.reduce((acc, r) => acc + Number(r[field] || 0), 0);
     const absSum = (field) => Math.abs(sum(field));
-    
-    // 处理数据并设置颜色
     const chartValues = attributeConfig.map(attr => {
-        const total = sum(attr.key); 
+        // ... (您的 chartValues 逻辑保持不变)
+        const total = sum(attr.key);
         let name = attr.label;
         if (attr.positiveLabel && attr.negativeLabel) {
-          if (total > 0) name = attr.positiveLabel; 
-          else if (total < 0) name = attr.negativeLabel; 
+          if (total > 0) name = attr.positiveLabel;
+          else if (total < 0) name = attr.negativeLabel;
           else name = attr.neutralLabel || attr.label;
         }
         const value = (attr.positiveLabel || attr.isMagnitude) ? absSum(attr.key) : sum(attr.key);
-        
-        // 确定这个扇形是否显示标签
         const showLabelForThisSector = (name === '人口流入' || name === '文化兴盛') && value > 0;
-
-        return { 
-            name, 
-            value,
-            // 设置每个扇形的颜色
-            itemStyle: {
-              color: getAttributeColor(attr, total)
-            },
-            label: {
-                show: showLabelForThisSector,
-                position: 'outside',
-                formatter: '{b}',
-                fontSize: 9,
-            },
-            labelLine: {
-                show: showLabelForThisSector,
-            }
+        return {
+          name,
+          value,
+          label: { show: showLabelForThisSector, position: 'outside', formatter: '{b}', fontSize: 9, },
+          labelLine: { show: showLabelForThisSector, }
         };
     });
-  
+
     const chart = echarts.init(containerElement);
     const option = {
-      title: { 
-        text: title, 
-        left: 'center', 
-        top: 8, 
-        textStyle: { 
-          fontSize: 13, 
-          fontWeight: '600',
-          color: '#8C6D46'  // 使用项目主色调
-        }
+      title: {
+        text: title,
+        left: 'center',
+        top: 8,
+        textStyle: { fontSize: 13, fontWeight: '600' }
       },
-      tooltip: { 
-        trigger: 'item', 
-        formatter: '{a} <br/>{b}: {c} ({d}%)',
-        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-        borderColor: '#DCD1BB',
-        textStyle: {
-          color: '#4A4A4A'
+      tooltip: { // MODIFIED: 详细配置 tooltip
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)', // {a} 是系列名, {b} 是数据名, {c} 是数值, {d} 是百分比
+        // confine: true, // 一个更简单的选项是设置 confine: true, Tooltip 会被限制在图表区域内
+
+        // --- 新增：自定义 tooltip 位置 ---
+        position: function (point, params, dom, rect, size) {
+          // point: 鼠标位置 [x, y]，相对于图表容器的坐标
+          // params: 触发提示的数据项信息
+          // dom: tooltip 的 DOM 节点，可以用来获取 tooltip 的实际宽高
+          // rect: 只有在 trigger 为 'axis' 时有值，这里用不到
+          // size: 包含 {contentSize: [tooltip宽, tooltip高], viewSize: [图表容器宽, 图表容器高]}
+
+          const chartContainerWidth = size.viewSize[0];
+          const chartContainerHeight = size.viewSize[1];
+          const tooltipWidth = size.contentSize[0];
+          const tooltipHeight = size.contentSize[1];
+
+          let x = point[0] + 20; // 默认尝试放在鼠标右边20px处
+          let y = point[1] - tooltipHeight / 2; // 默认尝试垂直居中于鼠标
+
+          // 如果tooltip的右边界超出了图表容器的右边界，则尝试放到鼠标左边
+          if (x + tooltipWidth > chartContainerWidth) {
+            x = point[0] - tooltipWidth - 20; // 放到鼠标左边20px处
+          }
+
+          // 确保tooltip不会超出图表容器的左边界
+          if (x < 0) {
+            x = 5; // 距离左边界5px的内边距
+          }
+
+          // 垂直方向的边界检查和调整
+          if (y < 0) { // 如果tooltip的上边界超出了图表容器的上边界
+            y = 5; // 距离上边界5px的内边距
+          } else if (y + tooltipHeight > chartContainerHeight) { // 如果tooltip的下边界超出了图表容器的下边界
+            y = chartContainerHeight - tooltipHeight - 5; // 距离下边界5px的内边距
+          }
+
+          return [x, y]; // 返回计算好的tooltip左上角坐标 [x, y]
         }
+        // --- 自定义 tooltip 位置结束 ---
       },
-      legend: { 
+      legend: {
         show: showLegend,
         top: showLegend ? 30 : 'auto',
-        left: 'center', 
-        textStyle: { 
-          fontSize: 10,
-          color: '#4A4A4A'
-        }
+        left: 'center',
+        textStyle: { fontSize: 10 }
       },
       series: [{
-        name: '属性值', 
-        type: 'pie', 
-        radius: [15, 55],
-        center: ['50%', showLegend ? '62%' : '55%'],
-        roseType: 'area',
-        itemStyle: { 
-          borderRadius: 4, 
-          borderWidth: 1,
-          borderColor: '#FFFFFF',
-          emphasis: { 
-            shadowBlur: 8, 
-            shadowOffsetX: 0, 
-            shadowColor: 'rgba(0,0,0,0.4)' 
-          }
-        },
-        label: { 
-            show: false,
-        },
-        labelLine: { 
-            show: false,
-        },
-        data: chartValues,
-      }]
+  name: '属性值',
+  type: 'pie',
+  radius: [15, 55],
+  // MODIFIED: 调整当显示图例时饼图的垂直中心位置
+  center: ['50%', showLegend ? '72%' : '55%'], 
+  roseType: 'area',
+  itemStyle: { borderRadius: 4, emphasis: { shadowBlur: 8, shadowOffsetX: 0, shadowColor: 'rgba(0,0,0,0.4)' }},
+  label: { show: false, },
+  labelLine: { show: false, },
+  data: chartValues,
+}]
     };
     chart.setOption(option);
     chartInstanceRef.current = chart;
@@ -408,9 +451,9 @@ const GeoChart = () => {
     const chartTitleSuffix = isOverview ? "总览概况" : currentDynastyNames;
     const dataForChart = (data) => specificDynastySelected ? data : [];
 
-    renderNightingaleChartInContainer(warChartInstanceRef, warChartContainerRef.current, dataForChart(warToShow), `${chartTitleSuffix}战争属性`, COMMON_ATTRIBUTE_CONFIG, true);
-    renderNightingaleChartInContainer(disasterChartInstanceRef, disasterChartContainerRef.current, dataForChart(disasterToShow), `${chartTitleSuffix}灾害属性`, COMMON_ATTRIBUTE_CONFIG, false);
-    renderNightingaleChartInContainer(eventChartInstanceRef, eventChartContainerRef.current, dataForChart(eventToShow), `${chartTitleSuffix}事件属性`, COMMON_ATTRIBUTE_CONFIG, false);
+    renderNightingaleChartInContainer(warChartInstanceRef, warChartContainerRef.current, dataForChart(warToShow), `战争属性`, COMMON_ATTRIBUTE_CONFIG, true); // Show legend for the first chart
+    renderNightingaleChartInContainer(disasterChartInstanceRef, disasterChartContainerRef.current, dataForChart(disasterToShow), `灾害属性`, COMMON_ATTRIBUTE_CONFIG, false); // Hide for others
+    renderNightingaleChartInContainer(eventChartInstanceRef, eventChartContainerRef.current, dataForChart(eventToShow), `不稳定事件属性`, COMMON_ATTRIBUTE_CONFIG, false); // Hide for others
 
   }, [warData, disasterData, eventData, selectedDynasties, isOverview, isLoading, getScaledIcon]);
 
