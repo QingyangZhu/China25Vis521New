@@ -129,7 +129,7 @@ function App() {
   );
 
   const centerBottom = (
-      <div className="chart-container map-container">
+      <div className="chart-container">
           <h3>古城地图</h3>
           {/* 地图组件 - 确保有足够的高度显示 */}
           <div style={{height: 'calc(100% - 40px)', width: '100%'}}>
