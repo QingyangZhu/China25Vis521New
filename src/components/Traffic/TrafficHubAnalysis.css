@@ -5,25 +5,8 @@
     box-sizing: border-box;
   }
   
-  .analysis-container {
-    display: flex;
-    height: 100%;
-    gap: 10px;
-  }
-  
-  .line-chart-container {
-    width: 25%;
-    height: 100%;
-    background-color: #FBF8F0D9; /* 古旧纸张色 */
-    border: 1px solid #E6D7C3;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  
-  .network-chart-container {
-    width: 75%;
+  .combined-chart-container {
+    width: 100%;
     height: 100%;
     background-color: #FBF8F0D9; /* 古旧纸张色 */
     border: 1px solid #E6D7C3;
@@ -111,14 +94,8 @@
   
   /* 响应式布局 */
   @media (max-width: 1200px) {
-    .analysis-container {
-      flex-direction: column;
-    }
-    
-    .line-chart-container,
-    .network-chart-container {
-      width: 100%;
-      height: 50%;
+    .combined-chart-container {
+      /* 在小屏幕下保持原有布局，因为现在是单一容器 */
     }
 
     /* 折线图样式 */
@@ -149,3 +126,303 @@
   }
 
   }
+
+/* 朝代详情视图样式 */
+.dynasty-detail {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background-color: #FBF8F0D9;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.dynasty-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #E6D7C3;
+}
+
+.dynasty-header h3 {
+  margin: 0;
+  color: #6B7669;
+  font-family: "'Noto Serif SC', sans-serif";
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.back-button {
+  padding: 8px 16px;
+  background-color: #9B8A70;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "'Noto Serif SC', sans-serif";
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+  position: relative;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.back-button:hover {
+  background-color: #B5A68C;
+}
+
+.back-button:active {
+  background-color: #8A7A60;
+  transform: translateY(1px);
+}
+
+.dynasty-content {
+  display: flex;
+  gap: 20px;
+  height: calc(100% - 80px);
+}
+
+.route-list {
+  flex: 1;
+  background-color: rgba(251, 248, 240, 0.5);
+  border: 1px solid #E6D7C3;
+  border-radius: 6px;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.route-list-header {
+  margin-bottom: 15px;
+}
+
+.route-list h4 {
+  margin: 0 0 10px 0;
+  color: #6B7669;
+  font-family: "'Noto Serif SC', sans-serif";
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.route-display-controls {
+  background-color: rgba(251, 248, 240, 0.7);
+  border: 1px solid #E6D7C3;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.display-mode-toggle {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 8px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #6B7669;
+  cursor: pointer;
+  font-family: "'Noto Serif SC', sans-serif";
+}
+
+.radio-label input[type="radio"] {
+  margin: 0;
+}
+
+.selection-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.clear-selection-btn {
+  padding: 4px 8px;
+  font-size: 10px;
+  background-color: #B5A68C;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: "'Noto Serif SC', sans-serif";
+  transition: background-color 0.2s ease;
+}
+
+.clear-selection-btn:hover:not(:disabled) {
+  background-color: #9B8A70;
+}
+
+.clear-selection-btn:disabled {
+  background-color: #D5CAB5;
+  cursor: not-allowed;
+}
+
+.route-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.route-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid #F0EDE6;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.route-checkbox {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2px;
+}
+
+.route-checkbox input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+.route-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+  cursor: pointer;
+}
+
+.route-item:hover {
+  background-color: rgba(155, 138, 112, 0.2);
+  border-color: #9B8A70;
+  border-left: 3px solid #9B8A70;
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(139, 69, 19, 0.15);
+  cursor: pointer;
+}
+
+.route-item:active {
+  transform: translateX(1px);
+  background-color: rgba(155, 138, 112, 0.3);
+}
+
+.route-item.selected {
+  background-color: rgba(255, 107, 53, 0.15);
+  border-color: #FF6B35;
+  border-left: 4px solid #FF6B35;
+  box-shadow: 0 2px 12px rgba(255, 107, 53, 0.2);
+}
+
+.route-item.selected:hover {
+  background-color: rgba(255, 107, 53, 0.25);
+  transform: translateX(3px);
+}
+
+.route-item.multi-selected {
+  background-color: rgba(155, 138, 112, 0.15);
+  border-color: #B5A68C;
+  border-left: 3px solid #B5A68C;
+}
+
+.route-item.multi-selected:hover {
+  background-color: rgba(155, 138, 112, 0.25);
+}
+
+.route-rank {
+  font-weight: bold;
+  color: #9B8A70;
+  font-size: 12px;
+  min-width: 25px;
+}
+
+.route-info {
+  flex: 1;
+}
+
+.route-name {
+  font-weight: bold;
+  color: #6B7669;
+  font-size: 13px;
+  margin-bottom: 5px;
+  font-family: "'Noto Serif SC', sans-serif";
+}
+
+.selected-indicator {
+  color: #FF6B35;
+  font-weight: bold;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.route-details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 11px;
+  color: #8B8B8B;
+}
+
+.route-path {
+  color: #B39B88;
+  font-weight: 500;
+}
+
+.route-score {
+  color: #C4B79C;
+  font-weight: 500;
+}
+
+.route-count {
+  color: #9B8A70;
+}
+
+.dynasty-stats {
+  flex: 0 0 300px;
+  background-color: rgba(251, 248, 240, 0.5);
+  border: 1px solid #E6D7C3;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.dynasty-stats h4 {
+  margin: 0 0 15px 0;
+  color: #6B7669;
+  font-family: "'Noto Serif SC', sans-serif";
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  border: 1px solid #F0EDE6;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #6B7669;
+  font-family: "'Noto Serif SC', sans-serif";
+}
+
+.stat-value {
+  font-weight: bold;
+  font-size: 12px;
+  color: #9B8A70;
+}

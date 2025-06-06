@@ -112,6 +112,51 @@ const useDynastyStore = create((set, get) => ({
   getPrimaryDynasty: () => {
     const selected = get().selectedDynasties;
     return selected[0] || 'overview';
+  },
+
+  // 选中的交通路线信息
+  selectedRoute: null,
+  
+  // 多选路线管理
+  selectedRoutes: [], // 多选路线数组
+  showAllRoutes: true, // true: 显示所有路线, false: 仅显示选中路线
+  
+  // 设置选中的交通路线（单选，向后兼容）
+  setSelectedRoute: (routeInfo) => {
+    console.log('🎯 Store: 设置选中路线', routeInfo);
+    set({ selectedRoute: routeInfo });
+  },
+  
+  // 切换路线的选中状态（多选）
+  toggleRouteSelection: (routeInfo) => {
+    const { selectedRoutes } = get();
+    const isSelected = selectedRoutes.some(r => 
+      r.routeName === routeInfo.routeName && r.dynasty === routeInfo.dynasty
+    );
+    
+    if (isSelected) {
+      // 取消选中
+      set({ 
+        selectedRoutes: selectedRoutes.filter(r => 
+          !(r.routeName === routeInfo.routeName && r.dynasty === routeInfo.dynasty)
+        )
+      });
+    } else {
+      // 添加选中
+      set({ selectedRoutes: [...selectedRoutes, routeInfo] });
+    }
+  },
+  
+  // 设置显示模式
+  setShowAllRoutes: (showAll) => set({ showAllRoutes: showAll }),
+  
+  // 清除所有选中的路线
+  clearAllSelectedRoutes: () => set({ selectedRoutes: [], selectedRoute: null }),
+  
+  // 清除选中的交通路线（向后兼容）
+  clearSelectedRoute: () => {
+    console.log('🎯 Store: 清除选中路线');
+    set({ selectedRoute: null });
   }
 }));
 
