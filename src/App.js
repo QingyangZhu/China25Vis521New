@@ -20,6 +20,43 @@ import qinImage from './images/秦.png';
 import TrafficHubAnalysis from './components/Traffic/TrafficHubAnalysis';
 
 
+// 物产可视化控制组件
+const ProductVisControls = ({ showDataPoints, setShowDataPoints }) => {
+  return (
+    <button
+      onClick={() => setShowDataPoints(!showDataPoints)}
+      style={{
+        padding: '4px 8px',
+        border: '1px solid #8C6D46',
+        borderRadius: '4px',
+        background: showDataPoints ? '#8C6D46' : 'white',
+        color: showDataPoints ? 'white' : '#8C6D46',
+        fontSize: '11px',
+        cursor: 'pointer',
+        fontFamily: "'Noto Serif SC', serif",
+        transition: 'all 0.2s ease',
+        whiteSpace: 'nowrap'
+      }}
+      onMouseEnter={(e) => {
+        if (showDataPoints) {
+          e.target.style.background = '#6B5B47';
+        } else {
+          e.target.style.background = 'rgba(140, 109, 70, 0.1)';
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (showDataPoints) {
+          e.target.style.background = '#8C6D46';
+        } else {
+          e.target.style.background = 'white';
+        }
+      }}
+    >
+      {showDataPoints ? '隐藏数据点' : '显示数据点'}
+    </button>
+  );
+};
+
 // 地图视图切换组件（移到App外部避免重新创建）
 const MapViewToggle = () => {
   const [currentView, setCurrentView] = React.useState('geoChart'); // 'geoChart' 或 'transportation'
@@ -107,6 +144,9 @@ const MapViewToggle = () => {
 function App() {
   // 从Zustand store获取选中的朝代
   const { selectedDynasties, getSelectedDisplayNames, getPrimaryDynasty } = useDynastyStore();
+  
+  // 物产可视化数据点显示控制状态
+  const [showDataPoints, setShowDataPoints] = React.useState(true);
 
   // 这barChartOption和legendData保持不变，用于其他图表
   const barChartOption = {
@@ -234,9 +274,17 @@ function App() {
 
 const rightTop = (
   <div className="chart-container">
-      <h3>物产分布与演变</h3>
-      <div style={{height: 'calc(100% - 40px)', width: '100%'}}>
-          <ProductVis />
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: '16px'
+      }}>
+        <h3 style={{ margin: 0 ,justifyContent: 'center'}}>物产分布与演变</h3>
+        <ProductVisControls showDataPoints={showDataPoints} setShowDataPoints={setShowDataPoints} />
+      </div>
+      <div style={{height: 'calc(100% - 56px)', width: '100%'}}>
+          <ProductVis showDataPoints={showDataPoints} />
       </div>
   </div>
 );

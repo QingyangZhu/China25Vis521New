@@ -183,6 +183,51 @@
   fill: #666;
 }
 
+/* 人口数据点样式 */
+.population-point {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.population-point:hover {
+  filter: drop-shadow(0 3px 6px rgba(139, 111, 71, 0.4));
+}
+
+.point-glow {
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 4px rgba(219, 192, 142, 0.8));
+}
+
+/* 花瓣图样式 - 确保显示在最前面 */
+.dynasty-group {
+  z-index: 9999 !important;
+  position: relative;
+}
+
+.petal {
+  z-index: 10000 !important;
+  position: relative;
+  cursor: pointer !important;
+  transition: all 0.2s ease;
+}
+
+.petal:hover {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+  transform: scale(1.05);
+}
+
+.point-core {
+  transition: all 0.3s ease;
+}
+
+.population-point:hover .point-glow {
+  filter: drop-shadow(0 0 8px rgba(219, 192, 142, 1));
+}
+
+.population-point:hover .point-core {
+  filter: drop-shadow(0 0 4px rgba(139, 111, 71, 0.8));
+}
+
 /* 自定义滚动条样式 */
 .bubble-timeline::-webkit-scrollbar {
   width: 8px;

@@ -2,14 +2,21 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import './ProductDetailView.css';
 
-const ProductDetailView = ({ dynasty, onClose, isEmbedded = false }) => {
+const ProductDetailView = ({ dynasty, category, onClose, isEmbedded = false }) => {
   const svgRef = useRef(null);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // 处理数据，构建力导向图的节点和连接
-  const processData = (rawData, selectedDynasty) => {
-    const filteredData = rawData.filter(item => item.dynasty === selectedDynasty);
+  const processData = (rawData, selectedDynasty, selectedCategory) => {
+    let filteredData = rawData.filter(item => item.dynasty === selectedDynasty);
+    
+    // 如果指定了物产大类，进一步过滤
+    if (selectedCategory) {
+      filteredData = filteredData.filter(item => 
+        item.product_category && item.product_category.includes(selectedCategory)
+      );
+    }
     
     const nodes = [];
     const links = [];
@@ -92,7 +99,7 @@ const ProductDetailView = ({ dynasty, onClose, isEmbedded = false }) => {
         const csvText = await response.text();
         const rawData = d3.csvParse(csvText);
         
-        const processedData = processData(rawData, dynasty);
+        const processedData = processData(rawData, dynasty, category);
         setData(processedData);
       } catch (error) {
         console.error('数据加载错误：', error);
@@ -104,7 +111,7 @@ const ProductDetailView = ({ dynasty, onClose, isEmbedded = false }) => {
     if (dynasty) {
       loadData();
     }
-  }, [dynasty]);
+  }, [dynasty, category]);
 
   // 绘制力导向图
   useEffect(() => {
@@ -263,7 +270,7 @@ const ProductDetailView = ({ dynasty, onClose, isEmbedded = false }) => {
       .attr('font-size', isEmbedded ? '16px' : '18px')
       .attr('font-weight', 'bold')
       .attr('fill', '#2d2520')
-      .text(`${dynasty} - 物产地名关系图`);
+      .text(`${dynasty}${category ? ` - ${category}` : ''} - 物产地名关系图`);
 
     // 添加图例
     const legend = svg.append('g')
