@@ -20,81 +20,91 @@ import qinImage from './images/秦.png';
 import TrafficHubAnalysis from './components/Traffic/TrafficHubAnalysis';
 
 
-function App() {
-    // 地图视图切换组件
-  const MapViewToggle = () => {
-      const [currentView, setCurrentView] = React.useState('geoChart'); // 'geoChart' 或 'transportation'
+// 地图视图切换组件（移到App外部避免重新创建）
+const MapViewToggle = () => {
+  const [currentView, setCurrentView] = React.useState('geoChart'); // 'geoChart' 或 'transportation'
+  const { selectedRoute } = useDynastyStore();
 
-      return (
-        <>
-          {/* 标题和切换按钮 - 同一行，标题居中 */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: '16px',
-            position: 'relative'
-          }}>
-            {/* 左侧占位 */}
-            <div style={{ flex: 1 }}></div>
-            
-            {/* 中间标题 */}
-            <h3 style={{ 
-              margin: 0,
-              flex: 1,
-              textAlign: 'center',
+  // 监听选中路线变化，自动切换到交通路网视图
+  React.useEffect(() => {
+    if (selectedRoute) {
+      console.log('🎯 App: 检测到选中路线，自动切换到交通路网视图', selectedRoute);
+      setCurrentView('transportation');
+    }
+  }, [selectedRoute]);
+
+  return (
+    <>
+      {/* 标题和切换按钮 - 同一行，标题居中 */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: '16px',
+        position: 'relative'
+      }}>
+        {/* 左侧占位 */}
+        <div style={{ flex: 1 }}></div>
+        
+        {/* 中间标题 */}
+        <h3 style={{ 
+          margin: 0,
+          flex: 1,
+          textAlign: 'center',
+          fontFamily: "'Noto Serif SC', serif",
+          color: '#8C6D46'
+        }}>
+          {currentView === 'geoChart' ? '古城地图' : '历朝历代交通路网'}
+        </h3>
+        
+        {/* 右侧按钮 */}
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <button
+            onClick={() => setCurrentView(currentView === 'geoChart' ? 'transportation' : 'geoChart')}
+            style={{
+              padding: '4px 8px',
+              border: '1px solid #8C6D46',
+              borderRadius: '4px',
+              background: currentView === 'geoChart' ? '#8C6D46' : 'white',
+              color: currentView === 'geoChart' ? 'white' : '#8C6D46',
+              fontSize: '11px',
+              cursor: 'pointer',
               fontFamily: "'Noto Serif SC', serif",
-              color: '#8C6D46'
-            }}>
-              {currentView === 'geoChart' ? '古城地图' : '历朝历代交通路网'}
-            </h3>
-            
-            {/* 右侧按钮 */}
-            <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-              <button
-                onClick={() => setCurrentView(currentView === 'geoChart' ? 'transportation' : 'geoChart')}
-                style={{
-                  padding: '4px 8px',
-                  border: '1px solid #8C6D46',
-                  borderRadius: '4px',
-                  background: currentView === 'geoChart' ? '#8C6D46' : 'white',
-                  color: currentView === 'geoChart' ? 'white' : '#8C6D46',
-                  fontSize: '11px',
-                  cursor: 'pointer',
-                  fontFamily: "'Noto Serif SC', serif",
-                  transition: 'all 0.2s ease',
-                  whiteSpace: 'nowrap'
-                }}
-                onMouseEnter={(e) => {
-                  if (currentView === 'geoChart') {
-                    e.target.style.background = '#6B5B47';
-                  } else {
-                    e.target.style.background = 'rgba(140, 109, 70, 0.1)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (currentView === 'geoChart') {
-                    e.target.style.background = '#8C6D46';
-                  } else {
-                    e.target.style.background = 'white';
-                  }
-                }}
-              >
-                {currentView === 'geoChart' ? '切换到交通路网' : '切换到古城地图'}
-              </button>
-            </div>
-          </div>
-          
-          {/* 内容区域 */}
-          <div style={{height: 'calc(100% - 40px)', width: '100%'}}>
-            {currentView === 'geoChart' ? (
-              <GeoChart />
-            ) : (
-              <TransportationNetwork />
-            )}
-          </div>
-        </>
-      );
-    };
+              transition: 'all 0.2s ease',
+              whiteSpace: 'nowrap'
+            }}
+            onMouseEnter={(e) => {
+              if (currentView === 'geoChart') {
+                e.target.style.background = '#6B5B47';
+              } else {
+                e.target.style.background = 'rgba(140, 109, 70, 0.1)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (currentView === 'geoChart') {
+                e.target.style.background = '#8C6D46';
+              } else {
+                e.target.style.background = 'white';
+              }
+            }}
+          >
+            {currentView === 'geoChart' ? '切换到交通路网' : '切换到古城地图'}
+          </button>
+        </div>
+      </div>
+      
+      {/* 内容区域 */}
+      <div style={{height: 'calc(100% - 40px)', width: '100%'}}>
+        {currentView === 'geoChart' ? (
+          <GeoChart />
+        ) : (
+          <TransportationNetwork />
+        )}
+      </div>
+    </>
+  );
+};
+
+function App() {
   // 从Zustand store获取选中的朝代
   const { selectedDynasties, getSelectedDisplayNames, getPrimaryDynasty } = useDynastyStore();
 

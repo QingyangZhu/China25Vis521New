@@ -18,6 +18,7 @@ const TransportationNetwork = () => {
   const layersRef = useRef({});
   const markersRef = useRef([]);
   const linesRef = useRef([]);
+  const routeLinesMapRef = useRef(new Map()); // 存储路线ID到polyline的映射
   
   const [routeData, setRouteData] = useState([]);
   const [detailData, setDetailData] = useState([]);
@@ -30,7 +31,7 @@ const TransportationNetwork = () => {
   });
   const [historicalOpacity, setHistoricalOpacity] = useState(0.36);
   const [mapInitialized, setMapInitialized] = useState(false);
-  const { selectedDynasties, getSelectedDisplayNames } = useDynastyStore();
+  const { selectedDynasties, getSelectedDisplayNames, selectedRoute, selectedRoutes, showAllRoutes } = useDynastyStore();
 
   // 添加组件挂载调试
   useEffect(() => {
@@ -450,20 +451,35 @@ const TransportationNetwork = () => {
   useEffect(() => {
     console.log('🎯 地图初始化 useEffect 被触发');
     
-    // 延时初始化
-    console.log('设置延时初始化...');
-    const timer = setTimeout(initMap, 300);
+    // 只有在地图未初始化且容器存在时才初始化
+    if (!mapRef.current && mapContainerRef.current) {
+      console.log('设置延时初始化...');
+      const timer = setTimeout(initMap, 300);
+      return () => clearTimeout(timer);
+    } else if (mapRef.current) {
+      console.log('✅ 地图已存在，跳过初始化');
+    } else {
+      console.log('⏳ 等待地图容器就绪...');
+      // 如果容器还没准备好，设置较短的重试
+      const timer = setTimeout(() => {
+        if (mapContainerRef.current && !mapRef.current) {
+          initMap();
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
 
+    // 清理函数仅在组件真正卸载时执行
     return () => {
-      clearTimeout(timer);
-      console.log('=== 清理地图实例 ===');
+      console.log('=== 地图组件清理 ===');
       if (mapRef.current) {
+        console.log('清理地图实例');
         mapRef.current.remove();
         mapRef.current = null;
         setMapInitialized(false);
       }
     };
-  }, []);
+  }, []); // 移除容器引用依赖，避免警告
 
   // 加载数据
   useEffect(() => {
@@ -556,18 +572,42 @@ const TransportationNetwork = () => {
     return ['全部', ...dynasties.sort()];
   }, [routeData]);
 
-  // 过滤数据基于选中的朝代
+  // 过滤数据基于选中的朝代和显示模式
   const filteredData = useMemo(() => {
+    let filteredRoutes, filteredDetails;
+    
+    // 首先按朝代过滤
     if (selectedDynasty === '全部') {
-      return { routes: routeData, details: detailData };
+      filteredRoutes = routeData;
+      filteredDetails = detailData;
+    } else {
+      filteredRoutes = routeData.filter(route => route.dynasty === selectedDynasty);
+      const routeIds = new Set(filteredRoutes.map(route => route.route_id));
+      filteredDetails = detailData.filter(detail => routeIds.has(detail.route_id));
     }
     
-    const filteredRoutes = routeData.filter(route => route.dynasty === selectedDynasty);
-    const routeIds = new Set(filteredRoutes.map(route => route.route_id));
-    const filteredDetails = detailData.filter(detail => routeIds.has(detail.route_id));
+    // 然后根据显示模式进一步过滤
+    if (!showAllRoutes && selectedRoutes.length > 0) {
+      // 仅显示选中的路线
+      const selectedRouteNames = selectedRoutes
+        .filter(r => r.dynasty === selectedDynasty)
+        .map(r => r.routeName);
+      
+      if (selectedRouteNames.length > 0) {
+        filteredRoutes = filteredRoutes.filter(route => 
+          selectedRouteNames.includes(route.route_name)
+        );
+        const selectedRouteIds = new Set(filteredRoutes.map(route => route.route_id));
+        filteredDetails = filteredDetails.filter(detail => 
+          selectedRouteIds.has(detail.route_id)
+        );
+        
+        console.log('🎯 仅显示选中路线:', selectedRouteNames, `过滤后剩余 ${filteredRoutes.length} 条路线`);
+      }
+    }
     
     return { routes: filteredRoutes, details: filteredDetails };
-  }, [routeData, detailData, selectedDynasty]);
+  }, [routeData, detailData, selectedDynasty, showAllRoutes, selectedRoutes]);
 
   // 路线颜色映射
   const routeColorMapping = useMemo(() => {
@@ -703,14 +743,92 @@ const TransportationNetwork = () => {
       mapRef.current.removeLayer(line);
     });
     linesRef.current = [];
+    
+    // 清除路线映射
+    routeLinesMapRef.current.clear();
+  };
+
+  // 更新选中路线样式（不重新绘制整个地图）
+  const updateSelectedRouteStyle = () => {
+    if (!mapRef.current || !selectedRoute) return;
+
+    console.log('🎨 更新选中路线样式:', selectedRoute);
+    console.log('🗺️ 当前地图中的所有路线键值:', Array.from(routeLinesMapRef.current.keys()));
+    
+    // 重置所有路线样式
+    routeLinesMapRef.current.forEach((polylineInfo, routeKey) => {
+      const { polyline, originalStyle } = polylineInfo;
+      polyline.setStyle({
+        color: originalStyle.color,
+        weight: originalStyle.weight,
+        opacity: originalStyle.opacity,
+        dashArray: ''
+      });
+    });
+
+    // 尝试多种匹配方式
+    const selectedKey = `${selectedRoute.dynasty}_${selectedRoute.routeName}`;
+    console.log('🔍 尝试匹配的键值:', selectedKey);
+    
+    let selectedPolylineInfo = routeLinesMapRef.current.get(selectedKey);
+    
+    // 如果直接匹配失败，尝试模糊匹配
+    if (!selectedPolylineInfo) {
+      console.log('🔍 直接匹配失败，尝试模糊匹配...');
+      for (const [routeKey, polylineInfo] of routeLinesMapRef.current.entries()) {
+        console.log('检查路线键值:', routeKey, '路线名称:', polylineInfo.routeName);
+        if (polylineInfo.routeName === selectedRoute.routeName && 
+            polylineInfo.dynasty === selectedRoute.dynasty) {
+          selectedPolylineInfo = polylineInfo;
+          console.log('✅ 模糊匹配成功:', routeKey);
+          break;
+        }
+        // 尝试路线名称的部分匹配
+        if (polylineInfo.routeName.includes(selectedRoute.routeName) || 
+            selectedRoute.routeName.includes(polylineInfo.routeName)) {
+          selectedPolylineInfo = polylineInfo;
+          console.log('✅ 部分匹配成功:', routeKey);
+          break;
+        }
+      }
+    }
+    
+    if (selectedPolylineInfo) {
+      const { polyline, originalStyle } = selectedPolylineInfo;
+      polyline.setStyle({
+        color: '#FF6B35', // 选中路线使用橙红色高亮
+        weight: originalStyle.weight + 2,
+        opacity: 1,
+        dashArray: '5, 5' // 选中路线使用虚线样式
+      });
+      console.log('✅ 选中路线样式已更新:', selectedRoute.routeName);
+    } else {
+      console.log('❌ 未找到匹配的路线:', selectedRoute);
+      console.log('📋 可用的路线列表:');
+      routeLinesMapRef.current.forEach((polylineInfo, routeKey) => {
+        console.log(`  - ${routeKey}: ${polylineInfo.routeName} (${polylineInfo.dynasty})`);
+      });
+    }
   };
 
   // 更新地图上的交通路网
   useEffect(() => {
-    if (!mapRef.current || loading || filteredData.details.length === 0) {
+    if (!mapRef.current || loading) {
+      console.log('🔄 地图或数据未准备好，跳过路网更新', { 
+        mapExists: !!mapRef.current, 
+        loading, 
+        dataLength: filteredData.details.length 
+      });
+      return;
+    }
+
+    if (filteredData.details.length === 0) {
+      console.log('🧹 清除地图元素（无数据）');
       clearMapElements();
       return;
     }
+
+    console.log('🔄 更新地图路网，选中路线:', selectedRoute?.routeName);
 
     clearMapElements();
 
@@ -890,28 +1008,31 @@ const TransportationNetwork = () => {
       // 直接使用直线连接，不需要平滑曲线
         console.log(`创建路线 ${routeId}，坐标数量: ${coordinates.length}`);
 
-        // 创建路线
-      //   const polyline = L.polyline(coordinates, {
-      //   color: color,
-      //   weight: isInternational ? 4 : 3,
-      //   opacity: isInternational ? 0.9 : 0.8,
-      //   dashArray: null, // 移除默认的dashArray，让CSS控制
-      //   lineJoin: 'round',
-      //   lineCap: 'round',
-      //   smoothFactor: 1.0,
-      //   className: `route-flow-animation ${isInternational ? 'international' : 'domestic'}`
-      // });
-// 创建路线
-const polyline = L.polyline(coordinates, {
-  color: color,
-  weight: isInternational ? 2 : 1.5,
-  opacity: isInternational ? 0.7 : 0.5,
-  dashArray: '', // 显式设置为空字符串确保实线
-  lineJoin: 'round',
-  lineCap: 'round',
-  smoothFactor: 1.0
-  // 移除className以避免CSS干扰
-});
+        // 创建路线（使用原始样式）
+      const originalStyle = {
+        color: color,
+        weight: isInternational ? 2 : 1.5,
+        opacity: isInternational ? 0.7 : 0.5
+      };
+
+      const polyline = L.polyline(coordinates, {
+        ...originalStyle,
+        dashArray: '',
+        lineJoin: 'round',
+        lineCap: 'round',
+        smoothFactor: 1.0
+      });
+
+      // 保存路线引用供后续样式更新使用
+      const routeKey = `${dynasty}_${routeName}`;
+      console.log('📝 保存路线引用:', routeKey, '路线名称:', routeName, '朝代:', dynasty);
+      routeLinesMapRef.current.set(routeKey, {
+        polyline,
+        originalStyle,
+        routeName,
+        dynasty,
+        isInternational
+      });
       
       // 添加路线悬停效果
       polyline.on('mouseover', function() {
@@ -946,14 +1067,63 @@ const polyline = L.polyline(coordinates, {
 
     console.log('地图路网更新完成', { 
       markers: markersRef.current.length, 
-      lines: linesRef.current.length 
+      lines: linesRef.current.length,
+      routeLines: routeLinesMapRef.current.size 
     });
+
+    // 路网绘制完成后，应用选中路线样式
+    if (selectedRoute) {
+      setTimeout(() => updateSelectedRouteStyle(), 100);
+    }
   }, [filteredData, loading, routeColorMapping]);
+
+  // 监听选中路线变化，只更新样式，不重新绘制地图
+  useEffect(() => {
+    console.log('🎯 selectedRoute 发生变化:', selectedRoute);
+    console.log('🗺️ 地图状态:', {
+      mapExists: !!mapRef.current,
+      routeCount: routeLinesMapRef.current.size,
+      currentDynasty: selectedDynasty
+    });
+    
+    if (mapRef.current && routeLinesMapRef.current.size > 0) {
+      console.log('🎨 selectedRoute 变化，更新路线样式');
+      updateSelectedRouteStyle();
+    } else {
+      console.log('⏳ 等待地图或路线数据准备完成...');
+      // 延时重试
+      const timer = setTimeout(() => {
+        if (mapRef.current && routeLinesMapRef.current.size > 0 && selectedRoute) {
+          console.log('🔄 延时重试更新选中路线样式');
+          updateSelectedRouteStyle();
+        }
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedRoute]);
+
+  // 监听选中路线变化，自动切换到对应朝代
+  useEffect(() => {
+    if (selectedRoute && selectedRoute.dynasty && selectedRoute.dynasty !== selectedDynasty) {
+      console.log('🎯 自动切换到选中路线的朝代:', selectedRoute.dynasty);
+      setSelectedDynasty(selectedRoute.dynasty);
+    }
+  }, [selectedRoute, selectedDynasty]); // 添加selectedDynasty依赖
 
   // 朝代切换处理
   const handleDynastyChange = (dynasty) => {
     console.log('🔄 朝代切换:', dynasty);
     setSelectedDynasty(dynasty);
+    
+    // 调试：显示切换后的路线数据
+    setTimeout(() => {
+      console.log('🔍 朝代切换后的路线数据:');
+      const dynastyRoutes = routeData.filter(route => route.dynasty === dynasty);
+      console.log(`  - ${dynasty} 朝代共有 ${dynastyRoutes.length} 条路线`);
+      dynastyRoutes.forEach(route => {
+        console.log(`    * ${route.route_name} (ID: ${route.route_id})`);
+      });
+    }, 100);
   };
 
   // 图层控制处理
