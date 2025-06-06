@@ -120,7 +120,7 @@ const GeoChart = () => {
     if (!mapRef.current || isInitializedRef.current) return false;
     try {
       mapInstanceRef.current = L.map(mapRef.current, {
-        center: [38.0, 105.0], zoom: 4, preferCanvas: true,
+        center: [39.9042, 116.4074], zoom: 6, preferCanvas: true,
       });
       isInitializedRef.current = true;
       setTimeout(() => {
@@ -199,49 +199,19 @@ const GeoChart = () => {
         if (bounds.isValid()) {
           L.imageOverlay('/data/relief.png', bounds, { opacity: 0.5 }).addTo(mapInstanceRef.current);
 
+          // 设置最大边界，避免拖动时出现空白
           mapInstanceRef.current.setMaxBounds(bounds);
-          mapInstanceRef.current.options.maxBoundsViscosity = 1.0; 
+          mapInstanceRef.current.options.maxBoundsViscosity = 1.0;
 
-          let zoomLevelToShowAllData;
-
-          if (isInitializedRef.current && (!selectedDynasties.length || selectedDynasties.includes('overview'))) {
-            mapInstanceRef.current.fitBounds(bounds); // fitBounds 会适应这些边界并设置当前 zoom
-            zoomLevelToShowAllData = mapInstanceRef.current.getZoom();
-          } else {
-            // 如果没有调用 fitBounds，我们根据 bounds 计算一个合适的缩放级别
-            // map.getBoundsZoom(bounds) 会返回完整显示 bounds 所需的最佳缩放级别
-            zoomLevelToShowAllData = mapInstanceRef.current.getBoundsZoom(bounds);
-            // 确保当前地图的缩放级别不低于这个计算出来的值（如果需要立即应用的话）
-            // if (mapInstanceRef.current.getZoom() < zoomLevelToShowAllData) {
-            //   mapInstanceRef.current.setZoom(zoomLevelToShowAllData);
-            // }
+          // 将最小缩放级别锁定为初始级别（6），保证始终以北京为中心且边界不会露出
+          const desiredZoom = 6.5;
+          mapInstanceRef.current.setMinZoom(desiredZoom);
+          // 确保当前缩放不会小于 desiredZoom
+          if (mapInstanceRef.current.getZoom() < desiredZoom) {
+            mapInstanceRef.current.setZoom(desiredZoom);
           }
-          
-          // --- 核心修改点：调整 minZoom ---
-          let newMinZoom = zoomLevelToShowAllData;
-
-          // 如果您希望最小缩放级别更“近”一些，可以尝试增加 newMinZoom 的值。
-          // 例如增加 0.5 或 1.0。这将使得在达到最小缩放时，
-          // 地图数据区域占据更多屏幕空间，但代价是 maxBounds 的边缘部分
-          // 在这个最小缩放级别下可能不会完全显示在视口内（即被轻微“裁剪”）。
-          // 请根据您的视觉需求调整这个增量值，或者不增加（如果当前行为可接受）。
-          //
-          // 示例：
-          // newMinZoom += 0.5; // 尝试增加0.5
-          // 或者
-          newMinZoom += 1;   // 尝试增加1 (这个效果会更明显)
-
-          mapInstanceRef.current.setMinZoom(newMinZoom);
-
-          // 确保在设置了新的 minZoom 后，如果当前地图的 zoom 小于这个新的 minZoom，
-          // Leaflet 会自动调整到 minZoom。如果 fitBounds 刚被调用，
-          // 它的 zoom 通常会 >= newMinZoom (如果 newMinZoom = zoomLevelToShowAllData),
-          // 或者可能需要调整到新的 minZoom (如果 newMinZoom > zoomLevelToShowAllData).
-          // 通常 Leaflet 会在下一次用户交互或 invalidateSize 时处理好。
-          // 为确保立即生效，可以再检查一次：
-          if (mapInstanceRef.current.getZoom() < newMinZoom) {
-            mapInstanceRef.current.setZoom(newMinZoom);
-          }
+          // 重新定位视图至北京（防止 fitBounds 等逻辑覆盖）
+          mapInstanceRef.current.setView([39.9042, 116.4074], desiredZoom);
 
 
         } else console.warn("Calculated bounds for relief map are invalid.");
@@ -330,9 +300,14 @@ const GeoChart = () => {
         }
         const value = (attr.positiveLabel || attr.isMagnitude) ? absSum(attr.key) : sum(attr.key);
         const showLabelForThisSector = (name === '人口流入' || name === '文化兴盛') && value > 0;
+        const color = getAttributeColor(attr,total);
+
         return {
           name,
           value,
+          itemStyle:{
+            color: color
+          },
           label: { show: showLabelForThisSector, position: 'outside', formatter: '{b}', fontSize: 9, },
           labelLine: { show: showLabelForThisSector, }
         };
@@ -353,11 +328,7 @@ const GeoChart = () => {
 
         // --- 新增：自定义 tooltip 位置 ---
         position: function (point, params, dom, rect, size) {
-          // point: 鼠标位置 [x, y]，相对于图表容器的坐标
-          // params: 触发提示的数据项信息
-          // dom: tooltip 的 DOM 节点，可以用来获取 tooltip 的实际宽高
-          // rect: 只有在 trigger 为 'axis' 时有值，这里用不到
-          // size: 包含 {contentSize: [tooltip宽, tooltip高], viewSize: [图表容器宽, 图表容器高]}
+
 
           const chartContainerWidth = size.viewSize[0];
           const chartContainerHeight = size.viewSize[1];
@@ -434,26 +405,44 @@ const GeoChart = () => {
     let warToShow = [], disasterToShow = [], eventToShow = [];
     const specificDynastySelected = !isOverview && selectedDynasties.filter(d => d !== 'overview').length > 0;
 
-    if (specificDynastySelected) {
-        warToShow = filterByDynasty(warData);
-        disasterToShow = filterByDynasty(disasterData);
-        eventToShow = filterByDynasty(eventData);
-
-        const currentZoom = mapInstanceRef.current.getZoom();
-        const initialWarIcon = getScaledIcon('war', currentZoom);
-        warToShow.forEach(loc => { const marker = L.marker([loc.latitude, loc.longitude], { icon: initialWarIcon }); marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.position || '未知地点'}</h3><p style="margin:0;">${loc.war_name}</p></div>`); marker.addTo(mapInstanceRef.current); warMarkersRef.current.push(marker); });
-        const initialDisasterIcon = getScaledIcon('disaster', currentZoom);
-        disasterToShow.forEach(loc => { const marker = L.marker([loc.latitude, loc.longitude], { icon: initialDisasterIcon }); marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.disaster_type}</h3><p style="margin:0;">${loc.position || ''}</p></div>`); marker.addTo(mapInstanceRef.current); disasterMarkersRef.current.push(marker); });
-        const initialEventIcon = getScaledIcon('event', currentZoom);
-        eventToShow.forEach(loc => { const marker = L.marker([loc.latitude, loc.longitude], { icon: initialEventIcon }); marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.event_name}</h3><p style="margin:0;">${loc.position || ''}</p></div>`); marker.addTo(mapInstanceRef.current); eventMarkersRef.current.push(marker); });
+    if (isOverview) {
+      // 当是“全局总览”时，使用所有数据
+warToShow = warData;
+   disasterToShow = disasterData;
+   eventToShow = eventData;
+  } else if (specificDynastySelected) {
+      // 当选择了具体朝代时，使用过滤后的数据
+   warToShow = filterByDynasty(warData);
+   disasterToShow = filterByDynasty(disasterData);
+   eventToShow = filterByDynasty(eventData);
+  } else {
+      // 其他情况（例如，没有选择任何朝代），显示空数据
+      warToShow = [];
+      disasterToShow = [];
+      eventToShow = [];
     }
-    
-    const chartTitleSuffix = isOverview ? "总览概况" : currentDynastyNames;
-    const dataForChart = (data) => specificDynastySelected ? data : [];
 
-    renderNightingaleChartInContainer(warChartInstanceRef, warChartContainerRef.current, dataForChart(warToShow), `战争属性`, COMMON_ATTRIBUTE_CONFIG, true); // Show legend for the first chart
-    renderNightingaleChartInContainer(disasterChartInstanceRef, disasterChartContainerRef.current, dataForChart(disasterToShow), `灾害属性`, COMMON_ATTRIBUTE_CONFIG, false); // Hide for others
-    renderNightingaleChartInContainer(eventChartInstanceRef, eventChartContainerRef.current, dataForChart(eventToShow), `不稳定事件属性`, COMMON_ATTRIBUTE_CONFIG, false); // Hide for others
+    // 2. 将 Marker 的渲染逻辑移出之前的 if 判断
+    // 这样，无论是总览还是特定朝代，只要有数据就会在地图上显示标记
+  const currentZoom = mapInstanceRef.current.getZoom();
+  
+    const initialWarIcon = getScaledIcon('war', currentZoom);
+  warToShow.forEach(loc => { const marker = L.marker([loc.latitude, loc.longitude], { icon: initialWarIcon }); marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.position || '未知地点'}</h3><p style="margin:0;">${loc.war_name}</p></div>`); marker.addTo(mapInstanceRef.current); warMarkersRef.current.push(marker); });
+  
+  const initialDisasterIcon = getScaledIcon('disaster', currentZoom);
+  disasterToShow.forEach(loc => { const marker = L.marker([loc.latitude, loc.longitude], { icon: initialDisasterIcon }); marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.disaster_type}</h3><p style="margin:0;">${loc.position || ''}</p></div>`); marker.addTo(mapInstanceRef.current); disasterMarkersRef.current.push(marker); });
+  
+  const initialEventIcon = getScaledIcon('event', currentZoom);
+  eventToShow.forEach(loc => { const marker = L.marker([loc.latitude, loc.longitude], { icon: initialEventIcon }); marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.event_name}</h3><p style="margin:0;">${loc.position || ''}</p></div>`); marker.addTo(mapInstanceRef.current); eventMarkersRef.current.push(marker); });
+  
+  const chartTitleSuffix = isOverview ? "总览概况" : currentDynastyNames;
+
+    // 3. 修改图表渲染逻辑，直接使用处理好的数据
+    // 删除了之前会阻止总览数据显示的 dataForChart 函数
+  renderNightingaleChartInContainer(warChartInstanceRef, warChartContainerRef.current, warToShow, `战争属性`, COMMON_ATTRIBUTE_CONFIG, true);
+  renderNightingaleChartInContainer(disasterChartInstanceRef, disasterChartContainerRef.current, disasterToShow, `灾害属性`, COMMON_ATTRIBUTE_CONFIG, false);
+  renderNightingaleChartInContainer(eventChartInstanceRef, eventChartContainerRef.current, eventToShow, `不稳定事件属性`, COMMON_ATTRIBUTE_CONFIG, false);
+    
 
   }, [warData, disasterData, eventData, selectedDynasties, isOverview, isLoading, getScaledIcon]);
 
