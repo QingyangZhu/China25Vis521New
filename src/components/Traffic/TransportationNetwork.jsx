@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import useDynastyStore from '../store/dynastyStore';
+import useDynastyStore from '../../store/dynastyStore';
 import './TransportationNetwork.css';
 
 // 修复leaflet默认图标问题
@@ -762,12 +762,12 @@ const TransportationNetwork = () => {
         // 创建自定义图标
         const iconHtml = `
         <div class="${isImportantNode ? 'node-pulse' : ''}" style="
-          width: ${nodeInfo.isOverseas ? 16 : 12}px;
-          height: ${nodeInfo.isOverseas ? 16 : 12}px;
+          width: ${nodeInfo.isOverseas ? 10 : 8}px;
+          height: ${nodeInfo.isOverseas ? 10 : 8}px;
             background-color: ${color};
-          border: ${nodeInfo.isOverseas ? '2px solid #FF4444' : '2px solid white'};
+          border: ${nodeInfo.isOverseas ? '1px solid #FF4444' : '1px solid white'};
             border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
           transition: all 0.3s ease;
           cursor: pointer;
           "></div>
@@ -776,8 +776,8 @@ const TransportationNetwork = () => {
         const customIcon = L.divIcon({
           html: iconHtml,
           className: 'custom-marker',
-        iconSize: [nodeInfo.isOverseas ? 20 : 16, nodeInfo.isOverseas ? 20 : 16],
-        iconAnchor: [nodeInfo.isOverseas ? 10 : 8, nodeInfo.isOverseas ? 10 : 8]
+        iconSize: [nodeInfo.isOverseas ? 10 : 8, nodeInfo.isOverseas ? 10 : 8],
+        iconAnchor: [nodeInfo.isOverseas ? 5 : 4, nodeInfo.isOverseas ? 5 : 4]
         });
 
       const marker = L.marker([lat, lng], {
@@ -904,8 +904,8 @@ const TransportationNetwork = () => {
 // 创建路线
 const polyline = L.polyline(coordinates, {
   color: color,
-  weight: isInternational ? 4 : 3,
-  opacity: isInternational ? 0.9 : 0.8,
+  weight: isInternational ? 2 : 1.5,
+  opacity: isInternational ? 0.7 : 0.5,
   dashArray: '', // 显式设置为空字符串确保实线
   lineJoin: 'round',
   lineCap: 'round',

@@ -9,7 +9,7 @@ import HistoricalDataClusterAnalysis from './components/HistoricalDataClusterAna
 import useDynastyStore from './store/dynastyStore';
 import GeoChart from "./components/GeoChart";
 import ProductVis from "./components/ProductVis";
-import TransportationNetwork from "./components/TransportationNetwork";
+import TransportationNetwork from "./components/Traffic/TransportationNetwork.jsx";
 // 在 App.js 或主组件顶部添加
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AdministrativeTree from './components/AdministrativeTree/AdministrativeTree';
@@ -17,11 +17,12 @@ import Event from './components/ReformTimeline/Event';
 import Merce from './components/Merce/Merce';
 // 图片需要放到项目public目录或使用import
 import qinImage from './images/秦.png';
+import TrafficHubAnalysis from './components/Traffic/TrafficHubAnalysis';
 
 
 function App() {
     // 地图视图切换组件
-    const MapViewToggle = () => {
+  const MapViewToggle = () => {
       const [currentView, setCurrentView] = React.useState('geoChart'); // 'geoChart' 或 'transportation'
 
       return (
@@ -191,24 +192,12 @@ function App() {
 
   const rightBottom = (
     <div className="chart-container">
-      <h3>数据统计</h3>
-      <div style={{height: 'calc(100% - 40px)', width: '100%', padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-        <div style={{
-          background: 'rgba(140, 109, 70, 0.1)',
-          padding: '20px',
-          borderRadius: '8px',
-          textAlign: 'center',
-          fontFamily: "'Noto Serif SC', serif",
-          color: '#8C6D46'
-        }}>
-          <p style={{fontSize: '16px', marginBottom: '12px'}}>数据概览</p>
-          <p style={{fontSize: '14px', margin: '8px 0'}}>历史时期: {getSelectedDisplayNames().join(', ')}</p>
-          <p style={{fontSize: '14px', margin: '8px 0'}}>数据来源: 多维历史数据库</p>
-          <p style={{fontSize: '14px', margin: '8px 0'}}>可视化组件: 6个交互式图表</p>
-        </div>
+      <h3>交通枢纽分析</h3>
+      <div style={{height: '100%', width: '100%'}}>
+        <TrafficHubAnalysis />
       </div>
     </div>
-);
+  );
 
   const centerTop = (
       <div className="chart-container">

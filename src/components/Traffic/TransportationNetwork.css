@@ -434,11 +434,11 @@
 /* 移动标记发光动画 */
 @keyframes glow {
   0% {
-    box-shadow: 0 0 5px currentColor;
+    box-shadow: 0 0 5px #B22222;
     opacity: 0.8;
   }
   100% {
-    box-shadow: 0 0 15px currentColor, 0 0 25px currentColor;
+    box-shadow: 0 0 15px #B22222, 0 0 25px rgba(178, 34, 34, 0.5);
     opacity: 1;
   }
 }
