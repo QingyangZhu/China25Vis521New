@@ -4,11 +4,12 @@ import './App.css';
 import EChartsChart from './components/EChartsChart.jsx';
 import GridLayout from './components/GridLayout';
 import HistoricalTimeline from './components/HistoricalTimeline';
-import BeijingEcology from "./components/WaterClimateVegeChartTest";
+import BeijingEcology from "./components/WaterClimateVegeChartTestEnhanced";
 import HistoricalDataClusterAnalysis from './components/HistoricalDataClusterAnalysis';
 import useDynastyStore from './store/dynastyStore';
 import GeoChart from "./components/GeoChart";
 import ProductVis from "./components/ProductVis";
+import TransportationNetwork from "./components/TransportationNetwork";
 // 在 App.js 或主组件顶部添加
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AdministrativeTree from './components/AdministrativeTree/AdministrativeTree';
@@ -19,6 +20,80 @@ import qinImage from './images/秦.png';
 
 
 function App() {
+    // 地图视图切换组件
+    const MapViewToggle = () => {
+      const [currentView, setCurrentView] = React.useState('geoChart'); // 'geoChart' 或 'transportation'
+
+      return (
+        <>
+          {/* 标题和切换按钮 - 同一行，标题居中 */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '16px',
+            position: 'relative'
+          }}>
+            {/* 左侧占位 */}
+            <div style={{ flex: 1 }}></div>
+            
+            {/* 中间标题 */}
+            <h3 style={{ 
+              margin: 0,
+              flex: 1,
+              textAlign: 'center',
+              fontFamily: "'Noto Serif SC', serif",
+              color: '#8C6D46'
+            }}>
+              {currentView === 'geoChart' ? '古城地图' : '历朝历代交通路网'}
+            </h3>
+            
+            {/* 右侧按钮 */}
+            <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+              <button
+                onClick={() => setCurrentView(currentView === 'geoChart' ? 'transportation' : 'geoChart')}
+                style={{
+                  padding: '4px 8px',
+                  border: '1px solid #8C6D46',
+                  borderRadius: '4px',
+                  background: currentView === 'geoChart' ? '#8C6D46' : 'white',
+                  color: currentView === 'geoChart' ? 'white' : '#8C6D46',
+                  fontSize: '11px',
+                  cursor: 'pointer',
+                  fontFamily: "'Noto Serif SC', serif",
+                  transition: 'all 0.2s ease',
+                  whiteSpace: 'nowrap'
+                }}
+                onMouseEnter={(e) => {
+                  if (currentView === 'geoChart') {
+                    e.target.style.background = '#6B5B47';
+                  } else {
+                    e.target.style.background = 'rgba(140, 109, 70, 0.1)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (currentView === 'geoChart') {
+                    e.target.style.background = '#8C6D46';
+                  } else {
+                    e.target.style.background = 'white';
+                  }
+                }}
+              >
+                {currentView === 'geoChart' ? '切换到交通路网' : '切换到古城地图'}
+              </button>
+            </div>
+          </div>
+          
+          {/* 内容区域 */}
+          <div style={{height: 'calc(100% - 40px)', width: '100%'}}>
+            {currentView === 'geoChart' ? (
+              <GeoChart />
+            ) : (
+              <TransportationNetwork />
+            )}
+          </div>
+        </>
+      );
+    };
   // 从Zustand store获取选中的朝代
   const { selectedDynasties, getSelectedDisplayNames, getPrimaryDynasty } = useDynastyStore();
 
@@ -115,11 +190,25 @@ function App() {
   );
 
   const rightBottom = (
-      <div className="chart-container">
-        <h3>水利工程与城市发展</h3>
-        
+    <div className="chart-container">
+      <h3>数据统计</h3>
+      <div style={{height: 'calc(100% - 40px)', width: '100%', padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+        <div style={{
+          background: 'rgba(140, 109, 70, 0.1)',
+          padding: '20px',
+          borderRadius: '8px',
+          textAlign: 'center',
+          fontFamily: "'Noto Serif SC', serif",
+          color: '#8C6D46'
+        }}>
+          <p style={{fontSize: '16px', marginBottom: '12px'}}>数据概览</p>
+          <p style={{fontSize: '14px', margin: '8px 0'}}>历史时期: {getSelectedDisplayNames().join(', ')}</p>
+          <p style={{fontSize: '14px', margin: '8px 0'}}>数据来源: 多维历史数据库</p>
+          <p style={{fontSize: '14px', margin: '8px 0'}}>可视化组件: 6个交互式图表</p>
+        </div>
       </div>
-  );
+    </div>
+);
 
   const centerTop = (
       <div className="chart-container">
@@ -128,15 +217,21 @@ function App() {
       </div>
   );
 
+  // const centerBottom = (
+  //     <div className="chart-container map-container">
+  //         <h3>古城地图</h3>
+  //         {/* 地图组件 - 确保有足够的高度显示 */}
+  //         <div style={{height: 'calc(100% - 40px)', width: '100%'}}>
+  //             <GeoChart/>
+  //         </div>
+  //     </div>
+  // );
+
   const centerBottom = (
-      <div className="chart-container">
-          <h3>古城地图</h3>
-          {/* 地图组件 - 确保有足够的高度显示 */}
-          <div style={{height: 'calc(100% - 40px)', width: '100%'}}>
-              <GeoChart/>
-          </div>
-      </div>
-  );
+    <div className="chart-container">
+        <MapViewToggle />
+    </div>
+);
 
 const rightTop = (
   <div className="chart-container">

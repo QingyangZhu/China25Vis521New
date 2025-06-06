@@ -1,3 +1,4 @@
+// src/components/GeoChart.jsx
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import L from 'leaflet';
 import Papa from 'papaparse';
@@ -33,6 +34,19 @@ const disasterIcon = createSvgIcon(`${ICON_BASE_PATH}disaster.svg`, BASE_SVG_ICO
 const eventIcon = createSvgIcon(`${ICON_BASE_PATH}event.svg`, BASE_SVG_ICON_SIZE);
 
 const CHART_CONTAINER_HEIGHT = '190px'; 
+
+// 古典风格配色方案 - 基于中国传统色彩的浅色调
+const ATTRIBUTE_COLORS = {
+  'regime_change': '#E8C4A0',        // 浅朱砂色 - 政权更替
+  'urban_reconstruction': '#D4C2A0', // 浅赭石色 - 城市重建
+  'urban_expansion': '#F0E4B8',      // 浅藤黄色 - 城市扩建
+  'population_change_positive': '#B8C8D4',  // 浅花青色 - 人口流入
+  'population_change_negative': '#A8B4C0',  // 降低饱和度的花青色 - 人口流出
+  'population_change_neutral': '#B0C0CC',   // 中性花青色 - 人口稳定
+  'economic_cultural_impact_positive': '#C0D4C0',  // 浅石绿色 - 文化兴盛
+  'economic_cultural_impact_negative': '#B0C4B0',  // 降低饱和度的石绿色 - 文化衰退
+  'economic_cultural_impact_neutral': '#B8CCC8'    // 中性石绿色 - 文化稳定
+};
 
 const GeoChart = () => {
   const mapRef = useRef(null);
@@ -103,7 +117,6 @@ const GeoChart = () => {
   }, [getScaledIcon]); 
 
   const initializeMap = useCallback(() => {
-    // ... (内容保持不变, 确保调用 handleZoomEnd) ...
     if (!mapRef.current || isInitializedRef.current) return false;
     try {
       mapInstanceRef.current = L.map(mapRef.current, {
@@ -123,7 +136,6 @@ const GeoChart = () => {
   }, [handleZoomEnd]); 
 
   const loadBaseMapLayers = async () => {
-    // ... (内容保持不变, 确保调用 handleZoomEnd) ...
     if (!mapInstanceRef.current) return;
     try {
       const layerUrls = [
@@ -241,7 +253,6 @@ const GeoChart = () => {
   };
 
   useEffect(() => { // CSV Data loading effect
-    // ... (内容保持不变) ...
     setIsLoading(true); setError(null);
     const parseOptions = { header: true, skipEmptyLines: true };
     const processRowAttributes = (r) => ({
@@ -267,11 +278,30 @@ const GeoChart = () => {
     });
   }, []);
 
-const renderNightingaleChartInContainer = (
-    chartInstanceRef,
-    containerElement,
-    data,
-    title,
+  // 获取属性对应的颜色
+  const getAttributeColor = (attributeConfig, value) => {
+    const { key, positiveLabel, negativeLabel } = attributeConfig;
+    
+    if (positiveLabel && negativeLabel) {
+      // 有正负值区分的属性
+      if (value > 0) {
+        return ATTRIBUTE_COLORS[`${key}_positive`];
+      } else if (value < 0) {
+        return ATTRIBUTE_COLORS[`${key}_negative`];
+      } else {
+        return ATTRIBUTE_COLORS[`${key}_neutral`];
+      }
+    } else {
+      // 普通属性
+      return ATTRIBUTE_COLORS[key] || '#E0E0E0';
+    }
+  };
+
+  const renderNightingaleChartInContainer = (
+    chartInstanceRef, 
+    containerElement, 
+    data, 
+    title, 
     attributeConfig,
     showLegend
   ) => {
@@ -289,7 +319,6 @@ const renderNightingaleChartInContainer = (
 
     const sum = (field) => data.reduce((acc, r) => acc + Number(r[field] || 0), 0);
     const absSum = (field) => Math.abs(sum(field));
-
     const chartValues = attributeConfig.map(attr => {
         // ... (您的 chartValues 逻辑保持不变)
         const total = sum(attr.key);
@@ -391,7 +420,6 @@ const renderNightingaleChartInContainer = (
   ];
   
   const updateVisualizations = useCallback(() => {
-    // ... (内容保持不变, 确保调用 renderNightingaleChartInContainer 时传递 showLegend) ...
     if (!mapInstanceRef.current || isLoading) return;
 
     [...warMarkersRef.current, ...disasterMarkersRef.current, ...eventMarkersRef.current].forEach(m => mapInstanceRef.current.removeLayer(m));
@@ -466,9 +494,8 @@ const renderNightingaleChartInContainer = (
               </div>
             )}
         </div>
-        {/* NEW: Wrapper for the group of charts */}
         <div className="geochart-sidebar">
-            <div className="charts-group-container"> {/* This div will have the overall style */}
+            <div className="charts-group-container">
                 <div ref={warChartContainerRef} className="geochart-chart-instance" style={{ height: CHART_CONTAINER_HEIGHT, minHeight: CHART_CONTAINER_HEIGHT }}></div>
                 <div ref={disasterChartContainerRef} className="geochart-chart-instance" style={{ height: CHART_CONTAINER_HEIGHT, minHeight: CHART_CONTAINER_HEIGHT }}></div>
                 <div ref={eventChartContainerRef} className="geochart-chart-instance" style={{ height: CHART_CONTAINER_HEIGHT, minHeight: CHART_CONTAINER_HEIGHT }}></div>
