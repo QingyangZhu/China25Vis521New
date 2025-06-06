@@ -5,147 +5,147 @@
       "name": "水系",
       "depth": 0,
       "itemStyle": {
-        "color": "#3498db"
+        "color": "#B7C8BD"
       }
     },
     {
       "name": "气候",
       "depth": 0,
       "itemStyle": {
-        "color": "#e74c3c"
+        "color": "#E5B8A2"
       }
     },
     {
       "name": "植被",
       "depth": 0,
       "itemStyle": {
-        "color": "#27ae60"
+        "color": "#B8C49E"
       }
     },
     {
       "name": "无改道",
       "depth": 1,
       "itemStyle": {
-        "color": "#85c1e9"
+        "color": "#DFE7D9"
       }
     },
     {
       "name": "轻微改道",
       "depth": 1,
       "itemStyle": {
-        "color": "#5dade2"
+        "color": "#CBD8D0"
       }
     },
     {
       "name": "频繁改道",
       "depth": 1,
       "itemStyle": {
-        "color": "#2980b9"
+        "color": "#B7C8BD"
       }
     },
     {
       "name": "暴雨洪水",
       "depth": 1,
       "itemStyle": {
-        "color": "#f1948a"
+        "color": "#F4D5CE"
       }
     },
     {
       "name": "大雪寒潮",
       "depth": 1,
       "itemStyle": {
-        "color": "#ec7063"
+        "color": "#F1C9BC"
       }
     },
     {
       "name": "干旱大风",
       "depth": 1,
       "itemStyle": {
-        "color": "#e74c3c"
+        "color": "#EAC0A8"
       }
     },
     {
       "name": "沙尘暴",
       "depth": 1,
       "itemStyle": {
-        "color": "#922b21"
+        "color": "#DCC9B7"
       }
     },
     {
       "name": "针叶林",
       "depth": 1,
       "itemStyle": {
-        "color": "#7fb3d3"
+        "color": "#D8E4C8"
       }
     },
     {
       "name": "阔叶林",
       "depth": 1,
       "itemStyle": {
-        "color": "#52c41a"
+        "color": "#CFDCB7"
       }
     },
     {
       "name": "混交林",
       "depth": 1,
       "itemStyle": {
-        "color": "#389e0d"
+        "color": "#C7D5A6"
       }
     },
     {
       "name": "草原草甸",
       "depth": 1,
       "itemStyle": {
-        "color": "#95de64"
+        "color": "#E5F1CF"
       }
     },
     {
       "name": "交通运输",
       "depth": 2,
       "itemStyle": {
-        "color": "#f39c12"
+        "color": "#F5D9A4"
       }
     },
     {
       "name": "防洪排水",
       "depth": 2,
       "itemStyle": {
-        "color": "#e67e22"
+        "color": "#F2CDA0"
       }
     },
     {
       "name": "生活用水",
       "depth": 2,
       "itemStyle": {
-        "color": "#d35400"
+        "color": "#EBB78C"
       }
     },
     {
       "name": "城市景观",
       "depth": 2,
       "itemStyle": {
-        "color": "#ff9f43"
+        "color": "#F7E4B6"
       }
     },
     {
       "name": "农业灌溉",
       "depth": 2,
       "itemStyle": {
-        "color": "#feca57"
+        "color": "#FAEEC5"
       }
     },
     {
       "name": "城市防御",
       "depth": 2,
       "itemStyle": {
-        "color": "#ff6b6b"
+        "color": "#F6C9BE"
       }
     },
     {
       "name": "政治象征",
       "depth": 2,
       "itemStyle": {
-        "color": "#fd79a8"
+        "color": "#F1C3D5"
       }
     }
   ],
@@ -313,70 +313,70 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "生活用水",
           "depth": 2,
           "itemStyle": {
-            "color": "#d35400"
+            "color": "#EBB78C"
           }
         },
         {
           "name": "城市景观",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff9f43"
+            "color": "#F7E4B6"
           }
         },
         {
           "name": "政治象征",
           "depth": 2,
           "itemStyle": {
-            "color": "#fd79a8"
+            "color": "#F1C3D5"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -428,42 +428,42 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         },
         {
           "name": "混交林",
           "depth": 1,
           "itemStyle": {
-            "color": "#389e0d"
+            "color": "#C7D5A6"
           }
         }
       ],
@@ -495,49 +495,49 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "频繁改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#2980b9"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -570,56 +570,56 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "频繁改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#2980b9"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "城市防御",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff6b6b"
+            "color": "#F6C9BE"
           }
         },
         {
           "name": "政治象征",
           "depth": 2,
           "itemStyle": {
-            "color": "#fd79a8"
+            "color": "#F1C3D5"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         }
       ],
@@ -673,42 +673,42 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "生活用水",
           "depth": 2,
           "itemStyle": {
-            "color": "#d35400"
+            "color": "#EBB78C"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         }
       ],
@@ -736,49 +736,49 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "频繁改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#2980b9"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "混交林",
           "depth": 1,
           "itemStyle": {
-            "color": "#389e0d"
+            "color": "#C7D5A6"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -811,49 +811,49 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "轻微改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#5dade2"
+            "color": "#CBD8D0"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "生活用水",
           "depth": 2,
           "itemStyle": {
-            "color": "#d35400"
+            "color": "#EBB78C"
           }
         }
       ],
@@ -886,49 +886,49 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "农业灌溉",
           "depth": 2,
           "itemStyle": {
-            "color": "#feca57"
+            "color": "#FAEEC5"
           }
         },
         {
           "name": "城市防御",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff6b6b"
+            "color": "#F6C9BE"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         }
       ],
@@ -961,49 +961,49 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -1036,35 +1036,35 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -1091,35 +1091,35 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         }
       ],
@@ -1142,84 +1142,84 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "频繁改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#2980b9"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "城市防御",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff6b6b"
+            "color": "#F6C9BE"
           }
         },
         {
           "name": "城市景观",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff9f43"
+            "color": "#F7E4B6"
           }
         },
         {
           "name": "农业灌溉",
           "depth": 2,
           "itemStyle": {
-            "color": "#feca57"
+            "color": "#FAEEC5"
           }
         },
         {
           "name": "生活用水",
           "depth": 2,
           "itemStyle": {
-            "color": "#d35400"
+            "color": "#EBB78C"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         },
         {
           "name": "经济林",
           "depth": 1,
           "itemStyle": {
-            "color": "#8fbc8f"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -1293,63 +1293,63 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "轻微改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#5dade2"
+            "color": "#CBD8D0"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -1397,77 +1397,77 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "频繁改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#2980b9"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "防洪排水",
           "depth": 2,
           "itemStyle": {
-            "color": "#e67e22"
+            "color": "#F2CDA0"
           }
         },
         {
           "name": "农业灌溉",
           "depth": 2,
           "itemStyle": {
-            "color": "#feca57"
+            "color": "#FAEEC5"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -1525,35 +1525,35 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         }
       ],
@@ -1576,84 +1576,84 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "频繁改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#2980b9"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "轻微改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#5dade2"
+            "color": "#CBD8D0"
           }
         },
         {
           "name": "防洪排水",
           "depth": 2,
           "itemStyle": {
-            "color": "#e67e22"
+            "color": "#F2CDA0"
           }
         },
         {
           "name": "政治象征",
           "depth": 2,
           "itemStyle": {
-            "color": "#fd79a8"
+            "color": "#F1C3D5"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -1724,70 +1724,70 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "频繁改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#2980b9"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "防洪排水",
           "depth": 2,
           "itemStyle": {
-            "color": "#e67e22"
+            "color": "#F2CDA0"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -1835,112 +1835,112 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "防洪排水",
           "depth": 2,
           "itemStyle": {
-            "color": "#e67e22"
+            "color": "#F2CDA0"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "农业灌溉",
           "depth": 2,
           "itemStyle": {
-            "color": "#feca57"
+            "color": "#FAEEC5"
           }
         },
         {
           "name": "城市景观",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff9f43"
+            "color": "#F7E4B6"
           }
         },
         {
           "name": "生活用水",
           "depth": 2,
           "itemStyle": {
-            "color": "#d35400"
+            "color": "#EBB78C"
           }
         },
         {
           "name": "城市防御",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff6b6b"
+            "color": "#F6C9BE"
           }
         },
         {
           "name": "轻微改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#5dade2"
+            "color": "#CBD8D0"
           }
         },
         {
           "name": "大雪寒潮",
           "depth": 1,
           "itemStyle": {
-            "color": "#ec7063"
+            "color": "#F1C9BC"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         },
         {
           "name": "混交林",
           "depth": 1,
           "itemStyle": {
-            "color": "#389e0d"
+            "color": "#C7D5A6"
           }
         }
       ],
@@ -2038,133 +2038,133 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "频繁改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#2980b9"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "防洪排水",
           "depth": 2,
           "itemStyle": {
-            "color": "#e67e22"
+            "color": "#F2CDA0"
           }
         },
         {
           "name": "农业灌溉",
           "depth": 2,
           "itemStyle": {
-            "color": "#feca57"
+            "color": "#FAEEC5"
           }
         },
         {
           "name": "城市防御",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff6b6b"
+            "color": "#F6C9BE"
           }
         },
         {
           "name": "政治象征",
           "depth": 2,
           "itemStyle": {
-            "color": "#fd79a8"
+            "color": "#F1C3D5"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "生活用水",
           "depth": 2,
           "itemStyle": {
-            "color": "#d35400"
+            "color": "#EBB78C"
           }
         },
         {
           "name": "城市景观",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff9f43"
+            "color": "#F7E4B6"
           }
         },
         {
           "name": "轻微改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#5dade2"
+            "color": "#CBD8D0"
           }
         },
         {
           "name": "沙尘暴",
           "depth": 1,
           "itemStyle": {
-            "color": "#922b21"
+            "color": "#DCC9B7"
           }
         },
         {
           "name": "大雪",
           "depth": 1,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         },
         {
           "name": "混交林",
           "depth": 1,
           "itemStyle": {
-            "color": "#389e0d"
+            "color": "#C7D5A6"
           }
         }
       ],
@@ -2297,112 +2297,112 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "频繁改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#2980b9"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "防洪排水",
           "depth": 2,
           "itemStyle": {
-            "color": "#e67e22"
+            "color": "#F2CDA0"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "生活用水",
           "depth": 2,
           "itemStyle": {
-            "color": "#d35400"
+            "color": "#EBB78C"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "农业灌溉",
           "depth": 2,
           "itemStyle": {
-            "color": "#feca57"
+            "color": "#FAEEC5"
           }
         },
         {
           "name": "城市防御",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff6b6b"
+            "color": "#F6C9BE"
           }
         },
         {
           "name": "城市景观",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff9f43"
+            "color": "#F7E4B6"
           }
         },
         {
           "name": "轻微改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#5dade2"
+            "color": "#CBD8D0"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         },
         {
           "name": "经济林",
           "depth": 1,
           "itemStyle": {
-            "color": "#8fbc8f"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -2515,112 +2515,112 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "生活用水",
           "depth": 2,
           "itemStyle": {
-            "color": "#d35400"
+            "color": "#EBB78C"
           }
         },
         {
           "name": "防洪排水",
           "depth": 2,
           "itemStyle": {
-            "color": "#e67e22"
+            "color": "#F2CDA0"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "农业灌溉",
           "depth": 2,
           "itemStyle": {
-            "color": "#feca57"
+            "color": "#FAEEC5"
           }
         },
         {
           "name": "城市景观",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff9f43"
+            "color": "#F7E4B6"
           }
         },
         {
           "name": "频繁改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#2980b9"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "轻微改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#5dade2"
+            "color": "#CBD8D0"
           }
         },
         {
           "name": "暴雨洪水",
           "depth": 1,
           "itemStyle": {
-            "color": "#f1948a"
+            "color": "#F4D5CE"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         },
         {
           "name": "经济林",
           "depth": 1,
           "itemStyle": {
-            "color": "#8fbc8f"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -2743,49 +2743,49 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -2818,63 +2818,63 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "防洪排水",
           "depth": 2,
           "itemStyle": {
-            "color": "#e67e22"
+            "color": "#F2CDA0"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "轻微改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#5dade2"
+            "color": "#CBD8D0"
           }
         },
         {
           "name": "频繁改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#2980b9"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "高温寒潮大风",
           "depth": 1,
           "itemStyle": {
-            "color": "#cc0000"
+            "color": "#F1C9BC"
           }
         }
       ],
@@ -2937,35 +2937,35 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         }
       ],
@@ -2988,196 +2988,196 @@
           "name": "水系",
           "depth": 0,
           "itemStyle": {
-            "color": "#3498db"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "气候",
           "depth": 0,
           "itemStyle": {
-            "color": "#e74c3c"
+            "color": "#E5B8A2"
           }
         },
         {
           "name": "植被",
           "depth": 0,
           "itemStyle": {
-            "color": "#27ae60"
+            "color": "#B8C49E"
           }
         },
         {
           "name": "无改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#85c1e9"
+            "color": "#DFE7D9"
           }
         },
         {
           "name": "生活用水",
           "depth": 2,
           "itemStyle": {
-            "color": "#d35400"
+            "color": "#EBB78C"
           }
         },
         {
           "name": "无明确功能",
           "depth": 2,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "农业灌溉",
           "depth": 2,
           "itemStyle": {
-            "color": "#feca57"
+            "color": "#FAEEC5"
           }
         },
         {
           "name": "城市景观",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff9f43"
+            "color": "#F7E4B6"
           }
         },
         {
           "name": "频繁改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#2980b9"
+            "color": "#B7C8BD"
           }
         },
         {
           "name": "防洪排水",
           "depth": 2,
           "itemStyle": {
-            "color": "#e67e22"
+            "color": "#F2CDA0"
           }
         },
         {
           "name": "交通运输",
           "depth": 2,
           "itemStyle": {
-            "color": "#f39c12"
+            "color": "#F5D9A4"
           }
         },
         {
           "name": "轻微改道",
           "depth": 1,
           "itemStyle": {
-            "color": "#5dade2"
+            "color": "#CBD8D0"
           }
         },
         {
           "name": "城市防御",
           "depth": 2,
           "itemStyle": {
-            "color": "#ff6b6b"
+            "color": "#F6C9BE"
           }
         },
         {
           "name": "未知改道情况",
           "depth": 1,
           "itemStyle": {
-            "color": "#a9a9a9"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "高温干旱大风",
           "depth": 1,
           "itemStyle": {
-            "color": "#ff4500"
+            "color": "#EAC0A8"
           }
         },
         {
           "name": "干旱",
           "depth": 1,
           "itemStyle": {
-            "color": "#deb887"
+            "color": "#EAC0A8"
           }
         },
         {
           "name": "大风",
           "depth": 1,
           "itemStyle": {
-            "color": "#add8e6"
+            "color": "#CBD8D0"
           }
         },
         {
           "name": "无",
           "depth": 1,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "暴雨",
           "depth": 1,
           "itemStyle": {
-            "color": "#ff6347"
+            "color": "#F4D5CE"
           }
         },
         {
           "name": "暴雨洪水",
           "depth": 1,
           "itemStyle": {
-            "color": "#f1948a"
+            "color": "#F4D5CE"
           }
         },
         {
           "name": "混交林",
           "depth": 1,
           "itemStyle": {
-            "color": "#389e0d"
+            "color": "#C7D5A6"
           }
         },
         {
           "name": "阔叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#52c41a"
+            "color": "#CFDCB7"
           }
         },
         {
           "name": "草原",
           "depth": 1,
           "itemStyle": {
-            "color": "#9acd32"
+            "color": "#E5F1CF"
           }
         },
         {
           "name": "针叶林",
           "depth": 1,
           "itemStyle": {
-            "color": "#7fb3d3"
+            "color": "#D8E4C8"
           }
         },
         {
           "name": "落叶灌丛",
           "depth": 1,
           "itemStyle": {
-            "color": "#bdb76b"
+            "color": "#C7D5A6"
           }
         },
         {
           "name": "灌草丛",
           "depth": 1,
           "itemStyle": {
-            "color": "#f0e68c"
+            "color": "#FAEEC5"
           }
         },
         {
           "name": "草甸",
           "depth": 1,
           "itemStyle": {
-            "color": "#CCCCCC"
+            "color": "#E0E0E0"
           }
         },
         {
           "name": "农田",
           "depth": 1,
           "itemStyle": {
-            "color": "#fafad2"
+            "color": "#FAEEC5"
           }
         }
       ],

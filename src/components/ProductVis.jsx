@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as d3 from 'd3';
 import './ProductVis.css';
-import DynastyDetailView from './DynastyDetailView';
+import ProductDetailView from './ProductDetailView';
 
 const ProductVis = () => {
   const mainRef = useRef(null);
@@ -924,7 +924,7 @@ const ProductVis = () => {
           <button className="back-button" onClick={handleCloseDetailView}>
             ← 返回
           </button>
-          <DynastyDetailView 
+          <ProductDetailView 
             dynasty={selectedDynastyForDetail}
             onClose={handleCloseDetailView}
             isEmbedded={true}

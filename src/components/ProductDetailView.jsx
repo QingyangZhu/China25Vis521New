@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import './DynastyDetailView.css';
+import './ProductDetailView.css';
 
-const DynastyDetailView = ({ dynasty, onClose, isEmbedded = false }) => {
+const ProductDetailView = ({ dynasty, onClose, isEmbedded = false }) => {
   const svgRef = useRef(null);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -335,4 +335,4 @@ const DynastyDetailView = ({ dynasty, onClose, isEmbedded = false }) => {
   );
 };
 
-export default DynastyDetailView; 
+export default ProductDetailView; 

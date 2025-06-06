@@ -5,17 +5,17 @@ import useDynastyStore from '../store/dynastyStore';
 
 // Default图例 (can remain as is, or be made dynamic if needed)
 const defaultLegend = [
-  { color: '#3498db', label: '水系数据源' },
-  { color: '#e74c3c', label: '气候数据源' },
-  { color: '#27ae60', label: '植被数据源' },
-  { color: '#f39c12', label: '交通运输' }, // Example of a common 'impact' node
-  { color: '#e67e22', label: '防洪排水' },
-  { color: '#d35400', label: '生活用水' },
-  { color: '#ff9f43', label: '城市景观' },
-  { color: '#feca57', label: '农业灌溉' },
-  { color: '#ff6b6b', label: '城市防御' },
-  { color: '#fd79a8', label: '政治象征' },
-  { color: '#B0BEC5', label: '未知功能'}, // For '未知功能'
+  { color: '#B7C8BD', label: '水系数据源' },
+  { color: '#E5B8A2', label: '气候数据源' },
+  { color: '#B8C49E', label: '植被数据源' },
+  { color: '#F5D9A4', label: '交通运输' }, // Example of a common 'impact' node
+  { color: '#F2CDA0', label: '防洪排水' },
+  { color: '#EBB78C', label: '生活用水' },
+  { color: '#F7E4B6', label: '城市景观' },
+  { color: '#FAEEC5', label: '农业灌溉' },
+  { color: '#F6C9BE', label: '城市防御' },
+  { color: '#F1C3D5', label: '政治象征' },
+  { color: '#E0E0E0', label: '未知功能'}, // For '未知功能'
 ];
 
 const initialDataSourceText = '数据加载中...';
@@ -357,11 +357,11 @@ const BeijingEcology = ({
       let waterCount = 0;
 
       if (newLinks.length > 0) {
-        climateCount = newLinks.filter(l => newNodes.find(n => n.name === l.source && n.itemStyle?.color === '#e74c3c'))
+        climateCount = newLinks.filter(l => newNodes.find(n => n.name === l.source && n.itemStyle?.color === '#E5B8A2'))
                                 .reduce((sum, l) => sum + (l.value || 0), 0);
-        vegeCount = newLinks.filter(l => newNodes.find(n => n.name === l.source && n.itemStyle?.color === '#27ae60'))
+        vegeCount = newLinks.filter(l => newNodes.find(n => n.name === l.source && n.itemStyle?.color === '#B8C49E'))
                              .reduce((sum, l) => sum + (l.value || 0), 0);
-        waterCount = newLinks.filter(l => newNodes.find(n => n.name === l.source && n.itemStyle?.color === '#3498db'))
+        waterCount = newLinks.filter(l => newNodes.find(n => n.name === l.source && n.itemStyle?.color === '#B7C8BD'))
                               .reduce((sum, l) => sum + (l.value || 0), 0);
       }
 

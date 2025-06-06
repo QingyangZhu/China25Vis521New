@@ -331,7 +331,7 @@ const HistoricalDataClusterAnalysis = () => {
       .attr("x", width / 2).attr("y", height + 40)
       .style("text-anchor", "middle")
       .style("font-family", "'Noto Serif SC', serif")
-      .style("font-size", "12px").style("fill", "#4A4A4A")
+      .style("font-size", "14px").style("fill", "#4A4A4A")
       .text(`PC1 (${(pcaResult.pc1Variance * 100).toFixed(1)}%)`);
     
     g.append("text")
@@ -339,7 +339,7 @@ const HistoricalDataClusterAnalysis = () => {
       .attr("x", -height / 2).attr("y", -40)
       .style("text-anchor", "middle")
       .style("font-family", "'Noto Serif SC', serif")
-      .style("font-size", "12px").style("fill", "#4A4A4A")
+      .style("font-size", "14px").style("fill", "#4A4A4A")
       .text(`PC2 (${(pcaResult.pc2Variance * 100).toFixed(1)}%)`);
     
     // 网格线
@@ -377,11 +377,11 @@ const HistoricalDataClusterAnalysis = () => {
           .style("fill", "rgba(0,0,0,0.8)").style("rx", 4);
         
         tooltip.append("text").attr("x", 5).attr("y", -10)
-          .style("fill", "white").style("font-size", "10px").text(`朝代: ${d.dynasty}`);
+          .style("fill", "white").style("font-size", "11px").text(`朝代: ${d.dynasty}`);
         tooltip.append("text").attr("x", 5).attr("y", 5)
-          .style("fill", "white").style("font-size", "10px").text(`聚类: ${d.cluster + 1}`);
+          .style("fill", "white").style("font-size", "11px").text(`聚类: ${d.cluster + 1}`);
         tooltip.append("text").attr("x", 5).attr("y", 15)
-          .style("fill", "white").style("font-size", "10px").text(`PC1: ${d.pc1.toFixed(2)}, PC2: ${d.pc2.toFixed(2)}`);
+          .style("fill", "white").style("font-size", "11px").text(`PC1: ${d.pc1.toFixed(2)}, PC2: ${d.pc2.toFixed(2)}`);
       })
       .on("mouseout", function() {
         d3.select(this).attr("r", 4).style("opacity", 0.8);
@@ -405,7 +405,7 @@ const HistoricalDataClusterAnalysis = () => {
         d3.select(this).append("text")
           .attr("x", 15).attr("y", 8)
           .text(`聚类 ${d.cluster + 1}`)
-          .style("font-size", "9px")
+          .style("font-size", "11px")
           .style("font-family", "'Noto Serif SC', serif")
           .style("fill", "#4A4A4A")
           .style("opacity", d.hasData ? 1 : 0.6);
@@ -414,7 +414,7 @@ const HistoricalDataClusterAnalysis = () => {
           d3.select(this).append("text")
             .attr("x", 15).attr("y", 18)
             .text("(无数据)")
-            .style("font-size", "7px")
+            .style("font-size", "9px")
             .style("font-family", "'Noto Serif SC', serif")
             .style("fill", "#4A4A4A")
             .style("opacity", 0.5);
@@ -476,11 +476,11 @@ const HistoricalDataClusterAnalysis = () => {
         d3.select(this).selectAll("text")
           .style("fill", "#4A4A4A")
           .style("font-family", "'Noto Serif SC', serif")
-          .style("font-size", "10px");
+          .style("font-size", "12px");
         d3.select(this).append("text")
           .style("text-anchor", "middle").attr("y", height + 20)
           .text(labels[i])
-          .style("fill", "#4A4A4A").style("font-size", "10px")
+          .style("fill", "#4A4A4A").style("font-size", "12px")
           .style("font-family", "'Noto Serif SC', serif");
       });
     
@@ -500,7 +500,7 @@ const HistoricalDataClusterAnalysis = () => {
         d3.select(this).append("text")
           .attr("x", 15).attr("y", 8)
           .text(`聚类 ${d.cluster + 1}`)
-          .style("font-size", "9px")
+          .style("font-size", "11px")
           .style("font-family", "'Noto Serif SC', serif")
           .style("fill", "#4A4A4A")
           .style("opacity", d.hasData ? 1 : 0.6);
@@ -509,7 +509,7 @@ const HistoricalDataClusterAnalysis = () => {
           d3.select(this).append("text")
             .attr("x", 15).attr("y", 18)
             .text("(无数据)")
-            .style("font-size", "7px")
+            .style("font-size", "9px")
             .style("font-family", "'Noto Serif SC', serif")
             .style("fill", "#4A4A4A")
             .style("opacity", 0.5);
@@ -578,7 +578,7 @@ const HistoricalDataClusterAnalysis = () => {
       g.append("text")
         .attr("x", x * 1.15).attr("y", y * 1.15)
         .text(labels[i])
-        .style("text-anchor", "middle").style("font-size", "10px")
+        .style("text-anchor", "middle").style("font-size", "12px")
         .style("font-family", "'Noto Serif SC', serif").style("fill", "#4A4A4A");
     });
     
@@ -626,7 +626,7 @@ const HistoricalDataClusterAnalysis = () => {
       legendItem.append("text")
         .attr("x", 15).attr("y", 8)
         .text(`聚类 ${cluster + 1}`)
-        .style("font-size", "9px")
+        .style("font-size", "11px")
         .style("font-family", "'Noto Serif SC', serif")
         .style("fill", "#4A4A4A")
         .style("opacity", hasData ? 1 : 0.6);
@@ -635,7 +635,7 @@ const HistoricalDataClusterAnalysis = () => {
         legendItem.append("text")
           .attr("x", 15).attr("y", 18)
           .text("(无数据)")
-          .style("font-size", "7px")
+          .style("font-size", "9px")
           .style("font-family", "'Noto Serif SC', serif")
           .style("fill", "#4A4A4A")
           .style("opacity", 0.5);
@@ -693,7 +693,7 @@ const HistoricalDataClusterAnalysis = () => {
         .attr("y", i * cellSize + cellSize / 2)
         .text(d.value.toFixed(2))
         .style("text-anchor", "middle").style("dominant-baseline", "middle")
-        .style("font-size", "10px").style("font-weight", "bold")
+        .style("font-size", "12px").style("font-weight", "bold")
         .style("fill", Math.abs(d.value) > 0.5 ? "white" : "black");
     });
     
@@ -703,14 +703,14 @@ const HistoricalDataClusterAnalysis = () => {
         .attr("x", -5).attr("y", i * cellSize + cellSize / 2)
         .text(label)
         .style("text-anchor", "end").style("dominant-baseline", "middle")
-        .style("font-size", "9px")
+        .style("font-size", "11px")
         .style("font-family", "'Noto Serif SC', serif")
         .style("fill", "#4A4A4A");
       
       g.append("text")
         .attr("x", i * cellSize + cellSize / 2).attr("y", -5)
         .text(label)
-        .style("text-anchor", "middle").style("font-size", "9px")
+        .style("text-anchor", "middle").style("font-size", "11px")
         .style("font-family", "'Noto Serif SC', serif")
         .style("fill", "#4A4A4A");
     });
@@ -752,12 +752,12 @@ const HistoricalDataClusterAnalysis = () => {
       .call(legendAxis)
       .selectAll("text")
       .style("font-family", "'Noto Serif SC', serif")
-      .style("font-size", "8px").style("fill", "#4A4A4A");
+      .style("font-size", "10px").style("fill", "#4A4A4A");
     
     legendG.append("text")
       .attr("x", legendWidth / 2).attr("y", -3)
       .text("相关性系数")
-      .style("text-anchor", "middle").style("font-size", "9px")
+      .style("text-anchor", "middle").style("font-size", "11px")
       .style("font-family", "'Noto Serif SC', serif")
       .style("fill", "#4A4A4A");
     
@@ -783,17 +783,17 @@ const HistoricalDataClusterAnalysis = () => {
         marginBottom: '10px',
         padding: '0 5px'
       }}>
-        <h3 style={{ margin: 0, fontSize: '14px', color: '#8C6D46' }}>
+        <h3 style={{ margin: 0, fontSize: '16px', color: '#8C6D46' }}>
           历史数据聚类与相关性分析
         </h3>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '11px', color: '#4A4A4A' }}>数据类型:</span>
+          <span style={{ fontSize: '12px', color: '#4A4A4A' }}>数据类型:</span>
           <select
             value={selectedDataType}
             onChange={(e) => setSelectedDataType(e.target.value)}
             style={{
               padding: '2px 6px',
-              fontSize: '11px',
+              fontSize: '12px',
               border: '1px solid #DCD1BB',
               borderRadius: '3px',
               backgroundColor: '#F5F1E4',
@@ -809,7 +809,7 @@ const HistoricalDataClusterAnalysis = () => {
 
       {/* 状态信息 */}
       <div style={{ 
-        fontSize: '10px', 
+        fontSize: '11px', 
         color: '#4A4A4A', 
         marginBottom: '8px',
         textAlign: 'center'
@@ -869,7 +869,7 @@ const HistoricalDataClusterAnalysis = () => {
           alignItems: 'center', 
           justifyContent: 'center',
           color: '#777',
-          fontSize: '12px'
+          fontSize: '14px'
         }}>
           当前选择没有可显示的数据
         </div>
