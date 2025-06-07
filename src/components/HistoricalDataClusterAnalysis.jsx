@@ -774,7 +774,7 @@ const HistoricalDataClusterAnalysis = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', paddingBottom: '10px' }}>
       {/* 控制面板 */}
       <div style={{
         display: 'flex',
@@ -833,11 +833,11 @@ const HistoricalDataClusterAnalysis = () => {
 
       {/* 图表区域 */}
       {clusteredData.length > 0 ? (
-        <div style={{ 
-          display: 'flex', 
-          flex: 1, 
+        <div style={{
+          display: 'flex',
+          flex: 1,
           gap: '8px',
-          height: 'calc(100% - 60px)' 
+          minHeight: 0
         }}>
           <div style={{ 
             flex: 1, 
