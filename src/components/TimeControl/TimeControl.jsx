@@ -410,7 +410,7 @@ const TimeControl = ({ onDynastyClick }) => {
                 return timeScaleLineY - barHeight;
             })
             .attr("width", 8)
-            .attr("height", d => yScaleBars(d.development))
+            .attr("height", d => Math.max(0, yScaleBars(d.development)))
             .on("mouseover", function(event, d) {
                 // 显示tooltip
                 tooltip
@@ -593,7 +593,7 @@ const TimeControl = ({ onDynastyClick }) => {
                 .attr("x", d => xScale(d.year))
                 .attr("y", 0)
                 .attr("width", 1.5)
-                .attr("height", d => yScale(d.scale))
+                .attr("height", d => Math.max(0, yScale(d.scale)))
                 .attr("fill", d => d.type === 'reform' ? '#A5A8AD' : '#D4A574')
                 .attr("opacity", 0.8);
 

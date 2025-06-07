@@ -138,7 +138,7 @@ const Merce = ({ dynastyName = '金', startYear = 1115, endYear = 1234 }) => {
               .attr("x", baseX)
               .attr("y", margin.top)
               .attr("width", traditionalWidth)
-              .attr("height", yScale2(d.traditional) - margin.top)
+              .attr("height", Math.max(0, yScale2(d.traditional) - margin.top))
               .attr("fill", colors.business.traditional)
               .style("cursor", "pointer")
               .on("mouseover", function (event) {
@@ -164,7 +164,7 @@ const Merce = ({ dynastyName = '金', startYear = 1115, endYear = 1234 }) => {
               .attr("x", baseX + traditionalWidth)
               .attr("y", margin.top)
               .attr("width", advancedWidth)
-              .attr("height", yScale2(d.advanced) - margin.top)
+              .attr("height", Math.max(0, yScale2(d.advanced) - margin.top))
               .attr("fill", colors.business.advanced)
               .style("cursor", "pointer")
               .on("mouseover", function (event) {
@@ -200,7 +200,7 @@ const Merce = ({ dynastyName = '金', startYear = 1115, endYear = 1234 }) => {
               .attr("x", baseX)
               .attr("y", margin.top)
               .attr("width", traditionalWidth)
-              .attr("height", yScale2(d.traditional) - margin.top)
+              .attr("height", Math.max(0, yScale2(d.traditional) - margin.top))
               .attr("fill", colors.craft.traditional)
               .style("cursor", "pointer")
               .on("mouseover", function (event) {
@@ -226,7 +226,7 @@ const Merce = ({ dynastyName = '金', startYear = 1115, endYear = 1234 }) => {
               .attr("x", baseX + traditionalWidth)
               .attr("y", margin.top)
               .attr("width", advancedWidth)
-              .attr("height", yScale2(d.advanced) - margin.top)
+              .attr("height", Math.max(0, yScale2(d.advanced) - margin.top))
               .attr("fill", colors.craft.advanced)
               .style("cursor", "pointer")
               .on("mouseover", function (event) {
@@ -262,7 +262,7 @@ const Merce = ({ dynastyName = '金', startYear = 1115, endYear = 1234 }) => {
               .attr("x", baseX)
               .attr("y", margin.top)
               .attr("width", traditionalWidth)
-              .attr("height", yScale2(d.traditional) - margin.top)
+              .attr("height", Math.max(0, yScale2(d.traditional) - margin.top))
               .attr("fill", colors.tech.traditional)
               .style("cursor", "pointer")
               .on("mouseover", function (event) {
@@ -288,7 +288,7 @@ const Merce = ({ dynastyName = '金', startYear = 1115, endYear = 1234 }) => {
               .attr("x", baseX + traditionalWidth)
               .attr("y", margin.top)
               .attr("width", advancedWidth)
-              .attr("height", yScale2(d.advanced) - margin.top)
+              .attr("height", Math.max(0, yScale2(d.advanced) - margin.top))
               .attr("fill", colors.tech.advanced)
               .style("cursor", "pointer")
               .on("mouseover", function (event) {
@@ -310,13 +310,18 @@ const Merce = ({ dynastyName = '金', startYear = 1115, endYear = 1234 }) => {
         }
       });
 
-      // 获取水平数据
-      const levelData = dynastyData.map(d => ({
+      // 获取水平数据，添加空数据防护
+      const levelData = dynastyData.length > 0 ? dynastyData.map(d => ({
         business: +d['商业水平'] || 0,
         craft: +d['手工业水平'] || 0,
         tech: +d['技术水平'] || 0,
         trade: +d['外贸水平'] || 0
-      }))[0];
+      }))[0] : {
+        business: 0,
+        craft: 0,
+        tech: 0,
+        trade: 0
+      };
 
       // 创建水平曲线生成器
       const line = d3.line()
@@ -335,8 +340,10 @@ const Merce = ({ dynastyName = '金', startYear = 1115, endYear = 1234 }) => {
         levelData.trade
       ];
 
-      // 绘制水平曲线
-      const path = svg2.append("path")
+      // 只有在有数据时才绘制水平曲线
+      if (dynastyData.length > 0) {
+        // 绘制水平曲线
+        const path = svg2.append("path")
         .datum(values)
         .attr("fill", "none")
         .attr("stroke", "#be9c79")
@@ -452,6 +459,7 @@ const Merce = ({ dynastyName = '金', startYear = 1115, endYear = 1234 }) => {
           .attr("fill", "#666")
           .text(item.label);
       });
+      }
 
     }).catch(function (error) {
       console.error("读取或处理文件出错：", error);

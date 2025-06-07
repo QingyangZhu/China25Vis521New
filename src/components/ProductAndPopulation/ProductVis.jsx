@@ -1099,7 +1099,7 @@ const ProductVis = ({
       .join('circle')
       .attr('class', 'bubble')
       .attr('cx', d => xScale(d.dynasty) + xScale.bandwidth()/2)
-      .attr('cy', d => yScale(d.product) + yScale.bandwidth()/2)
+      .attr('cy', d => yScale(d.product) + Math.max(0, yScale.bandwidth())/2)
       .attr('r', d => rScale(d.count))
       .style('fill', d => colorScale(d.category))
       .style('opacity', 0.8);

@@ -642,7 +642,7 @@ const ProductDetailView = ({ dynasty, category, onClose, isEmbedded = false }) =
       .attr('x', d => xScale(d.name))
       .attr('y', d => yScale(d.frequency))
       .attr('width', xScale.bandwidth())
-      .attr('height', d => chartInnerHeight - yScale(d.frequency))
+      .attr('height', d => Math.max(0, chartInnerHeight - yScale(d.frequency)))
       .attr('rx', 3)
       .attr('ry', 3)
       .attr('fill', '#a0947b')
