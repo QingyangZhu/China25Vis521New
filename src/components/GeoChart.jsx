@@ -551,7 +551,12 @@ warToShow = warData;
   useEffect(() => { // Update visualizations when data or selections change
     if (isInitializedRef.current && mapInstanceRef.current && !isLoading) {
       updateVisualizations();
-      mapInstanceRef.current.invalidateSize(false);
+      // 使用setTimeout异步处理invalidateSize，避免ResizeObserver循环
+      setTimeout(() => {
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.invalidateSize(false);
+        }
+      }, 0);
     }
   }, [selectedDynasties, warData, disasterData, eventData, isLoading, updateVisualizations]);
 

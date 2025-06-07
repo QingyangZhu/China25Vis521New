@@ -160,6 +160,49 @@
   height: 16px;
 }
 
+/* 古城数据控制样式 */
+.city-data-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(140, 109, 70, 0.2);
+  position: relative;
+  z-index: 1001;
+  pointer-events: auto;
+}
+
+.city-data-controls span {
+  font-size: 13px;
+  color: #6B5B47;
+  font-weight: 500;
+  pointer-events: auto;
+}
+
+/* 古城数据标记样式 */
+.city-data-marker {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.city-data-marker:hover {
+  transform: scale(1.2);
+  z-index: 1000;
+}
+
+.city-data-war {
+  filter: drop-shadow(0 2px 4px rgba(212, 156, 106, 0.5));
+}
+
+.city-data-disaster {
+  filter: drop-shadow(0 2px 4px rgba(160, 193, 184, 0.5));
+}
+
+.city-data-event {
+  filter: drop-shadow(0 2px 4px rgba(184, 164, 142, 0.5));
+}
+
 .opacity-control {
   display: flex;
   align-items: center;

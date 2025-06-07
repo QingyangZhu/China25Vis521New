@@ -672,8 +672,17 @@ const BeijingHistoryGraph = () => {
 
   // 加载数据并初始化图形
   useEffect(() => {
-    const width = 1000;
-    const height = 430;
+    // 获取容器的实际尺寸
+    const container = svgRef.current.parentElement;
+    const containerRect = container.getBoundingClientRect();
+    const width = containerRect.width || 1000;
+    const height = containerRect.height || 430;
+    
+    // 设置SVG尺寸
+    d3.select(svgRef.current)
+      .attr("width", width)
+      .attr("height", height);
+    
     const g = d3.select(svgRef.current).append("g");
     gRef.current = g;
     simulation = d3.forceSimulation()
@@ -719,20 +728,94 @@ const BeijingHistoryGraph = () => {
           .style("fill", "#666")
           .text("数据加载出现错误，但将继续显示可用数据");
       });
+
+    // 添加窗口大小变化监听器（使用防抖和异步处理避免ResizeObserver循环）
+    let resizeTimeout;
+    const handleResize = () => {
+      // 清除之前的定时器
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
+      }
+      
+      // 使用setTimeout异步处理，避免在ResizeObserver回调中直接修改DOM
+      resizeTimeout = setTimeout(() => {
+        if (svgRef.current && svgRef.current.parentElement) {
+          const container = svgRef.current.parentElement;
+          const containerRect = container.getBoundingClientRect();
+          const newWidth = containerRect.width || 1000;
+          const newHeight = containerRect.height || 430;
+          
+          // 检查尺寸是否真的发生了变化
+          const currentWidth = parseFloat(d3.select(svgRef.current).attr("width")) || 0;
+          const currentHeight = parseFloat(d3.select(svgRef.current).attr("height")) || 0;
+          
+          if (Math.abs(newWidth - currentWidth) > 1 || Math.abs(newHeight - currentHeight) > 1) {
+            // 使用requestAnimationFrame进一步延迟DOM操作
+            requestAnimationFrame(() => {
+              // 更新SVG尺寸
+              d3.select(svgRef.current)
+                .attr("width", newWidth)
+                .attr("height", newHeight);
+              
+              // 更新力导向图的中心点
+              if (simulation) {
+                simulation.force("center", d3.forceCenter(newWidth / 2, newHeight / 2));
+                simulation.alpha(0.3).restart();
+              }
+            });
+          }
+        }
+      }, 100); // 100ms防抖延迟
+    };
+
+    // 使用ResizeObserver监听容器大小变化
+    let resizeObserver;
+    if (svgRef.current && svgRef.current.parentElement) {
+      try {
+        resizeObserver = new ResizeObserver((entries) => {
+          // 检查是否有实际的尺寸变化
+          for (const entry of entries) {
+            const { width, height } = entry.contentRect;
+            if (width > 0 && height > 0) {
+              handleResize();
+              break; // 只处理第一个有效的resize事件
+            }
+          }
+        });
+        resizeObserver.observe(svgRef.current.parentElement);
+      } catch (error) {
+        console.warn('ResizeObserver创建失败，使用window resize作为备选方案:', error);
+        // 如果ResizeObserver失败，只使用window resize
+        window.addEventListener('resize', handleResize);
+      }
+    }
+
+    // 监听窗口大小变化作为备选方案
+    if (!resizeObserver) {
+      window.addEventListener('resize', handleResize);
+    }
     return () => {
+      // 清理定时器
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
+      }
+      
       if (simulation) {
         simulation.stop();
       }
       if (gRef.current) {
         gRef.current.remove();
       }
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   return (
     <div className="beijing-history-graph">
       <div className="beiheader">
-        <h1>北京历史知识图谱</h1>
         <p className="subtitle">探索北京历史事件与人物关系</p>
       </div>
       <div id="top-controls-container">
@@ -781,8 +864,7 @@ const BeijingHistoryGraph = () => {
           <svg
             id="knowledgeGraph"
             ref={svgRef}
-            width="1000"
-            height="430"
+            style={{ width: '100%', height: '100%' }}
           ></svg>
           <div id="legend-overlay" ref={legendPanelRef}></div>
         </div>

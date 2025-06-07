@@ -157,7 +157,38 @@ const useDynastyStore = create((set, get) => ({
   clearSelectedRoute: () => {
     console.log('🎯 Store: 清除选中路线');
     set({ selectedRoute: null });
-  }
+  },
+
+  // 古城数据状态
+  cityData: {
+    warData: [],
+    disasterData: [],
+    eventData: [],
+    loading: false
+  },
+  
+  // 设置古城数据
+  setCityData: (data) => set({ 
+    cityData: { 
+      ...get().cityData, 
+      ...data 
+    } 
+  }),
+  
+  // 古城数据显示控制
+  showCityDataInCharts: {
+    war: false,
+    disaster: false,
+    event: false
+  },
+  
+  // 设置古城数据显示状态
+  setShowCityDataInCharts: (showStates) => set({
+    showCityDataInCharts: { 
+      ...get().showCityDataInCharts, 
+      ...showStates 
+    }
+  })
 }));
 
 export default useDynastyStore;

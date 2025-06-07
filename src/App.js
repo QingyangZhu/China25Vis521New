@@ -8,7 +8,7 @@ import HistoricalTimeline from './components/HistoricalTimeline';
 import BeijingEcology from "./components/WaterClimateVegeChartTestEnhanced";
 import HistoricalDataClusterAnalysis from './components/HistoricalDataClusterAnalysis';
 import useDynastyStore from './store/dynastyStore';
-import GeoChart from "./components/GeoChart";
+
 import ProductVis from "./components/ProductAndPopulation/ProductVis.jsx";
 import TransportationNetwork from "./components/Traffic/TransportationNetwork.jsx";
 // 在 App.js 或主组件顶部添加
@@ -23,6 +23,7 @@ import DynastyInfo from './components/DynastyInfo/DynastyInfo';
 import MerceArea from './components/MerceArea/MerceArea';
 
 import TrafficHubAnalysis from './components/Traffic/TrafficHubAnalysis';
+import CityDataCharts from './components/Traffic/CityDataCharts';
 
 // 物产可视化控制组件
 const ProductVisControls = ({ showDataPoints, setShowDataPoints, showDetailView, showWordCloud, onCloseDetailView, onCloseWordCloud }) => {
@@ -100,9 +101,9 @@ const ProductVisControls = ({ showDataPoints, setShowDataPoints, showDetailView,
   );
 };
 
-// 地图视图切换组件（移到App外部避免重新创建）
-const MapViewToggle = () => {
-  const [currentView, setCurrentView] = React.useState('geoChart'); // 'geoChart' 或 'transportation'
+// 中心顶部区域切换组件（包含两个视图：历史知识图谱、交通路网）
+const CenterTopViewToggle = () => {
+  const [currentView, setCurrentView] = React.useState('historyGraph'); // 'historyGraph', 'transportation'
   const { selectedRoute } = useDynastyStore();
 
   // 监听选中路线变化，自动切换到交通路网视图
@@ -112,6 +113,24 @@ const MapViewToggle = () => {
       setCurrentView('transportation');
     }
   }, [selectedRoute]);
+
+  const getViewTitle = () => {
+    switch (currentView) {
+      case 'historyGraph': return '北京历史知识图谱';
+      case 'transportation': return '历朝历代交通路网';
+      default: return '北京历史知识图谱';
+    }
+  };
+
+  const getButtonLabel = (view) => {
+    switch (view) {
+      case 'historyGraph': return '知识图谱';
+      case 'transportation': return '交通路网';
+      default: return '知识图谱';
+    }
+  };
+
+  const views = ['historyGraph', 'transportation'];
 
   return (
     <>
@@ -133,52 +152,52 @@ const MapViewToggle = () => {
           fontFamily: "'Noto Serif SC', serif",
           color: '#8C6D46'
         }}>
-          {currentView === 'geoChart' ? '古城地图' : '历朝历代交通路网'}
+          {getViewTitle()}
         </h3>
         
-        {/* 右侧按钮 */}
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-          <button
-            onClick={() => setCurrentView(currentView === 'geoChart' ? 'transportation' : 'geoChart')}
-            style={{
-              padding: '4px 8px',
-              border: '1px solid #8C6D46',
-              borderRadius: '4px',
-              background: currentView === 'geoChart' ? '#8C6D46' : 'white',
-              color: currentView === 'geoChart' ? 'white' : '#8C6D46',
-              fontSize: '11px',
-              cursor: 'pointer',
-              fontFamily: "'Noto Serif SC', serif",
-              transition: 'all 0.2s ease',
-              whiteSpace: 'nowrap'
-            }}
-            onMouseEnter={(e) => {
-              if (currentView === 'geoChart') {
-                e.target.style.background = '#6B5B47';
-              } else {
-                e.target.style.background = 'rgba(140, 109, 70, 0.1)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (currentView === 'geoChart') {
-                e.target.style.background = '#8C6D46';
-              } else {
-                e.target.style.background = 'white';
-              }
-            }}
-          >
-            {currentView === 'geoChart' ? '切换到交通路网' : '切换到古城地图'}
-          </button>
+        {/* 右侧按钮组 */}
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', gap: '4px' }}>
+          {views.map((view) => (
+            <button
+              key={view}
+              onClick={() => setCurrentView(view)}
+              style={{
+                padding: '4px 8px',
+                border: '1px solid #8C6D46',
+                borderRadius: '4px',
+                background: currentView === view ? '#8C6D46' : 'white',
+                color: currentView === view ? 'white' : '#8C6D46',
+                fontSize: '11px',
+                cursor: 'pointer',
+                fontFamily: "'Noto Serif SC', serif",
+                transition: 'all 0.2s ease',
+                whiteSpace: 'nowrap'
+              }}
+              onMouseEnter={(e) => {
+                if (currentView === view) {
+                  e.target.style.background = '#6B5B47';
+                } else {
+                  e.target.style.background = 'rgba(140, 109, 70, 0.1)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (currentView === view) {
+                  e.target.style.background = '#8C6D46';
+                } else {
+                  e.target.style.background = 'white';
+                }
+              }}
+            >
+              {getButtonLabel(view)}
+            </button>
+          ))}
         </div>
       </div>
       
       {/* 内容区域 */}
       <div style={{height: 'calc(100% - 40px)', width: '100%'}}>
-        {currentView === 'geoChart' ? (
-          <GeoChart />
-        ) : (
-          <TransportationNetwork />
-        )}
+        {currentView === 'historyGraph' && <BeijingHistoryGraph />}
+        {currentView === 'transportation' && <TransportationNetwork />}
       </div>
     </>
   );
@@ -190,6 +209,26 @@ function App() {
   const [endYear, setEndYear] = useState(608);
   const [selectedDynasties, setSelectedDynasties] = useState(new Set(["隋"]));
   const [viewMode, setViewMode] = useState('comprehensive');
+
+  // 添加全局错误处理器来抑制ResizeObserver错误
+  useEffect(() => {
+    const handleError = (event) => {
+      if (event.message && event.message.includes('ResizeObserver loop completed with undelivered notifications')) {
+        // 抑制ResizeObserver循环错误，这是一个已知的浏览器问题
+        console.warn('ResizeObserver错误已被抑制:', event.message);
+        event.preventDefault();
+        return false;
+      }
+    };
+
+    // 监听全局错误
+    window.addEventListener('error', handleError);
+    
+    // 清理函数
+    return () => {
+      window.removeEventListener('error', handleError);
+    };
+  }, []);
 
   // 添加缺失的状态变量
   const [selectedView, setSelectedView] = useState('overview');
@@ -208,9 +247,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   // 地图数据
-  const [geoChartData, setGeoChartData] = useState([]);
   const [beijingEcologyData, setBeijingEcologyData] = useState([]);
-  const geoChartRef = useRef(null);
   const beijingEcologyRef = useRef(null);
 
   // 读取数据
@@ -221,14 +258,7 @@ function App() {
     d3.csv('/data/人口/人口_change.csv').then(setPopulationData);
   }, []);
 
-  // 加载 GeoChart 数据
-  useEffect(() => {
-    d3.csv('/data/geo_chart_data.csv').then(data => {
-      setGeoChartData(data);
-    }).catch(error => {
-      console.error('Error loading GeoChart data:', error);
-    });
-  }, []);
+
 
   // 加载 BeijingEcology 数据
   useEffect(() => {
@@ -277,7 +307,13 @@ function App() {
   };
 
   // 从Zustand store获取选中的朝代
-  const { getSelectedDisplayNames, getPrimaryDynasty } = useDynastyStore();
+  const { 
+    getSelectedDisplayNames, 
+    getPrimaryDynasty, 
+    cityData, 
+    showCityDataInCharts, 
+    selectedDynasties: storeDynasties 
+  } = useDynastyStore();
 
   // 这barChartOption和legendData保持不变，用于其他图表
   const barChartOption = {
@@ -427,26 +463,67 @@ function App() {
 
   const centerTop = (
       <div className="chart-container">
-        {/* 替换为历史数据聚类与相关性分析组件 */}
-        <BeijingHistoryGraph />
+        <CenterTopViewToggle />
       </div>
   );
 
-  // const centerBottom = (
-  //     <div className="chart-container map-container">
-  //         <h3>古城地图</h3>
-  //         {/* 地图组件 - 确保有足够的高度显示 */}
-  //         <div style={{height: 'calc(100% - 40px)', width: '100%'}}>
-  //             <GeoChart/>
-  //         </div>
-  //     </div>
-  // );
+
+
+  // 使用从顶层获取的古城数据
+  const { warData, disasterData, eventData } = cityData;
+  const currentDynasty = storeDynasties.includes('overview') ? '全部' : storeDynasties[0];
+  
+  // 检查是否有数据需要显示
+  const hasDataToShow = (showCityDataInCharts.war && warData.length > 0) ||
+                       (showCityDataInCharts.disaster && disasterData.length > 0) ||
+                       (showCityDataInCharts.event && eventData.length > 0);
 
   const centerBottom = (
     <div className="chart-container">
-        <MapViewToggle />
+      <h3 style={{ 
+        textAlign: 'center',
+        fontFamily: "'Noto Serif SC', serif",
+        color: '#8C6D46',
+        margin: '8px 0'
+      }}>
+        古城数据属性分析
+      </h3>
+      
+      <div style={{ height: 'calc(100% - 48px)', width: '100%' }}>
+        {hasDataToShow ? (
+          <CityDataCharts 
+            warData={warData}
+            disasterData={disasterData}
+            eventData={eventData}
+            selectedDynasty={currentDynasty}
+            showCityData={showCityDataInCharts}
+          />
+        ) : (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            color: '#8C6D46',
+            fontSize: '16px',
+            fontFamily: "'Noto Serif SC', serif"
+          }}>
+            <div style={{ textAlign: 'center' }}>
+              <p>请在交通路网地图中勾选古城数据项：</p>
+              <ul style={{ listStyle: 'none', padding: 0, lineHeight: '2' }}>
+                <li>⚔️ 战争数据</li>
+                <li>🌪️ 灾害数据</li>
+                <li>📜 事件数据</li>
+              </ul>
+              <p style={{ fontSize: '14px', color: '#999', marginTop: '16px' }}>
+                选择后将在此处显示对应的属性分析图表
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
-);
+  );
 
 const rightTop = (
   <div className="chart-container">
@@ -603,15 +680,6 @@ const rightTop = (
     setStartYear(startYear);
     setEndYear(endYear);
 
-    // 更新 GeoChart 数据
-    if (geoChartRef.current) {
-        const filteredData = geoChartData.filter(item => {
-            const year = parseInt(item.year);
-            return year >= startYear && year <= endYear;
-        });
-        geoChartRef.current.updateData(filteredData);
-    }
-
     // 更新 BeijingEcology 数据
     if (beijingEcologyRef.current) {
         const filteredData = beijingEcologyData.filter(item => {
@@ -625,15 +693,6 @@ const rightTop = (
   const handleTimeRangeChange = (startYear, endYear) => {
     setStartYear(startYear);
     setEndYear(endYear);
-
-    // 更新 GeoChart 数据
-    if (geoChartRef.current) {
-        const filteredData = geoChartData.filter(item => {
-            const year = parseInt(item.year);
-            return year >= startYear && year <= endYear;
-        });
-        geoChartRef.current.updateData(filteredData);
-    }
 
     // 更新 BeijingEcology 数据
     if (beijingEcologyRef.current) {

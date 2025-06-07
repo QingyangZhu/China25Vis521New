@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as d3 from 'd3';
 import Papa from 'papaparse';
 import useDynastyStore from '../../store/dynastyStore';
@@ -39,6 +39,8 @@ const TrafficHubAnalysis = () => {
   const [error, setError] = useState(null);
   const [selectedDynasty, setSelectedDynasty] = useState(null); // 选中的朝代
   const chartContainerRef = useRef(null);
+  
+  console.log('TrafficHubAnalysis 渲染，selectedDynasty:', selectedDynasty);
   const { 
     setSelectedRoute, 
     clearSelectedRoute, 
@@ -192,7 +194,7 @@ const TrafficHubAnalysis = () => {
 
 // 合并绘制柱状图和网络图
 useEffect(() => {
-    if ((!dynastyData.length || !hubData.length || !trafficToolsData.length || !chartContainerRef.current || loading || selectedDynasty !== null)) return;
+    if ((!dynastyData.length || !hubData.length || !trafficToolsData.length || !chartContainerRef.current || loading)) return;
   
     console.log('Drawing combined charts with data:', { dynastyData, hubData });
   
@@ -201,6 +203,11 @@ useEffect(() => {
   
     const containerWidth = chartContainerRef.current.clientWidth;
     const containerHeight = chartContainerRef.current.clientHeight;
+    
+    // 如果容器过小，不绘制图表
+    if (containerWidth < 100 || containerHeight < 100) {
+      return;
+    }
     
     // 布局配置：左侧25%为柱状图，右侧75%为网络图
     const barChartWidth = containerWidth * 0.25;
@@ -214,8 +221,8 @@ useEffect(() => {
 
     // ==================== 绘制柱状图部分 ====================
     const barChartMargin = { top: 20, right: 10, bottom: 20, left: 30 }; // 增加左边距从20到40
-    const barChartInnerWidth = barChartWidth - barChartMargin.left - barChartMargin.right;
-    const barChartInnerHeight = containerHeight - barChartMargin.top - barChartMargin.bottom;
+    const barChartInnerWidth = Math.max(0, barChartWidth - barChartMargin.left - barChartMargin.right);
+    const barChartInnerHeight = Math.max(0, containerHeight - barChartMargin.top - barChartMargin.bottom);
   
     const barChartGroup = svg.append('g')
       .attr('transform', `translate(${barChartMargin.left},${barChartMargin.top})`);
@@ -250,23 +257,24 @@ useEffect(() => {
       .padding(0.1);
   
     // X轴比例尺，最大值固定为100，但实际绘制宽度只占容器的80%
-    const maxBarWidth = barChartInnerWidth * 0.8; // 柱状图最大宽度只占容器的80%
+    const maxBarWidth = Math.max(0, barChartInnerWidth * 0.8); // 柱状图最大宽度只占容器的80%
     const xScale = d3.scaleLinear()
       .domain([0, 100]) // 固定最大值为100
       .range([0, maxBarWidth]);
   
         // 绘制柱状图
-    barChartGroup.selectAll('.bar')
-      .data(dynastyChartData)
-      .enter().append('rect')
-      .attr('class', 'bar')
-      .attr('x', 0)
-      .attr('y', d => yScale(d.dynasty))
-      .attr('width', d => xScale(d.score))
-      .attr('height', yScale.bandwidth())
-      .attr('fill', d => selectedDynasty === d.dynasty ? colorScheme.accent : colorScheme.primary)
-      .attr('opacity', 0.8)
-      .style('cursor', 'pointer')
+    if (dynastyChartData.length > 0 && maxBarWidth > 0) {
+      barChartGroup.selectAll('.bar')
+        .data(dynastyChartData)
+        .enter().append('rect')
+        .attr('class', 'bar')
+        .attr('x', 0)
+        .attr('y', d => yScale(d.dynasty))
+        .attr('width', d => Math.max(0, xScale(d.score)))
+        .attr('height', yScale.bandwidth())
+        .attr('fill', d => selectedDynasty === d.dynasty ? colorScheme.accent : colorScheme.primary)
+        .attr('opacity', 0.8)
+        .style('cursor', 'pointer')
       .on('mouseover', function(event, d) {
         d3.select(this).attr('opacity', 1);
         
@@ -297,67 +305,68 @@ useEffect(() => {
         } else {
           setSelectedDynasty(d.dynasty); // 选择新的朝代
         }
-      });
-  
-    // 添加Y轴（朝代轴）- 美化样式
-    const yAxis = barChartGroup.append('g')
-      .attr('class', 'y-axis')
-      .call(d3.axisLeft(yScale));
+              });
+
+      // 添加Y轴（朝代轴）- 美化样式
+      const yAxis = barChartGroup.append('g')
+        .attr('class', 'y-axis')
+        .call(d3.axisLeft(yScale));
+      
+      // 美化坐标轴线条
+      yAxis.select('.domain')
+        .style('stroke', colorScheme.secondary)
+        .style('stroke-width', '2px')
+        .style('opacity', 0.8);
+      
+      // 美化刻度线
+      yAxis.selectAll('.tick line')
+        .style('stroke', colorScheme.grid)
+        .style('stroke-width', '1px')
+        .style('opacity', 0.6);
+      
+      // 美化文字标签
+      yAxis.selectAll('text')
+        .style('font-size', '10px')
+        .style('font-family', "'Noto Serif SC', sans-serif")
+        .style('fill', colorScheme.text)
+        .style('font-weight', '500');
+      
+      // 添加水平网格线（可选，增强可读性）
+      const gridLines = barChartGroup.append('g')
+        .attr('class', 'grid-lines')
+        .selectAll('line')
+        .data(dynastyChartData)
+        .enter().append('line')
+        .attr('x1', 0)
+        .attr('x2', maxBarWidth)
+        .attr('y1', d => yScale(d.dynasty) + yScale.bandwidth() / 2)
+        .attr('y2', d => yScale(d.dynasty) + yScale.bandwidth() / 2)
+        .style('stroke', colorScheme.grid)
+        .style('stroke-width', '0.5px')
+        .style('stroke-dasharray', '2,2')
+        .style('opacity', 0.3);
+      
+      // 添加右侧边框线以增强视觉效果
+      barChartGroup.append('line')
+        .attr('x1', maxBarWidth)
+        .attr('y1', 0)
+        .attr('x2', maxBarWidth)
+        .attr('y2', barChartInnerHeight)
+        .style('stroke', colorScheme.grid)
+        .style('stroke-width', '1px')
+        .style('opacity', 0.4);
     
-    // 美化坐标轴线条
-    yAxis.select('.domain')
-      .style('stroke', colorScheme.secondary)
-      .style('stroke-width', '2px')
-      .style('opacity', 0.8);
-    
-    // 美化刻度线
-    yAxis.selectAll('.tick line')
-      .style('stroke', colorScheme.grid)
-      .style('stroke-width', '1px')
-      .style('opacity', 0.6);
-    
-    // 美化文字标签
-    yAxis.selectAll('text')
-      .style('font-size', '10px')
-      .style('font-family', "'Noto Serif SC', sans-serif")
-      .style('fill', colorScheme.text)
-      .style('font-weight', '500');
-    
-    // 添加水平网格线（可选，增强可读性）
-    const gridLines = barChartGroup.append('g')
-      .attr('class', 'grid-lines')
-      .selectAll('line')
-      .data(dynastyChartData)
-      .enter().append('line')
-      .attr('x1', 0)
-      .attr('x2', maxBarWidth)
-      .attr('y1', d => yScale(d.dynasty) + yScale.bandwidth() / 2)
-      .attr('y2', d => yScale(d.dynasty) + yScale.bandwidth() / 2)
-      .style('stroke', colorScheme.grid)
-      .style('stroke-width', '0.5px')
-      .style('stroke-dasharray', '2,2')
-      .style('opacity', 0.3);
-    
-    // 添加右侧边框线以增强视觉效果
-    barChartGroup.append('line')
-      .attr('x1', maxBarWidth)
-      .attr('y1', 0)
-      .attr('x2', maxBarWidth)
-      .attr('y2', barChartInnerHeight)
-      .style('stroke', colorScheme.grid)
-      .style('stroke-width', '1px')
-      .style('opacity', 0.4);
-  
-    // 添加柱状图标题
-    barChartGroup.append('text')
-      .attr('x', barChartInnerWidth / 2 - 20) // 向左偏移15px
-      .attr('y', -5)
-      .attr('text-anchor', 'middle')
-      .style('font-size', '12px')
-      .style('font-weight', 'bold')
-      .style('font-family', "'Noto Serif SC', sans-serif")
-      .style('fill', colorScheme.text)
-      .text('朝代发展水平综合得分');
+      // 添加柱状图标题
+      barChartGroup.append('text')
+        .attr('x', barChartInnerWidth / 2 - 20) // 向左偏移15px
+        .attr('y', -5)
+        .attr('text-anchor', 'middle')
+        .style('font-size', '12px')
+        .style('font-weight', 'bold')
+        .style('font-family', "'Noto Serif SC', sans-serif")
+        .style('fill', colorScheme.text)
+        .text('朝代发展水平综合得分');
+    }
 
     // 添加纵向分隔线 - 向左偏移，美化样式
     svg.append('line')
@@ -617,7 +626,7 @@ useEffect(() => {
 
 
 
-  }, [hubData.length, dynastyData.length, trafficToolsData.length, loading, selectedDynasty]);
+  }, [hubData, dynastyData, trafficToolsData, loading, selectedDynasty]);
 
 
 
@@ -634,7 +643,7 @@ useEffect(() => {
       
     console.log('柱状图颜色已更新，selectedDynasty:', selectedDynasty);
       
-  }, [selectedDynasty]);
+  }, [selectedDynasty, loading, dynastyData.length]);
 
   // 交通要道重要性评价算法
   const calculateRouteImportance = (routeName, dynastyRoutes) => {
@@ -1309,8 +1318,6 @@ useEffect(() => {
     );
   }
 
-  console.log('TrafficHubAnalysis 渲染，selectedDynasty:', selectedDynasty);
-
   return (
     <div className="traffic-hub-analysis">
       {selectedDynasty ? (
@@ -1318,11 +1325,10 @@ useEffect(() => {
       ) : (
         <div className="combined-chart-container" ref={chartContainerRef}>
           {/* 合并的柱状图和网络图 */}
-          {console.log('图表容器渲染，container ref:', chartContainerRef.current)}
         </div>
       )}
     </div>
   );
 };
 
-export default TrafficHubAnalysis;
+export default React.memo(TrafficHubAnalysis);

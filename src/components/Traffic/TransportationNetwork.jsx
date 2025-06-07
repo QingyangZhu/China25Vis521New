@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import L from 'leaflet';
+import Papa from 'papaparse';
 import 'leaflet/dist/leaflet.css';
 import useDynastyStore from '../../store/dynastyStore';
 import './TransportationNetwork.css';
@@ -24,6 +25,12 @@ const TransportationNetwork = () => {
   const [detailData, setDetailData] = useState([]);
   const [selectedDynasty, setSelectedDynasty] = useState('宋-北宋');
   const [loading, setLoading] = useState(true);
+  
+  // 古城地图数据状态
+  const [warData, setWarData] = useState([]);
+  const [disasterData, setDisasterData] = useState([]);
+  const [eventData, setEventData] = useState([]);
+  const [cityDataLoading, setCityDataLoading] = useState(true);
   const [mapLayers, setMapLayers] = useState({
     modern: true,
     historical: true,
@@ -31,10 +38,31 @@ const TransportationNetwork = () => {
   });
   const [historicalOpacity, setHistoricalOpacity] = useState(0.36);
   const [mapInitialized, setMapInitialized] = useState(false);
-  const [mapMode, setMapMode] = useState('routes'); // 'routes' 或 'heatmap'
+  const [mapMode, setMapMode] = useState('routes'); // 'routes'、'heatmap'、'both' 或 'none'
   const [heatmapLoaded, setHeatmapLoaded] = useState(false);
   const heatmapLayerRef = useRef(null);
-  const { selectedDynasties, getSelectedDisplayNames, selectedRoute, selectedRoutes, showAllRoutes } = useDynastyStore();
+  
+  // 古城数据显示控制
+  const [showCityData, setShowCityData] = useState({
+    war: false,
+    disaster: false,
+    event: false
+  });
+  
+  // 古城数据标记引用
+  const warMarkersRef = useRef([]);
+  const disasterMarkersRef = useRef([]);
+  const eventMarkersRef = useRef([]);
+  
+  const { 
+    selectedDynasties, 
+    getSelectedDisplayNames, 
+    selectedRoute, 
+    selectedRoutes, 
+    showAllRoutes,
+    setCityData,
+    setShowCityDataInCharts
+  } = useDynastyStore();
 
   // 动态加载热力图插件
   useEffect(() => {
@@ -42,11 +70,11 @@ const TransportationNetwork = () => {
       const script = document.createElement('script');
       script.src = 'https://cdn.jsdelivr.net/npm/leaflet.heat@0.2.0/dist/leaflet-heat.js';
       script.onload = () => {
-        console.log('✅ Leaflet.heat插件加载完成');
+        // console.log('✅ Leaflet.heat插件加载完成');
         setHeatmapLoaded(true);
       };
       script.onerror = () => {
-        console.error('❌ Leaflet.heat插件加载失败');
+        // console.error('❌ Leaflet.heat插件加载失败');
       };
       document.head.appendChild(script);
     } else if (window.L?.heatLayer) {
@@ -54,29 +82,7 @@ const TransportationNetwork = () => {
     }
   }, []);
 
-  // 添加组件挂载调试
-  useEffect(() => {
-    console.log('🚀 TransportationNetwork 组件已挂载');
-    console.log('当前 mapContainerRef:', mapContainerRef.current);
-    
-    return () => {
-      console.log('🔚 TransportationNetwork 组件将卸载');
-    };
-  }, []);
 
-  // 监听 mapContainerRef 变化
-  useEffect(() => {
-    console.log('📍 mapContainerRef 发生变化:', mapContainerRef.current);
-    if (mapContainerRef.current) {
-      console.log('✅ 地图容器已获取到，元素详情:', {
-        tagName: mapContainerRef.current.tagName,
-        className: mapContainerRef.current.className,
-        id: mapContainerRef.current.id,
-        offsetParent: mapContainerRef.current.offsetParent,
-        isConnected: mapContainerRef.current.isConnected
-      });
-    }
-  }, [mapContainerRef.current]);
 
   // 系统主题颜色调色板 - 低饱和度版本
   const systemColorPalette = useMemo(() => [
@@ -195,6 +201,45 @@ const TransportationNetwork = () => {
     return longitude >= 73 && longitude <= 135 && latitude >= 18 && latitude <= 54;
   };
 
+  // 创建古城数据图标
+  const createCityDataIcon = (type, size = 'medium') => {
+    const iconConfig = {
+      war: { color: '#D49C6A', symbol: '⚔️' },
+      disaster: { color: '#A0C1B8', symbol: '🌪️' },
+      event: { color: '#B8A48E', symbol: '📜' }
+    };
+    
+    const sizeConfig = {
+      small: { width: 20, height: 20, fontSize: '12px' },
+      medium: { width: 24, height: 24, fontSize: '14px' },
+      large: { width: 28, height: 28, fontSize: '16px' }
+    };
+    
+    const config = iconConfig[type];
+    const sizeProps = sizeConfig[size];
+    
+    return L.divIcon({
+      html: `
+        <div style="
+          width: ${sizeProps.width}px;
+          height: ${sizeProps.height}px;
+          background-color: ${config.color};
+          border: 2px solid white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: ${sizeProps.fontSize};
+          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+          cursor: pointer;
+        ">${config.symbol}</div>
+      `,
+      className: `city-data-marker city-data-${type}`,
+      iconSize: [sizeProps.width, sizeProps.height],
+      iconAnchor: [sizeProps.width / 2, sizeProps.height / 2]
+    });
+  };
+
   // 创建平滑曲线的函数
   const createSmoothCurve = (coordinates) => {
     // 首先验证输入坐标的有效性
@@ -299,56 +344,30 @@ const TransportationNetwork = () => {
 
   // 地图初始化函数
   const initMap = () => {
-    console.log('=== 开始地图初始化流程 ===');
-    console.log('mapContainerRef.current:', mapContainerRef.current);
-    console.log('mapRef.current:', mapRef.current);
-    
     if (!mapContainerRef.current) {
-      console.log('❌ 地图容器未找到，延时重试...');
-      setTimeout(initMap, 500);
+      console.error('地图容器未找到，取消初始化');
       return;
     }
     
     if (mapRef.current) {
-      console.log('⚠️ 地图已存在，跳过初始化');
       return;
     }
 
     try {
-      console.log('=== 开始创建Leaflet地图实例 ===');
-      
       const container = mapContainerRef.current;
-      console.log('容器元素:', container);
-      console.log('容器样式:', window.getComputedStyle(container));
-      console.log('容器尺寸:', {
-        width: container?.offsetWidth,
-        height: container?.offsetHeight,
-        clientWidth: container?.clientWidth,
-        clientHeight: container?.clientHeight,
-        scrollWidth: container?.scrollWidth,
-        scrollHeight: container?.scrollHeight
-      });
       
       // 检查容器是否有有效尺寸
       if (!container?.offsetWidth || !container?.offsetHeight) {
-        console.error('❌ 地图容器尺寸无效，尝试设置固定尺寸');
         container.style.width = '100%';
         container.style.height = '500px';
         container.style.minHeight = '500px';
-        console.log('设置固定尺寸后:', {
-          width: container.offsetWidth,
-          height: container.offsetHeight
-        });
       }
       
       // 检查Leaflet是否可用
-      console.log('Leaflet对象:', L);
       if (!L || !L.map) {
-        console.error('❌ Leaflet库未正确加载');
+        console.error('Leaflet库未正确加载');
         return;
       }
-      
-      console.log('✅ 开始创建地图实例...');
       
       // 创建地图实例
       const map = L.map(container, {
@@ -371,19 +390,11 @@ const TransportationNetwork = () => {
         dragging: true
       });
 
-      console.log('✅ 地图实例创建成功:', map);
-      
       // 立即更新引用和状态
       mapRef.current = map;
-      
-      // 使用 React 的状态更新回调确保状态同步
-      setMapInitialized(() => {
-        console.log('🎉 地图初始化状态已更新为 true');
-        return true;
-      });
+      setMapInitialized(true);
 
       // 添加现代地图图层（高德地图）
-      console.log('添加现代地图图层...');
       const modernLayer = L.tileLayer('https://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
         maxZoom: 18
       });
@@ -401,24 +412,14 @@ const TransportationNetwork = () => {
 
       // 默认添加现代地图
       modernLayer.addTo(map);
-      console.log('✅ 现代地图图层已添加');
 
-      // 监听图层加载事件
-      modernLayer.on('loading', () => {
-        console.log('🔄 图层开始加载...');
-      });
-      
-      modernLayer.on('load', () => {
-        console.log('✅ 图层加载完成');
-      });
-      
+      // 监听图层加载错误
       modernLayer.on('tileerror', (e) => {
-        console.error('❌ 图层加载错误:', e);
+        console.error('图层加载错误:', e);
       });
 
       // 添加地图事件监听 - 确保不干扰UI
       map.on('click', (e) => {
-        console.log('🗺️ 地图点击:', e.latlng);
         // 阻止事件冒泡到document
         e.originalEvent.stopPropagation();
       });
@@ -430,36 +431,10 @@ const TransportationNetwork = () => {
 
       // 强制地图重新计算尺寸
       setTimeout(() => {
-        if (map) {
-          console.log('重新计算地图尺寸...');
+        if (map && mapRef.current) {
           map.invalidateSize();
-          console.log('✅ 地图尺寸重新计算完成');
-          
-          // 检查地图容器状态
-          const mapContainer = map.getContainer();
-          console.log('地图容器状态:', {
-            container: mapContainer,
-            size: map.getSize(),
-            center: map.getCenter(),
-            zoom: map.getZoom()
-          });
-          
-          // 再次确认状态已正确设置
-          console.log('🔍 最终状态检查:', {
-            'mapRef.current': !!mapRef.current,
-            'mapInitialized': mapInitialized
-          });
         }
       }, 100);
-
-      // 添加地图事件监听
-      map.on('ready', () => {
-        console.log('✅ 地图准备完成');
-      });
-      
-      map.on('load', () => {
-        console.log('✅ 地图加载完成');
-      });
 
     } catch (error) {
       console.error('❌ 地图初始化失败:', error);
@@ -468,46 +443,32 @@ const TransportationNetwork = () => {
     }
   };
 
-  // 初始化地图
+  // 初始化地图 - 监听容器变化
   useEffect(() => {
-    console.log('🎯 地图初始化 useEffect 被触发');
-    
     // 只有在地图未初始化且容器存在时才初始化
     if (!mapRef.current && mapContainerRef.current) {
-      console.log('设置延时初始化...');
-      const timer = setTimeout(initMap, 300);
-      return () => clearTimeout(timer);
-    } else if (mapRef.current) {
-      console.log('✅ 地图已存在，跳过初始化');
-    } else {
-      console.log('⏳ 等待地图容器就绪...');
-      // 如果容器还没准备好，设置较短的重试
-      const timer = setTimeout(() => {
-        if (mapContainerRef.current && !mapRef.current) {
-          initMap();
-        }
-      }, 100);
+      const timer = setTimeout(initMap, 100);
       return () => clearTimeout(timer);
     }
+  }, [mapContainerRef.current]);
 
-    // 清理函数仅在组件真正卸载时执行
+  // 组件卸载时清理地图
+  useEffect(() => {
     return () => {
-      console.log('=== 地图组件清理 ===');
       if (mapRef.current) {
-        console.log('清理地图实例');
         mapRef.current.remove();
         mapRef.current = null;
         setMapInitialized(false);
       }
     };
-  }, []); // 移除容器引用依赖，避免警告
+  }, []);
 
-  // 加载数据
+  // 加载交通数据
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true);
-        console.log('开始加载交通数据...');
+        // console.log('开始加载交通数据...');
         
         // 加载路线汇总数据
         const routeResponse = await fetch('/data/problem3/交通路线汇总.csv');
@@ -563,21 +524,6 @@ const TransportationNetwork = () => {
         setRouteData(routeData);
         setDetailData(detailData);
         setLoading(false);
-        
-        // 调试：显示实际的朝代列表
-        const actualDynasties = [...new Set(routeData.map(route => route.dynasty))].sort();
-        console.log('📊 数据加载完成，实际朝代列表:', actualDynasties);
-        console.log('🗺️ 已配置历史地图的朝代:', Object.keys(historicalMaps).sort());
-        
-        // 检查哪些朝代没有历史地图配置
-        const missingMaps = actualDynasties.filter(dynasty => !historicalMaps[dynasty]);
-        if (missingMaps.length > 0) {
-          console.warn('⚠️ 以下朝代缺少历史地图配置:', missingMaps);
-        } else {
-          console.log('✅ 所有朝代都已配置历史地图');
-        }
-        
-        console.log('交通数据加载完成', { routes: routeData.length, details: detailData.length });
       } catch (error) {
         console.error('Error loading transportation data:', error);
         setLoading(false);
@@ -586,6 +532,72 @@ const TransportationNetwork = () => {
 
     loadData();
   }, []);
+
+  // 加载古城地图数据
+  useEffect(() => {
+    const loadCityData = async () => {
+      try {
+        setCityDataLoading(true);
+        
+        const parseOptions = { header: true, skipEmptyLines: true };
+        const processRowAttributes = (r) => ({
+          regime_change: Number(r.regime_change || 0),
+          urban_reconstruction: Number(r.urban_reconstruction || 0),
+          urban_expansion: Number(r.urban_expansion || 0),
+          population_change: Number(r.population_change || 0),
+          economic_cultural_impact: Number(r.economic_cultural_impact || 0),
+        });
+
+        const [warRes, disasterRes, eventRes] = await Promise.all([
+          fetch('/data/战争定位.csv').then(res => res.ok ? res.text() : Promise.reject(new Error(`HTTP ${res.status} for 战争定位.csv`))).then(txt => Papa.parse(txt, parseOptions).data),
+          fetch('/data/灾害定位.csv').then(res => res.ok ? res.text() : Promise.reject(new Error(`HTTP ${res.status} for 灾害定位.csv`))).then(txt => Papa.parse(txt, parseOptions).data),
+          fetch('/data/事件定位.csv').then(res => res.ok ? res.text() : Promise.reject(new Error(`HTTP ${res.status} for 事件定位.csv`))).then(txt => Papa.parse(txt, parseOptions).data)
+        ]);
+
+        // 将数据保存到store
+        const loadedWarData = warRes.filter(r => r.latitude && r.longitude).map(r => ({ 
+          ...r, 
+          latitude: parseFloat(r.latitude), 
+          longitude: parseFloat(r.longitude), 
+          ...processRowAttributes(r) 
+        }));
+        
+        const loadedDisasterData = disasterRes.filter(r => r.latitude && r.longitude && r.disaster_type).map(r => ({ 
+          ...r, 
+          latitude: parseFloat(r.latitude), 
+          longitude: parseFloat(r.longitude), 
+          ...processRowAttributes(r) 
+        }));
+        
+        const loadedEventData = eventRes.filter(r => r.latitude && r.longitude && r.event_name).map(r => ({ 
+          ...r, 
+          latitude: parseFloat(r.latitude), 
+          longitude: parseFloat(r.longitude), 
+          ...processRowAttributes(r) 
+        }));
+
+        setWarData(loadedWarData);
+        setDisasterData(loadedDisasterData);
+        setEventData(loadedEventData);
+
+        // 更新store中的古城数据
+        setCityData({
+          warData: loadedWarData,
+          disasterData: loadedDisasterData,
+          eventData: loadedEventData,
+          loading: false
+        });
+
+        setCityDataLoading(false);
+      } catch (error) {
+        console.error('古城地图数据加载失败:', error);
+        setCityDataLoading(false);
+        setCityData({ loading: false });
+      }
+    };
+
+    loadCityData();
+  }, []); // 移除setCityData依赖，避免无限渲染
 
   // 获取可用的朝代列表
   const availableDynasties = useMemo(() => {
@@ -623,7 +635,7 @@ const TransportationNetwork = () => {
           selectedRouteIds.has(detail.route_id)
         );
         
-        console.log('🎯 仅显示选中路线:', selectedRouteNames, `过滤后剩余 ${filteredRoutes.length} 条路线`);
+
       }
     }
     
@@ -664,38 +676,32 @@ const TransportationNetwork = () => {
     
     // 直接匹配朝代名称
     if (historicalMaps[selectedDynasty]) {
-      console.log(`🗺️ 找到朝代 "${selectedDynasty}" 的历史地图:`, historicalMaps[selectedDynasty]);
       return historicalMaps[selectedDynasty];
     }
     
-    // 如果没有直接匹配，记录并返回null
-    console.log(`⚠️ 朝代 "${selectedDynasty}" 没有对应的历史地图配置`);
     return null;
   }, [selectedDynasty, historicalMaps]);
 
   // 更新历史地图图层
   useEffect(() => {
     if (!mapRef.current) {
-      console.log('❌ 地图实例不存在，跳过历史地图更新');
+      // console.log('❌ 地图实例不存在，跳过历史地图更新');
       return;
     }
 
-    console.log(`🔄 更新历史地图图层，当前朝代: "${selectedDynasty}"`);
-    console.log('当前历史地图配置:', currentHistoricalMap);
-    console.log('地图图层状态:', mapLayers);
+    // console.log(`🔄 更新历史地图图层，当前朝代: "${selectedDynasty}"`);
+    // console.log('当前历史地图配置:', currentHistoricalMap);
+    // console.log('地图图层状态:', mapLayers);
 
     // 移除旧的历史地图图层
     if (layersRef.current.historical) {
-      console.log('🗑️ 移除旧的历史地图图层');
+      // console.log('🗑️ 移除旧的历史地图图层');
       mapRef.current.removeLayer(layersRef.current.historical);
       layersRef.current.historical = null;
     }
 
     // 添加新的历史地图图层
     if (currentHistoricalMap && mapLayers.historical) {
-      console.log(`✅ 添加新的历史地图图层: ${currentHistoricalMap.name}`);
-      console.log('图层URL模板:', currentHistoricalMap.url);
-      
       const historicalLayer = L.tileLayer(currentHistoricalMap.url, {
         minZoom: 0,
         maxZoom: 19,
@@ -706,27 +712,13 @@ const TransportationNetwork = () => {
         ]
       });
       
-      // 监听图层加载事件
-      historicalLayer.on('loading', () => {
-        console.log(`🔄 历史地图图层开始加载: ${currentHistoricalMap.name}`);
-      });
-      
-      historicalLayer.on('load', () => {
-        console.log(`✅ 历史地图图层加载完成: ${currentHistoricalMap.name}`);
-      });
-      
+      // 监听图层加载错误
       historicalLayer.on('tileerror', (e) => {
-        console.error(`❌ 历史地图图层加载错误: ${currentHistoricalMap.name}`, e);
+        console.error(`历史地图图层加载错误: ${currentHistoricalMap.name}`, e);
       });
       
       historicalLayer.addTo(mapRef.current);
       layersRef.current.historical = historicalLayer;
-      
-      console.log(`🎉 历史地图图层已添加到地图: ${currentHistoricalMap.name}`);
-    } else if (!currentHistoricalMap) {
-      console.log(`⚠️ 朝代 "${selectedDynasty}" 没有对应的历史地图配置`);
-    } else if (!mapLayers.historical) {
-      console.log('ℹ️ 历史地图图层已被用户关闭');
     }
   }, [currentHistoricalMap, mapLayers.historical, historicalOpacity, selectedDynasty]);
 
@@ -753,13 +745,13 @@ const TransportationNetwork = () => {
   const clearMapElements = () => {
     if (!mapRef.current) return;
 
-    // 清除标记
+    // 清除交通路网标记
     markersRef.current.forEach(marker => {
       mapRef.current.removeLayer(marker);
     });
     markersRef.current = [];
 
-    // 清除线条
+    // 清除交通路网线条
     linesRef.current.forEach(line => {
       mapRef.current.removeLayer(line);
     });
@@ -773,6 +765,29 @@ const TransportationNetwork = () => {
       mapRef.current.removeLayer(heatmapLayerRef.current);
       heatmapLayerRef.current = null;
     }
+  };
+
+  // 清除古城数据标记
+  const clearCityDataMarkers = () => {
+    if (!mapRef.current) return;
+
+    // 清除战争标记
+    warMarkersRef.current.forEach(marker => {
+      mapRef.current.removeLayer(marker);
+    });
+    warMarkersRef.current = [];
+
+    // 清除灾害标记
+    disasterMarkersRef.current.forEach(marker => {
+      mapRef.current.removeLayer(marker);
+    });
+    disasterMarkersRef.current = [];
+
+    // 清除事件标记
+    eventMarkersRef.current.forEach(marker => {
+      mapRef.current.removeLayer(marker);
+    });
+    eventMarkersRef.current = [];
   };
 
   // 生成热力图数据
@@ -824,8 +839,7 @@ const TransportationNetwork = () => {
       location.intensity // 不限制最大强度，让数据自然分布
     ]);
 
-    console.log(`🔥 生成热力图数据点: ${heatmapData.length} 个`);
-    console.log('热力图数据示例:', heatmapData.slice(0, 5));
+
 
     return heatmapData;
   };
@@ -836,7 +850,6 @@ const TransportationNetwork = () => {
 
     // 检查热力图插件是否已加载
     if (!heatmapLoaded || !L.heatLayer) {
-      console.log('⏳ 等待热力图插件加载...');
       return;
     }
 
@@ -849,7 +862,6 @@ const TransportationNetwork = () => {
     const heatmapData = generateHeatmapData();
     
     if (heatmapData.length === 0) {
-      console.log('⚠️ 无热力图数据可显示');
       return;
     }
 
@@ -883,17 +895,12 @@ const TransportationNetwork = () => {
 
     heatmapLayer.addTo(mapRef.current);
     heatmapLayerRef.current = heatmapLayer;
-
-    console.log(`🔥 热力图已绘制完成 (${isOverlayMode ? '叠加模式' : '独立模式'})`);
   };
 
   // 更新选中路线样式（不重新绘制整个地图）
   const updateSelectedRouteStyle = () => {
     if (!mapRef.current || !selectedRoute) return;
 
-    console.log('🎨 更新选中路线样式:', selectedRoute);
-    console.log('🗺️ 当前地图中的所有路线键值:', Array.from(routeLinesMapRef.current.keys()));
-    
     // 重置所有路线样式
     routeLinesMapRef.current.forEach((polylineInfo, routeKey) => {
       const { polyline, originalStyle } = polylineInfo;
@@ -907,26 +914,20 @@ const TransportationNetwork = () => {
 
     // 尝试多种匹配方式
     const selectedKey = `${selectedRoute.dynasty}_${selectedRoute.routeName}`;
-    console.log('🔍 尝试匹配的键值:', selectedKey);
-    
     let selectedPolylineInfo = routeLinesMapRef.current.get(selectedKey);
     
     // 如果直接匹配失败，尝试模糊匹配
     if (!selectedPolylineInfo) {
-      console.log('🔍 直接匹配失败，尝试模糊匹配...');
       for (const [routeKey, polylineInfo] of routeLinesMapRef.current.entries()) {
-        console.log('检查路线键值:', routeKey, '路线名称:', polylineInfo.routeName);
         if (polylineInfo.routeName === selectedRoute.routeName && 
             polylineInfo.dynasty === selectedRoute.dynasty) {
           selectedPolylineInfo = polylineInfo;
-          console.log('✅ 模糊匹配成功:', routeKey);
           break;
         }
         // 尝试路线名称的部分匹配
         if (polylineInfo.routeName.includes(selectedRoute.routeName) || 
             selectedRoute.routeName.includes(polylineInfo.routeName)) {
           selectedPolylineInfo = polylineInfo;
-          console.log('✅ 部分匹配成功:', routeKey);
           break;
         }
       }
@@ -940,40 +941,117 @@ const TransportationNetwork = () => {
         opacity: 1,
         dashArray: '5, 5' // 选中路线使用虚线样式
       });
-      console.log('✅ 选中路线样式已更新:', selectedRoute.routeName);
-    } else {
-      console.log('❌ 未找到匹配的路线:', selectedRoute);
-      console.log('📋 可用的路线列表:');
-      routeLinesMapRef.current.forEach((polylineInfo, routeKey) => {
-        console.log(`  - ${routeKey}: ${polylineInfo.routeName} (${polylineInfo.dynasty})`);
+    }
+  };
+
+  // 更新古城数据显示
+  const updateCityDataDisplay = () => {
+    if (!mapRef.current || cityDataLoading) return;
+
+    // 先清除现有古城数据标记
+    clearCityDataMarkers();
+
+    // 根据朝代过滤数据
+    const filterByDynasty = (data) => {
+      if (selectedDynasty === '全部') return data;
+      return data.filter(row => {
+        const rowDynasties = String(row.dynasty || '').split('、').map(d => d.trim());
+        return rowDynasties.includes(selectedDynasty);
+      });
+    };
+
+    // 显示战争数据
+    if (showCityData.war) {
+      const filteredWarData = filterByDynasty(warData);
+      filteredWarData.forEach(warItem => {
+        const marker = L.marker([warItem.latitude, warItem.longitude], {
+          icon: createCityDataIcon('war')
+        });
+        
+        marker.bindPopup(`
+          <div style="font-family: 'Noto Serif SC', serif;">
+            <strong>战争：${warItem.war_name || '未知'}</strong><br/>
+            地点：${warItem.position || '未知地点'}<br/>
+            朝代：${warItem.dynasty || '未知'}
+          </div>
+        `);
+        
+        marker.addTo(mapRef.current);
+        warMarkersRef.current.push(marker);
+      });
+    }
+
+    // 显示灾害数据
+    if (showCityData.disaster) {
+      const filteredDisasterData = filterByDynasty(disasterData);
+      filteredDisasterData.forEach(disasterItem => {
+        const marker = L.marker([disasterItem.latitude, disasterItem.longitude], {
+          icon: createCityDataIcon('disaster')
+        });
+        
+        marker.bindPopup(`
+          <div style="font-family: 'Noto Serif SC', serif;">
+            <strong>灾害：${disasterItem.disaster_type || '未知'}</strong><br/>
+            地点：${disasterItem.position || '未知地点'}<br/>
+            朝代：${disasterItem.dynasty || '未知'}
+          </div>
+        `);
+        
+        marker.addTo(mapRef.current);
+        disasterMarkersRef.current.push(marker);
+      });
+    }
+
+    // 显示事件数据
+    if (showCityData.event) {
+      const filteredEventData = filterByDynasty(eventData);
+      filteredEventData.forEach(eventItem => {
+        const marker = L.marker([eventItem.latitude, eventItem.longitude], {
+          icon: createCityDataIcon('event')
+        });
+        
+        marker.bindPopup(`
+          <div style="font-family: 'Noto Serif SC', serif;">
+            <strong>事件：${eventItem.event_name || '未知'}</strong><br/>
+            地点：${eventItem.position || '未知地点'}<br/>
+            朝代：${eventItem.dynasty || '未知'}
+          </div>
+        `);
+        
+        marker.addTo(mapRef.current);
+        eventMarkersRef.current.push(marker);
       });
     }
   };
 
+  // 监听古城数据显示状态变化  
+  useEffect(() => {
+    if (!cityDataLoading) {
+      updateCityDataDisplay();
+    }
+  }, [showCityData, selectedDynasty, warData, disasterData, eventData, cityDataLoading]);
+
   // 更新地图上的交通路网
   useEffect(() => {
     if (!mapRef.current || loading) {
-      console.log('🔄 地图或数据未准备好，跳过路网更新', { 
-        mapExists: !!mapRef.current, 
-        loading, 
-        dataLength: filteredData.details.length 
-      });
       return;
     }
 
     if (filteredData.details.length === 0) {
-      console.log('🧹 清除地图元素（无数据）');
       clearMapElements();
       return;
     }
-
-    console.log(`🔄 更新地图显示，模式: ${mapMode}，选中路线:`, selectedRoute?.routeName);
 
     clearMapElements();
 
     // 根据模式决定绘制内容
     const shouldShowHeatmap = mapMode === 'heatmap' || mapMode === 'both';
     const shouldShowRoutes = mapMode === 'routes' || mapMode === 'both';
+    
+    // 如果两者都不显示，直接返回
+    if (mapMode === 'none') {
+      return;
+    }
     
     // 如果需要显示热力图，先绘制热力图（作为底层）
     if (shouldShowHeatmap) {
@@ -1219,7 +1297,7 @@ const TransportationNetwork = () => {
       // // 创建路线
       // const polyline = L.polyline(finalCoordinates, {
       // 直接使用直线连接，不需要平滑曲线
-        console.log(`创建路线 ${routeId}，坐标数量: ${coordinates.length}`);
+        // console.log(`创建路线 ${routeId}，坐标数量: ${coordinates.length}`);
 
         // 创建路线（使用原始样式）
       const originalStyle = {
@@ -1238,7 +1316,6 @@ const TransportationNetwork = () => {
 
       // 保存路线引用供后续样式更新使用
       const routeKey = `${dynasty}_${routeName}`;
-      console.log('📝 保存路线引用:', routeKey, '路线名称:', routeName, '朝代:', dynasty);
       routeLinesMapRef.current.set(routeKey, {
         polyline,
         originalStyle,
@@ -1296,11 +1373,7 @@ const TransportationNetwork = () => {
       // createMovingMarker(coordinates, color, isInternational);
     });
 
-    console.log('地图路网更新完成', { 
-      markers: markersRef.current.length, 
-      lines: linesRef.current.length,
-      routeLines: routeLinesMapRef.current.size 
-    });
+
 
     // 路网绘制完成后，应用选中路线样式
     if (selectedRoute) {
@@ -1310,22 +1383,22 @@ const TransportationNetwork = () => {
 
   // 监听选中路线变化，只更新样式，不重新绘制地图
   useEffect(() => {
-    console.log('🎯 selectedRoute 发生变化:', selectedRoute);
-    console.log('🗺️ 地图状态:', {
-      mapExists: !!mapRef.current,
-      routeCount: routeLinesMapRef.current.size,
-      currentDynasty: selectedDynasty
-    });
+    // console.log('🎯 selectedRoute 发生变化:', selectedRoute);
+    // console.log('🗺️ 地图状态:', {
+    //   mapExists: !!mapRef.current,
+    //   routeCount: routeLinesMapRef.current.size,
+    //   currentDynasty: selectedDynasty
+    // });
     
     if (mapRef.current && routeLinesMapRef.current.size > 0) {
-      console.log('🎨 selectedRoute 变化，更新路线样式');
+      // console.log('🎨 selectedRoute 变化，更新路线样式');
       updateSelectedRouteStyle();
     } else {
-      console.log('⏳ 等待地图或路线数据准备完成...');
+      // console.log('⏳ 等待地图或路线数据准备完成...');
       // 延时重试
       const timer = setTimeout(() => {
         if (mapRef.current && routeLinesMapRef.current.size > 0 && selectedRoute) {
-          console.log('🔄 延时重试更新选中路线样式');
+          // console.log('🔄 延时重试更新选中路线样式');
           updateSelectedRouteStyle();
         }
       }, 1000);
@@ -1336,19 +1409,19 @@ const TransportationNetwork = () => {
   // 监听选中路线变化，自动切换到对应朝代
   useEffect(() => {
     if (selectedRoute && selectedRoute.dynasty && selectedRoute.dynasty !== selectedDynasty) {
-      console.log('🎯 自动切换到选中路线的朝代:', selectedRoute.dynasty);
+      // console.log('🎯 自动切换到选中路线的朝代:', selectedRoute.dynasty);
       setSelectedDynasty(selectedRoute.dynasty);
     }
   }, [selectedRoute, selectedDynasty]); // 添加selectedDynasty依赖
 
   // 朝代切换处理
   const handleDynastyChange = (dynasty) => {
-    console.log('🔄 朝代切换:', dynasty);
+    // console.log('🔄 朝代切换:', dynasty);
     setSelectedDynasty(dynasty);
     
     // 调试：显示切换后的路线数据
     setTimeout(() => {
-      console.log('🔍 朝代切换后的路线数据:');
+      // console.log('🔍 朝代切换后的路线数据:');
       const dynastyRoutes = routeData.filter(route => route.dynasty === dynasty);
       console.log(`  - ${dynasty} 朝代共有 ${dynastyRoutes.length} 条路线`);
       dynastyRoutes.forEach(route => {
@@ -1359,7 +1432,7 @@ const TransportationNetwork = () => {
 
   // 图层控制处理
   const handleLayerToggle = (layerType) => {
-    console.log('🔄 图层切换:', layerType);
+    // console.log('🔄 图层切换:', layerType);
     setMapLayers(prev => ({
       ...prev,
       [layerType]: !prev[layerType]
@@ -1368,7 +1441,7 @@ const TransportationNetwork = () => {
 
   // 透明度控制处理
   const handleOpacityChange = (opacity) => {
-    console.log('🔄 透明度调整:', opacity);
+    // console.log('🔄 透明度调整:', opacity);
     setHistoricalOpacity(opacity);
     if (layersRef.current.historical) {
       layersRef.current.historical.setOpacity(opacity);
@@ -1541,12 +1614,17 @@ const TransportationNetwork = () => {
               checked={mapMode === 'routes' || mapMode === 'both'}
               onChange={(e) => {
                 e.stopPropagation();
-                if (mapMode === 'heatmap') {
+                const isRouteChecked = e.target.checked;
+                const isHeatmapChecked = mapMode === 'heatmap' || mapMode === 'both';
+                
+                if (isRouteChecked && isHeatmapChecked) {
                   setMapMode('both');
-                } else if (mapMode === 'both') {
+                } else if (isRouteChecked && !isHeatmapChecked) {
+                  setMapMode('routes');
+                } else if (!isRouteChecked && isHeatmapChecked) {
                   setMapMode('heatmap');
                 } else {
-                  setMapMode('routes');
+                  setMapMode('none');
                 }
               }}
               onClick={handleControlClick}
@@ -1560,12 +1638,17 @@ const TransportationNetwork = () => {
               onChange={(e) => {
                 e.stopPropagation();
                 if (heatmapLoaded) {
-                  if (mapMode === 'routes') {
+                  const isHeatmapChecked = e.target.checked;
+                  const isRouteChecked = mapMode === 'routes' || mapMode === 'both';
+                  
+                  if (isRouteChecked && isHeatmapChecked) {
                     setMapMode('both');
-                  } else if (mapMode === 'both') {
+                  } else if (isRouteChecked && !isHeatmapChecked) {
                     setMapMode('routes');
-                  } else {
+                  } else if (!isRouteChecked && isHeatmapChecked) {
                     setMapMode('heatmap');
+                  } else {
+                    setMapMode('none');
                   }
                 }
               }}
@@ -1573,6 +1656,62 @@ const TransportationNetwork = () => {
               disabled={!heatmapLoaded}
             />
             {heatmapLoaded ? '热力图' : '热力图 ⏳'}
+          </label>
+        </div>
+
+        {/* 古城数据显示控制 */}
+        <div 
+          className="city-data-controls"
+          onClick={handleControlClick}
+        >
+          <span style={{ fontSize: '12px', color: '#666', marginRight: '8px' }}>古城数据:</span>
+          <label className="layer-toggle">
+            <input 
+              type="checkbox" 
+              checked={showCityData.war}
+              onChange={(e) => {
+                e.stopPropagation();
+                const newState = !showCityData.war;
+                setShowCityData(prev => ({ ...prev, war: newState }));
+                // 同步到store以便图表显示
+                setShowCityDataInCharts({ war: newState });
+              }}
+              onClick={handleControlClick}
+              disabled={cityDataLoading}
+            />
+            ⚔️战争
+          </label>
+          <label className="layer-toggle">
+            <input 
+              type="checkbox" 
+              checked={showCityData.disaster}
+              onChange={(e) => {
+                e.stopPropagation();
+                const newState = !showCityData.disaster;
+                setShowCityData(prev => ({ ...prev, disaster: newState }));
+                // 同步到store以便图表显示
+                setShowCityDataInCharts({ disaster: newState });
+              }}
+              onClick={handleControlClick}
+              disabled={cityDataLoading}
+            />
+            🌪️灾害
+          </label>
+          <label className="layer-toggle">
+            <input 
+              type="checkbox" 
+              checked={showCityData.event}
+              onChange={(e) => {
+                e.stopPropagation();
+                const newState = !showCityData.event;
+                setShowCityData(prev => ({ ...prev, event: newState }));
+                // 同步到store以便图表显示
+                setShowCityDataInCharts({ event: newState });
+              }}
+              onClick={handleControlClick}
+              disabled={cityDataLoading}
+            />
+            📜事件
           </label>
         </div>
 
@@ -1681,7 +1820,8 @@ const TransportationNetwork = () => {
           <span>显示模式: {
             mapMode === 'routes' ? '路线图' : 
             mapMode === 'heatmap' ? '热力图' : 
-            '路线+热力图'
+            mapMode === 'both' ? '路线+热力图' :
+            '无显示'
           }</span>
           <span>路线数量: {filteredData.routes.length}</span>
           <span>节点数量: {filteredData.details.length}</span>

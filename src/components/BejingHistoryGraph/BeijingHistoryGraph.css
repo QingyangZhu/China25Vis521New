@@ -4,6 +4,17 @@
             src: local('SimSun'), local('宋体');
         }
 
+        .beijing-history-graph {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: '楷体', 'KaiTi', serif;
+            color: #5a4a3b;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+
         body {
             margin: 0;
             overflow: hidden;
@@ -13,17 +24,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #ffffff;
+            background-color: rgba(251, 248, 240, 0.8);
         }
 
         /* Header styles */
         .beiheader {
             width: 100%;
-            max-width: 1400px;
             text-align: center;
             padding: 0;
             margin-bottom: 1px;
             position: relative;
+            flex-shrink: 0;
+            background-color: rgba(251, 248, 240, 0.8);
         }
 
         .beiheader:after {
@@ -64,10 +76,10 @@
             border-radius: 12px;
             border: 1px solid #d3c0a3;
             box-shadow: 0 2px 8px rgba(156, 119, 80, 0.1);
-            max-width: 1400px;
             width: 100%;
             height: auto;
             flex-wrap: nowrap;
+            flex-shrink: 0;
         }
 
         /* Timeline controls styles */
@@ -237,11 +249,13 @@
         /* Content container styles */
         #bottom-content-container {
             display: flex;
+            background-color: rgba(251, 248, 240, 0.8);
             gap: 20px;
             align-items: flex-start;
-            max-width: 1400px;
             width: 100%;
             margin-top: 5px;
+            flex: 1;
+            min-height: 0;
         }
 
         /* Graph container styles */
@@ -255,14 +269,14 @@
             box-shadow: 0 3px 10px rgba(156, 119, 80, 0.15);
             flex: 1;
             transition: width 0.3s ease;
-            height: 390px;
+            height: 100%;
         }
 
         /* SVG styles */
         #knowledgeGraph {
             display: block;
             width: 100%;
-            height: 390px;
+            height: 100%;
             box-sizing: border-box;
         }
 
@@ -308,7 +322,7 @@
         /* Details panel styles */
         #detailsPanel {
             width: 320px;
-            height: 390px;
+            height: 100%;
             overflow-y: auto;
             background-color: #f5f0e5;
             border: 1px solid #d3c0a3;
