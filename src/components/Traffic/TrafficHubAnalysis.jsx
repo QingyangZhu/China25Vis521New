@@ -1158,7 +1158,7 @@ useEffect(() => {
                     >
                       <div className="route-info">
                         <div className="route-name">
-                          {isSingleSelected && <span className="selected-indicator">🎯 </span>}
+                          {isSingleSelected && <span className="selected-indicator">(选中) </span>}
                           {route.routeName}
                         </div>
                         <div className="route-details">
