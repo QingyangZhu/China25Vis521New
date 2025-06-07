@@ -314,7 +314,12 @@ function App() {
 
   const leftTop = (
       <div className="chart-container">
-        <h3>北京生态环境长期演化轨迹</h3>
+        <h3 style={{
+          margin: 0,
+          textAlign: 'center',
+          fontFamily: "'Noto Serif SC', serif",
+          color: '#8C6D46'
+        }}>北京生态环境长期演化轨迹</h3>
         {/* 传递主要朝代给BeijingEcology组件 */}
         <BeijingEcology dynastyToDisplay={getPrimaryDynasty()} />
       </div>
@@ -322,7 +327,12 @@ function App() {
 
   const rightBottom = (
     <div className="chart-container">
-      <h3>交通枢纽分析</h3>
+      <h3 style={{
+        margin: 0,
+        textAlign: 'center',
+        fontFamily: "'Noto Serif SC', serif",
+        color: '#8C6D46'
+      }}>交通枢纽分析</h3>
       <div style={{height: '100%', width: '100%'}}>
         <TrafficHubAnalysis />
       </div>
@@ -406,7 +416,12 @@ const rightTop = (
 
     const leftBottom = (
         <div className="chart-container">
-      <h3>建筑文化遗产</h3>
+      <h3 style={{
+        margin: 0,
+        textAlign: 'center',
+        fontFamily: "'Noto Serif SC', serif",
+        color: '#8C6D46'
+      }}>建筑文化遗产</h3>
       <div className="container">
       <div className="row" style={{ width: 590, marginTop: 2 }}>
         {/* 左侧信息面板 */}
