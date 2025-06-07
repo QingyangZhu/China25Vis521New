@@ -776,17 +776,30 @@ const HistoricalDataClusterAnalysis = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
       {/* 控制面板 */}
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
         marginBottom: '10px',
+        position: 'relative',
         padding: '0 5px'
       }}>
-        <h3 style={{ margin: 0, fontSize: '16px', color: '#8C6D46' }}>
+        {/* 左侧占位 */}
+        <div style={{ flex: 1 }}></div>
+
+        {/* 中间标题 */}
+        <h3 style={{
+          margin: 0,
+          flex: 1,
+          textAlign: 'center',
+          fontFamily: "'Noto Serif SC', serif",
+          color: '#8C6D46',
+          whiteSpace: 'nowrap'
+        }}>
           历史数据聚类与相关性分析
         </h3>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+
+        {/* 右侧数据类型选择 */}
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '8px' }}>
           <span style={{ fontSize: '12px', color: '#4A4A4A' }}>数据类型:</span>
           <select
             value={selectedDataType}
