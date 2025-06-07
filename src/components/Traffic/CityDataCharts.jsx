@@ -59,7 +59,7 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
   };
 
   // 处理单个数据类型并生成系列数据
-  const processDataForSeries = (data, dataType) => {
+  const processDataForSeries = (data, dataType, seriesColor) => {
     if (!data || data.length === 0) return [];
     
     const sum = (field) => data.reduce((acc, r) => acc + Number(r[field] || 0), 0);
@@ -68,11 +68,10 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
     return COMMON_ATTRIBUTE_CONFIG.map(attr => {
       const total = sum(attr.key);
       const value = (attr.positiveLabel || attr.isMagnitude) ? absSum(attr.key) : sum(attr.key);
-      const color = getAttributeColor(attr, total);
       
       return {
         value,
-        itemStyle: { color }
+        itemStyle: { color: seriesColor }
       };
     });
   };
@@ -128,10 +127,10 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
       series.push({
         name: '战争',
         type: 'bar',
-        data: processDataForSeries(filteredWarData, 'war'),
+        data: processDataForSeries(filteredWarData, 'war', seriesColors['战争']),
         coordinateSystem: 'polar',
-        barWidth: '20%',
-        barGap: '10%',
+        barWidth: '35%',
+        barGap: '5%',
         itemStyle: {
           color: seriesColors['战争']
         }
@@ -146,10 +145,10 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
       series.push({
         name: '灾害',
         type: 'bar',
-        data: processDataForSeries(filteredDisasterData, 'disaster'),
+        data: processDataForSeries(filteredDisasterData, 'disaster', seriesColors['灾害']),
         coordinateSystem: 'polar',
-        barWidth: '20%',
-        barGap: '10%',
+        barWidth: '35%',
+        barGap: '5%',
         itemStyle: {
           color: seriesColors['灾害']
         }
@@ -164,10 +163,10 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
       series.push({
         name: '事件',
         type: 'bar',
-        data: processDataForSeries(filteredEventData, 'event'),
+        data: processDataForSeries(filteredEventData, 'event', seriesColors['事件']),
         coordinateSystem: 'polar',
-        barWidth: '20%',
-        barGap: '10%',
+        barWidth: '35%',
+        barGap: '5%',
         itemStyle: {
           color: seriesColors['事件']
         }
@@ -189,7 +188,7 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
         show: legendData.length > 1,
         data: legendData,
         orient: 'horizontal',
-        bottom: 10,
+        top: 10,
         left: 'center',
         itemWidth: 12,
         itemHeight: 8,
@@ -200,8 +199,8 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
         }
       },
       polar: {
-        radius: [10, '60%'],
-        center: ['50%', '45%']
+        radius: [0, '75%'],
+        center: ['50%', '50%']
       },
       angleAxis: {
         type: 'category',
@@ -209,29 +208,39 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
         axisLabel: {
           fontSize: 9,
           fontFamily: "'Noto Serif SC', serif",
-          color: '#8C6D46'
+          color: '#8C6D46',
+          distance: -80,
+          margin: 0
         },
         axisLine: {
+          show: false
+        },
+        splitLine: {
+          show: true,
           lineStyle: {
-            color: '#DCD1BB'
+            color: '#DCD1BB',
+            width: 1,
+            type: 'dashed',
+            opacity: 0.6
           }
+        },
+        axisTick: {
+          show: false
         }
       },
       radiusAxis: {
         type: 'value',
         axisLabel: {
-          fontSize: 8,
-          color: '#8C6D46'
+          show: false
         },
         axisLine: {
-          lineStyle: {
-            color: '#DCD1BB'
-          }
+          show: false
         },
         splitLine: {
-          lineStyle: {
-            color: 'rgba(220, 209, 187, 0.3)'
-          }
+          show: false
+        },
+        axisTick: {
+          show: false
         }
       },
       series: series
@@ -290,14 +299,9 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
     <div 
       ref={chartRef} 
       style={{ 
-        width: '20%',
+        width: '100%',
         height: '100%', 
         minHeight: '200px',
-        padding: '8px',
-        border: '1px solid #ddd',
-        borderRadius: '8px',
-        backgroundColor: 'rgba(251, 248, 240, 0.8)',
-        overflow: 'hidden',
         fontFamily: "'Noto Serif SC', serif"
       }}
     />
