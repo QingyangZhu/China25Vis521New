@@ -110,16 +110,75 @@
 
 /* 图例样式 */
 .chart-legend {
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .legend-item {
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .legend-item:hover {
   opacity: 1;
+}
+
+/* 图例中的矩形样式 */
+.chart-legend rect {
+  transition: all 0.2s ease;
+  stroke-width: 0.5;
+  stroke: rgba(74, 74, 74, 0.2);
+  /* margin-right: 2px; */
+}
+
+.chart-legend rect:hover {
+  filter: brightness(1.1);
+  stroke-width: 1;
+  stroke: rgba(74, 74, 74, 0.4);
+}
+
+/* 历史时间轴专用图例样式 */
+.historical-timeline-legend {
+  opacity: 0.95;
+}
+
+.historical-timeline-legend .legend-item-1,
+.historical-timeline-legend .legend-item-2 {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.historical-timeline-legend .legend-item-1:hover,
+.historical-timeline-legend .legend-item-2:hover {
+  opacity: 1;
+}
+
+.historical-timeline-legend rect {
+  transition: all 0.2s ease;
+}
+
+.historical-timeline-legend rect:hover {
+  filter: brightness(1.1);
+  stroke-width: 1;
+}
+
+.historical-timeline-legend text {
+  font-family: 'Noto Serif SC', serif !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+  font-size: 7px !important;
+}
+
+/* 保留原有图例样式 */
+.chart-legend text {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-size: 8px !important;
+  margin-right: 7px !important;
+}
+
+.chart-legend text:hover {
+  fill: #2C2C2C !important;
 }
 
 /* 柱状图样式 */

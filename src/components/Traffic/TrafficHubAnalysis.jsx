@@ -347,7 +347,7 @@ useEffect(() => {
       // 美化文字标签
       yAxis.selectAll('text')
         .style('font-size', '10px')
-        .style('font-family', "'Noto Serif SC', sans-serif")
+        .style('font-family', "'Noto Serif SC', '楷体', 'KaiTi', serif")
         .style('fill', colorScheme.text)
         .style('font-weight', '500');
       
@@ -383,7 +383,7 @@ useEffect(() => {
         .attr('text-anchor', 'middle')
         .style('font-size', '12px')
         .style('font-weight', 'bold')
-        .style('font-family', "'Noto Serif SC', sans-serif")
+        .style('font-family', "'Noto Serif SC', '楷体', 'KaiTi', serif")
         .style('fill', colorScheme.text)
         .text('朝代发展水平综合得分');
     }
@@ -411,7 +411,7 @@ useEffect(() => {
       .attr('text-anchor', 'middle')
       .style('font-size', '14px')
       .style('font-weight', 'bold')
-      .style('font-family', "'Noto Serif SC', sans-serif")
+      .style('font-family', "'Noto Serif SC', '楷体', 'KaiTi', serif")
       .style('fill', colorScheme.text)
       .text('交通枢纽网络分析图');
   

@@ -121,7 +121,7 @@ const CenterTopViewToggle = () => {
   const getViewTitle = () => {
     switch (currentView) {
       case 'historyGraph': return '北京历史知识图谱';
-      case 'transportation': return '历朝历代交通路网';
+      case 'transportation': return '古道通衢';
       default: return '北京历史知识图谱';
     }
   };
@@ -129,7 +129,7 @@ const CenterTopViewToggle = () => {
   const getButtonLabel = (view) => {
     switch (view) {
       case 'historyGraph': return '知识图谱';
-      case 'transportation': return '交通路网';
+      case 'transportation': return '古道通衢';
       default: return '知识图谱';
     }
   };
@@ -449,7 +449,7 @@ function App() {
     return (
       <div className="custom-header">
         <div className="header-decoration left"></div>
-        <h1>京华时空 - 北京三千年城市演化可视分析平台</h1>
+        <h1>京华时空 - 北京城演化可视分析平台</h1>
         <div className="header-dynasty-info">
           <span>当前选择: {displayText}</span>
         </div>
@@ -463,19 +463,29 @@ function App() {
 
   const leftTop = (
       <div className="chart-container">
-        <h3 style={{ color: '#8C6D46' }}>北京生态环境长期演化轨迹</h3>
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'flex-end', 
-          alignItems: 'center', 
-          marginBottom: '10px',
-          paddingRight: '20px'
+        {/* 标题和选择按钮 - 同一行，标题居中 */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          marginBottom: '16px',
+          position: 'relative'
         }}>
-          <div style={{ 
-            display: 'flex', 
-            gap: '10px', 
-            alignItems: 'center'
+          {/* 左侧占位 */}
+          <div style={{ flex: 1 }}></div>
+          
+          {/* 中间标题 */}
+          <h3 style={{ 
+            margin: 0,
+            flex: 1,
+            textAlign: 'center',
+            fontFamily: "'Noto Serif SC', serif",
+            color: '#8C6D46'
           }}>
+            山川风物
+          </h3>
+          
+          {/* 右侧按钮组 */}
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', gap: '4px' }}>
             <label style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
               <input
                 type="radio"
@@ -483,8 +493,14 @@ function App() {
                 value="overview"
                 checked={selectedView === 'overview'}
                 onChange={(e) => setSelectedView(e.target.value)}
+                style={{
+                  accentColor: '#8C6D46',
+                  width: '16px',
+                  height: '16px',
+                  cursor: 'pointer'
+                }}
               />
-              <span style={{ fontSize: '14px', color: '#8C6D46' }}>概况</span>
+              <span style={{ fontSize: '12px', color: '#8C6D46' }}>概况</span>
             </label>
             <label style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
               <input
@@ -493,8 +509,14 @@ function App() {
                 value="detail"
                 checked={selectedView === 'detail'}
                 onChange={(e) => setSelectedView(e.target.value)}
+                style={{
+                  accentColor: '#8C6D46',
+                  width: '16px',
+                  height: '16px',
+                  cursor: 'pointer'
+                }}
               />
-              <span style={{ fontSize: '14px', color: '#8C6D46' }}>具体</span>
+              <span style={{ fontSize: '12px', color: '#8C6D46' }}>具体</span>
             </label>
           </div>
         </div>
@@ -516,7 +538,7 @@ function App() {
 
   const rightBottom = (
     <div className="chart-container">
-      <h3 style={{ color: '#8C6D46' }}>交通枢纽分析</h3>
+      <h3 style={{ color: '#8C6D46' }}>枢机要冲</h3>
       <div style={{height: '100%', width: '100%'}}>
         <TrafficHubAnalysis />
       </div>
@@ -547,9 +569,9 @@ function App() {
         textAlign: 'center',
         fontFamily: "'Noto Serif SC', serif",
         color: '#8C6D46',
-        margin: '8px 0 16px 0'
+        margin: '0 0 16px 0'
       }}>
-        古城数据分析与展示
+        史事纪要
       </h3>
       
       {/* 内容区域：图表和新容器并排 */}
@@ -658,7 +680,7 @@ const rightTop = (
           color: '#8C6D46',
           whiteSpace: 'nowrap'
         }}>
-          物产分布与演变
+          货殖天下
         </h3>
         
         {/* 右侧按钮 */}
@@ -692,7 +714,7 @@ const rightTop = (
 
     const leftBottom = (
           <div className="chart-container">
-      <h3 style={{ color: '#8C6D46' }}>建筑文化遗产</h3>
+      <h3 style={{ color: '#8C6D46' }}>城垣遗韵</h3>
       <div className="container" style={{padding: '2px'}}>
       <div className="row" style={{ width: 590, marginTop: 2 }}>
         {/* 左侧信息面板 */}

@@ -1,6 +1,6 @@
   /* Base styles */
         @font-face {
-            font-family: 'Song';
+            font-family: '楷体', 'KaiTi', serif;
             src: local('SimSun'), local('宋体');
         }
 
