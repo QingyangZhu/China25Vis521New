@@ -32,11 +32,17 @@ const WordCloudView = ({ dynasty, onClose, isEmbedded = false }) => {
         setLoading(true);
         setError(null);
         
+        // 检查是否有该朝代的词云数据
+        const availableDynasties = ['元', '明', '清'];
+        if (!availableDynasties.includes(dynasty)) {
+          throw new Error(`暂无${dynasty}朝代的词云数据。当前仅提供元朝、明朝和清朝的人口主题词云数据。`);
+        }
+        
         // 构建数据文件路径，根据朝代名称查找对应的词云数据
         const response = await fetch(`/data/problem3/人口主题词云数据/${dynasty}-人口.json`);
         
         if (!response.ok) {
-          throw new Error(`暂无${dynasty}朝代的词云数据。当前仅提供元朝和清朝的人口主题词云数据。`);
+          throw new Error(`无法加载${dynasty}朝代的词云数据文件。`);
         }
         
         const wordCloudData = await response.json();

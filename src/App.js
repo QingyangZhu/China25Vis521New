@@ -7,7 +7,7 @@ import GridLayout from './components/GridLayout';
 import HistoricalTimeline from './components/HistoricalTimeline';
 import BeijingEcology from "./components/WaterClimateVegeChartTestEnhanced";
 import HistoricalDataClusterAnalysis from './components/HistoricalDataClusterAnalysis';
-import useDynastyStore from './store/dynastyStore';
+import useDynastyStore, { reverseDynastyNameMapping } from './store/dynastyStore';
 
 import ProductVis from "./components/ProductAndPopulation/ProductVis.jsx";
 import TransportationNetwork from "./components/Traffic/TransportationNetwork.jsx";
@@ -204,10 +204,10 @@ const CenterTopViewToggle = () => {
 };
 
 function App() {
-  const [dynasty, setDynasty] = useState("隋");
-  const [startYear, setStartYear] = useState(581);
-  const [endYear, setEndYear] = useState(618);
-  const [selectedDynasties, setSelectedDynasties] = useState(new Set(["隋"]));
+  const [dynasty, setDynasty] = useState("元");
+  const [startYear, setStartYear] = useState(1206);
+  const [endYear, setEndYear] = useState(1368);
+  const [selectedDynasties, setSelectedDynasties] = useState(new Set(["元"]));
   const [viewMode, setViewMode] = useState('comprehensive');
 
   // 添加全局错误处理器来抑制ResizeObserver错误
@@ -296,8 +296,15 @@ function App() {
 
   // 处理打开词云视图
   const handleOpenWordCloud = (dynasty) => {
-    setSelectedDynastyForWordCloud(dynasty);
-    setShowWordCloud(true);
+    if (dynasty === null) {
+      // 关闭词云视图
+      setShowWordCloud(false);
+      setSelectedDynastyForWordCloud(null);
+    } else {
+      // 打开词云视图
+      setSelectedDynastyForWordCloud(dynasty);
+      setShowWordCloud(true);
+    }
   };
 
   // 处理关闭词云视图
@@ -671,22 +678,30 @@ const rightTop = (
     // 更新选中的朝代（单选模式）
     setSelectedDynasties(new Set(selectedDynasties));
     
-    // 更新当前显示的朝代
+    // 检查是否进入overview状态，如果是则关闭词云视图
     if (selectedDynasties.includes('overview')) {
-      // 取消选择时，默认显示隋朝数据
-      setDynasty('隋');
-      setStartYear(581);
-      setEndYear(618);
+      // 取消选择时，关闭词云并返回主视图
+      setShowWordCloud(false);
+      setSelectedDynastyForWordCloud(null);
+      // 默认显示元朝数据
+      setDynasty('元');
+      setStartYear(1206);
+      setEndYear(1368);
     } else {
-      setDynasty(selectedDynasties[0]);
+      // 对于其他组件，需要将交通枢纽分析的朝代名称映射回时间轴的朝代名称
+      const trafficDynastyName = selectedDynasties[0];
+      const timelineDynastyName = reverseDynastyNameMapping[trafficDynastyName] || trafficDynastyName;
+      console.log('朝代名称映射:', trafficDynastyName, '->', timelineDynastyName);
+      
+      setDynasty(timelineDynastyName);
       setStartYear(startYear);
       setEndYear(endYear);
     }
 
     // 更新 BeijingEcology 数据
     if (beijingEcologyRef.current) {
-        const finalStartYear = selectedDynasties.includes('overview') ? 581 : startYear;
-        const finalEndYear = selectedDynasties.includes('overview') ? 618 : endYear;
+        const finalStartYear = selectedDynasties.includes('overview') ? 1206 : startYear;
+        const finalEndYear = selectedDynasties.includes('overview') ? 1368 : endYear;
         const filteredData = beijingEcologyData.filter(item => {
             const year = parseInt(item.year);
             return year >= finalStartYear && year <= finalEndYear;
@@ -714,6 +729,7 @@ const rightTop = (
         <TimeControl
             onDynastyClick={handleDynastyClick}
             onTimeRangeChange={handleTimeRangeChange}
+            onOpenWordCloud={handleOpenWordCloud}
         />
   );
 

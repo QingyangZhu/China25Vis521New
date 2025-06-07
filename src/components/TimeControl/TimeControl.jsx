@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import './TimeControl.css';
-import useDynastyStore from '../../store/dynastyStore';
+import useDynastyStore, { dynastyNameMapping } from '../../store/dynastyStore';
 
-const TimeControl = ({ onDynastyClick }) => {
+const TimeControl = ({ onDynastyClick, onOpenWordCloud }) => {
     const svgRef = useRef(null);
     const contentAreaRef = useRef(null);
     const leftLabelsRef = useRef(null);
@@ -327,16 +327,44 @@ const TimeControl = ({ onDynastyClick }) => {
             .style("font-size", d => d.isSubDynasty ? "9px" : "10px")
             .style("fill", d => d.isSubDynasty ? "#8a7c6c" : "#6e543c")
             .style("font-family", "KaiTi, 楷体, serif")
-            .style("font-weight", d => selectedDynasties.includes(d.name) ? "900" : "normal")
+            .style("font-weight", d => {
+            const mappedName = dynastyNameMapping[d.name] || d.name;
+            return selectedDynasties.includes(mappedName) ? "900" : "normal";
+        })
+            .style("cursor", "pointer")
+            .attr("title", d => {
+                const availableDynasties = ['元', '明', '清'];
+                const hasWordCloud = availableDynasties.includes(d.name);
+                return hasWordCloud ? 
+                    "单击选择朝代并查看词云，右键也可查看词云" : 
+                    "单击选择朝代（该朝代暂无词云数据）";
+            })
             .on("click", function(event, d) {
                 const targetDynasty = d;
                 if (targetDynasty) {
-                    // 使用 store 的 toggleDynasty 方法
-                    toggleDynasty(targetDynasty.name);
+                    // 映射时间轴朝代名称到交通枢纽分析朝代名称
+                    const mappedDynastyName = dynastyNameMapping[targetDynasty.name] || targetDynasty.name;
+                    
+                    // 使用 store 的 toggleDynasty 方法 - 使用映射后的名称
+                    toggleDynasty(mappedDynastyName);
 
-                    // 更新字体样式
+                    // 更新字体样式 - 这里仍使用原始名称比较显示状态
                     svg.selectAll(".dynasty-text")
-                        .style("font-weight", d => selectedDynasties.includes(d.name) ? "900" : "normal");
+                        .style("font-weight", d => {
+                            const mappedName = dynastyNameMapping[d.name] || d.name;
+                            return selectedDynasties.includes(mappedName) ? "900" : "normal";
+                        });
+
+                    // 检查是否有该朝代的词云数据，如果有则自动显示词云，否则通过回调关闭词云
+                    const availableDynasties = ['元', '明', '清'];
+                    if (availableDynasties.includes(targetDynasty.name) && onOpenWordCloud) {
+                        console.log('选择有词云数据的朝代，自动显示词云:', targetDynasty.name);
+                        onOpenWordCloud(targetDynasty.name);
+                    } else if (onOpenWordCloud) {
+                        // 选择了没有词云数据的朝代，通过传递null来关闭词云
+                        console.log('选择了没有词云数据的朝代，关闭词云:', targetDynasty.name);
+                        onOpenWordCloud(null);
+                    }
 
                     // 调用处理函数 - 单选模式，传递当前选中的朝代信息
                     if (onDynastyClick) {
@@ -344,13 +372,47 @@ const TimeControl = ({ onDynastyClick }) => {
                         setTimeout(() => {
                             const { selectedDynasties: updatedSelection } = useDynastyStore.getState();
                             if (updatedSelection.includes('overview')) {
-                                // 如果是overview状态，传递隋朝时间范围作为默认
-                                onDynastyClick(updatedSelection, 581, 618);
+                                // 如果是overview状态，传递元朝时间范围作为默认
+                                onDynastyClick(updatedSelection, 1206, 1368);
                             } else {
                                 // 如果选中了具体朝代，传递该朝代的时间范围
                                 onDynastyClick(updatedSelection, targetDynasty.start, targetDynasty.end);
                             }
                         }, 0);
+                    }
+                }
+            })
+            .on("contextmenu", function(event, d) {
+                // 阻止默认的右键菜单
+                event.preventDefault();
+                
+                const targetDynasty = d;
+                if (targetDynasty && onOpenWordCloud) {
+                    // 检查是否有该朝代的词云数据
+                    const availableDynasties = ['元', '明', '清'];
+                    if (availableDynasties.includes(targetDynasty.name)) {
+                        console.log('右键点击朝代，显示词云:', targetDynasty.name);
+                        onOpenWordCloud(targetDynasty.name);
+                    } else {
+                        console.log('该朝代没有词云数据:', targetDynasty.name);
+                        // 创建临时提示元素
+                        const tooltip = d3.select("body").append("div")
+                            .style("position", "absolute")
+                            .style("background", "rgba(0,0,0,0.8)")
+                            .style("color", "white")
+                            .style("padding", "10px")
+                            .style("border-radius", "5px")
+                            .style("font-size", "12px")
+                            .style("z-index", "9999")
+                            .style("pointer-events", "none")
+                            .style("left", (event.pageX + 10) + "px")
+                            .style("top", (event.pageY + 10) + "px")
+                            .text(`暂无${targetDynasty.name}朝代的词云数据。当前仅提供元朝、明朝和清朝的人口主题词云数据。`);
+                        
+                        // 2秒后自动消失
+                        setTimeout(() => {
+                            tooltip.remove();
+                        }, 2000);
                     }
                 }
             });

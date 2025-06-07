@@ -43,10 +43,65 @@ export const dynastyData = [
   { id: 37, name: '现代', start: 1949, end: 2025, color: '#E9CB9A' }
 ];
 
+// 时间轴朝代名称到交通枢纽分析朝代名称的映射
+export const dynastyNameMapping = {
+  // 时间轴名称 -> 交通枢纽分析名称
+  "上古时代": "上古",
+  "远古时代": "远古", 
+  "夏": "夏",
+  "商": "商",
+  "周": "先秦",
+  "西周": "先秦-西周",
+  "春秋": "先秦-春秋", 
+  "战国": "先秦-战国",
+  "秦": "秦",
+  "西楚": "秦", // 西楚时间很短，映射到秦
+  "汉": "汉",
+  "西汉": "汉-西汉",
+  "新朝": "汉-西汉", // 新朝时间短，映射到西汉
+  "玄汉": "汉-东汉", // 玄汉时间短，映射到东汉
+  "东汉": "汉-东汉",
+  "三国": "三国",
+  "曹魏": "三国",
+  "晋": "西晋",
+  "西晋": "西晋",
+  "东晋": "西晋", // 简化映射
+  "五胡十六国": "十六国",
+  "前赵": "十六国",
+  "后赵": "十六国", 
+  "前燕": "十六国",
+  "后燕": "十六国",
+  "南北朝": "南朝",
+  "北朝": "北朝",
+  "北魏": "北朝-北魏",
+  "东魏": "北朝-东魏",
+  "北齐": "北朝-北齐",
+  "西魏": "北朝-西魏", 
+  "北周": "北朝-北周",
+  "隋": "隋",
+  "唐": "唐",
+  "五代十国": "五代十国",
+  "宋": "宋",
+  "北宋": "宋-北宋",
+  "南宋": "宋-南宋",
+  "辽": "辽",
+  "金": "金", 
+  "元": "元",
+  "明": "明",
+  "清": "清",
+  "民国": "近代-民国",
+  "中国": "现代"
+};
+
+// 反向映射：从交通枢纽分析名称到时间轴名称
+export const reverseDynastyNameMapping = Object.fromEntries(
+  Object.entries(dynastyNameMapping).map(([key, value]) => [value, key])
+);
+
 // 创建Zustand store
 const useDynastyStore = create((set, get) => ({
   // 选中的朝代列表（数组，支持单选）
-  selectedDynasties: ['隋'],
+  selectedDynasties: ['元'],
   
   // 设置选中的朝代
   setSelectedDynasties: (dynasties) => set({ selectedDynasties: dynasties }),
@@ -97,6 +152,15 @@ const useDynastyStore = create((set, get) => ({
   getPrimaryDynasty: () => {
     const selected = get().selectedDynasties;
     return selected[0] || 'overview';
+  },
+
+  // 朝代名称映射方法
+  mapTimelineDynastyToTrafficDynasty: (timelineDynastyName) => {
+    return dynastyNameMapping[timelineDynastyName] || timelineDynastyName;
+  },
+  
+  mapTrafficDynastyToTimelineDynasty: (trafficDynastyName) => {
+    return reverseDynastyNameMapping[trafficDynastyName] || trafficDynastyName;
   },
 
   // 选中的交通路线信息

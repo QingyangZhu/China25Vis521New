@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as d3 from 'd3';
 import Papa from 'papaparse';
-import useDynastyStore from '../../store/dynastyStore';
+import useDynastyStore, { dynastyNameMapping, reverseDynastyNameMapping } from '../../store/dynastyStore';
 import './TrafficHubAnalysis.css';
 
 // 美观的配色方案 - 更淡雅的古朴中国风
@@ -49,8 +49,24 @@ const TrafficHubAnalysis = () => {
     showAllRoutes,
     toggleRouteSelection,
     setShowAllRoutes,
-    clearAllSelectedRoutes
+    clearAllSelectedRoutes,
+    selectedDynasties
   } = useDynastyStore();
+
+  // 监听全局朝代选择状态变化
+  useEffect(() => {
+    console.log('全局朝代选择状态变化:', selectedDynasties);
+    
+    if (selectedDynasties.includes('overview') || selectedDynasties.length === 0) {
+      // 如果是overview状态，清除本地选中的朝代
+      setSelectedDynasty(null);
+    } else {
+      // 如果选中了具体朝代，设置为本地状态
+      const currentSelectedDynasty = selectedDynasties[0];
+      console.log('设置当前选中朝代为:', currentSelectedDynasty);
+      setSelectedDynasty(currentSelectedDynasty);
+    }
+  }, [selectedDynasties]);
 
   // 加载数据
   useEffect(() => {
@@ -301,9 +317,13 @@ useEffect(() => {
         
         // 点击切换选中的朝代
         if (selectedDynasty === d.dynasty) {
-          setSelectedDynasty(null); // 如果已选中，则取消选择
+          // 如果已选中，则取消选择，同步到全局状态
+          setSelectedDynasty(null);
+          useDynastyStore.getState().toggleDynasty('overview');
         } else {
-          setSelectedDynasty(d.dynasty); // 选择新的朝代
+          // 选择新的朝代，同步到全局状态
+          setSelectedDynasty(d.dynasty);
+          useDynastyStore.getState().toggleDynasty(d.dynasty);
         }
               });
 
