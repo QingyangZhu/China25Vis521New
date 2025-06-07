@@ -216,8 +216,8 @@ export default function RiverSankeyMerged({
       backgroundColor: '#fff',
       title: {
         text: dynastiesToUse.length > 1
-          ? `${dynastiesToUse.join('、')} 水系功能分类 Sankey 图 (合并)`
-          : `${dynastiesToUse[0]} 水系功能分类 Sankey 图`,
+          ? `${dynastiesToUse.join('、')} 水系功能分类详情图 (合并)`
+          : `${dynastiesToUse[0]} 水系功能分类详情图`,
         left: 'center'
       },
       tooltip: { trigger: 'item', triggerOn: 'mousemove' },
