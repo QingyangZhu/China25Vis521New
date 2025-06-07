@@ -1712,8 +1712,6 @@ const TransportationNetwork = () => {
                 e.stopPropagation();
                 const newState = !showCityData.war;
                 setShowCityData(prev => ({ ...prev, war: newState }));
-                // 同步到store以便图表显示
-                setShowCityDataInCharts({ war: newState });
               }}
               onClick={handleControlClick}
               disabled={cityDataLoading}
@@ -1728,8 +1726,6 @@ const TransportationNetwork = () => {
                 e.stopPropagation();
                 const newState = !showCityData.disaster;
                 setShowCityData(prev => ({ ...prev, disaster: newState }));
-                // 同步到store以便图表显示
-                setShowCityDataInCharts({ disaster: newState });
               }}
               onClick={handleControlClick}
               disabled={cityDataLoading}
@@ -1744,8 +1740,6 @@ const TransportationNetwork = () => {
                 e.stopPropagation();
                 const newState = !showCityData.event;
                 setShowCityData(prev => ({ ...prev, event: newState }));
-                // 同步到store以便图表显示
-                setShowCityDataInCharts({ event: newState });
               }}
               onClick={handleControlClick}
               disabled={cityDataLoading}

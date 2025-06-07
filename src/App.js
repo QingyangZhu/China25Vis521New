@@ -531,10 +531,8 @@ function App() {
   const { warData, disasterData, eventData } = cityData;
   const currentDynasty = storeDynasties.includes('overview') ? '全部' : storeDynasties[0];
   
-  // 检查是否有数据需要显示
-  const hasDataToShow = (showCityDataInCharts.war && warData.length > 0) ||
-                       (showCityDataInCharts.disaster && disasterData.length > 0) ||
-                       (showCityDataInCharts.event && eventData.length > 0);
+  // 检查是否有数据需要显示 - 直接检查数据是否存在，不依赖复选框状态
+  const hasDataToShow = (warData.length > 0) || (disasterData.length > 0) || (eventData.length > 0);
 
   const centerBottom = (
     <div className="chart-container" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -577,7 +575,7 @@ function App() {
                 disasterData={disasterData}
                 eventData={eventData}
                 selectedDynasty={currentDynasty}
-                showCityData={showCityDataInCharts}
+                showCityData={{ war: true, disaster: true, event: true }}
               />
             ) : (
               <div style={{
@@ -592,14 +590,9 @@ function App() {
                 borderRadius: '8px'
               }}>
                 <div style={{ textAlign: 'center' }}>
-                  <p>请在交通路网地图中勾选古城数据项：</p>
-                  <ul style={{ listStyle: 'none', padding: 0, lineHeight: '1.5' }}>
-                    <li>⚔️ 战争数据</li>
-                    <li>🌪️ 灾害数据</li>
-                    <li>📜 事件数据</li>
-                  </ul>
+                  <p>正在加载古城数据...</p>
                   <p style={{ fontSize: '10px', color: '#999', marginTop: '8px' }}>
-                    选择后将在此处显示对应的属性分析图表
+                    数据加载完成后将显示属性分析图表
                   </p>
                 </div>
               </div>
