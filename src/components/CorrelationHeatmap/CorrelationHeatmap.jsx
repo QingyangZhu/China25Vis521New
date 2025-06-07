@@ -5,9 +5,9 @@ import styles from './CorrelationHeatmap.css'; // Import CSS Module
 const CorrelationHeatmap = () => {
     const svgRef = useRef();
      // Move these variables outside useEffect
-     const width = 350;
-     const height = 350;
-     const margin = { top: 20, right: 20, bottom: 50, left: 100 };
+     const width = 230;
+     const height = 230;
+     const margin = { top: 10, right: 20, bottom: 50, left: 10 };
 
     useEffect(() => {
         const data = [
@@ -70,7 +70,7 @@ const CorrelationHeatmap = () => {
         cells.append("rect")
             .attr("width", cellSize)
             .attr("height", cellSize)
-            .attr("fill", "white")
+            .attr("fill", "rgba(251, 248, 240, 0.85)")
             .attr("stroke", "#8c7655")
             .attr("stroke-width", 0.5);
 
@@ -150,7 +150,7 @@ const CorrelationHeatmap = () => {
     }, []); // Empty dependency array means this effect runs once on mount
 
     return (
-        <div className={styles.chartContainer} style={{ width: `${width + margin.left + margin.right}px`, height: `${height + margin.top + margin.bottom}px`, fontFamily: 'KaiTi, STKaiti, serif' }}>
+        <div className={styles.chartContainer} style={{ width: `${width + margin.left + margin.right}px`, height: `${height + margin.top + margin.bottom}px`, fontFamily: 'KaiTi, STKaiti, serif', padding: '0' }}>
             <svg ref={svgRef}></svg>
         </div>
     );

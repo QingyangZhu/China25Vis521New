@@ -6,9 +6,9 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
     const svgRef = useRef();
 
     useEffect(() => {
-        const width = 960;
-        const height = 100;
-        const margin = { top: 30, right: 10, bottom: 10, left: 10 };
+        const width = 975;
+        const height = 70;
+        const margin = { top: 30, right: 20, bottom: 10, left: 10 };
 
         // Clear previous SVG content
         d3.select(svgRef.current).selectAll("*").remove();
@@ -117,13 +117,29 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
 
             g.append("g")
                 .attr("class", "axis")
-                .each(function(d) { d3.select(this).call(d3.axisLeft(y[d]).ticks(5)); })
-                .append("text")
-                .style("text-anchor", "middle")
-                .attr("y", -9)
-                .text(function(d) { return d; })
-                .style("fill", "#333");
+                .each(function(d) { 
+                    d3.select(this)
+                        .call(d3.axisLeft(y[d]).ticks(3))
+                        .selectAll("line")
+                        .style("stroke", "#8C6D46")
+                        .style("stroke-width", "1px");
+                    
+                    d3.select(this)
+                        .selectAll("path")
+                        .style("stroke", "#8C6D46")
+                        .style("stroke-width", "1x");
+                    
+                    d3.select(this)
+                        .selectAll("text")
+                        .style("fill", "#8C6D46")
+                        .style("font-size", "10px");
+                });
 
+            // 只移除维度标签（政权更替等），保留刻度值
+            g.selectAll("text").filter(function() {
+                return d3.select(this).attr("y") === "-9";
+            }).remove();
+                
             const tooltip = d3.select("body").append("div")
                 .attr("class", "tooltip")
                 .style("opacity", 0)

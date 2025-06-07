@@ -21,6 +21,10 @@ import DynastyVisualization from './components/DynastyVisualization/DynastyVisua
 import TimeControl from './components/TimeControl/TimeControl';
 import DynastyInfo from './components/DynastyInfo/DynastyInfo';
 import MerceArea from './components/MerceArea/MerceArea';
+import ParallelCoordinatesPlot from './components/ParallelCoordinatesPlot/ParallelCoordinatesPlot';
+import HeatmapChart from './components/HeatMapChart/HeatMapChart';
+import CorrelationHeatmap from './components/CorrelationHeatmap/CorrelationHeatmap';
+
 
 import TrafficHubAnalysis from './components/Traffic/TrafficHubAnalysis';
 import CityDataCharts from './components/Traffic/CityDataCharts';
@@ -531,8 +535,10 @@ function App() {
   const { warData, disasterData, eventData } = cityData;
   const currentDynasty = storeDynasties.includes('overview') ? '全部' : storeDynasties[0];
   
-  // 检查是否有数据需要显示 - 直接检查数据是否存在，不依赖复选框状态
-  const hasDataToShow = (warData.length > 0) || (disasterData.length > 0) || (eventData.length > 0);
+  // 检查是否有数据需要显示
+  const hasDataToShow = (showCityDataInCharts.war && warData.length > 0) ||
+                       (showCityDataInCharts.disaster && disasterData.length > 0) ||
+                       (showCityDataInCharts.event && eventData.length > 0);
 
   const centerBottom = (
     <div className="chart-container" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -554,7 +560,7 @@ function App() {
       }}>
         {/* 左侧：古城数据属性分析图表，占40%宽度 */}
         <div style={{ 
-          width: '40%',
+          width: '20%',
           display: 'flex',
           flexDirection: 'column'
         }}>
@@ -575,7 +581,7 @@ function App() {
                 disasterData={disasterData}
                 eventData={eventData}
                 selectedDynasty={currentDynasty}
-                showCityData={{ war: true, disaster: true, event: true }}
+                showCityData={showCityDataInCharts}
               />
             ) : (
               <div style={{
@@ -590,9 +596,14 @@ function App() {
                 borderRadius: '8px'
               }}>
                 <div style={{ textAlign: 'center' }}>
-                  <p>正在加载古城数据...</p>
+                  <p>请在交通路网地图中勾选古城数据项：</p>
+                  <ul style={{ listStyle: 'none', padding: 0, lineHeight: '1.5' }}>
+                    <li>⚔️ 战争数据</li>
+                    <li>🌪️ 灾害数据</li>
+                    <li>📜 事件数据</li>
+                  </ul>
                   <p style={{ fontSize: '10px', color: '#999', marginTop: '8px' }}>
-                    数据加载完成后将显示属性分析图表
+                    选择后将在此处显示对应的属性分析图表
                   </p>
                 </div>
               </div>
@@ -602,39 +613,25 @@ function App() {
 
         {/* 右侧：新容器，占60%宽度 */}
         <div style={{ 
-          width: '80%',
+          width: '100%',
           display: 'flex',
           flexDirection: 'column'
         }}>
-          <h4 style={{ 
-            textAlign: 'center',
-            fontFamily: "'Noto Serif SC', serif",
-            color: '#8C6D46',
-            margin: '0 0 12px 0',
-            fontSize: '14px'
-          }}>
-            新增展示区域
-          </h4>
-          
-          <div style={{ 
-            flex: 1,
-            border: '2px solid #8C6D46',
-            borderRadius: '8px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(251, 248, 240, 0.8)',
-            color: '#8C6D46',
-            fontSize: '16px',
-            fontFamily: "'Noto Serif SC', serif",
-            boxShadow: '0 2px 8px rgba(140, 109, 70, 0.1)'
-          }}>
-            <div style={{ textAlign: 'center' }}>
-              <p>新增容器区域</p>
-              <p style={{ fontSize: '12px', color: '#999' }}>
-                与图表并排显示，占60%宽度
-              </p>
-            </div>
+      
+          <div className='row' style={{width: '100%', height: '100%', padding: 0}}>
+          <div className='col-md-9' style={{padding:2, height: '100%', width:'66%'}}>
+          <div className='row' style={{ width: 760, marginTop: -65,marginLeft: -30, height: '75%',padding:'2px' }}> 
+           <HeatmapChart dynasty={dynasty} startYear={startYear} endYear={endYear} />
+           </div>
+           <div className='row' style={{ width: 920, marginTop: -53,marginLeft: -175, height: '20%',padding:'2px' }}> 
+        
+           <ParallelCoordinatesPlot dynasty={dynasty} />
+ 
+           </div>
+          </div>
+           <div className='col-md-3' style={{marginTop: -20,marginRight:-10,padding:2, height: '100%', width:'34%'}}>
+            <CorrelationHeatmap />
+          </div>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import * as echarts from 'echarts';
 import * as d3 from 'd3'; // Assuming d3 is still used for CSV loading
 
-const HeatmapChart = ({ dynasty, startYear, endYear, width = '1200px', height = '200px' }) => {
+const HeatmapChart = ({ dynasty, startYear, endYear, width = '1100px', height = '260px' }) => {
     const chartRef = useRef(null);
     const myChart = useRef(null); // Use a ref to store the ECharts instance
 
@@ -50,7 +50,7 @@ const HeatmapChart = ({ dynasty, startYear, endYear, width = '1200px', height = 
             },
             grid: {
                 left: '3%',
-                right: '10%',
+                right: '2%',
                 bottom: '3%',
                 containLabel: true
             },
@@ -92,7 +92,7 @@ const HeatmapChart = ({ dynasty, startYear, endYear, width = '1200px', height = 
 
         // Load data
         Promise.all([
-            d3.csv('/data/灾害.csv'),
+            d3.csv('/data/灾害1.csv'),
             d3.csv('/data/战争1.csv'),
             d3.csv('/data/事件1.csv')
         ]).then(function([disasters, wars, events]) {
@@ -317,7 +317,7 @@ const HeatmapChart = ({ dynasty, startYear, endYear, width = '1200px', height = 
 
     }, [dynasty, startYear, endYear]); // Redraw chart if these props change
 
-    return <div ref={chartRef} style={{ width, height }}></div>;
+    return <div ref={chartRef} style={{ width, height,padding: '0px' }}></div>;
 };
 
 export default HeatmapChart; 
