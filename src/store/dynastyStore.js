@@ -45,53 +45,38 @@ export const dynastyData = [
 
 // 创建Zustand store
 const useDynastyStore = create((set, get) => ({
-  // 选中的朝代列表（数组，支持多选）
-  selectedDynasties: ['overview'],
+  // 选中的朝代列表（数组，支持单选）
+  selectedDynasties: ['隋'],
   
   // 设置选中的朝代
   setSelectedDynasties: (dynasties) => set({ selectedDynasties: dynasties }),
   
-  // 添加朝代到选中列表
+  // 添加朝代到选中列表（单选模式）
   addDynasty: (dynasty) => {
-    const current = get().selectedDynasties;
-    // 如果选择了overview，则清除overview
-    if (current.includes('overview')) {
-      set({ selectedDynasties: [dynasty] });
-    } else {
-      // 如果朝代不在列表中，则添加
-      if (!current.includes(dynasty)) {
-        set({ selectedDynasties: [...current, dynasty] });
-      }
-    }
+    // 直接设置为单个朝代
+    set({ selectedDynasties: [dynasty] });
   },
   
-  // 从选中列表移除朝代
+  // 从选中列表移除朝代（单选模式）
   removeDynasty: (dynasty) => {
-    const current = get().selectedDynasties;
-    const newSelection = current.filter(d => d !== dynasty);
-    // 如果移除后没有选中任何朝代，则设为overview
-    set({ 
-      selectedDynasties: newSelection.length === 0 ? ['overview'] : newSelection 
-    });
+    // 移除后自动设为overview
+    set({ selectedDynasties: ['overview'] });
   },
   
-  // 切换朝代选中状态
+  // 切换朝代选中状态（单选模式）
   toggleDynasty: (dynasty) => {
     const current = get().selectedDynasties;
     if (dynasty === 'overview') {
-      // 如果点击overview，则清除所有选择
+      // 点击overview，设置为overview状态
       set({ selectedDynasties: ['overview'] });
     } else {
-      // 如果当前是overview状态，则切换到指定朝代
-      if (current.includes('overview')) {
-        set({ selectedDynasties: [dynasty] });
+      // 点击具体朝代
+      if (current.includes(dynasty) && current.length === 1) {
+        // 如果当前已选中该朝代且只选中了这一个，则切换到overview
+        set({ selectedDynasties: ['overview'] });
       } else {
-        // 否则切换朝代的选中状态
-        if (current.includes(dynasty)) {
-          get().removeDynasty(dynasty);
-        } else {
-          get().addDynasty(dynasty);
-        }
+        // 否则选中该朝代（单选）
+        set({ selectedDynasties: [dynasty] });
       }
     }
   },

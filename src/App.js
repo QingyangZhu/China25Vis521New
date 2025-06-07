@@ -206,7 +206,7 @@ const CenterTopViewToggle = () => {
 function App() {
   const [dynasty, setDynasty] = useState("隋");
   const [startYear, setStartYear] = useState(581);
-  const [endYear, setEndYear] = useState(608);
+  const [endYear, setEndYear] = useState(618);
   const [selectedDynasties, setSelectedDynasties] = useState(new Set(["隋"]));
   const [viewMode, setViewMode] = useState('comprehensive');
 
@@ -380,9 +380,7 @@ function App() {
   // 自定义标题组件，移除了朝代选择器
   const CustomHeader = () => {
     const displayNames = getSelectedDisplayNames();
-    const displayText = displayNames.length > 1 
-      ? `${displayNames.length}个时期` 
-      : displayNames[0];
+    const displayText = displayNames[0]; // 单选模式，只显示第一个
       
     return (
       <div className="custom-header">
@@ -670,21 +668,28 @@ const rightTop = (
   );
 
   const handleDynastyClick = (selectedDynasties, startYear, endYear) => {
-    // 更新选中的朝代
+    // 更新选中的朝代（单选模式）
     setSelectedDynasties(new Set(selectedDynasties));
     
     // 更新当前显示的朝代
-    setDynasty(selectedDynasties[0]);
-    
-    // 更新时间范围
-    setStartYear(startYear);
-    setEndYear(endYear);
+    if (selectedDynasties.includes('overview')) {
+      // 取消选择时，默认显示隋朝数据
+      setDynasty('隋');
+      setStartYear(581);
+      setEndYear(618);
+    } else {
+      setDynasty(selectedDynasties[0]);
+      setStartYear(startYear);
+      setEndYear(endYear);
+    }
 
     // 更新 BeijingEcology 数据
     if (beijingEcologyRef.current) {
+        const finalStartYear = selectedDynasties.includes('overview') ? 581 : startYear;
+        const finalEndYear = selectedDynasties.includes('overview') ? 618 : endYear;
         const filteredData = beijingEcologyData.filter(item => {
             const year = parseInt(item.year);
-            return year >= startYear && year <= endYear;
+            return year >= finalStartYear && year <= finalEndYear;
         });
         beijingEcologyRef.current.updateData(filteredData);
     }

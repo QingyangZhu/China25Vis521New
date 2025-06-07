@@ -338,9 +338,19 @@ const TimeControl = ({ onDynastyClick }) => {
                     svg.selectAll(".dynasty-text")
                         .style("font-weight", d => selectedDynasties.includes(d.name) ? "900" : "normal");
 
-                    // 调用处理函数
+                    // 调用处理函数 - 单选模式，传递当前选中的朝代信息
                     if (onDynastyClick) {
-                        onDynastyClick(selectedDynasties, targetDynasty.start, targetDynasty.end);
+                        // 使用setTimeout确保状态已更新
+                        setTimeout(() => {
+                            const { selectedDynasties: updatedSelection } = useDynastyStore.getState();
+                            if (updatedSelection.includes('overview')) {
+                                // 如果是overview状态，传递隋朝时间范围作为默认
+                                onDynastyClick(updatedSelection, 581, 618);
+                            } else {
+                                // 如果选中了具体朝代，传递该朝代的时间范围
+                                onDynastyClick(updatedSelection, targetDynasty.start, targetDynasty.end);
+                            }
+                        }, 0);
                     }
                 }
             });
