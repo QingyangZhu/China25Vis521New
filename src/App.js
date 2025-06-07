@@ -212,9 +212,23 @@ function App() {
 
   // 添加全局错误处理器来抑制ResizeObserver错误
   useEffect(() => {
+    // 保存原始的console.error方法
+    const originalConsoleError = console.error;
+    
+    // 重写console.error来过滤ResizeObserver错误
+    console.error = (...args) => {
+      const message = args.join(' ');
+      if (message.includes('ResizeObserver loop completed with undelivered notifications')) {
+        // 完全忽略ResizeObserver错误，不输出到控制台
+        return;
+      }
+      // 其他错误正常输出
+      originalConsoleError.apply(console, args);
+    };
+
     const handleError = (event) => {
       if (event.message && event.message.includes('ResizeObserver loop completed with undelivered notifications')) {
-        // 完全抑制ResizeObserver循环错误，这是一个已知的浏览器问题
+        // 完全抑制ResizeObserver循环错误
         event.stopImmediatePropagation();
         event.preventDefault();
         return false;
@@ -229,9 +243,21 @@ function App() {
       }
     };
 
+    // 拦截window.onerror
+    const originalOnError = window.onerror;
+    window.onerror = (message, source, lineno, colno, error) => {
+      if (typeof message === 'string' && message.includes('ResizeObserver loop completed with undelivered notifications')) {
+        return true; // 阻止默认的错误处理
+      }
+      if (originalOnError) {
+        return originalOnError(message, source, lineno, colno, error);
+      }
+      return false;
+    };
+
     // 监听全局错误和未处理的Promise拒绝
-    window.addEventListener('error', handleError);
-    window.addEventListener('unhandledrejection', handleUnhandledRejection);
+    window.addEventListener('error', handleError, true); // 使用捕获阶段
+    window.addEventListener('unhandledrejection', handleUnhandledRejection, true);
     
     // 监听window resize事件，添加防抖
     let resizeTimeout;
@@ -245,8 +271,13 @@ function App() {
     
     // 清理函数
     return () => {
-      window.removeEventListener('error', handleError);
-      window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+      // 恢复原始的console.error
+      console.error = originalConsoleError;
+      // 恢复原始的window.onerror
+      window.onerror = originalOnError;
+      
+      window.removeEventListener('error', handleError, true);
+      window.removeEventListener('unhandledrejection', handleUnhandledRejection, true);
       window.removeEventListener('resize', handleResize);
       clearTimeout(resizeTimeout);
     };
@@ -506,48 +537,113 @@ function App() {
                        (showCityDataInCharts.event && eventData.length > 0);
 
   const centerBottom = (
-    <div className="chart-container">
+    <div className="chart-container" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      {/* 统一标题 */}
       <h3 style={{ 
         textAlign: 'center',
         fontFamily: "'Noto Serif SC', serif",
         color: '#8C6D46',
-        margin: '8px 0'
+        margin: '8px 0 16px 0'
       }}>
-        古城数据属性分析
+        古城数据分析与展示
       </h3>
       
-      <div style={{ height: 'calc(100% - 48px)', width: '100%' }}>
-        {hasDataToShow ? (
-          <CityDataCharts 
-            warData={warData}
-            disasterData={disasterData}
-            eventData={eventData}
-            selectedDynasty={currentDynasty}
-            showCityData={showCityDataInCharts}
-          />
-        ) : (
-          <div style={{
+      {/* 内容区域：图表和新容器并排 */}
+      <div style={{ 
+        flex: 1,
+        display: 'flex',
+        gap: '16px'
+      }}>
+        {/* 左侧：古城数据属性分析图表，占40%宽度 */}
+        <div style={{ 
+          width: '40%',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
+          <h4 style={{ 
+            textAlign: 'center',
+            fontFamily: "'Noto Serif SC', serif",
+            color: '#8C6D46',
+            margin: '0 0 12px 0',
+            fontSize: '14px'
+          }}>
+            属性分析图表
+          </h4>
+          
+          <div style={{ flex: 1 }}>
+            {hasDataToShow ? (
+              <CityDataCharts 
+                warData={warData}
+                disasterData={disasterData}
+                eventData={eventData}
+                selectedDynasty={currentDynasty}
+                showCityData={showCityDataInCharts}
+              />
+            ) : (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%',
+                color: '#8C6D46',
+                fontSize: '12px',
+                fontFamily: "'Noto Serif SC', serif",
+                border: '1px dashed #DCD1BB',
+                borderRadius: '8px'
+              }}>
+                <div style={{ textAlign: 'center' }}>
+                  <p>请在交通路网地图中勾选古城数据项：</p>
+                  <ul style={{ listStyle: 'none', padding: 0, lineHeight: '1.5' }}>
+                    <li>⚔️ 战争数据</li>
+                    <li>🌪️ 灾害数据</li>
+                    <li>📜 事件数据</li>
+                  </ul>
+                  <p style={{ fontSize: '10px', color: '#999', marginTop: '8px' }}>
+                    选择后将在此处显示对应的属性分析图表
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* 右侧：新容器，占60%宽度 */}
+        <div style={{ 
+          width: '80%',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
+          <h4 style={{ 
+            textAlign: 'center',
+            fontFamily: "'Noto Serif SC', serif",
+            color: '#8C6D46',
+            margin: '0 0 12px 0',
+            fontSize: '14px'
+          }}>
+            新增展示区域
+          </h4>
+          
+          <div style={{ 
+            flex: 1,
+            border: '2px solid #8C6D46',
+            borderRadius: '8px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            height: '100%',
+            backgroundColor: 'rgba(251, 248, 240, 0.8)',
             color: '#8C6D46',
             fontSize: '16px',
-            fontFamily: "'Noto Serif SC', serif"
+            fontFamily: "'Noto Serif SC', serif",
+            boxShadow: '0 2px 8px rgba(140, 109, 70, 0.1)'
           }}>
             <div style={{ textAlign: 'center' }}>
-              <p>请在交通路网地图中勾选古城数据项：</p>
-              <ul style={{ listStyle: 'none', padding: 0, lineHeight: '2' }}>
-                <li>⚔️ 战争数据</li>
-                <li>🌪️ 灾害数据</li>
-                <li>📜 事件数据</li>
-              </ul>
-              <p style={{ fontSize: '14px', color: '#999', marginTop: '16px' }}>
-                选择后将在此处显示对应的属性分析图表
+              <p>新增容器区域</p>
+              <p style={{ fontSize: '12px', color: '#999' }}>
+                与图表并排显示，占60%宽度
               </p>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
