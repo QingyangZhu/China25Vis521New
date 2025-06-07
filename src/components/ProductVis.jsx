@@ -2,8 +2,25 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as d3 from 'd3';
 import './ProductVis.css';
 import ProductDetailView from './ProductDetailView';
+import WordCloudView from './WordCloudView';
 
-const ProductVis = ({ showDataPoints = true }) => {
+const ProductVis = ({ 
+  showDataPoints = true, 
+  onOpenDetailView, 
+  showDetailView = false, 
+  selectedDynastyForDetail, 
+  selectedCategoryForDetail, 
+  onCloseDetailView,
+  showWordCloud = false,
+  selectedDynastyForWordCloud,
+  onOpenWordCloud,
+  onCloseWordCloud
+}) => {
+  console.log('ProductVis 渲染 - showDetailView:', showDetailView);
+  console.log('ProductVis 渲染 - selectedDynastyForDetail:', selectedDynastyForDetail);
+  console.log('ProductVis 渲染 - selectedCategoryForDetail:', selectedCategoryForDetail);
+  console.log('ProductVis 渲染 - onCloseDetailView:', typeof onCloseDetailView);
+
   const mainRef = useRef(null);
   const tooltipRef = useRef(null);
   const svgRef = useRef(null); // 添加SVG的引用
@@ -14,9 +31,6 @@ const ProductVis = ({ showDataPoints = true }) => {
   const [rawData, setRawData] = useState(null); // 添加原始CSV数据状态
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState(''); // 添加搜索状态
-  const [showDetailView, setShowDetailView] = useState(false); // 添加下钻视图状态
-  const [selectedDynastyForDetail, setSelectedDynastyForDetail] = useState(null); // 选中的朝代
-  const [selectedCategoryForDetail, setSelectedCategoryForDetail] = useState(null); // 选中的物产大类
   const itemsPerPage = 5; // 每页显示5个物产
 
   // 使用ref来存储最新的状态值，避免handleWheel的依赖项问题
@@ -39,70 +53,20 @@ const ProductVis = ({ showDataPoints = true }) => {
     };
   }, [currentPage, searchTerm, bubbleData]);
 
+  // 处理朝代背景点击事件
+  const handleDynastyBackgroundClick = (dynasty) => {
+    console.log('点击朝代背景:', dynasty);
+    if (onOpenWordCloud) {
+      onOpenWordCloud(dynasty);
+    }
+  };
+
   // 处理花瓣点击事件
   const handlePetalClick = (dynasty, category) => {
     console.log('handlePetalClick 被调用:', dynasty, category);
-    console.log('准备设置状态...');
-    setSelectedDynastyForDetail(dynasty);
-    setSelectedCategoryForDetail(category);
-    setShowDetailView(true);
-    console.log('状态设置完成 - 应该显示详情视图');
-    console.log('showDetailView将被设置为:', true);
-    console.log('selectedDynastyForDetail将被设置为:', dynasty);
-    console.log('selectedCategoryForDetail将被设置为:', category);
-  };
-
-  // 关闭下钻视图
-  const handleCloseDetailView = () => {
-    setShowDetailView(false);
-    setSelectedDynastyForDetail(null);
-    setSelectedCategoryForDetail(null);
-    
-    // 延迟重新绘制主视图，确保DOM已经更新
-    setTimeout(async () => {
-      if (rawData && bubbleData) {
-        try {
-          // 清除之前的SVG引用，强制重新初始化
-          svgRef.current = null;
-          
-          // 重新初始化SVG
-          const svg = initializeSvg();
-          if (svg) {
-            // 重新加载和处理人口数据
-            const populationCsvText = await fetch('/data/problem3/人口数量统计.csv').then(res => res.text());
-            const populationRawData = d3.csvParse(populationCsvText);
-            const processedPopulationData = processPopulationData(populationRawData, bubbleData);
-            
-            const data = d3.csvParse(rawData);
-            const processedData = processData(data);
-            
-            // 更新人口数据状态
-            setPopulationData(processedPopulationData);
-            drawMainView(processedData, processedPopulationData, bubbleData);
-            
-            // 重新添加样式标签
-            const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
-            style.textContent = `
-              .x-axis-group .domain {
-                stroke: #4A4A4A;
-                stroke-width: 2px;
-              }
-              .x-axis-group .tick line {
-                stroke: #4A4A4A;
-                stroke-width: 2px;
-              }
-              .x-axis-group .tick text {
-                font-size: 14px;
-                font-weight: bold;
-              }
-            `;
-            svg.node().appendChild(style);
-          }
-        } catch (error) {
-          console.error('重新绘制主视图时出错：', error);
-        }
-      }
-    }, 100);
+    if (onOpenDetailView) {
+      onOpenDetailView(dynasty, category);
+    }
   };
 
   // 处理人口数据CSV
@@ -540,6 +504,28 @@ const ProductVis = ({ showDataPoints = true }) => {
       .selectAll('text')
       .attr('font-size', '12px');
 
+    // 创建数据点的径向渐变
+    const pointGradient = defs.append('radialGradient')
+      .attr('id', 'pointGradient')
+      .attr('cx', '50%')
+      .attr('cy', '50%')
+      .attr('r', '50%');
+
+    pointGradient.append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', '#246b69')
+      .attr('stop-opacity', 1.0);
+
+    pointGradient.append('stop')
+      .attr('offset', '70%')
+      .attr('stop-color', '#4a9b98')
+      .attr('stop-opacity', 0.5);
+
+    pointGradient.append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', '#dbc08e')
+      .attr('stop-opacity', 0.8);
+
     // 在面积图上绘制人口数据点（根据showDataPoints控制显示）
     if (showDataPoints) {
       const dataPoints = container.selectAll('.population-point')
@@ -561,9 +547,9 @@ const ProductVis = ({ showDataPoints = true }) => {
       dataPoints.append('circle')
         .attr('class', 'point-core')
         .attr('r', 4)
-        .attr('fill', '#8b6f47')
+        .attr('fill', 'url(#pointGradient)')
         .attr('stroke', '#dbc08e')
-        .attr('stroke-width', 2)
+        .attr('stroke-width', 1.5)
         .attr('opacity', 0.9);
 
       // 添加数据点交互效果
@@ -580,7 +566,7 @@ const ProductVis = ({ showDataPoints = true }) => {
             .transition()
             .duration(200)
             .attr('r', 6)
-            .attr('fill', '#6b5d4f');
+            .attr('fill', '#246b69');
 
           const tooltip = d3.select(tooltipRef.current);
           tooltip
@@ -604,7 +590,7 @@ const ProductVis = ({ showDataPoints = true }) => {
             .transition()
             .duration(200)
             .attr('r', 4)
-            .attr('fill', '#8b6f47');
+            .attr('fill', 'url(#pointGradient)');
 
           d3.select(tooltipRef.current).style('opacity', 0);
         });
@@ -667,10 +653,13 @@ const ProductVis = ({ showDataPoints = true }) => {
       .attr('transform', d => {
         const peak = dynastyPeaks.get(d.dynasty);
         if (peak) {
-          return `translate(${peak.x}, ${Math.max(peak.y - 20, dynastyRadius)})`; // 减小与面积图的距离
+          // 为元朝设置更高的位置（距离面积图更远）
+          const extraOffset = d.dynasty === '元' ? 40 : 0; // 元朝额外向上偏移40像素
+          return `translate(${peak.x}, ${Math.max(peak.y - 20 - extraOffset, dynastyRadius)})`; // 减小与面积图的距离
         } else {
           // 如果没有峰值数据，使用朝代区域中心
-          return `translate(${dynastyXScale(d.dynasty) + dynastyXScale.bandwidth()/2}, ${dynastyRadius})`;
+          const extraOffset = d.dynasty === '元' ? 40 : 0; // 元朝额外向上偏移40像素
+          return `translate(${dynastyXScale(d.dynasty) + dynastyXScale.bandwidth()/2}, ${dynastyRadius - extraOffset})`;
         }
       });
 
@@ -847,22 +836,22 @@ const ProductVis = ({ showDataPoints = true }) => {
       .range([0, contentWidth])
       .padding(0.1);
 
-    // 创建统一的朝代颜色比例尺（确保所有视图使用相同的映射）
+    // 创建统一的朝代颜色比例尺（每4个朝代循环一次颜色）
     const dynasties = orderedDynasties;
-    const dynastyColorScale = d3.scaleOrdinal()
-      .domain(dynasties)
-      .range([
-        '#f9f7f4', // 宣纸白 - 淡雅底色
-        '#f5f2ed', // 米白色 - 温润如玉
-        '#f1ede6', // 淡米色 - 素雅清淡
-        '#ede8df', // 浅灰米 - 水墨晕染
-        '#e9e3d8', // 淡土色 - 古朴自然
-        '#e5ded1', // 浅褐色 - 竹纸色
-        '#e1d9ca', // 淡茶色 - 清香淡雅
-        '#ddd4c3', // 浅驼色 - 温和柔润
-        '#d9cfbc', // 淡卡其 - 素净雅致
-        '#d5cab5'  // 浅棕灰 - 古韵悠长
-      ]);
+    
+    // 定义4个循环使用的颜色
+    const cycleColors = [
+      '#f9f7f4', // 宣纸白 - 淡雅底色
+      '#f1ede6', // 淡米色 - 素雅清淡
+      '#e9e3d8', // 淡土色 - 古朴自然
+      '#e1d9ca'  // 淡茶色 - 清香淡雅
+    ];
+    
+    // 创建颜色映射函数（每4个朝代循环一次）
+    const dynastyColorScale = (dynasty) => {
+      const index = dynasties.indexOf(dynasty);
+      return cycleColors[index % 4]; // 每4个颜色循环一次
+    };
 
     // 创建背景分隔区域组
     const backgroundGroup = svg.append('g')
@@ -882,7 +871,23 @@ const ProductVis = ({ showDataPoints = true }) => {
       .attr('opacity', 0.6)
       .attr('stroke', '#c7b299')
       .attr('stroke-width', 1)
-      .style('pointer-events', 'none'); // 不拦截鼠标事件
+      .style('cursor', 'pointer')
+      .style('pointer-events', 'all') // 启用鼠标事件
+      .on('mouseover', function(event, d) {
+        d3.select(this)
+          .attr('opacity', 0.8)
+          .attr('stroke-width', 2);
+      })
+      .on('mouseout', function(event, d) {
+        d3.select(this)
+          .attr('opacity', 0.6)
+          .attr('stroke-width', 1);
+      })
+      .on('click', function(event, d) {
+        console.log('朝代背景被点击:', d);
+        event.stopPropagation();
+        handleDynastyBackgroundClick(d);
+      });
 
     // 添加朝代名称（垂直排列）
     dynasties.forEach(dynasty => {
@@ -1207,8 +1212,13 @@ const ProductVis = ({ showDataPoints = true }) => {
 
   // 初始化数据和事件监听
   useEffect(() => {
-    // 如果正在显示下钻视图，不执行初始化
-    if (showDetailView) return;
+    console.log('主要useEffect触发 - showDetailView:', showDetailView, 'showWordCloud:', showWordCloud);
+    
+    // 如果正在显示下钻视图或词云视图，不执行初始化
+    if (showDetailView || showWordCloud) {
+      console.log('显示详情视图或词云视图，跳过主视图初始化');
+      return;
+    }
 
     // 等待DOM元素准备好
     const waitForElement = () => {
@@ -1237,6 +1247,8 @@ const ProductVis = ({ showDataPoints = true }) => {
 
     const loadData = async () => {
       try {
+        console.log('开始加载数据...');
+        
         // 等待DOM元素准备好
         await waitForElement();
         
@@ -1246,12 +1258,21 @@ const ProductVis = ({ showDataPoints = true }) => {
           return;
         }
 
+        // 如果从详情视图返回，需要清除并重新初始化SVG
+        if (svgRef.current) {
+          console.log('清除现有SVG');
+          d3.select(mainRef.current).selectAll('svg').remove();
+          svgRef.current = null;
+        }
+
         // 初始化SVG
         const svg = initializeSvg();
         if (!svg) {
           console.warn('SVG初始化失败，跳过数据加载');
           return;
         }
+
+        console.log('SVG初始化成功，开始加载数据...');
 
         const [csvText, populationCsvText, bubData] = await Promise.all([
           fetch('/data/problem3/物产数据_按朝代排序.csv').then(response => response.text()),
@@ -1267,6 +1288,8 @@ const ProductVis = ({ showDataPoints = true }) => {
         setPopulationData(processedPopulationData);
         setBubbleData(bubData);
         setRawData(csvText);
+        
+        console.log('数据处理完成，开始绘制主视图...');
         drawMainView(processedData, processedPopulationData, bubData);
 
         // 设置初始化完成标志
@@ -1293,6 +1316,8 @@ const ProductVis = ({ showDataPoints = true }) => {
           }
         `;
         svgRef.current.node().appendChild(style);
+        
+        console.log('主视图绘制完成');
       } catch (error) {
         console.error('数据加载错误：', error);
       }
@@ -1322,12 +1347,29 @@ const ProductVis = ({ showDataPoints = true }) => {
       }
       isInitializedRef.current = false;
     };
-  }, [showDetailView]); // 移除handleWheel依赖，避免循环
+  }, [showDetailView, showWordCloud]); // 添加showWordCloud依赖
+
+  // 专门处理showDataPoints变化的useEffect
+  useEffect(() => {
+    // 如果正在显示下钻视图、词云视图，或者还没有初始化完成，则不处理
+    if (showDetailView || showWordCloud || !isInitializedRef.current) return;
+    
+    // 当showDataPoints改变时，重新绘制主视图
+    if (rawData && populationData && bubbleData && mainRef.current && svgRef.current) {
+      try {
+        const data = d3.csvParse(rawData);
+        const processedData = processData(data);
+        drawMainView(processedData, populationData, bubbleData);
+      } catch (error) {
+        console.error('重新绘制主视图时出错：', error);
+      }
+    }
+  }, [showDataPoints]); // 只监听showDataPoints的变化
 
   // 当页码、搜索词或显示选项改变时，只重绘气泡图部分（带防抖）
   useEffect(() => {
-    // 如果正在显示下钻视图，不重新绘制主视图
-    if (showDetailView || !isInitializedRef.current) return;
+    // 如果正在显示下钻视图或词云视图，不重新绘制主视图
+    if (showDetailView || showWordCloud || !isInitializedRef.current) return;
     
     // 清除之前的防抖定时器
     if (redrawTimeoutRef.current) {
@@ -1366,12 +1408,18 @@ const ProductVis = ({ showDataPoints = true }) => {
               .range([0, contentWidth])
               .padding(0.1);
             
-            const dynastyColorScale = d3.scaleOrdinal()
-              .domain(orderedDynasties)
-              .range([
-                '#f9f7f4', '#f5f2ed', '#f1ede6', '#ede8df', '#e9e3d8',
-                '#e5ded1', '#e1d9ca', '#ddd4c3', '#d9cfbc', '#d5cab5'
-              ]);
+            // 使用与主视图相同的4色循环逻辑
+            const cycleColors = [
+              '#f9f7f4', // 宣纸白 - 淡雅底色
+              '#f1ede6', // 淡米色 - 素雅清淡
+              '#e9e3d8', // 淡土色 - 古朴自然
+              '#e1d9ca'  // 淡茶色 - 清香淡雅
+            ];
+            
+            const dynastyColorScale = (dynasty) => {
+              const index = orderedDynasties.indexOf(dynasty);
+              return cycleColors[index % 4]; // 每4个颜色循环一次
+            };
             
             // 重绘气泡图
             drawBubbleView(bubbleData, bubbleGroup, contentWidth, bubbleHeight, dynastyXScale, dynastyColorScale);
@@ -1387,7 +1435,7 @@ const ProductVis = ({ showDataPoints = true }) => {
         clearTimeout(redrawTimeoutRef.current);
       }
     };
-  }, [currentPage, searchTerm, showDataPoints, bubbleData, populationData, showDetailView]);
+  }, [currentPage, searchTerm, bubbleData, populationData, showDetailView, showWordCloud]); // 添加showWordCloud依赖
 
   // 当搜索词改变时重置页码
   useEffect(() => {
@@ -1396,7 +1444,7 @@ const ProductVis = ({ showDataPoints = true }) => {
 
   return (
     <div className="product-vis-container">
-      {!showDetailView ? (
+      {!showDetailView && !showWordCloud ? (
         <>
           <div className="search-container">
             <input
@@ -1422,19 +1470,24 @@ const ProductVis = ({ showDataPoints = true }) => {
           />
           <div className="tooltip" ref={tooltipRef} />
         </>
-      ) : (
+      ) : showDetailView ? (
         <div className="detail-view-container">
-          <button className="back-button" onClick={handleCloseDetailView}>
-            ← 返回
-          </button>
           <ProductDetailView 
             dynasty={selectedDynastyForDetail}
             category={selectedCategoryForDetail}
-            onClose={handleCloseDetailView}
+            onClose={onCloseDetailView}
             isEmbedded={true}
           />
         </div>
-      )}
+      ) : showWordCloud ? (
+        <div className="detail-view-container">
+          <WordCloudView 
+            dynasty={selectedDynastyForWordCloud}
+            onClose={onCloseWordCloud}
+            isEmbedded={true}
+          />
+        </div>
+      ) : null}
     </div>
   );
 };

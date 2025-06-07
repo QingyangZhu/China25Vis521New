@@ -19,9 +19,47 @@ import Merce from './components/Merce/Merce';
 import qinImage from './images/秦.png';
 import TrafficHubAnalysis from './components/Traffic/TrafficHubAnalysis';
 
-
 // 物产可视化控制组件
-const ProductVisControls = ({ showDataPoints, setShowDataPoints }) => {
+const ProductVisControls = ({ showDataPoints, setShowDataPoints, showDetailView, showWordCloud, onCloseDetailView, onCloseWordCloud }) => {
+  console.log('ProductVisControls 渲染 - showDetailView:', showDetailView, 'showWordCloud:', showWordCloud);
+  
+  if (showDetailView || showWordCloud) {
+    // 显示详情视图或词云视图时，显示返回按钮
+    return (
+      <button
+        onClick={() => {
+          console.log('返回按钮被点击');
+          if (showDetailView) {
+            onCloseDetailView();
+          } else if (showWordCloud) {
+            onCloseWordCloud();
+          }
+        }}
+        style={{
+          padding: '4px 8px',
+          border: '1px solid #8C6D46',
+          borderRadius: '4px',
+          background: '#8C6D46',
+          color: 'white',
+          fontSize: '11px',
+          cursor: 'pointer',
+          fontFamily: "'Noto Serif SC', serif",
+          transition: 'all 0.2s ease',
+          whiteSpace: 'nowrap'
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.background = '#6B5B47';
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.background = '#8C6D46';
+        }}
+      >
+        ← 返回
+      </button>
+    );
+  }
+
+  // 正常情况下显示数据点控制按钮
   return (
     <button
       onClick={() => setShowDataPoints(!showDataPoints)}
@@ -147,6 +185,48 @@ function App() {
   
   // 物产可视化数据点显示控制状态
   const [showDataPoints, setShowDataPoints] = React.useState(true);
+  
+  // 物产详情视图状态管理
+  const [showDetailView, setShowDetailView] = React.useState(false);
+  const [selectedDynastyForDetail, setSelectedDynastyForDetail] = React.useState(null);
+  const [selectedCategoryForDetail, setSelectedCategoryForDetail] = React.useState(null);
+  
+  // 词云视图状态管理
+  const [showWordCloud, setShowWordCloud] = React.useState(false);
+  const [selectedDynastyForWordCloud, setSelectedDynastyForWordCloud] = React.useState(null);
+
+  // 处理打开详情视图
+  const handleOpenDetailView = (dynasty, category) => {
+    setSelectedDynastyForDetail(dynasty);
+    setSelectedCategoryForDetail(category);
+    setShowDetailView(true);
+  };
+
+  // 处理关闭详情视图
+  const handleCloseDetailView = () => {
+    console.log('handleCloseDetailView 被调用');
+    console.log('当前状态 - showDetailView:', showDetailView);
+    console.log('当前状态 - selectedDynastyForDetail:', selectedDynastyForDetail);
+    console.log('当前状态 - selectedCategoryForDetail:', selectedCategoryForDetail);
+    
+    setShowDetailView(false);
+    setSelectedDynastyForDetail(null);
+    setSelectedCategoryForDetail(null);
+    
+    console.log('状态重置完成');
+  };
+
+  // 处理打开词云视图
+  const handleOpenWordCloud = (dynasty) => {
+    setSelectedDynastyForWordCloud(dynasty);
+    setShowWordCloud(true);
+  };
+
+  // 处理关闭词云视图
+  const handleCloseWordCloud = () => {
+    setShowWordCloud(false);
+    setSelectedDynastyForWordCloud(null);
+  };
 
   // 这barChartOption和legendData保持不变，用于其他图表
   const barChartOption = {
@@ -277,14 +357,49 @@ const rightTop = (
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: '16px'
+        marginBottom: '16px',
+        position: 'relative'
       }}>
-        <h3 style={{ margin: 0 ,justifyContent: 'center'}}>物产分布与演变</h3>
-        <ProductVisControls showDataPoints={showDataPoints} setShowDataPoints={setShowDataPoints} />
+        {/* 左侧占位 */}
+        <div style={{ flex: 1 }}></div>
+        
+        {/* 中间标题 */}
+        <h3 style={{ 
+          margin: 0, 
+          flex: 1, 
+          textAlign: 'center',
+          fontFamily: "'Noto Serif SC', serif",
+          color: '#8C6D46',
+          whiteSpace: 'nowrap'
+        }}>
+          物产分布与演变
+        </h3>
+        
+        {/* 右侧按钮 */}
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <ProductVisControls 
+            showDataPoints={showDataPoints} 
+            setShowDataPoints={setShowDataPoints}
+            showDetailView={showDetailView}
+            showWordCloud={showWordCloud}
+            onCloseDetailView={handleCloseDetailView}
+            onCloseWordCloud={handleCloseWordCloud}
+          />
+        </div>
       </div>
       <div style={{height: 'calc(100% - 56px)', width: '100%'}}>
-          <ProductVis showDataPoints={showDataPoints} />
+          <ProductVis 
+            showDataPoints={showDataPoints}
+            onOpenDetailView={handleOpenDetailView}
+            showDetailView={showDetailView}
+            selectedDynastyForDetail={selectedDynastyForDetail}
+            selectedCategoryForDetail={selectedCategoryForDetail}
+            onCloseDetailView={handleCloseDetailView}
+            showWordCloud={showWordCloud}
+            selectedDynastyForWordCloud={selectedDynastyForWordCloud}
+            onOpenWordCloud={handleOpenWordCloud}
+            onCloseWordCloud={handleCloseWordCloud}
+          />
       </div>
   </div>
 );

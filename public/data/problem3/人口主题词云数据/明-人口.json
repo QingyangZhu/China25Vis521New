@@ -1,0 +1,1471 @@
+{
+  "title": "明朝人口文本主题词云数据",
+  "word_data": [
+    {
+      "word": "富户",
+      "weight": 8.264904461459073,
+      "normalized_weight": 0.587302900262223,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 66
+    },
+    {
+      "word": "社会",
+      "weight": 7.746946748708963,
+      "normalized_weight": 0.5447153229178433,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 63
+    },
+    {
+      "word": "天府",
+      "weight": 5.2892685954438186,
+      "normalized_weight": 0.3426398332334796,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 47
+    },
+    {
+      "word": "移民",
+      "weight": 5.227983619608105,
+      "normalized_weight": 0.33760085305381565,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 47
+    },
+    {
+      "word": "靖难",
+      "weight": 3.5972644882106395,
+      "normalized_weight": 0.2035196811245259,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 36
+    },
+    {
+      "word": "以上",
+      "weight": 3.4459094609036933,
+      "normalized_weight": 0.191074951037062,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 35
+    },
+    {
+      "word": "城中",
+      "weight": 3.375873163515491,
+      "normalized_weight": 0.18531641871190857,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 34
+    },
+    {
+      "word": "对于",
+      "weight": 3.0141666859823215,
+      "normalized_weight": 0.15557614801274677,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 32
+    },
+    {
+      "word": "户数",
+      "weight": 2.9239874435900153,
+      "normalized_weight": 0.1481614201967469,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 31
+    },
+    {
+      "word": "措施",
+      "weight": 2.6848825691076206,
+      "normalized_weight": 0.12850171230018753,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 30
+    },
+    {
+      "word": "明清",
+      "weight": 2.5647650332667173,
+      "normalized_weight": 0.11862539475125135,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 29
+    },
+    {
+      "word": "燕山",
+      "weight": 2.48906359597433,
+      "normalized_weight": 0.11240106265538845,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 28
+    },
+    {
+      "word": "良乡",
+      "weight": 2.107508510176458,
+      "normalized_weight": 0.08102879745388947,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 26
+    },
+    {
+      "word": "所在",
+      "weight": 2.050328103834242,
+      "normalized_weight": 0.07632730364901384,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 26
+    },
+    {
+      "word": "作为",
+      "weight": 2.042651614424434,
+      "normalized_weight": 0.07569612647291254,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 26
+    },
+    {
+      "word": "区域",
+      "weight": 2.025887041057234,
+      "normalized_weight": 0.07431770783496938,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 25
+    },
+    {
+      "word": "资料",
+      "weight": 1.705635773745185,
+      "normalized_weight": 0.04798597209563206,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 23
+    },
+    {
+      "word": "元大都",
+      "weight": 1.6726832141497234,
+      "normalized_weight": 0.045276543032367854,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 23
+    },
+    {
+      "word": "系统",
+      "weight": 1.6553804770892098,
+      "normalized_weight": 0.04385387543867261,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 23
+    },
+    {
+      "word": "军事",
+      "weight": 2.535325429144496,
+      "normalized_weight": 0.11620480830822663,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 29
+    },
+    {
+      "word": "通州",
+      "weight": 1.524635017875977,
+      "normalized_weight": 0.03310370757823892,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 22
+    },
+    {
+      "word": "百户",
+      "weight": 1.5159800084492594,
+      "normalized_weight": 0.03239207441919278,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 22
+    },
+    {
+      "word": "永乐",
+      "weight": 8.382893515042959,
+      "normalized_weight": 0.597004209503501,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 67
+    },
+    {
+      "word": "军士",
+      "weight": 2.5741154521149627,
+      "normalized_weight": 0.11939420594200992,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 29
+    },
+    {
+      "word": "特点",
+      "weight": 1.2874728434273088,
+      "normalized_weight": 0.01360373258246785,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 21
+    },
+    {
+      "word": "宛平县",
+      "weight": 1.2004423326564493,
+      "normalized_weight": 0.006447900132178578,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 20
+    },
+    {
+      "word": "守御",
+      "weight": 1.1835601972157486,
+      "normalized_weight": 0.005059815292198595,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 20
+    },
+    {
+      "word": "军籍",
+      "weight": 1.1686141977413949,
+      "normalized_weight": 0.0038309236415201855,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 20
+    },
+    {
+      "word": "密云",
+      "weight": 1.157655674792516,
+      "normalized_weight": 0.0029298907344367108,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 20
+    },
+    {
+      "word": "民户",
+      "weight": 1.122021821024667,
+      "normalized_weight": 0.0,
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "font_size": 20
+    },
+    {
+      "word": "会馆",
+      "weight": 6.140498303763701,
+      "normalized_weight": 0.41262973810124726,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 53
+    },
+    {
+      "word": "穆斯林",
+      "weight": 5.193122297305051,
+      "normalized_weight": 0.33473448148841145,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 46
+    },
+    {
+      "word": "嘉靖",
+      "weight": 4.8250905305586365,
+      "normalized_weight": 0.304474132147763,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 44
+    },
+    {
+      "word": "布政司",
+      "weight": 4.2149171993930015,
+      "normalized_weight": 0.2543043918488456,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 40
+    },
+    {
+      "word": "人户",
+      "weight": 3.811718372211034,
+      "normalized_weight": 0.22115253250765743,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 37
+    },
+    {
+      "word": "内城",
+      "weight": 3.652006127099375,
+      "normalized_weight": 0.20802065431740288,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 36
+    },
+    {
+      "word": "回族",
+      "weight": 3.431885821322041,
+      "normalized_weight": 0.189921897765276,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 35
+    },
+    {
+      "word": "洪武",
+      "weight": 8.723784215168354,
+      "normalized_weight": 0.6250329630102069,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 70
+    },
+    {
+      "word": "以后",
+      "weight": 3.2243201601991087,
+      "normalized_weight": 0.17285541061871829,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 33
+    },
+    {
+      "word": "文化",
+      "weight": 3.186324431701106,
+      "normalized_weight": 0.16973132155443318,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 33
+    },
+    {
+      "word": "居住",
+      "weight": 3.145223931575823,
+      "normalized_weight": 0.16635195160802474,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 33
+    },
+    {
+      "word": "北京城",
+      "weight": 2.9836082877520553,
+      "normalized_weight": 0.1530635719546706,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 32
+    },
+    {
+      "word": "京师",
+      "weight": 10.854776473947728,
+      "normalized_weight": 0.8002476483156563,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 84
+    },
+    {
+      "word": "限制",
+      "weight": 2.8416007690811136,
+      "normalized_weight": 0.14138741377416694,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 31
+    },
+    {
+      "word": "产业",
+      "weight": 2.79783428353646,
+      "normalized_weight": 0.13778884087459925,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 31
+    },
+    {
+      "word": "余人",
+      "weight": 2.7265474613055205,
+      "normalized_weight": 0.13192748775510266,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 30
+    },
+    {
+      "word": "大兴",
+      "weight": 2.4479729218313686,
+      "normalized_weight": 0.10902250062200419,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 28
+    },
+    {
+      "word": "数据",
+      "weight": 2.3956579319264235,
+      "normalized_weight": 0.10472105163494724,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 28
+    },
+    {
+      "word": "南京",
+      "weight": 2.207437304033336,
+      "normalized_weight": 0.0892451539875425,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 27
+    },
+    {
+      "word": "中后期",
+      "weight": 2.104164021262055,
+      "normalized_weight": 0.08075380651000853,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 26
+    },
+    {
+      "word": "约计",
+      "weight": 1.9368365124547662,
+      "normalized_weight": 0.06699578525121366,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 25
+    },
+    {
+      "word": "户口",
+      "weight": 7.258699908099536,
+      "normalized_weight": 0.5045706362460286,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 60
+    },
+    {
+      "word": "包括",
+      "weight": 3.4278581486398574,
+      "normalized_weight": 0.1895907340087608,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 35
+    },
+    {
+      "word": "政权",
+      "weight": 1.8693407545730065,
+      "normalized_weight": 0.06144614145125008,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 24
+    },
+    {
+      "word": "宛平",
+      "weight": 1.8466976860059523,
+      "normalized_weight": 0.05958438051946771,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 24
+    },
+    {
+      "word": "这种",
+      "weight": 1.8183097207636085,
+      "normalized_weight": 0.05725026204676693,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 24
+    },
+    {
+      "word": "发展",
+      "weight": 1.7832533407240907,
+      "normalized_weight": 0.054367852422205126,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 24
+    },
+    {
+      "word": "正统",
+      "weight": 1.7675417478698685,
+      "normalized_weight": 0.053076012066493684,
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "font_size": 24
+    },
+    {
+      "word": "城市户口",
+      "weight": 6.664393585758536,
+      "normalized_weight": 0.4557055149322312,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 56
+    },
+    {
+      "word": "城市",
+      "weight": 13.284200208438051,
+      "normalized_weight": 1.0,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 100
+    },
+    {
+      "word": "城内",
+      "weight": 9.705739149847181,
+      "normalized_weight": 0.7057713721503861,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 76
+    },
+    {
+      "word": "保甲",
+      "weight": 7.253082590712328,
+      "normalized_weight": 0.5041087685436915,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 60
+    },
+    {
+      "word": "迁都",
+      "weight": 7.233548591330526,
+      "normalized_weight": 0.5025026418483276,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 60
+    },
+    {
+      "word": "铺户",
+      "weight": 6.066790102866569,
+      "normalized_weight": 0.4065692941125772,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 52
+    },
+    {
+      "word": "山西",
+      "weight": 5.662334004417795,
+      "normalized_weight": 0.37331405927180683,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 49
+    },
+    {
+      "word": "驻军",
+      "weight": 5.4127926393417605,
+      "normalized_weight": 0.3527962410712216,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 48
+    },
+    {
+      "word": "赋役",
+      "weight": 4.375764509281425,
+      "normalized_weight": 0.26752959746290605,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 41
+    },
+    {
+      "word": "编审",
+      "weight": 4.07181134321728,
+      "normalized_weight": 0.24253792603842617,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 39
+    },
+    {
+      "word": "百万",
+      "weight": 3.596649296385173,
+      "normalized_weight": 0.20346909875302382,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 36
+    },
+    {
+      "word": "上林苑",
+      "weight": 3.5191820088217973,
+      "normalized_weight": 0.19709957471746567,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 35
+    },
+    {
+      "word": "年间",
+      "weight": 4.552787856973033,
+      "normalized_weight": 0.28208483107753624,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 42
+    },
+    {
+      "word": "及其",
+      "weight": 3.422833745337548,
+      "normalized_weight": 0.18917761695503388,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 35
+    },
+    {
+      "word": "十甲",
+      "weight": 3.2941356102717987,
+      "normalized_weight": 0.17859578441104335,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 34
+    },
+    {
+      "word": "军卫",
+      "weight": 3.2513383567294016,
+      "normalized_weight": 0.1750769038142345,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 34
+    },
+    {
+      "word": "所谓",
+      "weight": 3.2295338544265006,
+      "normalized_weight": 0.17328409157218858,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 33
+    },
+    {
+      "word": "服务",
+      "weight": 3.1049750793805826,
+      "normalized_weight": 0.16304260595355766,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 33
+    },
+    {
+      "word": "制度",
+      "weight": 3.0489049598506774,
+      "normalized_weight": 0.15843240227590627,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 32
+    },
+    {
+      "word": "部分",
+      "weight": 3.0212953400219593,
+      "normalized_weight": 0.15616228100739313,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 32
+    },
+    {
+      "word": "地方",
+      "weight": 2.943745329848441,
+      "normalized_weight": 0.14978595534407488,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 31
+    },
+    {
+      "word": "集中",
+      "weight": 2.750284514526644,
+      "normalized_weight": 0.13387919841621984,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 30
+    },
+    {
+      "word": "家属",
+      "weight": 2.697493439924706,
+      "normalized_weight": 0.12953860473963213,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 30
+    },
+    {
+      "word": "不同",
+      "weight": 2.6467149478167147,
+      "normalized_weight": 0.12536348984734097,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 30
+    },
+    {
+      "word": "匠户",
+      "weight": 2.635868926813297,
+      "normalized_weight": 0.12447170708787725,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 29
+    },
+    {
+      "word": "工匠",
+      "weight": 2.6059340636366874,
+      "normalized_weight": 0.12201039939915027,
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "font_size": 29
+    },
+    {
+      "word": "五城",
+      "weight": 8.551364708104774,
+      "normalized_weight": 0.6108562668977723,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 68
+    },
+    {
+      "word": "此外",
+      "weight": 5.498862910888922,
+      "normalized_weight": 0.3598731206240027,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 48
+    },
+    {
+      "word": "兵马",
+      "weight": 5.060106897611797,
+      "normalized_weight": 0.3237976743263893,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 45
+    },
+    {
+      "word": "城区",
+      "weight": 4.933160973511698,
+      "normalized_weight": 0.3133599122695957,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 45
+    },
+    {
+      "word": "内外",
+      "weight": 4.27411234115576,
+      "normalized_weight": 0.2591715414561906,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 40
+    },
+    {
+      "word": "海户",
+      "weight": 4.215829397687564,
+      "normalized_weight": 0.2543793947196723,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 40
+    },
+    {
+      "word": "军民",
+      "weight": 3.8055408165297897,
+      "normalized_weight": 0.22064460082926357,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 37
+    },
+    {
+      "word": "南海子",
+      "weight": 3.57169616758385,
+      "normalized_weight": 0.20141739978870452,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 36
+    },
+    {
+      "word": "弘治",
+      "weight": 3.3722968735842103,
+      "normalized_weight": 0.185022368598733,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 34
+    },
+    {
+      "word": "为民",
+      "weight": 3.28711437638845,
+      "normalized_weight": 0.17801848372857557,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 34
+    },
+    {
+      "word": "密集",
+      "weight": 3.000846628538304,
+      "normalized_weight": 0.15448094475065663,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 32
+    },
+    {
+      "word": "妻子",
+      "weight": 2.8887076749405853,
+      "normalized_weight": 0.14526064308876263,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 31
+    },
+    {
+      "word": "指挥",
+      "weight": 2.8782935697022585,
+      "normalized_weight": 0.1444043733559404,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 31
+    },
+    {
+      "word": "宛署",
+      "weight": 2.846909950268062,
+      "normalized_weight": 0.14182394586717118,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 31
+    },
+    {
+      "word": "杂记",
+      "weight": 2.846909950268062,
+      "normalized_weight": 0.14182394586717118,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 31
+    },
+    {
+      "word": "故官",
+      "weight": 2.7685360760286977,
+      "normalized_weight": 0.13537988035992016,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 30
+    },
+    {
+      "word": "皇城",
+      "weight": 2.7628377872132557,
+      "normalized_weight": 0.134911355015699,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 30
+    },
+    {
+      "word": "密度",
+      "weight": 2.704346135146737,
+      "normalized_weight": 0.13010204781732312,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 30
+    },
+    {
+      "word": "耕种",
+      "weight": 2.672730931475784,
+      "normalized_weight": 0.12750257898337874,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 30
+    },
+    {
+      "word": "门外",
+      "weight": 2.657252871637974,
+      "normalized_weight": 0.1262299402056226,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 30
+    },
+    {
+      "word": "巡城",
+      "weight": 2.4116970298048455,
+      "normalized_weight": 0.10603982014561313,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 28
+    },
+    {
+      "word": "御史",
+      "weight": 2.372199542722767,
+      "normalized_weight": 0.10279225331803277,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 28
+    },
+    {
+      "word": "范围",
+      "weight": 2.2277147343133015,
+      "normalized_weight": 0.09091240714187468,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 27
+    },
+    {
+      "word": "故元",
+      "weight": 2.219077933455492,
+      "normalized_weight": 0.09020227112983034,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 27
+    },
+    {
+      "word": "两县",
+      "weight": 2.216417855754371,
+      "normalized_weight": 0.08998355392174581,
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "font_size": 27
+    },
+    {
+      "word": "迁移",
+      "weight": 7.162711498605205,
+      "normalized_weight": 0.4966782664388508,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 59
+    },
+    {
+      "word": "屯田",
+      "weight": 7.107768180981146,
+      "normalized_weight": 0.4921607107943028,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 59
+    },
+    {
+      "word": "卫所",
+      "weight": 6.226198829194157,
+      "normalized_weight": 0.41967621634721236,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 53
+    },
+    {
+      "word": "政策",
+      "weight": 5.385567152415806,
+      "normalized_weight": 0.35055770402146663,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 48
+    },
+    {
+      "word": "人口迁移",
+      "weight": 4.056650492078861,
+      "normalized_weight": 0.24129136883004737,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 39
+    },
+    {
+      "word": "状况",
+      "weight": 3.8448502021375797,
+      "normalized_weight": 0.2238767015562576,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 37
+    },
+    {
+      "word": "连年",
+      "weight": 3.699712539368142,
+      "normalized_weight": 0.2119431763154471,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 36
+    },
+    {
+      "word": "工部",
+      "weight": 3.5160251152885444,
+      "normalized_weight": 0.19684000826212408,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 35
+    },
+    {
+      "word": "山后",
+      "weight": 3.38383235008326,
+      "normalized_weight": 0.18597083984554416,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 34
+    },
+    {
+      "word": "划分",
+      "weight": 3.3792772246577716,
+      "normalized_weight": 0.18559630781021383,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 34
+    },
+    {
+      "word": "农业",
+      "weight": 3.1132955008023226,
+      "normalized_weight": 0.16372672858000678,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 33
+    },
+    {
+      "word": "一系列",
+      "weight": 2.903627189558889,
+      "normalized_weight": 0.14648735709862654,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 31
+    },
+    {
+      "word": "恢复",
+      "weight": 2.8235825281473015,
+      "normalized_weight": 0.13990591594048452,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 31
+    },
+    {
+      "word": "生产",
+      "weight": 2.6335261729546433,
+      "normalized_weight": 0.12427908091647705,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 29
+    },
+    {
+      "word": "安抚",
+      "weight": 2.616524905315508,
+      "normalized_weight": 0.12288120077547122,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 29
+    },
+    {
+      "word": "遗民",
+      "weight": 2.588854854559791,
+      "normalized_weight": 0.12060611074847798,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 29
+    },
+    {
+      "word": "社会秩序",
+      "weight": 2.5601978895070623,
+      "normalized_weight": 0.11824987454309674,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 29
+    },
+    {
+      "word": "屯垦",
+      "weight": 2.464993389291788,
+      "normalized_weight": 0.1104219594128762,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 28
+    },
+    {
+      "word": "离散",
+      "weight": 2.450708476777682,
+      "normalized_weight": 0.1092474237286365,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 28
+    },
+    {
+      "word": "经济",
+      "weight": 2.337391079727256,
+      "normalized_weight": 0.09993022795656183,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 27
+    },
+    {
+      "word": "随着",
+      "weight": 2.2900210877259464,
+      "normalized_weight": 0.09603536714360641,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 27
+    },
+    {
+      "word": "内聚",
+      "weight": 2.252698751801813,
+      "normalized_weight": 0.09296664583930797,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 27
+    },
+    {
+      "word": "大规模",
+      "weight": 2.1786086809602776,
+      "normalized_weight": 0.08687480369709676,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 26
+    },
+    {
+      "word": "军人",
+      "weight": 2.123392040719851,
+      "normalized_weight": 0.08233477488962833,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 26
+    },
+    {
+      "word": "人为",
+      "weight": 2.083169083769586,
+      "normalized_weight": 0.07902755839690763,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 26
+    },
+    {
+      "word": "逐步",
+      "weight": 2.070864468913591,
+      "normalized_weight": 0.07801584696955928,
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "font_size": 26
+    },
+    {
+      "word": "统计",
+      "weight": 8.50936801133086,
+      "normalized_weight": 0.6074032097696695,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 68
+    },
+    {
+      "word": "增长",
+      "weight": 7.236014626054191,
+      "normalized_weight": 0.5027054044328838,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 60
+    },
+    {
+      "word": "减少",
+      "weight": 5.840984651825488,
+      "normalized_weight": 0.3880030929068157,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 51
+    },
+    {
+      "word": "增加",
+      "weight": 4.994116837625709,
+      "normalized_weight": 0.3183718321882424,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 45
+    },
+    {
+      "word": "不能",
+      "weight": 4.1426992974462,
+      "normalized_weight": 0.24836648338817544,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 39
+    },
+    {
+      "word": "计算",
+      "weight": 3.7407568259119532,
+      "normalized_weight": 0.21531792426243396,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 37
+    },
+    {
+      "word": "迁入",
+      "weight": 3.689789726790524,
+      "normalized_weight": 0.21112730170305963,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 36
+    },
+    {
+      "word": "轮班",
+      "weight": 3.575442366855664,
+      "normalized_weight": 0.2017254202067976,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 36
+    },
+    {
+      "word": "全部",
+      "weight": 3.150476952244279,
+      "normalized_weight": 0.16678386606455767,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 33
+    },
+    {
+      "word": "万人",
+      "weight": 3.1291563947914414,
+      "normalized_weight": 0.16503084479043278,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 33
+    },
+    {
+      "word": "共计",
+      "weight": 2.869685258318792,
+      "normalized_weight": 0.1436965798086615,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 31
+    },
+    {
+      "word": "崇祯",
+      "weight": 2.798010440901002,
+      "normalized_weight": 0.1378033249052499,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 31
+    },
+    {
+      "word": "自然",
+      "weight": 2.7628907010634354,
+      "normalized_weight": 0.13491570570424297,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 30
+    },
+    {
+      "word": "由于",
+      "weight": 2.498392902254781,
+      "normalized_weight": 0.11316813792622199,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 29
+    },
+    {
+      "word": "口数",
+      "weight": 2.3096280077822406,
+      "normalized_weight": 0.09764748953087425,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 27
+    },
+    {
+      "word": "基础",
+      "weight": 2.076107727293292,
+      "normalized_weight": 0.07844695875008764,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 26
+    },
+    {
+      "word": "变化",
+      "weight": 1.9831103000975507,
+      "normalized_weight": 0.07080051382604473,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 25
+    },
+    {
+      "word": "建都",
+      "weight": 1.7204048676949704,
+      "normalized_weight": 0.049200318200361935,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 23
+    },
+    {
+      "word": "清代",
+      "weight": 1.7136208067698941,
+      "normalized_weight": 0.04864251837955869,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 23
+    },
+    {
+      "word": "阶段",
+      "weight": 1.6632709576091038,
+      "normalized_weight": 0.044502647415908196,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 23
+    },
+    {
+      "word": "递减率",
+      "weight": 1.6414790493450333,
+      "normalized_weight": 0.042710870682340224,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 23
+    },
+    {
+      "word": "伴随",
+      "weight": 1.6288015618560798,
+      "normalized_weight": 0.04166850087940481,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 23
+    },
+    {
+      "word": "附籍",
+      "weight": 1.585759609698046,
+      "normalized_weight": 0.03812950064548472,
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "font_size": 23
+    }
+  ],
+  "topic_info": [
+    {
+      "topic_id": 0,
+      "topic_name": "迁都与人口增长",
+      "color": "#FF6B6B",
+      "word_count": 27
+    },
+    {
+      "topic_id": 1,
+      "topic_name": "军户卫所制度",
+      "color": "#4ECDC4",
+      "word_count": 24
+    },
+    {
+      "topic_id": 2,
+      "topic_name": "城市社会管理",
+      "color": "#45B7D1",
+      "word_count": 28
+    },
+    {
+      "topic_id": 3,
+      "topic_name": "人口迁移政策",
+      "color": "#96CEB4",
+      "word_count": 26
+    },
+    {
+      "topic_id": 4,
+      "topic_name": "户籍制度变革",
+      "color": "#FFEAA7",
+      "word_count": 28
+    },
+    {
+      "topic_id": 5,
+      "topic_name": "明末人口变化",
+      "color": "#DDA0DD",
+      "word_count": 25
+    }
+  ],
+  "statistics": {
+    "total_words": 158,
+    "max_weight": 13.284200208438051,
+    "min_weight": 1.122021821024667,
+    "topics_count": 6
+  }
+}

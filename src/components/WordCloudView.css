@@ -1,0 +1,392 @@
+/* 词云视图覆盖层样式 */
+.word-cloud-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(45, 37, 32, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  font-family: 'Noto Serif SC', serif;
+}
+
+.word-cloud-container {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  max-width: 1200px;
+  max-height: 800px;
+  background: linear-gradient(135deg, #faf8f5 0%, #f5f3f0 100%);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(45, 37, 32, 0.3);
+  border: 2px solid #c7b299;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 为全屏模式调整内容区域 */
+.word-cloud-container .word-cloud-content {
+  margin-top: 60px; /* 为关闭按钮留出更多空间 */
+  height: calc(100% - 60px);
+}
+
+.word-cloud-embedded {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #faf8f5 0%, #f5f3f0 100%);
+  border-radius: 8px;
+  border: 1px solid #c7b299;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Noto Serif SC', serif;
+  position: relative;
+}
+
+/* 关闭按钮样式 */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  background: rgba(199, 178, 153, 0.9);
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #2d2520;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close-button:hover {
+  background: rgba(199, 178, 153, 1);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.close-button:active {
+  transform: scale(0.95);
+}
+
+/* SVG容器样式 */
+.word-cloud-container svg,
+.word-cloud-embedded svg {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+/* 加载和错误状态样式 */
+.loading, .error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 18px;
+  color: #6b5d4f;
+  font-family: 'Noto Serif SC', serif;
+}
+
+.error {
+  color: #d73027;
+  font-weight: 500;
+}
+
+/* 词汇悬停效果 */
+.word text {
+  transition: all 0.2s ease;
+}
+
+.word text:hover {
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* 工具提示样式 */
+.word-tooltip {
+  font-family: 'Noto Serif SC', serif !important;
+  line-height: 1.4;
+  border: 1px solid rgba(199, 178, 153, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.word-tooltip div {
+  margin: 2px 0;
+}
+
+/* 主题图例样式 */
+.topic-legend .legend-item {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.topic-legend .legend-item:hover {
+  transform: translateX(2px);
+}
+
+.topic-legend .legend-item:hover rect {
+  stroke-width: 2;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .word-cloud-container {
+    width: 95%;
+    height: 85%;
+    margin: 20px;
+  }
+  
+  .close-button {
+    top: 10px;
+    right: 15px;
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+  
+  .word-cloud-overlay .loading,
+  .word-cloud-overlay .error {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .word-cloud-container {
+    width: 98%;
+    height: 80%;
+    margin: 10px;
+    border-radius: 8px;
+  }
+  
+  .close-button {
+    top: 8px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+}
+
+/* 动画效果 */
+.word-cloud-overlay {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.word-cloud-container {
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 返回按钮样式 */
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(199, 178, 153, 0.9);
+  border: 1px solid #a09590;
+  border-radius: 6px;
+  padding: 8px 16px;
+  color: #4a3f35;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(45, 37, 32, 0.1);
+}
+
+.back-button:hover {
+  background: rgba(199, 178, 153, 1);
+  border-color: #8b7d6b;
+  color: #2d2520;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(45, 37, 32, 0.15);
+}
+
+.back-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(45, 37, 32, 0.1);
+}
+
+/* 词云内容区域 */
+.word-cloud-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* 词云图表容器 */
+.word-cloud-chart-container {
+  width: 60%;
+  height: 100%;
+  border-right: 1px solid #c7b299;
+  background: rgba(251, 248, 240, 0.8);
+}
+
+/* ECharts 词云容器样式 */
+.word-cloud-chart {
+  width: 100%;
+  height: 100%;
+  background: rgba(251, 248, 240, 0.8);
+}
+
+/* 图例容器区域 */
+.word-cloud-legend-container {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  background: rgba(251, 248, 240, 0.8);
+}
+
+/* 自定义词云图例样式 */
+.word-cloud-legend {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: rgba(251, 248, 240, 0.8);
+  border: 1px solid #c7b299;
+  border-radius: 8px;
+  padding: 8px;
+  font-family: 'Noto Serif SC', serif;
+  box-shadow: 0 2px 8px rgba(45, 37, 32, 0.1);
+}
+
+.legend-title {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #4a3f35;
+  text-align: center;
+  border-bottom: 1px solid #c7b299;
+  padding-bottom: 6px;
+}
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legend-topic {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  padding: 6px;
+  border: 1px solid rgba(199, 178, 153, 0.3);
+}
+
+.legend-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid #a09590;
+  flex-shrink: 0;
+}
+
+.legend-topic-name {
+  font-size: 13px;
+  font-weight: bold;
+  color: #4a3f35;
+  line-height: 1.2;
+}
+
+.legend-keywords {
+  font-size: 11px;
+  color: #6b5d4f;
+  line-height: 1.2;
+  margin-left: 22px;
+  text-align: justify;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .word-cloud-content {
+    flex-direction: column;
+  }
+  
+  .word-cloud-chart-container {
+    width: 100%;
+    height: 50%;
+    border-right: none;
+    border-bottom: 1px solid #c7b299;
+  }
+  
+  .word-cloud-legend-container {
+    width: 100%;
+    height: 50%;
+    padding: 4px;
+  }
+  
+  .legend-title {
+    font-size: 14px;
+  }
+  
+  .legend-topic-name {
+    font-size: 12px;
+  }
+  
+  .legend-keywords {
+    font-size: 10px;
+  }
+  
+  .legend-items {
+    gap: 6px;
+  }
+  
+  .legend-topic {
+    padding: 4px;
+  }
+} 
+
+/* 词云特殊效果 */
+.word text {
+  paint-order: stroke fill;
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+}
+
+/* 确保文字清晰度 */
+.word-cloud-container svg,
+.word-cloud-embedded svg {
+  shape-rendering: geometricPrecision;
+  text-rendering: optimizeLegibility;
+} 

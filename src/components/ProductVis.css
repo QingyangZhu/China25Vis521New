@@ -34,7 +34,7 @@
   width: 100%;
   height: 100%;
   position: relative;
-  background: rgba(249, 247, 244, 0.95);
+  background: rgba(251, 248, 240, 0.8);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -190,7 +190,7 @@
 }
 
 .population-point:hover {
-  filter: drop-shadow(0 3px 6px rgba(139, 111, 71, 0.4));
+  filter: drop-shadow(0 3px 6px rgba(36, 107, 105, 0.4));
 }
 
 .point-glow {
@@ -225,7 +225,7 @@
 }
 
 .population-point:hover .point-core {
-  filter: drop-shadow(0 0 4px rgba(139, 111, 71, 0.8));
+  filter: drop-shadow(0 0 4px rgba(36, 107, 105, 0.8));
 }
 
 /* 自定义滚动条样式 */
