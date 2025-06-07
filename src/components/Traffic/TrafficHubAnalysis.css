@@ -131,7 +131,7 @@
 .dynasty-detail {
   width: 100%;
   height: 100%;
-  padding: 20px;
+  padding: 0px 10px 10px 10px;
   background-color: #FBF8F0D9;
   box-sizing: border-box;
   overflow-y: auto;
@@ -181,7 +181,8 @@
 .dynasty-content {
   display: flex;
   gap: 20px;
-  height: calc(100% - 80px);
+  height: calc(100% - 120px);
+  max-height: 600px;
 }
 
 .route-list {
@@ -231,6 +232,7 @@
 
 .radio-label input[type="radio"] {
   margin: 0;
+  accent-color: #9B8A70;
 }
 
 .selection-actions {
@@ -266,10 +268,10 @@
 }
 
 .route-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 12px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  padding: 10px;
   background-color: rgba(255, 255, 255, 0.6);
   border: 1px solid #F0EDE6;
   border-radius: 4px;
@@ -278,21 +280,25 @@
 
 .route-checkbox {
   display: flex;
-  align-items: flex-start;
-  padding-top: 2px;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  justify-self: start;
 }
 
 .route-checkbox input[type="checkbox"] {
   margin: 0;
   cursor: pointer;
+  accent-color: #9B8A70;
 }
 
 .route-content {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
+  flex-direction: column;
+  gap: 6px;
   flex: 1;
   cursor: pointer;
+  min-width: 0;
 }
 
 .route-item:hover {
@@ -310,14 +316,14 @@
 }
 
 .route-item.selected {
-  background-color: rgba(255, 107, 53, 0.15);
-  border-color: #FF6B35;
-  border-left: 4px solid #FF6B35;
-  box-shadow: 0 2px 12px rgba(255, 107, 53, 0.2);
+  background-color: rgba(165, 42, 42, 0.15);
+  border-color: #A52A2A;
+  border-left: 4px solid #A52A2A;
+  box-shadow: 0 2px 12px rgba(165, 42, 42, 0.2);
 }
 
 .route-item.selected:hover {
-  background-color: rgba(255, 107, 53, 0.25);
+  background-color: rgba(165, 42, 42, 0.25);
   transform: translateX(3px);
 }
 
@@ -334,24 +340,29 @@
 .route-rank {
   font-weight: bold;
   color: #9B8A70;
-  font-size: 12px;
-  min-width: 25px;
+  font-size: 11px;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .route-info {
-  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  align-items: start;
 }
 
 .route-name {
   font-weight: bold;
   color: #6B7669;
   font-size: 13px;
-  margin-bottom: 5px;
   font-family: "'Noto Serif SC', sans-serif";
+  grid-column: 1 / -1;
+  margin-bottom: 4px;
 }
 
 .selected-indicator {
-  color: #FF6B35;
+  color: #A52A2A;
   font-weight: bold;
   animation: pulse 1.5s ease-in-out infinite;
 }
@@ -362,25 +373,26 @@
 }
 
 .route-details {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  font-size: 11px;
-  color: #8B8B8B;
+  display: contents;
 }
 
 .route-path {
   color: #B39B88;
   font-weight: 500;
+  font-size: 11px;
+  grid-column: 1 / -1;
+  margin-bottom: 2px;
 }
 
 .route-score {
   color: #C4B79C;
   font-weight: 500;
+  font-size: 10px;
 }
 
 .route-count {
   color: #9B8A70;
+  font-size: 10px;
 }
 
 .dynasty-stats {
@@ -389,6 +401,7 @@
   border: 1px solid #E6D7C3;
   border-radius: 6px;
   padding: 15px;
+  overflow-y: auto;
 }
 
 .dynasty-stats h4 {
@@ -400,9 +413,9 @@
 }
 
 .stats-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
 }
 
 .stat-item {
@@ -425,4 +438,256 @@
   font-weight: bold;
   font-size: 12px;
   color: #9B8A70;
+}
+
+/* 交通工具展示区域样式 */
+.traffic-tools-section {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #E6D7C3;
+}
+
+/* 交通工具头部区域 */
+.traffic-tools-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.traffic-tools-header h4 {
+  margin: 0;
+  color: #6B7669;
+  font-family: "'Noto Serif SC', sans-serif";
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* 切换按钮组 */
+.traffic-tools-toggle {
+  display: flex;
+  border: 1px solid #E6D7C3;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #FDFCF9;
+}
+
+.toggle-btn {
+  padding: 6px 12px;
+  border: none;
+  background-color: transparent;
+  color: #6B7669;
+  font-family: "'Noto Serif SC', sans-serif";
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-right: 1px solid #E6D7C3;
+}
+
+.toggle-btn:last-child {
+  border-right: none;
+}
+
+.toggle-btn:hover {
+  background-color: #F4F0E7;
+  color: #9B8A70;
+}
+
+.toggle-btn.active {
+  background-color: #9B8A70;
+  color: white;
+  font-weight: bold;
+}
+
+.toggle-btn.active:hover {
+  background-color: #B5A68C;
+}
+
+.traffic-tools-section h5 {
+  margin: 15px 0 10px 0;
+  color: #6B7669;
+  font-family: "'Noto Serif SC', sans-serif";
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.traffic-tools-section h6 {
+  margin: 8px 0 5px 0;
+  color: #6B7669;
+  font-family: "'Noto Serif SC', sans-serif";
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* 主要交通工具水平布局 */
+.tools-speed-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.main-tools-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  margin-bottom: 30px;
+  padding: 0 20px;
+  min-height: 120px;
+}
+
+.main-tool-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+  text-align: center;
+  position: relative;
+}
+
+.tool-image {
+  width: 60px;
+  height: 60px;
+  background-color: #FDFCF9;
+  border: 2px solid #E6D7C3;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(155, 138, 112, 0.1);
+  overflow: hidden;
+}
+
+.tool-image:hover {
+  border-color: #C4B79C;
+  box-shadow: 0 4px 8px rgba(155, 138, 112, 0.2);
+  transform: translateY(-2px);
+}
+
+.tool-image img {
+  max-width: 50px;
+  max-height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.tool-name {
+  font-size: 11px;
+  color: #6B7669;
+  font-family: "'Noto Serif SC', sans-serif";
+  font-weight: 500;
+  line-height: 1.2;
+  max-width: 80px;
+  word-wrap: break-word;
+  margin-bottom: 3px;
+}
+
+.tool-speed {
+  font-size: 10px;
+  color: #9B8A70;
+  font-family: "'Noto Serif SC', sans-serif";
+  font-weight: bold;
+}
+
+
+
+
+
+/* 所有交通工具分类展示 */
+.all-tools-display {
+  margin-bottom: 20px;
+}
+
+.tools-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tool-category {
+  background-color: rgba(251, 248, 240, 0.3);
+  border: 1px solid #F0EDE6;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.tool-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+.tool-tag {
+  background-color: #F4F0E7;
+  color: #6B7669;
+  font-size: 11px;
+  font-family: "'Noto Serif SC', sans-serif";
+  padding: 3px 8px;
+  border-radius: 12px;
+  border: 1px solid #E6D7C3;
+  transition: all 0.2s ease;
+}
+
+.tool-tag:hover {
+  background-color: #EDEAD2;
+  border-color: #C4B79C;
+}
+
+/* 交通工具统计 */
+.traffic-tools-stats {
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #F0EDE6;
+}
+
+.tool-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tool-stat .stat-label {
+  font-size: 12px;
+  color: #6B7669;
+  font-family: "'Noto Serif SC', sans-serif";
+}
+
+.tool-stat .stat-value {
+  font-size: 13px;
+  font-weight: bold;
+  color: #9B8A70;
+  font-family: "'Noto Serif SC', sans-serif";
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+  .main-tools-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 0 10px;
+  }
+  
+  .main-tool-item {
+    min-width: 60px;
+  }
+  
+  .tool-image {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .tool-image img {
+    max-width: 40px;
+    max-height: 40px;
+  }
+  
+  .traffic-tools-stats {
+    flex-direction: column;
+    gap: 10px;
+  }
 }

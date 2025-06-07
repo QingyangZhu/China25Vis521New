@@ -83,6 +83,50 @@
   box-shadow: 0 0 0 2px rgba(140, 109, 70, 0.1);
 }
 
+/* 地图模式切换控件 */
+.map-mode-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(140, 109, 70, 0.2);
+  position: relative;
+  z-index: 1001;
+  pointer-events: auto;
+}
+
+.layer-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: #6B5B47;
+  cursor: pointer;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+.layer-toggle input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  accent-color: #8C6D46;
+  width: 16px;
+  height: 16px;
+}
+
+.layer-toggle input[type="checkbox"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.layer-toggle:has(input[type="checkbox"]:disabled) {
+  color: rgba(107, 91, 71, 0.5);
+  cursor: not-allowed;
+}
+
 .layer-controls {
   display: flex;
   gap: 12px;
@@ -234,6 +278,15 @@
 .custom-marker {
   background: transparent !important;
   border: none !important;
+}
+
+/* 隐藏的途径点样式 */
+.custom-marker.hidden-waypoint {
+  z-index: 500;
+}
+
+.custom-marker.hidden-waypoint div {
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
 }
 
 /* Leaflet弹窗样式优化 */

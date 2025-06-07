@@ -31,7 +31,28 @@ const TransportationNetwork = () => {
   });
   const [historicalOpacity, setHistoricalOpacity] = useState(0.36);
   const [mapInitialized, setMapInitialized] = useState(false);
+  const [mapMode, setMapMode] = useState('routes'); // 'routes' 或 'heatmap'
+  const [heatmapLoaded, setHeatmapLoaded] = useState(false);
+  const heatmapLayerRef = useRef(null);
   const { selectedDynasties, getSelectedDisplayNames, selectedRoute, selectedRoutes, showAllRoutes } = useDynastyStore();
+
+  // 动态加载热力图插件
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !window.L?.heatLayer) {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/leaflet.heat@0.2.0/dist/leaflet-heat.js';
+      script.onload = () => {
+        console.log('✅ Leaflet.heat插件加载完成');
+        setHeatmapLoaded(true);
+      };
+      script.onerror = () => {
+        console.error('❌ Leaflet.heat插件加载失败');
+      };
+      document.head.appendChild(script);
+    } else if (window.L?.heatLayer) {
+      setHeatmapLoaded(true);
+    }
+  }, []);
 
   // 添加组件挂载调试
   useEffect(() => {
@@ -57,28 +78,28 @@ const TransportationNetwork = () => {
     }
   }, [mapContainerRef.current]);
 
-  // 系统主题颜色调色板
+  // 系统主题颜色调色板 - 低饱和度版本
   const systemColorPalette = useMemo(() => [
-    '#8C6D46', // 主题棕色
-    '#A0522D', // 深棕色
-    '#CD853F', // 秘鲁色
-    '#DEB887', // 浅棕色
-    '#F4A460', // 沙棕色
-    '#D2691E', // 巧克力色
-    '#B8860B', // 暗金色
-    '#DAA520', // 金色
-    '#BC8F8F', // 玫瑰棕
-    '#8FBC8F', // 暗海绿
-    '#708090', // 石板灰
-    '#696969', // 暗灰色
-    '#778899', // 浅石板灰
-    '#2F4F4F', // 暗石板灰
-    '#556B2F', // 暗橄榄绿
-    '#A0522D', // 马鞍棕
-    '#8B4513', // 马鞍棕
-    '#6B8E23', // 橄榄色
-    '#9ACD32', // 黄绿色
-    '#32CD32'  // 酸橙绿
+    '#9B8A70', // 淡雅棕色（降低饱和度）
+    '#A68B7A', // 柔和深棕色
+    '#C4B49B', // 柔和秘鲁色
+    '#D9CDBA', // 柔和浅棕色
+    '#E0CBA8', // 淡雅沙棕色
+    '#C4A584', // 柔和巧克力色
+    '#B39D85', // 淡雅金褐色
+    '#C4B087', // 柔和金色
+    '#C4A8A8', // 淡雅玫瑰棕
+    '#A3B8A3', // 柔和海绿色
+    '#8A9AA3', // 柔和石板色
+    '#8A8A8A', // 淡雅灰色
+    '#8F9DAD', // 柔和浅石板色
+    '#5F6F6F', // 淡雅暗石板色
+    '#7A8C5F', // 柔和橄榄绿
+    '#A68B7A', // 柔和马鞍棕
+    '#9B7858', // 淡雅马鞍棕
+    '#85936B', // 柔和橄榄色
+    '#B3C49E', // 淡雅黄绿色
+    '#7AB37A'  // 柔和酸橙绿
   ], []);
 
   // 历史地图图层配置 - 基于实际KML文件
@@ -746,6 +767,124 @@ const TransportationNetwork = () => {
     
     // 清除路线映射
     routeLinesMapRef.current.clear();
+
+    // 清除热力图
+    if (heatmapLayerRef.current) {
+      mapRef.current.removeLayer(heatmapLayerRef.current);
+      heatmapLayerRef.current = null;
+    }
+  };
+
+  // 生成热力图数据
+  const generateHeatmapData = () => {
+    if (!filteredData.details.length) return [];
+
+    // 按地点坐标分组，计算每个地点的重要性
+    const locationHeatMap = new Map();
+
+    filteredData.details.forEach(detail => {
+      const lat = detail.latitude;
+      const lng = detail.longitude;
+      
+      // 过滤无效坐标
+      if (isNaN(lat) || isNaN(lng) || !isFinite(lat) || !isFinite(lng) ||
+          (lat === 0 && lng === 0) ||
+          lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+        return;
+      }
+
+      const key = `${lat.toFixed(4)},${lng.toFixed(4)}`; // 使用固定精度避免重复
+      
+      if (!locationHeatMap.has(key)) {
+        locationHeatMap.set(key, {
+          lat,
+          lng,
+          intensity: 0,
+          routeCount: 0,
+          routes: new Set(),
+          isOverseas: !isInChina(lng, lat)
+        });
+      }
+
+      const location = locationHeatMap.get(key);
+      location.routes.add(detail.route_id);
+      location.routeCount = location.routes.size;
+      
+      // 计算热力强度：路线数量的平方根 + 海外地点加权 + 基础强度
+      const baseIntensity = 1; // 基础强度
+      const routeBonus = Math.sqrt(location.routeCount) * 2; // 路线数量加权
+      const overseasBonus = location.isOverseas ? 3 : 0; // 海外地点更显眼
+      location.intensity = baseIntensity + routeBonus + overseasBonus;
+    });
+
+    // 转换为热力图数据格式 [lat, lng, intensity]
+    const heatmapData = Array.from(locationHeatMap.values()).map(location => [
+      location.lat,
+      location.lng,
+      location.intensity // 不限制最大强度，让数据自然分布
+    ]);
+
+    console.log(`🔥 生成热力图数据点: ${heatmapData.length} 个`);
+    console.log('热力图数据示例:', heatmapData.slice(0, 5));
+
+    return heatmapData;
+  };
+
+  // 绘制热力图
+  const drawHeatmap = () => {
+    if (!mapRef.current) return;
+
+    // 检查热力图插件是否已加载
+    if (!heatmapLoaded || !L.heatLayer) {
+      console.log('⏳ 等待热力图插件加载...');
+      return;
+    }
+
+    // 清除现有热力图
+    if (heatmapLayerRef.current) {
+      mapRef.current.removeLayer(heatmapLayerRef.current);
+      heatmapLayerRef.current = null;
+    }
+
+    const heatmapData = generateHeatmapData();
+    
+    if (heatmapData.length === 0) {
+      console.log('⚠️ 无热力图数据可显示');
+      return;
+    }
+
+    // 计算强度范围用于调整热力图显示
+    const maxIntensity = Math.max(...heatmapData.map(point => point[2]));
+    const effectiveMax = Math.max(2, maxIntensity * 0.8); // 使用80%作为最大值，增强对比度
+
+    // 根据是否与路线混合显示来调整透明度
+    const isOverlayMode = mapMode === 'both';
+    const baseOpacity = isOverlayMode ? 0.15 : 0.2; // 混合模式下降低透明度
+    
+    // 创建热力图图层
+    const heatmapLayer = L.heatLayer(heatmapData, {
+      radius: 20,
+      blur: 12,
+      maxZoom: 18,
+      max: effectiveMax,
+      minOpacity: baseOpacity,
+      gradient: {
+        0.0: 'rgba(155, 138, 112, 0)',     // 完全透明
+        0.05: `rgba(196, 165, 132, ${baseOpacity * 0.5})`,  // 极淡开始
+        0.15: `rgba(210, 180, 140, ${baseOpacity * 1.25})`, // 淡棕色
+        0.3: `rgba(205, 133, 63, ${baseOpacity * 2.25})`,   // 秘鲁色
+        0.5: `rgba(160, 82, 45, ${baseOpacity * 3.25})`,    // 马鞍棕
+        0.7: `rgba(139, 69, 19, ${baseOpacity * 4})`,       // 深马鞍棕
+        0.85: `rgba(128, 0, 0, ${baseOpacity * 4.5})`,      // 深红色
+        0.95: `rgba(80, 0, 0, ${baseOpacity * 5})`,         // 极深红色
+        1.0: `rgba(50, 0, 0, ${baseOpacity * 5})`           // 最深红色（接近黑红）
+      }
+    });
+
+    heatmapLayer.addTo(mapRef.current);
+    heatmapLayerRef.current = heatmapLayer;
+
+    console.log(`🔥 热力图已绘制完成 (${isOverlayMode ? '叠加模式' : '独立模式'})`);
   };
 
   // 更新选中路线样式（不重新绘制整个地图）
@@ -796,7 +935,7 @@ const TransportationNetwork = () => {
     if (selectedPolylineInfo) {
       const { polyline, originalStyle } = selectedPolylineInfo;
       polyline.setStyle({
-        color: '#FF6B35', // 选中路线使用橙红色高亮
+        color: '#A52A2A', // 选中路线使用深褐红色高亮，与UI界面保持一致
         weight: originalStyle.weight + 2,
         opacity: 1,
         dashArray: '5, 5' // 选中路线使用虚线样式
@@ -828,15 +967,65 @@ const TransportationNetwork = () => {
       return;
     }
 
-    console.log('🔄 更新地图路网，选中路线:', selectedRoute?.routeName);
+    console.log(`🔄 更新地图显示，模式: ${mapMode}，选中路线:`, selectedRoute?.routeName);
 
     clearMapElements();
 
-    // 创建节点标记（地点）
+    // 根据模式决定绘制内容
+    const shouldShowHeatmap = mapMode === 'heatmap' || mapMode === 'both';
+    const shouldShowRoutes = mapMode === 'routes' || mapMode === 'both';
+    
+    // 如果需要显示热力图，先绘制热力图（作为底层）
+    if (shouldShowHeatmap) {
+      drawHeatmap();
+    }
+    
+    // 如果只显示热力图，不显示路线，则直接返回
+    if (mapMode === 'heatmap') {
+      return;
+    }
+
+    // 创建节点标记（地点），分为起终点和途径点
     const nodeMap = new Map();
+    const routeEndpoints = new Map(); // 存储每条路线的起点和终点
+    
+    // 首先确定每条路线的起点和终点
+    const routeGroupsForEndpoints = {};
+    filteredData.details.forEach(detail => {
+      if (!routeGroupsForEndpoints[detail.route_id]) {
+        routeGroupsForEndpoints[detail.route_id] = [];
+      }
+      routeGroupsForEndpoints[detail.route_id].push(detail);
+    });
+    
+    // 为每条路线确定起点和终点
+    Object.entries(routeGroupsForEndpoints).forEach(([routeId, routePoints]) => {
+      // 过滤有效坐标
+      const validPoints = routePoints.filter(point => {
+        const lat = point.latitude;
+        const lng = point.longitude;
+        return !isNaN(lat) && !isNaN(lng) && 
+               isFinite(lat) && isFinite(lng) &&
+               !(lat === 0 && lng === 0) &&
+               lat >= -90 && lat <= 90 &&
+               lng >= -180 && lng <= 180;
+      });
+      
+      if (validPoints.length >= 2) {
+        // 按顺序排序
+        validPoints.sort((a, b) => a.order_in_route - b.order_in_route);
+        const startPoint = validPoints[0];
+        const endPoint = validPoints[validPoints.length - 1];
+        
+        routeEndpoints.set(routeId, {
+          start: `${startPoint.latitude},${startPoint.longitude}`,
+          end: `${endPoint.latitude},${endPoint.longitude}`
+        });
+      }
+    });
     
     filteredData.details.forEach(detail => {
-      // 过滤掉无效的经纬度 - 更严格的检查
+      // 过滤掉无效的经纬度
       const lat = detail.latitude;
       const lng = detail.longitude;
       if (isNaN(lat) || isNaN(lng) || !isFinite(lat) || !isFinite(lng) ||
@@ -846,6 +1035,9 @@ const TransportationNetwork = () => {
       }
       
       const key = `${detail.latitude},${detail.longitude}`;
+      const endpoints = routeEndpoints.get(detail.route_id);
+      const isStartOrEnd = endpoints && (key === endpoints.start || key === endpoints.end);
+      
       if (!nodeMap.has(key)) {
         const isOverseas = !isInChina(detail.longitude, detail.latitude);
         
@@ -854,7 +1046,9 @@ const TransportationNetwork = () => {
           dynasty: detail.dynasty,
           isOverseas,
           routes: [detail.route_id],
-          routeNames: [detail.route_name]
+          routeNames: [detail.route_name],
+          isStartOrEnd: isStartOrEnd,
+          allRouteEndpoints: [isStartOrEnd] // 记录该点在哪些路线中是起终点
         });
       } else {
         // 如果节点已存在，添加路线信息
@@ -862,6 +1056,11 @@ const TransportationNetwork = () => {
         if (!node.routes.includes(detail.route_id)) {
           node.routes.push(detail.route_id);
           node.routeNames.push(detail.route_name);
+          node.allRouteEndpoints.push(isStartOrEnd);
+          // 如果在任一路线中是起终点，则标记为起终点
+          if (isStartOrEnd) {
+            node.isStartOrEnd = true;
+          }
         }
       }
     });
@@ -876,36 +1075,43 @@ const TransportationNetwork = () => {
       
       // 判断是否是重要节点（多条路线交汇）
       const isImportantNode = nodeInfo.routes.length > 1;
-        
-        // 创建自定义图标
-        const iconHtml = `
+      
+      // 判断是否应该默认显示（起终点或重要交通枢纽）
+      const shouldShowByDefault = nodeInfo.isStartOrEnd || isImportantNode;
+      
+      // 创建自定义图标
+      const iconHtml = `
         <div class="${isImportantNode ? 'node-pulse' : ''}" style="
           width: ${nodeInfo.isOverseas ? 10 : 8}px;
           height: ${nodeInfo.isOverseas ? 10 : 8}px;
-            background-color: ${color};
+          background-color: ${color};
           border: ${nodeInfo.isOverseas ? '1px solid #FF4444' : '1px solid white'};
-            border-radius: 50%;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+          border-radius: 50%;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.3);
           transition: all 0.3s ease;
           cursor: pointer;
-          "></div>
-        `;
-        
-        const customIcon = L.divIcon({
-          html: iconHtml,
-          className: 'custom-marker',
+          opacity: ${shouldShowByDefault ? '1' : '0'};
+          transform: scale(${shouldShowByDefault ? '1' : '0.5'});
+        "></div>
+      `;
+      
+      const customIcon = L.divIcon({
+        html: iconHtml,
+        className: shouldShowByDefault ? 'custom-marker' : 'custom-marker hidden-waypoint',
         iconSize: [nodeInfo.isOverseas ? 10 : 8, nodeInfo.isOverseas ? 10 : 8],
         iconAnchor: [nodeInfo.isOverseas ? 5 : 4, nodeInfo.isOverseas ? 5 : 4]
-        });
+      });
 
       const marker = L.marker([lat, lng], {
-          icon: customIcon
-        });
+        icon: customIcon
+      });
 
       // 添加节点悬停效果
       marker.on('mouseover', function() {
         const iconElement = this.getElement().querySelector('div');
         if (iconElement) {
+          // 显示隐藏的途径点
+          iconElement.style.opacity = '1';
           iconElement.style.transform = 'scale(1.3)';
           iconElement.style.zIndex = '1000';
         }
@@ -914,7 +1120,13 @@ const TransportationNetwork = () => {
       marker.on('mouseout', function() {
         const iconElement = this.getElement().querySelector('div');
         if (iconElement) {
-          iconElement.style.transform = 'scale(1)';
+          // 如果不是起终点或重要节点，鼠标离开时重新隐藏
+          if (!shouldShowByDefault) {
+            iconElement.style.opacity = '0';
+            iconElement.style.transform = 'scale(0.5)';
+          } else {
+            iconElement.style.transform = 'scale(1)';
+          }
           iconElement.style.zIndex = '';
         }
       });
@@ -923,10 +1135,11 @@ const TransportationNetwork = () => {
       const routesList = [...new Set(nodeInfo.routeNames)].join(', ');
       const routeCount = nodeInfo.routes.length;
       const importanceInfo = routeCount > 1 ? `<br/><strong>重要交通枢纽（${routeCount}条路线交汇）</strong>` : '';
+      const pointTypeInfo = nodeInfo.isStartOrEnd ? '<br/><span style="color: #8C6D46;">起点/终点</span>' : '<br/><span style="color: #999;">途径点</span>';
       
       marker.bindPopup(`
         <div style="font-family: 'Noto Serif SC', serif;">
-          <strong>${nodeInfo.name}</strong>${locationInfo}${importanceInfo}<br/>
+          <strong>${nodeInfo.name}</strong>${locationInfo}${pointTypeInfo}${importanceInfo}<br/>
           朝代: ${nodeInfo.dynasty}<br/>
           相关路线: ${routesList}
         </div>
@@ -1037,16 +1250,34 @@ const TransportationNetwork = () => {
       // 添加路线悬停效果
       polyline.on('mouseover', function() {
         this.setStyle({
-          weight: (isInternational ? 4 : 3) + 2,
+          weight: originalStyle.weight + 2,
           opacity: 1
         });
       });
       
       polyline.on('mouseout', function() {
-        this.setStyle({
-          weight: isInternational ? 4 : 3,
-          opacity: isInternational ? 0.9 : 0.8
-        });
+        // 检查当前路线是否被选中
+        const isSelected = selectedRoute && 
+          selectedRoute.routeName === routeName && 
+          selectedRoute.dynasty === dynasty;
+        
+        if (isSelected) {
+          // 如果是选中路线，恢复到选中样式
+          this.setStyle({
+            color: '#A52A2A',
+            weight: originalStyle.weight + 2,
+            opacity: 1,
+            dashArray: '5, 5'
+          });
+        } else {
+          // 如果不是选中路线，恢复到原始样式
+          this.setStyle({
+            weight: originalStyle.weight,
+            opacity: originalStyle.opacity,
+            color: originalStyle.color,
+            dashArray: ''
+          });
+        }
       });
       
       const routeInfo = isInternational ? '（国际路线）' : '（境内路线）';
@@ -1061,8 +1292,8 @@ const TransportationNetwork = () => {
       polyline.addTo(mapRef.current);
       linesRef.current.push(polyline);
       
-      // 创建沿路径移动的动画点
-      createMovingMarker(coordinates, color, isInternational);
+      // 创建沿路径移动的动画点（已禁用）
+      // createMovingMarker(coordinates, color, isInternational);
     });
 
     console.log('地图路网更新完成', { 
@@ -1075,7 +1306,7 @@ const TransportationNetwork = () => {
     if (selectedRoute) {
       setTimeout(() => updateSelectedRouteStyle(), 100);
     }
-  }, [filteredData, loading, routeColorMapping]);
+  }, [filteredData, loading, routeColorMapping, mapMode]);
 
   // 监听选中路线变化，只更新样式，不重新绘制地图
   useEffect(() => {
@@ -1149,9 +1380,42 @@ const TransportationNetwork = () => {
     e.stopPropagation();
   };
 
+  // 降低颜色饱和度的函数
+  const desaturateColor = (color, amount = 0.5) => {
+    // 如果是hex颜色格式
+    if (color.startsWith('#')) {
+      const hex = color.slice(1);
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      
+      // 计算灰度值
+      const gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+      
+      // 混合原色和灰度
+      const newR = Math.round(r + (gray - r) * amount);
+      const newG = Math.round(g + (gray - g) * amount);
+      const newB = Math.round(b + (gray - b) * amount);
+      
+      return `rgb(${newR}, ${newG}, ${newB})`;
+    }
+    
+    // 如果已经是rgb格式，直接返回更淡的版本
+    return color.replace(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/, (match, r, g, b) => {
+      const gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+      const newR = Math.round(r + (gray - r) * amount);
+      const newG = Math.round(g + (gray - g) * amount);
+      const newB = Math.round(b + (gray - b) * amount);
+      return `rgb(${newR}, ${newG}, ${newB})`;
+    });
+  };
+
   // 创建沿路径移动的动画点
   const createMovingMarker = (path, color, isInternational) => {
     if (path.length < 2) return;
+    
+    // 为光晕创建低饱和度的颜色
+    const glowColor = desaturateColor(color, 0.6);
     
     // 创建移动点的图标
     const movingIcon = L.divIcon({
@@ -1162,9 +1426,21 @@ const TransportationNetwork = () => {
           background-color: ${color};
           border: 1px solid white;
           border-radius: 50%;
-          box-shadow: 0 0 10px ${color};
-          animation: glow 1s ease-in-out infinite alternate;
+          box-shadow: 0 0 5px ${glowColor}, 0 0 10px ${glowColor};
+          animation: softGlow 1.5s ease-in-out infinite alternate;
         "></div>
+        <style>
+          @keyframes softGlow {
+            0% {
+              box-shadow: 0 0 5px ${glowColor}, 0 0 10px ${glowColor};
+              opacity: 0.8;
+            }
+            100% {
+              box-shadow: 0 0 8px ${glowColor}, 0 0 15px ${glowColor}, 0 0 20px ${glowColor.replace('rgb(', 'rgba(').replace(')', ', 0.3)')};
+              opacity: 1;
+            }
+          }
+        </style>
       `,
       className: 'moving-marker',
       iconSize: [10, 10],
@@ -1254,6 +1530,52 @@ const TransportationNetwork = () => {
           </select>
         </div>
         
+        {/* 图层显示控制 */}
+        <div 
+          className="map-mode-controls"
+          onClick={handleControlClick}
+        >
+          <label className="layer-toggle">
+            <input 
+              type="checkbox" 
+              checked={mapMode === 'routes' || mapMode === 'both'}
+              onChange={(e) => {
+                e.stopPropagation();
+                if (mapMode === 'heatmap') {
+                  setMapMode('both');
+                } else if (mapMode === 'both') {
+                  setMapMode('heatmap');
+                } else {
+                  setMapMode('routes');
+                }
+              }}
+              onClick={handleControlClick}
+            />
+            路线图
+          </label>
+          <label className="layer-toggle">
+            <input 
+              type="checkbox" 
+              checked={mapMode === 'heatmap' || mapMode === 'both'}
+              onChange={(e) => {
+                e.stopPropagation();
+                if (heatmapLoaded) {
+                  if (mapMode === 'routes') {
+                    setMapMode('both');
+                  } else if (mapMode === 'both') {
+                    setMapMode('routes');
+                  } else {
+                    setMapMode('heatmap');
+                  }
+                }
+              }}
+              onClick={handleControlClick}
+              disabled={!heatmapLoaded}
+            />
+            {heatmapLoaded ? '热力图' : '热力图 ⏳'}
+          </label>
+        </div>
+
         <div 
           className="layer-controls"
           onClick={handleControlClick}
@@ -1356,9 +1678,13 @@ const TransportationNetwork = () => {
         </div>
         
         <div className="route-stats">
+          <span>显示模式: {
+            mapMode === 'routes' ? '路线图' : 
+            mapMode === 'heatmap' ? '热力图' : 
+            '路线+热力图'
+          }</span>
           <span>路线数量: {filteredData.routes.length}</span>
           <span>节点数量: {filteredData.details.length}</span>
-          {/* <span>{currentHistoricalMap ? currentHistoricalMap.name : '无历史地图'}</span> */}
         </div>
       </div>
     </div>

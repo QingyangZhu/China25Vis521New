@@ -34,6 +34,7 @@ const TrafficHubAnalysis = () => {
   const [hubData, setHubData] = useState([]);
   const [dynastyData, setDynastyData] = useState([]);
   const [routeData, setRouteData] = useState([]);
+  const [trafficToolsData, setTrafficToolsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedDynasty, setSelectedDynasty] = useState(null); // 选中的朝代
@@ -141,6 +142,36 @@ const TrafficHubAnalysis = () => {
                 status: row.status
               }));
             setRouteData(processedRouteData);
+          },
+          error: (error) => {
+            console.error('Parse error:', error);
+            setError('数据解析失败');
+          }
+        });
+
+        // 加载交通工具汇总数据
+        const trafficToolsResponse = await fetch('/data/problem3/交通工具汇总.csv');
+        if (!trafficToolsResponse.ok) {
+          throw new Error(`Failed to load traffic tools data: ${trafficToolsResponse.status}`);
+        }
+        const trafficToolsText = await trafficToolsResponse.text();
+        
+        Papa.parse(trafficToolsText, {
+          header: true,
+          complete: (results) => {
+            console.log('Traffic tools data parsed:', results.data);
+            const processedTrafficToolsData = results.data
+              .filter(row => row.朝代 && row.主要工具)
+              .map(row => ({
+                dynasty: row.朝代,
+                landTools: row.陆路交通工具 || '',
+                waterTools: row.水路交通工具 || '',
+                otherTools: row.其他交通工具 || '',
+                totalTypes: parseInt(row.工具种类总数) || 0,
+                totalRecords: parseInt(row.使用记录总数) || 0,
+                mainTools: row.主要工具 || ''
+              }));
+            setTrafficToolsData(processedTrafficToolsData);
             setLoading(false);
           },
           error: (error) => {
@@ -161,7 +192,7 @@ const TrafficHubAnalysis = () => {
 
 // 合并绘制柱状图和网络图
 useEffect(() => {
-    if ((!dynastyData.length || !hubData.length || !chartContainerRef.current || loading || selectedDynasty !== null)) return;
+    if ((!dynastyData.length || !hubData.length || !trafficToolsData.length || !chartContainerRef.current || loading || selectedDynasty !== null)) return;
   
     console.log('Drawing combined charts with data:', { dynastyData, hubData });
   
@@ -268,13 +299,54 @@ useEffect(() => {
         }
       });
   
-    // 只添加Y轴（朝代轴）
-    barChartGroup.append('g')
-      .call(d3.axisLeft(yScale))
-      .selectAll('text')
+    // 添加Y轴（朝代轴）- 美化样式
+    const yAxis = barChartGroup.append('g')
+      .attr('class', 'y-axis')
+      .call(d3.axisLeft(yScale));
+    
+    // 美化坐标轴线条
+    yAxis.select('.domain')
+      .style('stroke', colorScheme.secondary)
+      .style('stroke-width', '2px')
+      .style('opacity', 0.8);
+    
+    // 美化刻度线
+    yAxis.selectAll('.tick line')
+      .style('stroke', colorScheme.grid)
+      .style('stroke-width', '1px')
+      .style('opacity', 0.6);
+    
+    // 美化文字标签
+    yAxis.selectAll('text')
       .style('font-size', '10px')
       .style('font-family', "'Noto Serif SC', sans-serif")
-      .style('fill', colorScheme.text);
+      .style('fill', colorScheme.text)
+      .style('font-weight', '500');
+    
+    // 添加水平网格线（可选，增强可读性）
+    const gridLines = barChartGroup.append('g')
+      .attr('class', 'grid-lines')
+      .selectAll('line')
+      .data(dynastyChartData)
+      .enter().append('line')
+      .attr('x1', 0)
+      .attr('x2', maxBarWidth)
+      .attr('y1', d => yScale(d.dynasty) + yScale.bandwidth() / 2)
+      .attr('y2', d => yScale(d.dynasty) + yScale.bandwidth() / 2)
+      .style('stroke', colorScheme.grid)
+      .style('stroke-width', '0.5px')
+      .style('stroke-dasharray', '2,2')
+      .style('opacity', 0.3);
+    
+    // 添加右侧边框线以增强视觉效果
+    barChartGroup.append('line')
+      .attr('x1', maxBarWidth)
+      .attr('y1', 0)
+      .attr('x2', maxBarWidth)
+      .attr('y2', barChartInnerHeight)
+      .style('stroke', colorScheme.grid)
+      .style('stroke-width', '1px')
+      .style('opacity', 0.4);
   
     // 添加柱状图标题
     barChartGroup.append('text')
@@ -287,14 +359,16 @@ useEffect(() => {
       .style('fill', colorScheme.text)
       .text('朝代发展水平综合得分');
 
-    // 添加纵向分隔线 - 向左偏移
+    // 添加纵向分隔线 - 向左偏移，美化样式
     svg.append('line')
       .attr('x1', barChartWidth - 10) // 向左偏移10px
       .attr('y1', 0)
       .attr('x2', barChartWidth - 10) // 向左偏移10px
       .attr('y2', containerHeight)
-      .attr('stroke', colorScheme.grid)
-      .attr('stroke-width', 1);
+      .attr('stroke', colorScheme.secondary)
+      .attr('stroke-width', 0.8)
+      .attr('opacity', 0.6);
+      // .attr('stroke-dasharray', '5,3'); // 添加虚线效果
 
         // 创建网络图区域的组 - 稍微向左偏移
     const networkOffsetX = barChartWidth - 20; // 向左偏移20px
@@ -466,14 +540,16 @@ useEffect(() => {
     const legendContainer = svg.append('g')
       .attr('transform', `translate(${networkOffsetX}, ${networkHeight})`);
 
-    // 添加横向分隔线 - 缩短并右移
+    // 添加横向分隔线 - 缩短并右移，美化样式
     legendContainer.append('line')
       .attr('x1', 30) // 右移30px作为起点
       .attr('y1', 0)
       .attr('x2', networkWidth - 50) // 缩短50px作为终点
       .attr('y2', 0)
-      .attr('stroke', colorScheme.grid)
-      .attr('stroke-width', 1);
+      .attr('stroke', colorScheme.secondary)
+      .attr('stroke-width', 0.6)
+      .attr('opacity', 0.5)
+      // .attr('stroke-dasharray', '3,2'); // 添加细虚线效果
 
     // 朝代数量图例 - 水平布局在左侧
     const dynastyLegend = legendContainer.append('g')
@@ -541,7 +617,7 @@ useEffect(() => {
 
 
 
-  }, [hubData.length, dynastyData.length, loading, selectedDynasty]);
+  }, [hubData.length, dynastyData.length, trafficToolsData.length, loading, selectedDynasty]);
 
 
 
@@ -633,11 +709,336 @@ useEffect(() => {
     return routeImportance.sort((a, b) => parseFloat(b.importance) - parseFloat(a.importance));
   };
 
+  // 获取交通工具图片路径
+  const getToolImagePath = (toolName) => {
+    // 根据实际图片文件和交通工具数据建立映射关系
+    const imageMap = {
+      // 基础交通方式
+      '行走': 'images/行走.png',
+      
+      // 马类交通工具
+      '马': 'images/马.png',
+      '马车': 'images/马车.png',
+      '西洋马车': 'images/西洋马车.png',
+      '骑': 'images/马.png',
+      '骑兵': 'images/马.png',
+      '车马': 'images/马车.png',
+      '驿马': 'images/马.png',
+      
+      // 牛类交通工具
+      '牛': 'images/牛.png',
+      '牛车': 'images/牛车.png',
+      
+      // 驴类交通工具
+      '驴': 'images/驴.png',
+      '驴车': 'images/驴车.png',
+      '毛驴': 'images/驴.png',
+      
+      // 骆驼
+      '骆驼': 'images/骆驼.png',
+      
+      // 步兵类
+      '步骑': 'images/步骑.png',
+      '步军': 'images/步骑.png',
+      
+      // 船类交通工具
+      '船': 'images/船.png',
+      '舟': 'images/舟.png',
+      '漕船': 'images/漕船.png',
+      '龙舟': 'images/龙舟.png',
+      '战船': 'images/船.png',
+      '行舟': 'images/船.png',
+      '驳船': 'images/船.png',
+      '剥船': 'images/船.png',
+      '舟师': 'images/舟.png',
+      
+      // 古代车辆
+      '五辂': 'images/五辂.png',
+      '车': 'images/车.png',
+      '副车': 'images/车.png',
+      '戎车': 'images/车.png',
+      '安车': 'images/车.png',
+      '轺车': 'images/车.png',
+      '辎车': 'images/车.png',
+      '犊车': 'images/车.png',
+      '奚车': 'images/车.png',
+      '猎车': 'images/车.png',
+      '指南车': 'images/车.png',
+      '记里鼓车': 'images/车.png',
+      '白鹭车': 'images/车.png',
+      '鸾旗车': 'images/车.png',
+      '辟恶车': 'images/车.png',
+      '皮轩车': 'images/车.png',
+      '耕根车': 'images/车.png',
+      '四望车': 'images/车.png',
+      '游车': 'images/车.png',
+      '羊车': 'images/车.png',
+      '画轮车': 'images/车.png',
+      '鼓吹车': 'images/车.png',
+      '象车': 'images/车.png',
+      '黄钺车': 'images/车.png',
+      '豹尾车': 'images/车.png',
+      '建华车': 'images/车.png',
+      '辒辕车': 'images/车.png',
+      '軿车': 'images/车.png',
+      '追锋车': 'images/车.png',
+      '云母车': 'images/车.png',
+      '骡车': 'images/车.png',
+      '铁皮车': 'images/车.png',
+      
+      // 轿子类
+      '轿': 'images/轿子.png',
+      '轿子': 'images/轿子.png',
+      '銮辇': 'images/轿子.png',
+      '骡驮轿': 'images/轿子.png',
+      '红色喜轿': 'images/轿子.png',
+      
+      // 人力车类
+      '人力车': 'images/人力车.png',
+      '胶皮车': 'images/人力车.png',
+      
+      // 火车类（按朝代区分）
+      '火车': 'images/近代-火车.png',
+      '清-火车': 'images/近代-火车.png',
+      '近代-火车': 'images/近代-火车.png',
+      '蒸汽机车': 'images/近代-火车.png',
+      '内燃机车': 'images/近代-火车.png',
+      '电力机车': 'images/近代-火车.png',
+      '动车组高速列车': 'images/近代-火车.png',
+      '高铁的客运专线': 'images/近代-火车.png',
+      '高速铁路': 'images/近代-火车.png',
+      '铁路客运': 'images/近代-火车.png',
+      
+      // 汽车类（按朝代区分）
+      '汽车': 'images/现代-汽车.png',
+      '民国-汽车': 'images/民国-汽车.png',
+      '现代-汽车': 'images/现代-汽车.png',
+      '出租汽车': 'images/现代-汽车.png',
+      
+      // 公共汽车类
+      '公交车': 'images/现代-公共汽车.png',
+      '公共汽车': 'images/现代-公共汽车.png',
+      '现代-公共汽车': 'images/现代-公共汽车.png',
+      '小公共汽车': 'images/现代-公共汽车.png',
+      '公共电汽车': 'images/现代-公共汽车.png',
+      '机场大巴': 'images/现代-公共汽车.png',
+      '快速公交': 'images/现代-公共汽车.png',
+      
+      // 电车类
+      '电车': 'images/电动车.png',
+      '电动车': 'images/电动车.png',
+      '有轨电车': 'images/电动车.png',
+      '无轨电车': 'images/电动车.png',
+      
+      // 飞机类（按朝代区分）
+      '飞机': 'images/现代-飞机.png',
+      '清-飞机': 'images/清-飞机.png',
+      '民国-飞机': 'images/民国-飞机.png',
+      '现代-飞机': 'images/现代-飞机.png',
+      
+      // 地铁轨道交通
+      '地铁': 'images/地铁.png',
+      '现代-地铁': 'images/地铁.png',
+      '轨道交通车辆': 'images/地铁.png',
+      '机场快轨': 'images/地铁.png',
+      
+      // 自行车
+      '自行车': 'images/自行车.png', // 使用电动车图片代替
+      
+      // 驿站系统
+      '驿站': 'images/驿站.png',
+      '急递铺': 'images/驿站.png',
+      
+      // 其他特殊交通方式
+      '路侧摆渡车': 'images/现代-公共汽车.png'
+    };
+    
+    // 精确匹配优先
+    if (imageMap[toolName]) {
+      return `/data/problem3/${imageMap[toolName]}`;
+    }
+    
+    // 包含匹配 - 优先匹配更具体的词汇
+    const keys = Object.keys(imageMap).sort((a, b) => b.length - a.length); // 按长度降序排列，优先匹配长词
+    for (const key of keys) {
+      if (toolName.includes(key)) {
+        return `/data/problem3/${imageMap[key]}`;
+      }
+    }
+    
+    // 如果没有找到对应图片，返回null
+    return null;
+  };
+
+  // 获取交通工具的速度数据（km/h）
+  const getToolSpeed = (toolName) => {
+    const speedMap = {
+      // 步行/徒步
+      '行走': 5,
+      '步骑': 8,
+      '步军': 6,
+      
+      // 动物类
+      '马': 50,
+      '骑': 50,
+      '骑兵': 45,
+      '驿马': 60,
+      '牛': 8,
+      '驴': 15,
+      '毛驴': 15,
+      '骆驼': 25,
+      
+      // 古代车辆
+      '马车': 25,
+      '车马': 25,
+      '西洋马车': 30,
+      '牛车': 8,
+      '驴车': 15,
+      '车': 20,
+      '五辂': 15,
+      '副车': 20,
+      '戎车': 25,
+      '人力车': 12,
+      '胶皮车': 12,
+      '轿子': 10,
+      '銮辇': 8,
+      
+      // 船类
+      '船': 15,
+      '舟': 12,
+      '漕船': 18,
+      '龙舟': 20,
+      '战船': 20,
+      
+      // 近现代交通工具
+      '火车': 80,
+      '清-火车': 40,
+      '近代-火车': 60,
+      '蒸汽机车': 60,
+      '内燃机车': 120,
+      '电力机车': 160,
+      '动车组高速列车': 300,
+      '高铁的客运专线': 350,
+      '高速铁路': 350,
+      
+      '汽车': 60,
+      '民国-汽车': 40,
+      '现代-汽车': 100,
+      '出租汽车': 80,
+      '公交车': 50,
+      '公共汽车': 50,
+      '现代-公共汽车': 60,
+      '小公共汽车': 50,
+      
+      '电车': 40,
+      '电动车': 25,
+      '有轨电车': 45,
+      '无轨电车': 50,
+      '自行车': 20,
+      
+      '地铁': 80,
+      '现代-地铁': 80,
+      '轨道交通车辆': 80,
+      
+      '飞机': 800,
+      '清-飞机': 200,
+      '民国-飞机': 300,
+      '现代-飞机': 900,
+      
+      // 特殊系统
+      '驿站': 50, // 驿站系统的平均速度
+      '急递铺': 40
+    };
+    
+    // 精确匹配
+    if (speedMap[toolName]) {
+      return speedMap[toolName];
+    }
+    
+    // 包含匹配
+    for (const [key, speed] of Object.entries(speedMap)) {
+      if (toolName.includes(key)) {
+        return speed;
+      }
+    }
+    
+    return 20; // 默认速度
+  };
+
+  // 获取朝代的交通工具数据
+  const getDynastyTrafficTools = (dynasty) => {
+    if (!dynasty || trafficToolsData.length === 0) return null;
+    
+    // 直接匹配朝代名称
+    let toolData = trafficToolsData.find(d => d.dynasty === dynasty);
+    
+    // 如果没有找到，尝试匹配朝代的前缀
+    if (!toolData) {
+      toolData = trafficToolsData.find(d => 
+        dynasty.startsWith(d.dynasty) || d.dynasty.startsWith(dynasty)
+      );
+    }
+    
+    if (!toolData) return null;
+    
+    // 解析主要工具
+    const mainTools = toolData.mainTools.split(',').map(tool => tool.trim()).filter(tool => tool);
+    
+    // 为主要工具添加速度信息
+    const mainToolsWithSpeed = mainTools.map(tool => ({
+      name: tool,
+      speed: getToolSpeed(tool),
+      imagePath: getToolImagePath(tool)
+    })).sort((a, b) => a.speed - b.speed); // 按速度排序
+    
+    // 获取所有工具
+    const allTools = [];
+    
+    // 解析陆路交通工具
+    if (toolData.landTools) {
+      const landTools = toolData.landTools.split(';').map(tool => {
+        const match = tool.match(/^([^(]+)/);
+        return match ? match[1].trim() : tool.trim();
+      }).filter(tool => tool);
+      allTools.push(...landTools.map(tool => ({ name: tool, type: '陆路' })));
+    }
+    
+    // 解析水路交通工具
+    if (toolData.waterTools) {
+      const waterTools = toolData.waterTools.split(';').map(tool => {
+        const match = tool.match(/^([^(]+)/);
+        return match ? match[1].trim() : tool.trim();
+      }).filter(tool => tool);
+      allTools.push(...waterTools.map(tool => ({ name: tool, type: '水路' })));
+    }
+    
+    // 解析其他交通工具
+    if (toolData.otherTools) {
+      const otherTools = toolData.otherTools.split(';').map(tool => {
+        const match = tool.match(/^([^(]+)/);
+        return match ? match[1].trim() : tool.trim();
+      }).filter(tool => tool);
+      allTools.push(...otherTools.map(tool => ({ name: tool, type: '其他' })));
+    }
+    
+    return {
+      dynasty: toolData.dynasty,
+      mainTools,
+      mainToolsWithSpeed,
+      allTools,
+      totalTypes: toolData.totalTypes,
+      totalRecords: toolData.totalRecords
+    };
+  };
+
   // 朝代详情视图组件
   const DynastyDetail = () => {
+    const [showMainTools, setShowMainTools] = useState(true); // 控制显示主要工具还是所有工具
+    
     if (!selectedDynasty) return null;
     
     const routes = getDynastyRoutes(selectedDynasty);
+    const trafficTools = getDynastyTrafficTools(selectedDynasty);
     
     return (
       <div className="dynasty-detail">
@@ -675,7 +1076,7 @@ useEffect(() => {
                       checked={showAllRoutes}
                       onChange={() => setShowAllRoutes(true)}
                     />
-                    <span>显示所有路线</span>
+                    <span>所有路线</span>
                   </label>
                   <label className="radio-label">
                     <input
@@ -684,7 +1085,7 @@ useEffect(() => {
                       checked={!showAllRoutes}
                       onChange={() => setShowAllRoutes(false)}
                     />
-                    <span>仅显示选中路线 ({selectedRoutes.length})</span>
+                    <span>选中路线 ({selectedRoutes.length})</span>
                   </label>
                 </div>
                 
@@ -702,7 +1103,7 @@ useEffect(() => {
               </div>
             </div>
                           <div className="route-items">
-                {routes.slice(0, 15).map((route, index) => {
+                {routes.map((route, index) => {
                   // 检查是否是当前单选的路线
                   const isSingleSelected = selectedRoute && 
                     selectedRoute.routeName === route.routeName && 
@@ -718,7 +1119,7 @@ useEffect(() => {
                     key={route.routeName} 
                     className={`route-item ${isSingleSelected ? 'selected' : ''} ${isMultiSelected ? 'multi-selected' : ''}`}
                   >
-                    {/* 多选复选框 */}
+                    {/* 多选复选框和排名 */}
                     <div className="route-checkbox">
                       <input
                         type="checkbox"
@@ -735,6 +1136,7 @@ useEffect(() => {
                           });
                         }}
                       />
+                      <div className="route-rank">#{index + 1}</div>
                     </div>
                     
                     <div 
@@ -752,9 +1154,8 @@ useEffect(() => {
                         console.log('选中交通要道:', route.routeName, '朝代:', selectedDynasty);
                       }}
                       style={{ cursor: 'pointer' }}
-                                            title="点击在地图上显示此路线"
+                      title="点击在地图上显示此路线"
                     >
-                      <div className="route-rank">#{index + 1}</div>
                       <div className="route-info">
                         <div className="route-name">
                           {isSingleSelected && <span className="selected-indicator">🎯 </span>}
@@ -781,13 +1182,13 @@ useEffect(() => {
                 <span className="stat-value">{routes.length}</span>
               </div>
               <div className="stat-item">
-                <span className="stat-label">平均重要性:</span>
+                <span className="stat-label">重要性:</span>
                 <span className="stat-value">
-                  {routes.length > 0 ? (routes.reduce((sum, r) => sum + parseFloat(r.importance), 0) / routes.length).toFixed(1) : '0'} 分
+                  {routes.length > 0 ? (routes.reduce((sum, r) => sum + parseFloat(r.importance), 0) / routes.length).toFixed(1) : '0'} 
                 </span>
               </div>
               <div className="stat-item">
-                <span className="stat-label">重要要道 (≥70分):</span>
+                <span className="stat-label">重要要道:</span>
                 <span className="stat-value">{routes.filter(r => parseFloat(r.importance) >= 70).length}</span>
               </div>
               <div className="stat-item">
@@ -795,11 +1196,102 @@ useEffect(() => {
                 <span className="stat-value">{routes.reduce((sum, r) => sum + r.routeCount, 0)}</span>
               </div>
             </div>
+
+            {/* 交通工具展示区域 */}
+            {trafficTools && (
+              <div className="traffic-tools-section">
+                <div className="traffic-tools-header">
+                  <h4>交通工具</h4>
+                  
+                  {/* 切换按钮 */}
+                  <div className="traffic-tools-toggle">
+                    <button
+                      className={`toggle-btn ${showMainTools ? 'active' : ''}`}
+                      onClick={() => setShowMainTools(true)}
+                    >
+                      主要工具
+                    </button>
+                    <button
+                      className={`toggle-btn ${!showMainTools ? 'active' : ''}`}
+                      onClick={() => setShowMainTools(false)}
+                    >
+                      所有工具
+                    </button>
+                  </div>
+                </div>
+
+                {/* 根据切换状态显示不同内容 */}
+                {showMainTools ? (
+                  <div className="main-tools-display">
+                    {/* 交通工具图片行 */}
+                    <div className="tools-speed-container">
+                      <div className="main-tools-row">
+                        {trafficTools.mainToolsWithSpeed.map((tool, index) => (
+                          <div key={index} className="main-tool-item" data-speed={tool.speed}>
+                            {tool.imagePath && (
+                              <div className="tool-image">
+                                <img 
+                                  src={tool.imagePath} 
+                                  alt={tool.name}
+                                  title={`${tool.name} - ${tool.speed}km/h`}
+                                  onError={(e) => {
+                                    e.target.style.display = 'none';
+                                  }}
+                                />
+                              </div>
+                            )}
+                            <div className="tool-name">{tool.name}</div>
+                            <div className="tool-speed">{tool.speed}km/h</div>
+                          </div>
+                        ))}
+                      </div>
+
+
+                    </div>
+                  </div>
+                ) : (
+                  <div className="all-tools-display">
+                    <div className="tools-categories">
+                      {['陆路', '水路', '其他'].map(category => {
+                        const categoryTools = trafficTools.allTools.filter(tool => tool.type === category);
+                        if (categoryTools.length === 0) return null;
+                        
+                        return (
+                          <div key={category} className="tool-category">
+                            <h6>{category}交通工具</h6>
+                            <div className="tool-list">
+                              {categoryTools.map((tool, index) => (
+                                <span key={index} className="tool-tag">
+                                  {tool.name}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 交通工具统计 */}
+                <div className="traffic-tools-stats">
+                  <div className="tool-stat">
+                    <span className="stat-label">工具种类总数:</span>
+                    <span className="stat-value">{trafficTools.totalTypes}</span>
+                  </div>
+                  <div className="tool-stat">
+                    <span className="stat-label">使用记录总数:</span>
+                    <span className="stat-value">{trafficTools.totalRecords}</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
     );
   };
+
   // 渲染加载状态或错误
   if (loading) {
     return (

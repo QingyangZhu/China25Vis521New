@@ -8,7 +8,7 @@ import BeijingEcology from "./components/WaterClimateVegeChartTestEnhanced";
 import HistoricalDataClusterAnalysis from './components/HistoricalDataClusterAnalysis';
 import useDynastyStore from './store/dynastyStore';
 import GeoChart from "./components/GeoChart";
-import ProductVis from "./components/ProductVis";
+import ProductVis from "./components/ProductAndPopulation/ProductVis.jsx";
 import TransportationNetwork from "./components/Traffic/TransportationNetwork.jsx";
 // 在 App.js 或主组件顶部添加
 import 'bootstrap/dist/css/bootstrap.min.css';
