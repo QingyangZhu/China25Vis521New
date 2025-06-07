@@ -12,7 +12,7 @@
 .grid-container {
   display: grid;
   grid-template-columns: 25% 50% 25%;
-  grid-template-rows: 5%  27.5% 15% 42.5% 10%;
+  grid-template-rows: 5%  40% 2.5% 42.5% 10%;
   grid-template-areas: 
     "header header header"
     "left-top center-top right-top"

@@ -1,5 +1,6 @@
 // src/App.js
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import * as d3 from 'd3';
 import './App.css';
 import EChartsChart from './components/EChartsChart.jsx';
 import GridLayout from './components/GridLayout';
@@ -15,8 +16,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AdministrativeTree from './components/AdministrativeTree/AdministrativeTree';
 import Event from './components/ReformTimeline/Event';
 import Merce from './components/Merce/Merce';
-// 图片需要放到项目public目录或使用import
-import qinImage from './images/秦.png';
+import BeijingHistoryGraph from './components/BejingHistoryGraph/BeijingHistoryGraph';
+import DynastyVisualization from './components/DynastyVisualization/DynastyVisualization';
+import TimeControl from './components/TimeControl/TimeControl';
+import DynastyInfo from './components/DynastyInfo/DynastyInfo';
+import MerceArea from './components/MerceArea/MerceArea';
+
 import TrafficHubAnalysis from './components/Traffic/TrafficHubAnalysis';
 
 // 物产可视化控制组件
@@ -180,20 +185,63 @@ const MapViewToggle = () => {
 };
 
 function App() {
-  // 从Zustand store获取选中的朝代
-  const { selectedDynasties, getSelectedDisplayNames, getPrimaryDynasty } = useDynastyStore();
-  
-  // 物产可视化数据点显示控制状态
-  const [showDataPoints, setShowDataPoints] = React.useState(true);
-  
-  // 物产详情视图状态管理
-  const [showDetailView, setShowDetailView] = React.useState(false);
-  const [selectedDynastyForDetail, setSelectedDynastyForDetail] = React.useState(null);
-  const [selectedCategoryForDetail, setSelectedCategoryForDetail] = React.useState(null);
-  
-  // 词云视图状态管理
-  const [showWordCloud, setShowWordCloud] = React.useState(false);
-  const [selectedDynastyForWordCloud, setSelectedDynastyForWordCloud] = React.useState(null);
+  const [dynasty, setDynasty] = useState("隋");
+  const [startYear, setStartYear] = useState(581);
+  const [endYear, setEndYear] = useState(608);
+  const [selectedDynasties, setSelectedDynasties] = useState(new Set(["隋"]));
+  const [viewMode, setViewMode] = useState('comprehensive');
+
+  // 添加缺失的状态变量
+  const [selectedView, setSelectedView] = useState('overview');
+  const [showDataPoints, setShowDataPoints] = useState(false);
+  const [showDetailView, setShowDetailView] = useState(false);
+  const [showWordCloud, setShowWordCloud] = useState(false);
+  const [selectedDynastyForDetail, setSelectedDynastyForDetail] = useState(null);
+  const [selectedCategoryForDetail, setSelectedCategoryForDetail] = useState(null);
+  const [selectedDynastyForWordCloud, setSelectedDynastyForWordCloud] = useState(null);
+
+  // 数据状态
+  const [riverData, setRiverData] = useState([]);
+  const [vegetationData, setVegetationData] = useState([]);
+  const [climateData, setClimateData] = useState([]);
+  const [populationData, setPopulationData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // 地图数据
+  const [geoChartData, setGeoChartData] = useState([]);
+  const [beijingEcologyData, setBeijingEcologyData] = useState([]);
+  const geoChartRef = useRef(null);
+  const beijingEcologyRef = useRef(null);
+
+  // 读取数据
+  useEffect(() => {
+    d3.csv('/data/1/river_sort.csv').then(setRiverData);
+    d3.csv('/data/1/植被_2.csv').then(setVegetationData);
+    d3.csv('/data/1/气候.csv').then(setClimateData);
+    d3.csv('/data/人口/人口_change.csv').then(setPopulationData);
+  }, []);
+
+  // 加载 GeoChart 数据
+  useEffect(() => {
+    d3.csv('/data/geo_chart_data.csv').then(data => {
+      setGeoChartData(data);
+    }).catch(error => {
+      console.error('Error loading GeoChart data:', error);
+    });
+  }, []);
+
+  // 加载 BeijingEcology 数据
+  useEffect(() => {
+    d3.csv('/data/beijing_ecology_data.csv').then(data => {
+      setBeijingEcologyData(data);
+    }).catch(error => {
+      console.error('Error loading BeijingEcology data:', error);
+    });
+  }, []);
+
+  const handleViewChange = (mode) => {
+    setViewMode(mode);
+  };
 
   // 处理打开详情视图
   const handleOpenDetailView = (dynasty, category) => {
@@ -227,6 +275,9 @@ function App() {
     setShowWordCloud(false);
     setSelectedDynastyForWordCloud(null);
   };
+
+  // 从Zustand store获取选中的朝代
+  const { getSelectedDisplayNames, getPrimaryDynasty } = useDynastyStore();
 
   // 这barChartOption和legendData保持不变，用于其他图表
   const barChartOption = {
@@ -315,8 +366,53 @@ function App() {
   const leftTop = (
       <div className="chart-container">
         <h3>北京生态环境长期演化轨迹</h3>
-        {/* 传递主要朝代给BeijingEcology组件 */}
-        <BeijingEcology dynastyToDisplay={getPrimaryDynasty()} />
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'flex-end', 
+          alignItems: 'center', 
+          marginBottom: '10px',
+          paddingRight: '20px'
+        }}>
+          <div style={{ 
+            display: 'flex', 
+            gap: '10px', 
+            alignItems: 'center'
+          }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
+              <input
+                type="radio"
+                name="viewType"
+                value="overview"
+                checked={selectedView === 'overview'}
+                onChange={(e) => setSelectedView(e.target.value)}
+              />
+              <span style={{ fontSize: '14px', color: '#8C6D46' }}>概况</span>
+            </label>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
+              <input
+                type="radio"
+                name="viewType"
+                value="detail"
+                checked={selectedView === 'detail'}
+                onChange={(e) => setSelectedView(e.target.value)}
+              />
+              <span style={{ fontSize: '14px', color: '#8C6D46' }}>具体</span>
+            </label>
+          </div>
+        </div>
+        {selectedView === 'overview' ? (
+          <DynastyVisualization
+            dynasty={dynasty}
+            startYear={startYear}
+            endYear={endYear}
+            riverData={riverData}
+            vegetationData={vegetationData}
+            climateData={climateData}
+            populationData={populationData}
+          />
+        ) : (
+          <BeijingEcology ref={beijingEcologyRef} />
+        )}
       </div>
   );
 
@@ -332,7 +428,7 @@ function App() {
   const centerTop = (
       <div className="chart-container">
         {/* 替换为历史数据聚类与相关性分析组件 */}
-        <HistoricalDataClusterAnalysis />
+        <BeijingHistoryGraph />
       </div>
   );
 
@@ -405,41 +501,157 @@ const rightTop = (
 );
 
     const leftBottom = (
-        <div className="chart-container">
+          <div className="chart-container">
       <h3>建筑文化遗产</h3>
-      <div className="container">
+      <div className="container" style={{padding: '2px'}}>
       <div className="row" style={{ width: 590, marginTop: 2 }}>
         {/* 左侧信息面板 */}
         <div className="col-md-3" style={{ border: '1px solid #b4a293', padding: 0 }}>
           <div className="row" style={{ padding: 0, height: 5, backgroundColor: '#ad8d66', margin: 0 }} />
-          
-          <div className="row" style={{ margin: 2 }}>
-            <img src={qinImage} alt="秦朝" style={{ height: 80, padding: 0 }} />
-          </div>
-          
-          <InfoRow label="建制制度：" value="郡县制" bold />
-          <InfoRow label="行政机构：" value="郡守" />
-          <InfoRow label="军事机构：" value="郡尉" />
-          <InfoRow label="是否为都城：" value="否" />
+           <DynastyInfo dynastyName={dynasty} />
         </div>
 
         {/* 主图表区域 */}
-        <div className="col-md-9" id="main" style={{ padding: 0 }}>
-           <AdministrativeTree />
+        <div className="col-md-9" id="main" style={{ padding: 0,width:440 }}>
+           <AdministrativeTree dynastyName={dynasty}
+          startYear={startYear}
+          endYear={endYear}/>
         </div>
       </div>
 
       {/* 下方图表区域 */}
       <div className="row" style={{ width: 650, marginTop: 2, padding: 0 }} id="chart" />
-      <Event />
-      <div className="row" style={{ width: 650, marginTop: 2, padding: 0, fontFamily: '楷体' }} id="chart1" />
-      <Merce />
-    </div>
+      <Event dynastyName={dynasty}
+            startYear={startYear}
+            endYear={endYear}/>
+            <div className='row' style={{ 
+                width: 580, 
+                marginTop: 5, 
+                padding: 0, 
+                borderTop: '1px solid transparent',
+                borderImage: 'linear-gradient(90deg, rgba(202,169,132,0.1), #c7a580, rgba(202,169,132,0.1)) 1'
+            }}>
+      <div id="chart1-controls" style={{ 
+          display: 'flex', 
+          marginBottom: '2px',
+          marginTop: '5px',
+          width: '650px'
+      }}>
+          <button 
+              id="btn-view-3" 
+              className={`view-btn ${viewMode === 'comprehensive' ? 'active' : ''}`}
+              onClick={() => handleViewChange('comprehensive')}
+              style={{
+                  padding: '5px 5px',
+                  border: '1px solid #8C6D46',
+                  background: viewMode === 'comprehensive' ? '#8C6D46' : 'white',
+                  color: viewMode === 'comprehensive' ? 'white' : '#8C6D46',
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                  margin: '0 5px',
+                  transition: 'background-color 0.3s, color 0.3s',
+                  outline: 'none'
+              }}
+          >
+              <span>综合商业视图</span>
+          </button>
+          <button 
+              id="btn-view-5" 
+              className={`view-btn ${viewMode === 'regional' ? 'active' : ''}`}
+              onClick={() => handleViewChange('regional')}
+              style={{
+                  padding: '5px 5px',
+                  border: '1px solid #8C6D46',
+                  background: viewMode === 'regional' ? '#8C6D46' : 'white',
+                  color: viewMode === 'regional' ? 'white' : '#8C6D46',
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                  margin: '0 5px',
+                  transition: 'background-color 0.3s, color 0.3s',
+                  outline: 'none'
+              }}
+          >
+              <span>分区商业视图</span>
+          </button>
+      </div>
+      </div>
+      <div className="row" style={{ width: 610, marginTop: 2, padding: 0, fontFamily: '楷体' }} id="chart1" />
+          
+          {viewMode === 'comprehensive' ? (
+            <Merce 
+              dynastyName={dynasty}
+              startYear={startYear}
+              endYear={endYear}
+            />
+          ) : (
+            <MerceArea 
+              dynastyName={dynasty}
+            />
+          )}
+      </div>
     </div>
   );
 
-  // 使用新的历史时间轴组件，支持多选
-  const timeline = <HistoricalTimeline />;
+  const handleDynastyClick = (selectedDynasties, startYear, endYear) => {
+    // 更新选中的朝代
+    setSelectedDynasties(new Set(selectedDynasties));
+    
+    // 更新当前显示的朝代
+    setDynasty(selectedDynasties[0]);
+    
+    // 更新时间范围
+    setStartYear(startYear);
+    setEndYear(endYear);
+
+    // 更新 GeoChart 数据
+    if (geoChartRef.current) {
+        const filteredData = geoChartData.filter(item => {
+            const year = parseInt(item.year);
+            return year >= startYear && year <= endYear;
+        });
+        geoChartRef.current.updateData(filteredData);
+    }
+
+    // 更新 BeijingEcology 数据
+    if (beijingEcologyRef.current) {
+        const filteredData = beijingEcologyData.filter(item => {
+            const year = parseInt(item.year);
+            return year >= startYear && year <= endYear;
+        });
+        beijingEcologyRef.current.updateData(filteredData);
+    }
+  };
+
+  const handleTimeRangeChange = (startYear, endYear) => {
+    setStartYear(startYear);
+    setEndYear(endYear);
+
+    // 更新 GeoChart 数据
+    if (geoChartRef.current) {
+        const filteredData = geoChartData.filter(item => {
+            const year = parseInt(item.year);
+            return year >= startYear && year <= endYear;
+        });
+        geoChartRef.current.updateData(filteredData);
+    }
+
+    // 更新 BeijingEcology 数据
+    if (beijingEcologyRef.current) {
+        const filteredData = beijingEcologyData.filter(item => {
+            const year = parseInt(item.year);
+            return year >= startYear && year <= endYear;
+        });
+        beijingEcologyRef.current.updateData(filteredData);
+    }
+  };
+
+  // 使用新的时间轴组件
+  const timeline = (
+        <TimeControl
+            onDynastyClick={handleDynastyClick}
+            onTimeRangeChange={handleTimeRangeChange}
+        />
+  );
 
   return (
     <div className="App">

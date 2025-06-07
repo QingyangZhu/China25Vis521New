@@ -18,6 +18,13 @@ const HistoricalDataClusterAnalysis = () => {
   const radarRef = useRef();
   const heatmapRef = useRef();
 
+  const [hoveredChart, setHoveredChart] = useState(null);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const pcaTooltipRef = useRef();
+  const parallelTooltipRef = useRef();
+  const radarTooltipRef = useRef();
+  const heatmapTooltipRef = useRef();
+
   // 递归查找主朝代名称
   const getMainDynasty = (dynastyName) => {
     const dynasty = dynastyData.find(d => d.name === dynastyName);
@@ -773,8 +780,132 @@ const HistoricalDataClusterAnalysis = () => {
     }
   };
 
+  const handleChartHover = (chartType, event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setHoveredChart(chartType);
+    setTooltipPosition({
+      x: rect.left - 340, // 将tooltip放在图表左侧
+      y: rect.top + rect.height / 2
+    });
+  };
+
+  const handleChartLeave = () => {
+    setHoveredChart(null);
+  };
+
+  useEffect(() => {
+    console.log('useEffect triggered');
+    console.log('hoveredChart:', hoveredChart);
+    console.log('clusteredData:', clusteredData);
+
+    if (hoveredChart && clusteredData && clusteredData.length > 0) {
+      console.log('Attempting to render tooltip');
+      // 添加一个小延时确保DOM已更新
+      setTimeout(() => {
+        console.log('Timeout callback executing');
+        switch (hoveredChart) {
+          case 'pca':
+            renderPCATooltip();
+            break;
+          case 'parallel':
+            renderParallelTooltip();
+            break;
+          case 'radar':
+            renderRadarTooltip();
+            break;
+          case 'heatmap':
+            renderHeatmapTooltip();
+            break;
+        }
+      }, 100); // 增加延时时间
+    }
+  }, [hoveredChart, clusteredData]);
+
+  const renderPCATooltip = () => {
+    if (!pcaTooltipRef.current || !pcaRef.current) return;
+    
+    const svg = d3.select(pcaTooltipRef.current);
+    svg.selectAll("*").remove();
+    
+    // 获取原始图表的SVG内容
+    const originalSvg = d3.select(pcaRef.current);
+    const originalContent = originalSvg.html();
+    
+    // 设置tooltip SVG的尺寸
+    svg.attr("width", "100%")
+       .attr("height", "100%")
+       .attr("viewBox", originalSvg.attr("viewBox"));
+    
+    // 复制原始图表的内容
+    svg.html(originalContent);
+  };
+
+  const renderParallelTooltip = () => {
+    if (!parallelTooltipRef.current || !parallelRef.current) return;
+    
+    const svg = d3.select(parallelTooltipRef.current);
+    svg.selectAll("*").remove();
+    
+    // 获取原始图表的SVG内容
+    const originalSvg = d3.select(parallelRef.current);
+    const originalContent = originalSvg.html();
+    
+    // 设置tooltip SVG的尺寸
+    svg.attr("width", "100%")
+       .attr("height", "100%")
+       .attr("viewBox", originalSvg.attr("viewBox"));
+    
+    // 复制原始图表的内容
+    svg.html(originalContent);
+  };
+
+  const renderRadarTooltip = () => {
+    if (!radarTooltipRef.current || !radarRef.current) return;
+    
+    const svg = d3.select(radarTooltipRef.current);
+    svg.selectAll("*").remove();
+    
+    // 获取原始图表的SVG内容
+    const originalSvg = d3.select(radarRef.current);
+    const originalContent = originalSvg.html();
+    
+    // 设置tooltip SVG的尺寸
+    svg.attr("width", "100%")
+       .attr("height", "100%")
+       .attr("viewBox", originalSvg.attr("viewBox"));
+    
+    // 复制原始图表的内容
+    svg.html(originalContent);
+  };
+
+  const renderHeatmapTooltip = () => {
+    if (!heatmapTooltipRef.current || !heatmapRef.current) return;
+    
+    const svg = d3.select(heatmapTooltipRef.current);
+    svg.selectAll("*").remove();
+    
+    // 获取原始图表的SVG内容
+    const originalSvg = d3.select(heatmapRef.current);
+    const originalContent = originalSvg.html();
+    
+    // 设置tooltip SVG的尺寸
+    svg.attr("width", "100%")
+       .attr("height", "100%")
+       .attr("viewBox", originalSvg.attr("viewBox"));
+    
+    // 复制原始图表的内容
+    svg.html(originalContent);
+  };
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
+    <div style={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      height: '100%', 
+      width: '100%',
+      padding: '0 10px',
+      position: 'relative'
+    }}>
       {/* 控制面板 */}
       <div style={{ 
         display: 'flex', 
@@ -787,13 +918,13 @@ const HistoricalDataClusterAnalysis = () => {
           历史数据聚类与相关性分析
         </h3>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '12px', color: '#4A4A4A' }}>数据类型:</span>
+          <span style={{ fontSize: '13px', color: '#4A4A4A' }}>数据类型:</span>
           <select
             value={selectedDataType}
             onChange={(e) => setSelectedDataType(e.target.value)}
             style={{
               padding: '2px 6px',
-              fontSize: '12px',
+              fontSize: '13px',
               border: '1px solid #DCD1BB',
               borderRadius: '3px',
               backgroundColor: '#F5F1E4',
@@ -809,7 +940,7 @@ const HistoricalDataClusterAnalysis = () => {
 
       {/* 状态信息 */}
       <div style={{ 
-        fontSize: '11px', 
+        fontSize: '12px', 
         color: '#4A4A4A', 
         marginBottom: '8px',
         textAlign: 'center'
@@ -821,45 +952,47 @@ const HistoricalDataClusterAnalysis = () => {
       {/* 图表区域 */}
       {clusteredData.length > 0 ? (
         <div style={{ 
-          display: 'flex', 
-          flex: 1, 
-          gap: '8px',
-          height: 'calc(100% - 60px)' 
+          display: 'grid', 
+          gridTemplateColumns: '1fr 1fr',
+          gridTemplateRows: '1fr 1fr',
+          gap: '12px',
+          height: 'calc(100% - 60px)',
+          padding: '0 5px'
         }}>
-          <div style={{ 
-            flex: 1, 
-            border: '1px solid #DCD1BB', 
-            borderRadius: '4px',
-            backgroundColor: 'rgba(255, 255, 255, 0.5)'
-          }}>
-            <svg ref={pcaRef} width="100%" height="100%" />
+          <div className="chart-container" onMouseEnter={(e) => handleChartHover('pca', e)} onMouseLeave={handleChartLeave}>
+            <div style={{ fontSize: '13px', color: '#8C6D46', marginBottom: '5px', textAlign: 'center' }}>
+              PCA降维分析
+            </div>
+            <div style={{ flex: 1, minHeight: 0 }}>
+              <svg ref={pcaRef} width="100%" height="100%" />
+            </div>
           </div>
           
-          <div style={{ 
-            flex: 1, 
-            border: '1px solid #DCD1BB', 
-            borderRadius: '4px',
-            backgroundColor: 'rgba(255, 255, 255, 0.5)'
-          }}>
-            <svg ref={parallelRef} width="100%" height="100%" />
+          <div className="chart-container" onMouseEnter={(e) => handleChartHover('parallel', e)} onMouseLeave={handleChartLeave}>
+            <div style={{ fontSize: '13px', color: '#8C6D46', marginBottom: '5px', textAlign: 'center' }}>
+              平行坐标分析
+            </div>
+            <div style={{ flex: 1, minHeight: 0 }}>
+              <svg ref={parallelRef} width="100%" height="100%" />
+            </div>
           </div>
           
-          <div style={{ 
-            flex: 1, 
-            border: '1px solid #DCD1BB', 
-            borderRadius: '4px',
-            backgroundColor: 'rgba(255, 255, 255, 0.5)'
-          }}>
-            <svg ref={radarRef} width="100%" height="100%" />
+          <div className="chart-container" onMouseEnter={(e) => handleChartHover('radar', e)} onMouseLeave={handleChartLeave}>
+            <div style={{ fontSize: '13px', color: '#8C6D46', marginBottom: '5px', textAlign: 'center' }}>
+              雷达图分析
+            </div>
+            <div style={{ flex: 1, minHeight: 0 }}>
+              <svg ref={radarRef} width="100%" height="100%" />
+            </div>
           </div>
           
-          <div style={{ 
-            flex: 1, 
-            border: '1px solid #DCD1BB', 
-            borderRadius: '4px',
-            backgroundColor: 'rgba(255, 255, 255, 0.5)'
-          }}>
-            <svg ref={heatmapRef} width="100%" height="100%" />
+          <div className="chart-container" onMouseEnter={(e) => handleChartHover('heatmap', e)} onMouseLeave={handleChartLeave}>
+            <div style={{ fontSize: '13px', color: '#8C6D46', marginBottom: '5px', textAlign: 'center' }}>
+              相关性热图
+            </div>
+            <div style={{ flex: 1, minHeight: 0 }}>
+              <svg ref={heatmapRef} width="100%" height="100%" />
+            </div>
           </div>
         </div>
       ) : (
@@ -874,6 +1007,146 @@ const HistoricalDataClusterAnalysis = () => {
           当前选择没有可显示的数据
         </div>
       )}
+
+      {/* Tooltip */}
+      {hoveredChart && (
+        <div 
+          className="chart-tooltip"
+          style={{
+            position: 'fixed',
+            left: tooltipPosition.x,
+            top: tooltipPosition.y,
+            transform: 'translateY(-50%)',
+            zIndex: 2147483647, // 使用最大可能的z-index值
+            pointerEvents: 'none',
+            backgroundColor: 'white',
+            borderRadius: '4px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+            padding: '12px',
+            width: '320px',
+            height: '320px',
+            isolation: 'isolate',
+            willChange: 'transform', // 优化性能
+            transformOrigin: 'right center' // 确保从右侧开始变换
+          }}
+        >
+          <div style={{ 
+            fontSize: '14px', 
+            color: '#8C6D46', 
+            marginBottom: '8px', 
+            textAlign: 'center',
+            fontWeight: 'bold',
+            borderBottom: '1px solid #DCD1BB',
+            paddingBottom: '8px',
+            pointerEvents: 'none',
+            position: 'relative',
+            zIndex: 2147483647
+          }}>
+            {hoveredChart === 'pca' && 'PCA降维分析'}
+            {hoveredChart === 'parallel' && '平行坐标分析'}
+            {hoveredChart === 'radar' && '雷达图分析'}
+            {hoveredChart === 'heatmap' && '相关性热图'}
+          </div>
+          <div style={{ 
+            width: '100%', 
+            height: 'calc(100% - 40px)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            borderRadius: '4px',
+            overflow: 'hidden',
+            pointerEvents: 'none',
+            position: 'relative',
+            zIndex: 2147483647
+          }}>
+            {hoveredChart === 'pca' && (
+              <svg 
+                ref={pcaTooltipRef} 
+                width="100%" 
+                height="100%" 
+                style={{
+                  display: 'block',
+                  margin: '0 auto',
+                  backgroundColor: 'white',
+                  pointerEvents: 'none',
+                  position: 'relative',
+                  zIndex: 2147483647
+                }}
+              />
+            )}
+            {hoveredChart === 'parallel' && (
+              <svg 
+                ref={parallelTooltipRef} 
+                width="100%" 
+                height="100%" 
+                style={{
+                  display: 'block',
+                  margin: '0 auto',
+                  backgroundColor: 'white',
+                  pointerEvents: 'none',
+                  position: 'relative',
+                  zIndex: 2147483647
+                }}
+              />
+            )}
+            {hoveredChart === 'radar' && (
+              <svg 
+                ref={radarTooltipRef} 
+                width="100%" 
+                height="100%" 
+                style={{
+                  display: 'block',
+                  margin: '0 auto',
+                  backgroundColor: 'white',
+                  pointerEvents: 'none',
+                  position: 'relative',
+                  zIndex: 2147483647
+                }}
+              />
+            )}
+            {hoveredChart === 'heatmap' && (
+              <svg 
+                ref={heatmapTooltipRef} 
+                width="100%" 
+                height="100%" 
+                style={{
+                  display: 'block',
+                  margin: '0 auto',
+                  backgroundColor: 'white',
+                  pointerEvents: 'none',
+                  position: 'relative',
+                  zIndex: 2147483647
+                }}
+              />
+            )}
+          </div>
+        </div>
+      )}
+
+      <style jsx>{`
+        .chart-container {
+          border: 1px solid #DCD1BB;
+          border-radius: 4px;
+          background-color: rgba(255, 255, 255, 0.5);
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          position: relative;
+          z-index: 1;
+        }
+
+        .chart-tooltip {
+          transition: all 0.2s ease;
+          backdrop-filter: blur(4px);
+          position: fixed;
+          z-index: 2147483647;
+          pointer-events: none;
+          will-change: transform;
+        }
+      `}</style>
     </div>
   );
 };

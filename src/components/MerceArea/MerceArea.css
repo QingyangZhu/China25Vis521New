@@ -1,0 +1,46 @@
+.tooltip {
+    position: absolute;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    pointer-events: none;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.axis-label {
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+}
+
+.legend {
+    font-size: 12px;
+    font-family: 楷体, Arial, sans-serif;
+}
+
+.bar-label {
+    font-size: 10px;
+    font-family: Arial, sans-serif;
+}
+
+#chart1 {
+    margin-top: -10px;
+}
+
+/* 添加提示框样式 */
+.tooltip h4 {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 14px;
+}
+
+.tooltip p {
+    margin: 3px 0;
+    color: #666;
+}
+
+.tooltip strong {
+    color: #333;
+} 
