@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as echarts from 'echarts/core';
-import { PieChart } from 'echarts/charts';
-import { TooltipComponent, TitleComponent, LegendComponent } from 'echarts/components';
+import { BarChart } from 'echarts/charts';
+import { TooltipComponent, TitleComponent, LegendComponent, PolarComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import useDynastyStore from '../../store/dynastyStore';
 
-echarts.use([PieChart, TooltipComponent, TitleComponent, LegendComponent, CanvasRenderer]);
+echarts.use([BarChart, TooltipComponent, TitleComponent, LegendComponent, PolarComponent, CanvasRenderer]);
 
 // 古典风格配色方案 - 基于中国传统色彩的浅色调
 const ATTRIBUTE_COLORS = {
@@ -29,13 +29,8 @@ const COMMON_ATTRIBUTE_CONFIG = [
 ];
 
 const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, showCityData }) => {
-  const warChartRef = useRef(null);
-  const disasterChartRef = useRef(null);
-  const eventChartRef = useRef(null);
-  
-  const warChartInstanceRef = useRef(null);
-  const disasterChartInstanceRef = useRef(null);
-  const eventChartInstanceRef = useRef(null);
+  const chartRef = useRef(null);
+  const chartInstanceRef = useRef(null);
 
   // 获取属性对应的颜色
   const getAttributeColor = (attributeConfig, value) => {
@@ -63,16 +58,42 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
     });
   };
 
-  const renderNightingaleChart = (chartInstanceRef, containerElement, data, title, showLegend = false) => {
-    if (!containerElement) return;
+  // 处理单个数据类型并生成系列数据
+  const processDataForSeries = (data, dataType) => {
+    if (!data || data.length === 0) return [];
+    
+    const sum = (field) => data.reduce((acc, r) => acc + Number(r[field] || 0), 0);
+    const absSum = (field) => Math.abs(sum(field));
+    
+    return COMMON_ATTRIBUTE_CONFIG.map(attr => {
+      const total = sum(attr.key);
+      const value = (attr.positiveLabel || attr.isMagnitude) ? absSum(attr.key) : sum(attr.key);
+      const color = getAttributeColor(attr, total);
+      
+      return {
+        value,
+        itemStyle: { color }
+      };
+    });
+  };
+
+  const renderCombinedPolarChart = () => {
+    if (!chartRef.current) return;
     
     if (chartInstanceRef.current) {
       chartInstanceRef.current.dispose();
       chartInstanceRef.current = null;
     }
 
-    if (!data || data.length === 0) {
-      containerElement.innerHTML = `
+    const filteredWarData = showCityData.war ? filterByDynasty(warData) : [];
+    const filteredDisasterData = showCityData.disaster ? filterByDynasty(disasterData) : [];
+    const filteredEventData = showCityData.event ? filterByDynasty(eventData) : [];
+
+    // 检查是否有任何数据
+    const hasData = filteredWarData.length > 0 || filteredDisasterData.length > 0 || filteredEventData.length > 0;
+    
+    if (!hasData) {
+      chartRef.current.innerHTML = `
         <div style="
           display: flex;
           align-items: center;
@@ -81,111 +102,139 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
           color: #666;
           font-family: 'Noto Serif SC', serif;
         ">
-          ${title}: 无相关数据
+          请选择古城数据项查看属性分析
         </div>
       `;
       return;
     }
 
-    const sum = (field) => data.reduce((acc, r) => acc + Number(r[field] || 0), 0);
-    const absSum = (field) => Math.abs(sum(field));
+    const chart = echarts.init(chartRef.current);
     
-    const chartValues = COMMON_ATTRIBUTE_CONFIG.map(attr => {
-      const total = sum(attr.key);
-      let name = attr.label;
-      
-      if (attr.positiveLabel && attr.negativeLabel) {
-        if (total > 0) name = attr.positiveLabel;
-        else if (total < 0) name = attr.negativeLabel;
-        else name = attr.neutralLabel || attr.label;
-      }
-      
-      const value = (attr.positiveLabel || attr.isMagnitude) ? absSum(attr.key) : sum(attr.key);
-      const showLabelForThisSector = (name === '人口流入' || name === '文化兴盛') && value > 0;
-      const color = getAttributeColor(attr, total);
+    // 属性标签
+    const angleAxisData = COMMON_ATTRIBUTE_CONFIG.map(attr => attr.label);
+    
+    // 生成系列数据
+    const series = [];
+    const legendData = [];
+    
+    // 系列颜色配置
+    const seriesColors = {
+      '战争': '#D49C6A',
+      '灾害': '#A0C1B8', 
+      '事件': '#B8A48E'
+    };
 
-      return {
-        name,
-        value,
-        itemStyle: { color: color },
-        label: { 
-          show: showLabelForThisSector, 
-          position: 'outside', 
-          formatter: '{b}', 
-          fontSize: 9 
-        },
-        labelLine: { show: showLabelForThisSector }
-      };
-    });
-
-    const chart = echarts.init(containerElement);
-    const option = {
-      title: {
-        text: title,
-        left: 'center',
-        top: 8,
-        textStyle: { 
-          fontSize: 13, 
-          fontWeight: '600',
-          fontFamily: "'Noto Serif SC', serif"
+    if (showCityData.war && filteredWarData.length > 0) {
+      series.push({
+        name: '战争',
+        type: 'bar',
+        data: processDataForSeries(filteredWarData, 'war'),
+        coordinateSystem: 'polar',
+        barWidth: '20%',
+        barGap: '10%',
+        itemStyle: {
+          color: seriesColors['战争']
         }
-      },
+      });
+      legendData.push({
+        name: '战争',
+        itemStyle: { color: seriesColors['战争'] }
+      });
+    }
+    
+    if (showCityData.disaster && filteredDisasterData.length > 0) {
+      series.push({
+        name: '灾害',
+        type: 'bar',
+        data: processDataForSeries(filteredDisasterData, 'disaster'),
+        coordinateSystem: 'polar',
+        barWidth: '20%',
+        barGap: '10%',
+        itemStyle: {
+          color: seriesColors['灾害']
+        }
+      });
+      legendData.push({
+        name: '灾害',
+        itemStyle: { color: seriesColors['灾害'] }
+      });
+    }
+    
+    if (showCityData.event && filteredEventData.length > 0) {
+      series.push({
+        name: '事件',
+        type: 'bar',
+        data: processDataForSeries(filteredEventData, 'event'),
+        coordinateSystem: 'polar',
+        barWidth: '20%',
+        barGap: '10%',
+        itemStyle: {
+          color: seriesColors['事件']
+        }
+      });
+      legendData.push({
+        name: '事件',
+        itemStyle: { color: seriesColors['事件'] }
+      });
+    }
+
+    const option = {
       tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b}: {c} ({d}%)',
-        position: function (point, params, dom, rect, size) {
-          const chartContainerWidth = size.viewSize[0];
-          const chartContainerHeight = size.viewSize[1];
-          const tooltipWidth = size.contentSize[0];
-          const tooltipHeight = size.contentSize[1];
-
-          let x = point[0] + 20;
-          let y = point[1] - tooltipHeight / 2;
-
-          if (x + tooltipWidth > chartContainerWidth) {
-            x = point[0] - tooltipWidth - 20;
-          }
-
-          if (x < 0) {
-            x = 5;
-          }
-
-          if (y < 0) {
-            y = 5;
-          } else if (y + tooltipHeight > chartContainerHeight) {
-            y = chartContainerHeight - tooltipHeight - 5;
-          }
-
-          return [x, y];
+        formatter: function(params) {
+          return `${params.seriesName}<br/>${angleAxisData[params.dataIndex]}: ${params.value}`;
         }
       },
       legend: {
-        show: showLegend,
-        top: showLegend ? 30 : 'auto',
+        show: legendData.length > 1,
+        data: legendData,
+        orient: 'horizontal',
+        bottom: 10,
         left: 'center',
+        itemWidth: 12,
+        itemHeight: 8,
+        itemGap: 15,
         textStyle: { 
-          fontSize: 10,
+          fontSize: 8,
           fontFamily: "'Noto Serif SC', serif"
         }
       },
-      series: [{
-        name: '属性值',
-        type: 'pie',
-        radius: [15, 45],
-        center: ['50%', showLegend ? '65%' : '55%'],
-        roseType: 'area',
-        itemStyle: { 
-          borderRadius: 4, 
-          emphasis: { 
-            shadowBlur: 8, 
-            shadowOffsetX: 0, 
-            shadowColor: 'rgba(0,0,0,0.4)' 
+      polar: {
+        radius: [10, '60%'],
+        center: ['50%', '45%']
+      },
+      angleAxis: {
+        type: 'category',
+        data: angleAxisData,
+        axisLabel: {
+          fontSize: 9,
+          fontFamily: "'Noto Serif SC', serif",
+          color: '#8C6D46'
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#DCD1BB'
+          }
+        }
+      },
+      radiusAxis: {
+        type: 'value',
+        axisLabel: {
+          fontSize: 8,
+          color: '#8C6D46'
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#DCD1BB'
           }
         },
-        label: { show: false },
-        labelLine: { show: false },
-        data: chartValues,
-      }]
+        splitLine: {
+          lineStyle: {
+            color: 'rgba(220, 209, 187, 0.3)'
+          }
+        }
+      },
+      series: series
     };
     
     chart.setOption(option);
@@ -194,87 +243,64 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
 
   // 更新图表
   useEffect(() => {
-    if (!warChartRef.current || !disasterChartRef.current || !eventChartRef.current) return;
-
-    const filteredWarData = showCityData.war ? filterByDynasty(warData) : [];
-    const filteredDisasterData = showCityData.disaster ? filterByDynasty(disasterData) : [];
-    const filteredEventData = showCityData.event ? filterByDynasty(eventData) : [];
-
-    renderNightingaleChart(
-      warChartInstanceRef, 
-      warChartRef.current, 
-      filteredWarData, 
-      '战争属性', 
-      true
-    );
-    
-    renderNightingaleChart(
-      disasterChartInstanceRef, 
-      disasterChartRef.current, 
-      filteredDisasterData, 
-      '灾害属性'
-    );
-    
-    renderNightingaleChart(
-      eventChartInstanceRef, 
-      eventChartRef.current, 
-      filteredEventData, 
-      '事件属性'
-    );
+    renderCombinedPolarChart();
   }, [warData, disasterData, eventData, selectedDynasty, showCityData]);
+
+  // 监听窗口尺寸变化 - 使用window resize事件
+  useEffect(() => {
+    let resizeTimer = null;
+    
+    const handleWindowResize = () => {
+      // 清除之前的定时器
+      if (resizeTimer) {
+        clearTimeout(resizeTimer);
+      }
+      
+      // 添加防抖延迟
+      resizeTimer = setTimeout(() => {
+        if (chartInstanceRef.current && !chartInstanceRef.current.isDisposed()) {
+          try {
+            chartInstanceRef.current.resize();
+          } catch (error) {
+            // 忽略resize过程中的错误
+            console.warn('Chart resize warning:', error);
+          }
+        }
+      }, 300); // 增加延迟时间
+    };
+
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      if (resizeTimer) {
+        clearTimeout(resizeTimer);
+      }
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
 
   // 清理函数
   useEffect(() => {
     return () => {
-      if (warChartInstanceRef.current) warChartInstanceRef.current.dispose();
-      if (disasterChartInstanceRef.current) disasterChartInstanceRef.current.dispose();
-      if (eventChartInstanceRef.current) eventChartInstanceRef.current.dispose();
+      if (chartInstanceRef.current) chartInstanceRef.current.dispose();
     };
   }, []);
 
   return (
-    <div style={{ 
-      width: '100%', 
-      height: '100%', 
-      display: 'flex',
-      gap: '16px',
-      padding: '16px',
-      fontFamily: "'Noto Serif SC', serif"
-    }}>
-      <div 
-        ref={warChartRef} 
-        style={{ 
-          flex: 1, 
-          height: '100%', 
-          minHeight: '180px',
-          border: '1px solid #ddd',
-          borderRadius: '8px',
-          backgroundColor: 'rgba(251, 248, 240, 0.8)'
-        }}
-      />
-      <div 
-        ref={disasterChartRef} 
-        style={{ 
-          flex: 1, 
-          height: '100%', 
-          minHeight: '180px',
-          border: '1px solid #ddd',
-          borderRadius: '8px',
-          backgroundColor: 'rgba(251, 248, 240, 0.8)'
-        }}
-      />
-      <div 
-        ref={eventChartRef} 
-        style={{ 
-          flex: 1, 
-          height: '100%', 
-          minHeight: '180px',
-          border: '1px solid #ddd',
-          borderRadius: '8px',
-          backgroundColor: 'rgba(251, 248, 240, 0.8)'
-        }}
-      />
-    </div>
+    <div 
+      ref={chartRef} 
+      style={{ 
+        width: '20%',
+        height: '100%', 
+        minHeight: '200px',
+        padding: '8px',
+        border: '1px solid #ddd',
+        borderRadius: '8px',
+        backgroundColor: 'rgba(251, 248, 240, 0.8)',
+        overflow: 'hidden',
+        fontFamily: "'Noto Serif SC', serif"
+      }}
+    />
   );
 };
 

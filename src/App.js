@@ -103,7 +103,7 @@ const ProductVisControls = ({ showDataPoints, setShowDataPoints, showDetailView,
 
 // 中心顶部区域切换组件（包含两个视图：历史知识图谱、交通路网）
 const CenterTopViewToggle = () => {
-  const [currentView, setCurrentView] = React.useState('historyGraph'); // 'historyGraph', 'transportation'
+  const [currentView, setCurrentView] = React.useState('transportation'); // 'historyGraph', 'transportation'
   const { selectedRoute } = useDynastyStore();
 
   // 监听选中路线变化，自动切换到交通路网视图
@@ -214,19 +214,41 @@ function App() {
   useEffect(() => {
     const handleError = (event) => {
       if (event.message && event.message.includes('ResizeObserver loop completed with undelivered notifications')) {
-        // 抑制ResizeObserver循环错误，这是一个已知的浏览器问题
-        console.warn('ResizeObserver错误已被抑制:', event.message);
+        // 完全抑制ResizeObserver循环错误，这是一个已知的浏览器问题
+        event.stopImmediatePropagation();
         event.preventDefault();
         return false;
       }
     };
 
-    // 监听全局错误
+    const handleUnhandledRejection = (event) => {
+      if (event.reason && event.reason.message && event.reason.message.includes('ResizeObserver')) {
+        // 抑制Promise中的ResizeObserver错误
+        event.preventDefault();
+        return false;
+      }
+    };
+
+    // 监听全局错误和未处理的Promise拒绝
     window.addEventListener('error', handleError);
+    window.addEventListener('unhandledrejection', handleUnhandledRejection);
+    
+    // 监听window resize事件，添加防抖
+    let resizeTimeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        // 在这里可以添加需要在窗口大小变化时执行的逻辑
+      }, 250);
+    };
+    window.addEventListener('resize', handleResize);
     
     // 清理函数
     return () => {
       window.removeEventListener('error', handleError);
+      window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimeout);
     };
   }, []);
 

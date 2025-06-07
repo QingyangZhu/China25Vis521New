@@ -23,7 +23,7 @@ const TransportationNetwork = () => {
   
   const [routeData, setRouteData] = useState([]);
   const [detailData, setDetailData] = useState([]);
-  const [selectedDynasty, setSelectedDynasty] = useState('宋-北宋');
+  const [selectedDynasty, setSelectedDynasty] = useState('元');
   const [loading, setLoading] = useState(true);
   
   // 古城地图数据状态
@@ -36,9 +36,9 @@ const TransportationNetwork = () => {
     historical: true,
     satellite: false
   });
-  const [historicalOpacity, setHistoricalOpacity] = useState(0.36);
+  const [historicalOpacity, setHistoricalOpacity] = useState(0.5);
   const [mapInitialized, setMapInitialized] = useState(false);
-  const [mapMode, setMapMode] = useState('routes'); // 'routes'、'heatmap'、'both' 或 'none'
+  const [mapMode, setMapMode] = useState('none'); // 'routes'、'heatmap'、'both' 或 'none'
   const [heatmapLoaded, setHeatmapLoaded] = useState(false);
   const heatmapLayerRef = useRef(null);
   
@@ -344,12 +344,17 @@ const TransportationNetwork = () => {
 
   // 地图初始化函数
   const initMap = () => {
+    console.log('🗺️ initMap 函数被调用');
+    console.log('🗺️ 地图容器状态:', !!mapContainerRef.current);
+    console.log('🗺️ 当前地图实例状态:', !!mapRef.current);
+    
     if (!mapContainerRef.current) {
-      console.error('地图容器未找到，取消初始化');
+      console.error('❌ 地图容器未找到，取消初始化');
       return;
     }
     
     if (mapRef.current) {
+      console.log('⚠️ 地图已存在，跳过初始化');
       return;
     }
 
@@ -393,6 +398,7 @@ const TransportationNetwork = () => {
       // 立即更新引用和状态
       mapRef.current = map;
       setMapInitialized(true);
+      console.log('✅ 地图实例创建成功并保存到 mapRef.current');
 
       // 添加现代地图图层（高德地图）
       const modernLayer = L.tileLayer('https://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
@@ -447,10 +453,13 @@ const TransportationNetwork = () => {
   useEffect(() => {
     // 只有在地图未初始化且容器存在时才初始化
     if (!mapRef.current && mapContainerRef.current) {
-      const timer = setTimeout(initMap, 100);
+      console.log('开始初始化地图...');
+      const timer = setTimeout(() => {
+        initMap();
+      }, 100);
       return () => clearTimeout(timer);
     }
-  }, [mapContainerRef.current]);
+  }, []);
 
   // 组件卸载时清理地图
   useEffect(() => {
@@ -462,6 +471,20 @@ const TransportationNetwork = () => {
       }
     };
   }, []);
+
+  // 额外的地图初始化检查 - 确保地图被正确创建
+  useEffect(() => {
+    if (!mapRef.current && !loading) {
+      console.log('🔄 地图实例缺失，尝试重新初始化...');
+      const timer = setTimeout(() => {
+        if (!mapRef.current && mapContainerRef.current) {
+          console.log('🔄 执行延迟初始化...');
+          initMap();
+        }
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
 
   // 加载交通数据
   useEffect(() => {
@@ -685,23 +708,26 @@ const TransportationNetwork = () => {
   // 更新历史地图图层
   useEffect(() => {
     if (!mapRef.current) {
-      // console.log('❌ 地图实例不存在，跳过历史地图更新');
+      console.log('❌ 地图实例不存在，跳过历史地图更新');
       return;
     }
 
-    // console.log(`🔄 更新历史地图图层，当前朝代: "${selectedDynasty}"`);
-    // console.log('当前历史地图配置:', currentHistoricalMap);
-    // console.log('地图图层状态:', mapLayers);
+    console.log(`🔄 更新历史地图图层，当前朝代: "${selectedDynasty}"`);
+    console.log('当前历史地图配置:', currentHistoricalMap);
+    console.log('地图图层状态:', mapLayers);
 
     // 移除旧的历史地图图层
     if (layersRef.current.historical) {
-      // console.log('🗑️ 移除旧的历史地图图层');
+      console.log('🗑️ 移除旧的历史地图图层');
       mapRef.current.removeLayer(layersRef.current.historical);
       layersRef.current.historical = null;
     }
 
     // 添加新的历史地图图层
     if (currentHistoricalMap && mapLayers.historical) {
+      console.log('✅ 开始添加历史地图图层:', currentHistoricalMap.name);
+      console.log('图层URL:', currentHistoricalMap.url);
+      
       const historicalLayer = L.tileLayer(currentHistoricalMap.url, {
         minZoom: 0,
         maxZoom: 19,
@@ -712,15 +738,28 @@ const TransportationNetwork = () => {
         ]
       });
       
+      // 监听图层加载成功
+      historicalLayer.on('load', () => {
+        console.log('✅ 历史地图图层加载成功:', currentHistoricalMap.name);
+      });
+      
       // 监听图层加载错误
       historicalLayer.on('tileerror', (e) => {
-        console.error(`历史地图图层加载错误: ${currentHistoricalMap.name}`, e);
+        console.error(`❌ 历史地图图层加载错误: ${currentHistoricalMap.name}`, e);
       });
       
       historicalLayer.addTo(mapRef.current);
       layersRef.current.historical = historicalLayer;
+      console.log('✅ 历史地图图层已添加到地图');
+    } else {
+      if (!currentHistoricalMap) {
+        console.log('⚠️ 当前朝代没有历史地图配置');
+      }
+      if (!mapLayers.historical) {
+        console.log('⚠️ 历史地图图层被禁用');
+      }
     }
-  }, [currentHistoricalMap, mapLayers.historical, historicalOpacity, selectedDynasty]);
+  }, [currentHistoricalMap, mapLayers.historical, historicalOpacity, selectedDynasty, mapInitialized]);
 
   // 控制图层显示/隐藏
   useEffect(() => {
@@ -1765,7 +1804,7 @@ const TransportationNetwork = () => {
         style={{ 
           width: '100%', 
           minHeight: '400px',
-          backgroundColor: '#f0f0f0',
+          backgroundColor: '#F5F2EC',
           position: 'relative'
         }}
       >
