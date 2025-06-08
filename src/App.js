@@ -153,7 +153,7 @@ const CenterTopViewToggle = () => {
           margin: 0,
           flex: 1,
           textAlign: 'center',
-          fontFamily: "'Noto Serif SC', serif",
+          fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
           color: '#8C6D46'
         }}>
           {getViewTitle()}
@@ -478,7 +478,7 @@ function App() {
             margin: 0,
             flex: 1,
             textAlign: 'center',
-            fontFamily: "'Noto Serif SC', serif",
+            fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
             color: '#8C6D46'
           }}>
             山川风物
@@ -565,7 +565,7 @@ function App() {
       {/* 统一标题 */}
       <h3 style={{ 
         textAlign: 'center',
-        fontFamily: "'Noto Serif SC', serif",
+        fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
         color: '#8C6D46',
         margin: '0 0 16px 0'
       }}>
@@ -667,7 +667,7 @@ const rightTop = (
           margin: 0, 
           flex: 1, 
           textAlign: 'center',
-          fontFamily: "'Noto Serif SC', serif",
+          fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
           color: '#8C6D46',
           whiteSpace: 'nowrap'
         }}>
