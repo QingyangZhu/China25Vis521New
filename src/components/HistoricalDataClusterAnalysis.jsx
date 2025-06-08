@@ -907,21 +907,19 @@ const HistoricalDataClusterAnalysis = () => {
       position: 'relative'
     }}>
       {/* 控制面板 */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: '10px',
-        position: 'relative',
-        padding: '0 5px'
-      }}>
-        {/* 左侧占位 */}
-        <div style={{ flex: 1 }}></div>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '10px',
+          position: 'relative',
+          padding: '0 5px'
+        }}>
 
         {/* 中间标题 */}
         <h3 style={{
           margin: 0,
-          flex: 1,
-          textAlign: 'center',
+          textAlign: 'left',
           fontFamily: "'Noto Serif SC', serif",
           color: '#8C6D46',
           whiteSpace: 'nowrap',
