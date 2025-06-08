@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
-import './Event.css'; // 确保引入样式文件
+import './Event.css';
 
-const Event = () => {
+const Event = ({ dynastyName = '秦', startYear = -221, endYear = -207 }) => {
   const [tooltipData, setTooltipData] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
@@ -10,7 +10,7 @@ const Event = () => {
     // 设置图表尺寸
     const width = 610;
     const height = 200;
-    const margin = { top: 30, right: 45, bottom: 20, left: 20 };
+    const margin = { top: 30, right: 35, bottom: 20, left: 20 };
     // 清除旧的 SVG
     d3.select("#chart").select("svg").remove();
 
@@ -35,23 +35,23 @@ const Event = () => {
         d3.csv(`${process.env.PUBLIC_URL}/data/建制沿革/jianzhi_count.csv`),
         d3.csv(`${process.env.PUBLIC_URL}/data/建制沿革/jianzhi.csv`)
     ]).then(function ([countData, eventData]) {
-      // 过滤"秦代"时期（-221到-207）
+      // 过滤指定朝代时期
       const filterData = countData.filter(d => {
         const year = +d['年份'];
         const era = d['历史时期'];
-        return era === '西汉' && year >= -206 && year <= 8;
+        return era === dynastyName && year >= startYear && year <= endYear;
       });
 
       // 过滤事件数据
       const filterEventData = eventData.filter(d => {
         const era = d['历史时期'];
-        return era === '西汉';
+        return era === dynastyName;
       });
 
       // 创建年份数据映射：没有的年份记为0
       const yearMap = new Map();
       // 初始化所有年份为0
-      for (let y = -206; y <= 8; y++) {
+      for (let y = startYear; y <= endYear; y++) {
         yearMap.set(y, {
           count: 0,
           events: []  // 存储每年的所有事件
@@ -74,8 +74,8 @@ const Event = () => {
           const yearMatch = reformTime.match(/-?\d+/);
           if (yearMatch) {
             const year = +yearMatch[0];
-            // 只处理秦代时期的事件
-            if (year >= -206 && year <= 8) {
+            // 只处理指定时期的事件
+            if (year >= startYear && year <= endYear) {
               const currentData = yearMap.get(year);
               // 只有当该年有变革次数时才添加事件
               if (currentData.count > 0) {
@@ -107,12 +107,12 @@ const Event = () => {
           '军事评分': 0,
           '民生评分': 0
         },
-        totalImportance: filterData.find(d => +d['年份'] === year)?.['总变化重要性'] || 0  // 添加总变化重要性
+        totalImportance: filterData.find(d => +d['年份'] === year)?.['总变化重要性'] || 0
       })).sort((a, b) => a.year - b.year);
 
       // 定义比例尺
       const xScale = d3.scaleLinear()
-        .domain([-206, 8])
+        .domain([startYear, endYear])
         .range([margin.left, width - margin.right]);
 
       const yMax = d3.max(dataPoints, d => d.count);
@@ -139,7 +139,7 @@ const Event = () => {
 
       // 绘制Y轴
       const yAxis = d3.axisLeft(yScale)
-        .ticks(6);  // 设置Y轴刻度数量为6
+        .ticks(6);
       svg.append("g")
         .attr("transform", `translate(${margin.left}, 0)`)
         .call(yAxis)
@@ -155,7 +155,7 @@ const Event = () => {
       const line = d3.line()
         .x(d => xScale(d.year))
         .y(d => yScale(d.count))
-        .curve(d3.curveStepAfter); // 使用curveStepAfter，让阶梯覆盖到下一个点
+        .curve(d3.curveStepAfter);
 
       svg.append("path")
         .datum(dataPoints)
@@ -166,196 +166,176 @@ const Event = () => {
 
       // 创建颜色比例尺
       const colorScale = d3.scaleSequential()
-        .domain([-2, 5])  // 变化重要性范围0-5
+        .domain([-2, 5])
         .interpolator(d3.interpolateRgbBasis([
           "#f3fcf6",
           "#f3fdf7",
-          "#E8F5ED",  // 0 - 最浅的绿色
-          "#D1EBDC",  // 1
-          "#BAE1CB",  // 2
-          "#afd7bf",  // 3
-          "#9ad5b2",  // 4
-          "#86dca9"   // 5 - 目标绿色
+          "#E8F5ED",
+          "#D1EBDC",
+          "#BAE1CB",
+          "#afd7bf",
+          "#9ad5b2",
+          "#86dca9"
         ]));
 
-// 在非零点绘制堆叠矩形
-dataPoints.forEach(d => {
-    if (d.count > 0) {
-      const centerX = xScale(d.year);
-      // 计算相邻两个年份之间的像素距离
-      const yearDistance = xScale(-205) - xScale(-206); // 取相邻年份的距离作为参考
-      const rectWidth = yearDistance * 0.8; // 矩形宽度为年份间距的80%
-      const rectHeight = 6; // 矩形高度
-      const centerY = yScale(d.count);
-      const outerRadius = 12; // 外圆半径
-      const innerRadius = 6;  // 内圆半径
+      // 在非零点绘制堆叠矩形
+      dataPoints.forEach(d => {
+        if (d.count > 0) {
+          const centerX = xScale(d.year);
+          const yearDistance = xScale(startYear + 1) - xScale(startYear);
+          const rectWidth = yearDistance * 0.8;
+          const rectHeight = 6;
+          const centerY = yScale(d.count);
+          const outerRadius = 12;
+          const innerRadius = 6;
 
-      // 计算所有评分类型的总和作为满分
-      const totalScore = Object.entries(d.scores).reduce((sum, [key, value]) => {
-        if (key.includes('评分')) {
-          return sum + +value;
-        }
-        return sum;
-      }, 0);
+          const totalScore = Object.entries(d.scores).reduce((sum, [key, value]) => {
+            if (key.includes('评分')) {
+              return sum + +value;
+            }
+            return sum;
+          }, 0);
 
-      if (totalScore === 0) return;
+          if (totalScore === 0) return;
 
-      // 创建圆环图的弧生成器
-      const arc = d3.arc()
-        .innerRadius(innerRadius)
-        .outerRadius(outerRadius);
+          const arc = d3.arc()
+            .innerRadius(innerRadius)
+            .outerRadius(outerRadius);
 
-      // 创建饼图布局
-      const pie = d3.pie()
-        .value(d => d.value)
-        .sort(null);
+          const pie = d3.pie()
+            .value(d => d.value)
+            .sort(null);
 
-      // 准备数据
-      const pieData = Object.entries(d.scores)
-        .filter(([key]) => key.includes('评分'))
-        .map(([key, value]) => ({
-          key,
-          value: +value
-        }));
+          const pieData = Object.entries(d.scores)
+            .filter(([key]) => key.includes('评分'))
+            .map(([key, value]) => ({
+              key,
+              value: +value
+            }));
 
-      // 创建圆环图组
-      const g = svg.append("g")
-        .attr("transform", `translate(${centerX + yearDistance / 2}, ${centerY - 20})`);
+          const g = svg.append("g")
+            .attr("transform", `translate(${centerX + yearDistance / 2}, ${centerY - 20})`);
 
-      // 绘制圆环
-      g.selectAll("path")
-        .data(pie(pieData))
-        .enter()
-        .append("path")
-        .attr("d", arc)
-        .attr("fill", (d, i) => Object.values(scoreColors)[i])
-        .style("opacity", 0.8)
-        .attr("stroke", "#fff")
-        .attr("stroke-width", 1)
-        .on("mouseover", function(event, d) {
-          // 创建tooltip2
-          const tooltip = d3.select("body")
-            .append("div")
-            .attr("class", "tooltip2");
-
-          // 更新提示框内容
-          tooltip.html(`
-            <h4>${d.data.key}</h4>
-            <p><strong>评分：</strong>${d.data.value}</p>
-          `);
-
-          // 定位提示框
-          const [x, y] = d3.pointer(event);
-          tooltip
-            .style("left", (event.pageX + 10) + "px")
-            .style("top", (event.pageY - 10) + "px");
-        })
-        .on("mouseout", function() {
-          // 移除tooltip2
-          d3.selectAll(".tooltip2").remove();
-        });
-
-      // 绘制中心圆
-      g.append("circle")
-        .attr("r", innerRadius)
-        .attr("fill", "#fff")
-        .attr("stroke", d3.scaleSequential()
-          .domain([0, 5])
-          .interpolator(d3.interpolateRgbBasis([
-            "#f5f0e6",  // 最浅的金色
-            "#f0e8d8",  // 浅金色
-            "#e6dcc9",  // 淡金色
-            "#dcc9b0",  // 中金色
-            "#c9b088",  // 深金色
-            "#b88c2c"   // 目标金色
-          ]))(d.totalImportance)) // 使用新的颜色比例尺
-        .attr("stroke-width", 1);
-
-      // 绘制矩形
-      for (let i = 0; i < d.count; i++) {
-        const rectY = yScale(i); // 从0开始向上堆叠
-        const event = d.events[i] || { importance: 0 };  // 获取对应的事件数据
-
-        svg.append("rect")
-          .attr("x", centerX + (yearDistance - rectWidth) / 2) // 矩形水平居中
-          .attr("y", rectY - rectHeight)
-          .attr("width", rectWidth)
-          .attr("height", rectHeight)
-          .attr("fill", colorScale(event.importance)) // 根据事件的变化重要性设置颜色
-          .attr("stroke", colorScale(event.importance))
-          .attr("stroke-width", 0.5)
-          .style("cursor", "pointer")  // 添加鼠标指针样式
-          .on("click", function() {
-            // 检查是否已经存在tooltip
-            const existingTooltip = d3.select(".tooltip1");
-
-            if (existingTooltip.empty()) {
-              // 如果不存在tooltip，创建新的
+          g.selectAll("path")
+            .data(pie(pieData))
+            .enter()
+            .append("path")
+            .attr("d", arc)
+            .attr("fill", (d, i) => Object.values(scoreColors)[i])
+            .style("opacity", 0.8)
+            .attr("stroke", "#fff")
+            .attr("stroke-width", 1)
+            .on("mouseover", function(event, d) {
               const tooltip = d3.select("body")
                 .append("div")
-                .attr("class", "tooltip1");
+                .attr("class", "tooltip2");
 
-              // 更新提示框内容
               tooltip.html(`
-                <h4>${event.name || '未命名事件'}</h4>
-                <p><strong>政治影响：</strong>${event.political || '无'}</p>
-                <p><strong>经济影响：</strong>${event.ecommerce || '无'}</p>
-                <p><strong>社会影响：</strong>${event.society || '无'}</p>
-                <p><strong>军事影响：</strong>${event.military || '无'}</p>
-                <p><strong>民生影响：</strong>${event.livelihood || '无'}</p>
-                <p><strong>变迁结果：</strong>${event.result || '无'}</p>
+                <h4>${d.data.key}</h4>
+                <p><strong>评分：</strong>${d.data.value}</p>
               `);
 
-              // 定位提示框
-              const rect = this.getBoundingClientRect();
+              const [x, y] = d3.pointer(event);
               tooltip
-                .style("left", (rect.left + window.scrollX + 10) + "px")
-                .style("top", (rect.top + window.scrollY - 10) + "px");
-            } else {
-              // 如果已存在tooltip，移除它
-              existingTooltip.remove();
-            }
-          });
-      }
-    }
-  });
-  const legend = svg.append("g")
-  .attr("transform", `translate(${margin.left+100}, ${margin.top - 10})`); // 调整图例位置
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 10) + "px");
+            })
+            .on("mouseout", function() {
+              d3.selectAll(".tooltip2").remove();
+            });
 
-// 图例项
-const legendItems = Object.entries(scoreColors);
-const legendItemWidth = 20;
-  const legendItemHeight = 5;
-  const legendSpacing = 65;
+          g.append("circle")
+            .attr("r", innerRadius)
+            .attr("fill", "#fff")
+            .attr("stroke", d3.scaleSequential()
+              .domain([0, 5])
+              .interpolator(d3.interpolateRgbBasis([
+                "#f5f0e6",
+                "#f0e8d8",
+                "#e6dcc9",
+                "#dcc9b0",
+                "#c9b088",
+                "#b88c2c"
+              ]))(d.totalImportance))
+            .attr("stroke-width", 1);
 
-// 添加图例项
-legendItems.forEach(([key, color], index) => {
-  const legendRow = legend.append("g")
-    .attr("transform", `translate(${index * (legendItemWidth + legendSpacing)}, 0)`); // 每个图例项的水平间距
+          for (let i = 0; i < d.count; i++) {
+            const rectY = yScale(i);
+            const event = d.events[i] || { importance: 0 };
 
-  legendRow.append("rect")
-    .attr("width", 15)
-    .attr("height", 5)
-    .attr("fill", color);
+            svg.append("rect")
+              .attr("x", centerX + (yearDistance - rectWidth) / 2)
+              .attr("y", rectY - rectHeight)
+              .attr("width", rectWidth)
+              .attr("height", rectHeight)
+              .attr("fill", colorScale(event.importance))
+              .attr("stroke", colorScale(event.importance))
+              .attr("stroke-width", 0.5)
+              .style("cursor", "pointer")
+              .on("click", function() {
+                const existingTooltip = d3.select(".tooltip1");
 
-  legendRow.append("text")
-    .attr("x", 20)
-    .attr("y", 7)
-    .text(key)
-    .attr("font-size", "12px")
-    .attr("fill", "#666")
-    .attr("font-family", "楷体");
-});
+                if (existingTooltip.empty()) {
+                  const tooltip = d3.select("body")
+                    .append("div")
+                    .attr("class", "tooltip1");
+
+                  tooltip.html(`
+                    <h4>${event.name || '未命名事件'}</h4>
+                    <p><strong>政治影响：</strong>${event.political || '无'}</p>
+                    <p><strong>经济影响：</strong>${event.ecommerce || '无'}</p>
+                    <p><strong>社会影响：</strong>${event.society || '无'}</p>
+                    <p><strong>军事影响：</strong>${event.military || '无'}</p>
+                    <p><strong>民生影响：</strong>${event.livelihood || '无'}</p>
+                    <p><strong>变迁结果：</strong>${event.result || '无'}</p>
+                  `);
+
+                  const rect = this.getBoundingClientRect();
+                  tooltip
+                    .style("left", (rect.left + window.scrollX + 10) + "px")
+                    .style("top", (rect.top + window.scrollY - 10) + "px");
+                } else {
+                  existingTooltip.remove();
+                }
+              });
+          }
+        }
+      });
+
+      const legend = svg.append("g")
+        .attr("transform", `translate(${margin.left+100}, ${margin.top - 10})`);
+
+      const legendItems = Object.entries(scoreColors);
+      const legendItemWidth = 20;
+      const legendItemHeight = 5;
+      const legendSpacing = 65;
+
+      legendItems.forEach(([key, color], index) => {
+        const legendRow = legend.append("g")
+          .attr("transform", `translate(${index * (legendItemWidth + legendSpacing)}, 0)`);
+
+        legendRow.append("rect")
+          .attr("width", 15)
+          .attr("height", 5)
+          .attr("fill", color);
+
+        legendRow.append("text")
+          .attr("x", 20)
+          .attr("y", 7)
+          .text(key)
+          .attr("font-size", "12px")
+          .attr("fill", "#666")
+          .attr("font-family", "楷体");
+      });
 
     }).catch(function (error) {
       console.error("读取或处理文件出错：", error);
     });
 
-    // 清理SVG容器
     return () => {
       d3.select("#chart").select("svg").remove();
     };
-  }, []);
+  }, [dynastyName, startYear, endYear]); // 添加依赖项
 
   return (
     <div>
@@ -378,4 +358,4 @@ legendItems.forEach(([key, color], index) => {
   );
 };
 
-export default Event;
+export default Event; 

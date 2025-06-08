@@ -109,7 +109,7 @@ const styles = {
     height: '100%',
     width: '100%',
     overflow: 'hidden',
-    fontFamily: 'Arial, sans-serif',
+    fontFamily: '楷体, KaiTi, serif',
   },
   header: { // Retained for potential future use, not directly used by title/subtitle now
     paddingBottom: '6px',

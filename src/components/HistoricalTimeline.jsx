@@ -299,22 +299,63 @@ const HistoricalTimeline = () => {
       });
     });
 
-    // 图例
+    // 图例 - 垂直布局
     const legend = (
-      <g className="chart-legend" transform="translate(10, 5)">
-        <g className="legend-item">
-          <rect x="0" y="0" width="15" height="3" fill="#D4A574" />
-          <text x="20" y="4" fontSize="7" fill="#4A4A4A">
+      <g className="historical-timeline-legend" transform="translate(20, 10)">
+        {/* 第一个图例项：灾变事件 */}
+        <g className="legend-item-1">
+          <rect 
+            x="0" 
+            y="0" 
+            width="15" 
+            height="8" 
+            fill="#D4A574" 
+            stroke="rgba(74, 74, 74, 0.3)"
+            strokeWidth="0.5"
+            rx="1"
+          />
+          <text 
+            x="28" 
+            y="10" 
+            fontSize="9" 
+            fill="#4A4A4A"
+            fontFamily="'Noto Serif SC', serif"
+            fontWeight="500"
+          >
             灾变事件 {disasterScales.length > 0 && `(scale: ${disasterMin}~${disasterMax})`}
           </text>
         </g>
-        <g className="legend-item" transform="translate(120, 0)">
-          <rect x="0" y="0" width="15" height="3" fill="#A5A8AD" />
-          <text x="20" y="4" fontSize="7" fill="#4A4A4A">
+        {/* 第二个图例项：制度改革 - 垂直偏移 */}
+        <g className="legend-item-2" transform="translate(0, 18)">
+          <rect 
+            x="100" 
+            y="0" 
+            width="15" 
+            height="8" 
+            fill="#A5A8AD" 
+            stroke="rgba(74, 74, 74, 0.3)"
+            strokeWidth="0.5"
+            rx="1"
+          />
+          <text 
+            x="28" 
+            y="10" 
+            fontSize="9" 
+            fill="#4A4A4A"
+            fontFamily="'Noto Serif SC', serif"
+            fontWeight="500"
+          >
             制度改革 {reformScales.length > 0 && `(scale: ${reformMin}~${reformMax})`}
           </text>
         </g>
-        <text x="0" y="15" fontSize="6" fill="#666">
+        {/* 说明文字 */}
+        <text 
+          x="0" 
+          y="45" 
+          fontSize="8" 
+          fill="#666"
+          fontFamily="'Noto Serif SC', serif"
+        >
           * 各数据集独立标准化显示
         </text>
       </g>

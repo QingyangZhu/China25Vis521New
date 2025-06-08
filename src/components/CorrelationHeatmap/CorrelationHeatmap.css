@@ -1,0 +1,48 @@
+.chartContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'KaiTi, STKaiti, serif';
+}
+
+.valueText {
+    text-anchor: middle;
+    dominant-baseline: middle;
+    font-size: 8px;
+}
+
+.label {
+    font-size: 8px;
+    text-anchor: end;
+    dominant-baseline: middle;
+    fill: #333;
+}
+
+.cell rect {
+    stroke: #ccc;
+    stroke-width: 0.5px;
+}
+
+.label text {
+    font-size: 8px;
+    fill: #333;
+}
+
+.value-text {
+    font-size: 8px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+.color-axis .domain, 
+.color-axis .tick line {
+    stroke: #333;
+}
+
+.color-axis .tick text {
+    font-size: 8px;
+}
+
+.circle-label {
+    font-size: 8px;
+}

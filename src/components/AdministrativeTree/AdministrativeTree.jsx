@@ -2,7 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import * as echarts from 'echarts';
 import * as d3 from 'd3';
 
-const AdministrativeTree = () => {
+const AdministrativeTree = ({ 
+  dynastyName = '秦', 
+  startYear = -221, 
+  endYear = -207 
+}) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
@@ -13,15 +17,15 @@ const AdministrativeTree = () => {
         // 1. 获取数据
         const data = await d3.csv(`${process.env.PUBLIC_URL}/data/建制沿革/jianzhi_split_tree.csv`);
         
-        // 2. 构建树数据（保持原有逻辑）
-        const root = { name: '秦代', children: [] };
+        // 2. 构建树数据
+        const root = { name: dynastyName, children: [] };
         data.forEach(row => {
-          if (row['历史'] !== '秦代') return;
+          if (row['历史'] !== dynastyName) return;
 
           const level1 = row['一级行政划分'];
           const level2 = row['二级行政划分'];
           const level3 = row['划分下属'];
-            console.log(['qin'],level1,level2,level3);
+
           // 一级节点处理
           let level1Node = root.children.find(c => c.name === level1);
           if (!level1Node) {
@@ -45,24 +49,29 @@ const AdministrativeTree = () => {
         });
 
         // 3. 初始化ECharts实例
-        chartInstance.current = echarts.init(chartRef.current);
+        if (!chartInstance.current) {
+          chartInstance.current = echarts.init(chartRef.current);
+        }
         
         // 4. 显示加载动画
         chartInstance.current.showLoading();
 
-        // 5. 设置图表配置（保持原有配置）
+        // 5. 设置图表配置
         const option = {
           tooltip: {
             trigger: 'item',
-            triggerOn: 'mousemove'
+            triggerOn: 'mousemove',
+            formatter: function(params) {
+              return `${params.name}<br/>${startYear}-${endYear}`;
+            }
           },
           series: [{
             type: 'tree',
             data: [root],
             top: '1%',
-            left: '8%',
+            left: '5%',
             bottom: '0',
-            right: '10%',
+            right: '12%',
             symbolSize: 4,
             nodePadding: 100,
             nodeGap: 200,
@@ -115,12 +124,11 @@ const AdministrativeTree = () => {
 
       } catch (error) {
         console.error("数据加载失败:", error);
-        // 可以添加错误状态显示
       }
     };
 
     initChart();
-  }, []);
+  }, [dynastyName, startYear, endYear]);
 
   return (
     <div 

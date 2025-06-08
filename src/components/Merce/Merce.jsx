@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import * as d3 from 'd3';
-import './Merce.css'; // 确保引入样式文件
+import './Merce.css';
 
-const Merce = () => {
+const Merce = ({ dynastyName = '金', startYear = 1115, endYear = 1234 }) => {
   useEffect(() => {
-    const margin = { top: 5, right: 40, bottom: 10, left: 20 };
-    const width = 610;
-    const height = 70;
+    const margin = { top: 5, right: 10, bottom: 10, left: 20 };
+    const width = 580;
+    const height = 100;
     // 清除旧的 SVG
     d3.select("#chart1").select("svg").remove();
 
@@ -22,12 +22,12 @@ const Merce = () => {
       d3.csv(`${process.env.PUBLIC_URL}/data/merce.csv`),
       d3.csv(`${process.env.PUBLIC_URL}/data/merce_event.csv`)
     ]).then(function ([merceData, eventData]) {
-      // 只保留历史时期为"金"的数据
-      const qinData = merceData.filter(d => d['历史时期'] === '金');
-      const qinEvents = eventData.filter(d => d['历史时期'] === '金');
+      // 只保留指定朝代的数据
+      const dynastyData = merceData.filter(d => d['历史时期'] === dynastyName);
+      const dynastyEvents = eventData.filter(d => d['历史时期'] === dynastyName);
 
       // 计算最大数量
-      const maxCount = d3.max(qinData, d =>
+      const maxCount = d3.max(dynastyData, d =>
         Math.max(
           +d['传统商业数量'] || 0, +d['先进商业数量'] || 0,
           +d['传统手工业数量'] || 0, +d['先进手工业数量'] || 0,
@@ -85,17 +85,17 @@ const Merce = () => {
         .attr("stroke-dasharray", "4,4");
 
       // 数据准备
-      const businessData = qinData.map(d => ({
+      const businessData = dynastyData.map(d => ({
         traditional: +d['传统商业数量'] || 0,
         advanced: +d['先进商业数量'] || 0
       }));
 
-      const craftData = qinData.map(d => ({
+      const craftData = dynastyData.map(d => ({
         traditional: +d['传统手工业数量'] || 0,
         advanced: +d['先进手工业数量'] || 0
       }));
 
-      const techData = qinData.map(d => ({
+      const techData = dynastyData.map(d => ({
         traditional: +d['传统技术数量'] || 0,
         advanced: +d['先进技术数量'] || 0
       }));
@@ -138,7 +138,7 @@ const Merce = () => {
               .attr("x", baseX)
               .attr("y", margin.top)
               .attr("width", traditionalWidth)
-              .attr("height", yScale2(d.traditional) - margin.top)
+              .attr("height", Math.max(0, yScale2(d.traditional) - margin.top))
               .attr("fill", colors.business.traditional)
               .style("cursor", "pointer")
               .on("mouseover", function (event) {
@@ -148,7 +148,7 @@ const Merce = () => {
                 tooltip.html(`
                   <h4>传统商业</h4>
                   <p><strong>数量：</strong>${d.traditional}</p>
-                  <p><strong>代表类型：</strong>${qinData[i]['传统商业类型'] || '无'}</p>
+                  <p><strong>代表类型：</strong>${dynastyData[i]['传统商业类型'] || '无'}</p>
                 `)
                   .style("left", (event.pageX + 10) + "px")
                   .style("top", (event.pageY - 10) + "px");
@@ -164,7 +164,7 @@ const Merce = () => {
               .attr("x", baseX + traditionalWidth)
               .attr("y", margin.top)
               .attr("width", advancedWidth)
-              .attr("height", yScale2(d.advanced) - margin.top)
+              .attr("height", Math.max(0, yScale2(d.advanced) - margin.top))
               .attr("fill", colors.business.advanced)
               .style("cursor", "pointer")
               .on("mouseover", function (event) {
@@ -174,7 +174,7 @@ const Merce = () => {
                 tooltip.html(`
                   <h4>先进商业</h4>
                   <p><strong>数量：</strong>${d.advanced}</p>
-                  <p><strong>代表类型：</strong>${qinData[i]['先进商业类型'] || '无'}</p>
+                  <p><strong>代表类型：</strong>${dynastyData[i]['先进商业类型'] || '无'}</p>
                 `)
                   .style("left", (event.pageX + 10) + "px")
                   .style("top", (event.pageY - 10) + "px");
@@ -200,7 +200,7 @@ const Merce = () => {
               .attr("x", baseX)
               .attr("y", margin.top)
               .attr("width", traditionalWidth)
-              .attr("height", yScale2(d.traditional) - margin.top)
+              .attr("height", Math.max(0, yScale2(d.traditional) - margin.top))
               .attr("fill", colors.craft.traditional)
               .style("cursor", "pointer")
               .on("mouseover", function (event) {
@@ -210,7 +210,7 @@ const Merce = () => {
                 tooltip.html(`
                   <h4>传统手工业</h4>
                   <p><strong>数量：</strong>${d.traditional}</p>
-                  <p><strong>代表类型：</strong>${qinData[i]['传统手工业类型'] || '无'}</p>
+                  <p><strong>代表类型：</strong>${dynastyData[i]['传统手工业类型'] || '无'}</p>
                 `)
                   .style("left", (event.pageX + 10) + "px")
                   .style("top", (event.pageY - 10) + "px");
@@ -226,7 +226,7 @@ const Merce = () => {
               .attr("x", baseX + traditionalWidth)
               .attr("y", margin.top)
               .attr("width", advancedWidth)
-              .attr("height", yScale2(d.advanced) - margin.top)
+              .attr("height", Math.max(0, yScale2(d.advanced) - margin.top))
               .attr("fill", colors.craft.advanced)
               .style("cursor", "pointer")
               .on("mouseover", function (event) {
@@ -236,7 +236,7 @@ const Merce = () => {
                 tooltip.html(`
                   <h4>先进手工业</h4>
                   <p><strong>数量：</strong>${d.advanced}</p>
-                  <p><strong>代表类型：</strong>${qinData[i]['先进手工业类型'] || '无'}</p>
+                  <p><strong>代表类型：</strong>${dynastyData[i]['先进手工业类型'] || '无'}</p>
                 `)
                   .style("left", (event.pageX + 10) + "px")
                   .style("top", (event.pageY - 10) + "px");
@@ -262,7 +262,7 @@ const Merce = () => {
               .attr("x", baseX)
               .attr("y", margin.top)
               .attr("width", traditionalWidth)
-              .attr("height", yScale2(d.traditional) - margin.top)
+              .attr("height", Math.max(0, yScale2(d.traditional) - margin.top))
               .attr("fill", colors.tech.traditional)
               .style("cursor", "pointer")
               .on("mouseover", function (event) {
@@ -272,7 +272,7 @@ const Merce = () => {
                 tooltip.html(`
                   <h4>传统技术</h4>
                   <p><strong>数量：</strong>${d.traditional}</p>
-                  <p><strong>代表类型：</strong>${qinData[i]['传统技术类型'] || '无'}</p>
+                  <p><strong>代表类型：</strong>${dynastyData[i]['传统技术类型'] || '无'}</p>
                 `)
                   .style("left", (event.pageX + 10) + "px")
                   .style("top", (event.pageY - 10) + "px");
@@ -288,7 +288,7 @@ const Merce = () => {
               .attr("x", baseX + traditionalWidth)
               .attr("y", margin.top)
               .attr("width", advancedWidth)
-              .attr("height", yScale2(d.advanced) - margin.top)
+              .attr("height", Math.max(0, yScale2(d.advanced) - margin.top))
               .attr("fill", colors.tech.advanced)
               .style("cursor", "pointer")
               .on("mouseover", function (event) {
@@ -298,7 +298,7 @@ const Merce = () => {
                 tooltip.html(`
                   <h4>先进技术</h4>
                   <p><strong>数量：</strong>${d.advanced}</p>
-                  <p><strong>代表类型：</strong>${qinData[i]['先进技术类型'] || '无'}</p>
+                  <p><strong>代表类型：</strong>${dynastyData[i]['先进技术类型'] || '无'}</p>
                 `)
                   .style("left", (event.pageX + 10) + "px")
                   .style("top", (event.pageY - 10) + "px");
@@ -310,13 +310,18 @@ const Merce = () => {
         }
       });
 
-      // 获取水平数据
-      const levelData = qinData.map(d => ({
+      // 获取水平数据，添加空数据防护
+      const levelData = dynastyData.length > 0 ? dynastyData.map(d => ({
         business: +d['商业水平'] || 0,
         craft: +d['手工业水平'] || 0,
         tech: +d['技术水平'] || 0,
         trade: +d['外贸水平'] || 0
-      }))[0];
+      }))[0] : {
+        business: 0,
+        craft: 0,
+        tech: 0,
+        trade: 0
+      };
 
       // 创建水平曲线生成器
       const line = d3.line()
@@ -335,8 +340,10 @@ const Merce = () => {
         levelData.trade
       ];
 
-      // 绘制水平曲线
-      const path = svg2.append("path")
+      // 只有在有数据时才绘制水平曲线
+      if (dynastyData.length > 0) {
+        // 绘制水平曲线
+        const path = svg2.append("path")
         .datum(values)
         .attr("fill", "none")
         .attr("stroke", "#be9c79")
@@ -392,11 +399,11 @@ const Merce = () => {
       });
 
       // 添加事件点
-      if (qinEvents.length > 0) {
+      if (dynastyEvents.length > 0) {
         const pathLength = path.node().getTotalLength();
-        const eventSpacing = pathLength / (qinEvents.length + 1);
+        const eventSpacing = pathLength / (dynastyEvents.length + 1);
 
-        qinEvents.forEach((event, i) => {
+        dynastyEvents.forEach((event, i) => {
           const point = path.node().getPointAtLength(eventSpacing * (i + 1));
           const eventType = event['事件类型'];
           const impact = event['事件影响'];
@@ -452,17 +459,21 @@ const Merce = () => {
           .attr("fill", "#666")
           .text(item.label);
       });
+      }
 
     }).catch(function (error) {
       console.error("读取或处理文件出错：", error);
     });
-  }, []);
+
+    return () => {
+      d3.select("#chart1").select("svg").remove();
+      d3.select(".tooltip2").remove();
+    };
+  }, [dynastyName, startYear, endYear]);
 
   return (
-    <div>
-    <div id="chart1"></div>
-    </div>
+    <div></div>
   );
 };
 
-export default  Merce;
+export default Merce;

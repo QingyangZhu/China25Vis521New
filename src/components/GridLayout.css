@@ -12,11 +12,11 @@
 .grid-container {
   display: grid;
   grid-template-columns: 25% 50% 25%;
-  grid-template-rows: 5%  27.5% 15% 42.5% 10%;
+  grid-template-rows: 5%  42.5% 17.5% 25% 10%;
   grid-template-areas: 
     "header header header"
     "left-top center-top right-top"
-    "left-top center-bottom right-top"
+    "left-bottom center-top right-bottom"
     "left-bottom center-bottom right-bottom"
     "timeline timeline timeline";
   gap: 8px;
