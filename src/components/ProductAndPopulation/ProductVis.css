@@ -138,19 +138,32 @@
   max-height: 100%;
 }
 
-.tooltip {
-  position: fixed;
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid #8C6D46;
-  border-radius: 4px;
-  font-size: 12px;
-  color: #4A4A4A;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s;
-  z-index: 1000;
-}
+  .tooltip {
+    position: fixed;
+    padding: 12px 16px;
+    background: rgba(249, 247, 244, 0.85); /* 温暖的米色半透明背景 */
+    border: 2px solid rgba(199, 178, 153, 0.9); /* 温暖的棕色边框 */
+    border-radius: 8px;
+    font-size: 14px;
+    color: rgba(77, 63, 53, 0.95); /* 深棕色文字 */
+    font-family: "'Noto Serif SC', serif";
+    line-height: 1.5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(15px);
+    max-width: 220px;
+    min-width: 140px;
+    display: block;
+    visibility: visible;
+  }
+  
+  .tooltip strong {
+    color: rgba(140, 109, 70, 1); /* 深金棕色强调文字 */
+    font-weight: 600;
+  }
 
 .bubble {
   opacity: 0.7;
@@ -187,6 +200,7 @@
 .population-point {
   cursor: pointer;
   transition: all 0.3s ease;
+  pointer-events: all; /* 确保鼠标事件能被捕获 */
 }
 
 .population-point:hover {
@@ -196,6 +210,12 @@
 .point-glow {
   transition: all 0.3s ease;
   filter: drop-shadow(0 0 4px rgba(219, 192, 142, 0.8));
+}
+
+/* 数据点交互区域样式 */
+.point-interaction-area {
+  pointer-events: all;
+  cursor: pointer;
 }
 
 /* 花瓣图样式 - 确保显示在最前面 */

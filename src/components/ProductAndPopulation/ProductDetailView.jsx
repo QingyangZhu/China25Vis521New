@@ -696,7 +696,7 @@ const ProductDetailView = ({ dynasty, category, onClose, isEmbedded = false }) =
       .attr('font-size', isEmbedded ? '16px' : '18px')
       .attr('font-weight', 'bold')
       .attr('fill', '#2d2520')
-      .text('历代地名出现频率统计（前30位）');
+      .text('历代地名出现频率统计');
 
     // 添加图例
     const legend = svg.append('g')

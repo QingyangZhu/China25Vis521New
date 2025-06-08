@@ -419,7 +419,11 @@ const ProductVis = ({
 
   // 绘制组合视图（花瓣图和面积图）
   const drawCombinedView = (data, populationData, container, dynastyXScale, width, height) => {
-    if (!data || !populationData || !populationData.yearlyData) return;
+    console.log('drawCombinedView被调用，showDataPoints:', showDataPoints);
+    if (!data || !populationData || !populationData.yearlyData) {
+      console.error('drawCombinedView缺少数据:', { data, populationData });
+      return;
+    }
 
     const margin = { top: 10, right: 30, bottom: 0, left: 60 }; // 增加左边距为汉字留出更多空间
     const innerWidth = width - margin.left - margin.right;
@@ -539,12 +543,17 @@ const ProductVis = ({
       .attr('stop-opacity', 0.8);
 
     // 在面积图上绘制人口数据点（根据showDataPoints控制显示）
+    console.log('showDataPoints:', showDataPoints);
+    console.log('processedAreaData length:', processedAreaData.length);
+    
     if (showDataPoints) {
       const dataPoints = container.selectAll('.population-point')
         .data(processedAreaData)
         .join('g')
         .attr('class', 'population-point')
         .attr('transform', d => `translate(${d.x}, ${yScale(d.population)})`);
+
+      console.log('数据点创建数量:', dataPoints.size());
 
       // 添加外圈发光效果
       dataPoints.append('circle')
@@ -564,10 +573,22 @@ const ProductVis = ({
         .attr('stroke-width', 1.5)
         .attr('opacity', 0.9);
 
+      // 为每个数据点添加一个透明的大圆圈来增加交互区域
+      dataPoints.append('circle')
+        .attr('class', 'point-interaction-area')
+        .attr('r', 15) // 较大的交互区域
+        .attr('fill', 'transparent')
+        .attr('stroke', 'none')
+        .style('cursor', 'pointer')
+        .style('pointer-events', 'all');
+
       // 添加数据点交互效果
       dataPoints
         .style('cursor', 'pointer')
         .on('mouseover', function(event, d) {
+          console.log('数据点鼠标悬停:', d);
+          console.log('tooltip元素:', tooltipRef.current);
+          
           d3.select(this).select('.point-glow')
             .transition()
             .duration(200)
@@ -581,17 +602,34 @@ const ProductVis = ({
             .attr('fill', '#246b69');
 
           const tooltip = d3.select(tooltipRef.current);
-          tooltip
-            .style('opacity', 1)
-            .html(`
-              <div>朝代：${d.dynasty}</div>
-              <div>年份：${d.year}年</div>
-              <div>人口：${numberToChinese(d.population)}</div>
-            `)
-            .style('left', (event.pageX + 10) + 'px')
-            .style('top', (event.pageY - 10) + 'px');
+          if (tooltipRef.current) {
+            console.log('设置tooltip显示');
+            console.log('tooltip位置:', (event.pageX + 10), (event.pageY - 10));
+            console.log('事件坐标:', event.pageX, event.pageY);
+            tooltip
+              .style('opacity', 1)
+              .style('display', 'block')
+              .style('visibility', 'visible')
+              .style('background', 'rgba(249, 247, 244, 0.85)') // 温暖的米色半透明背景
+              .style('color', 'rgba(77, 63, 53, 0.95)') // 深棕色文字
+              .style('border', '2px solid rgba(199, 178, 153, 0.9)') // 温暖的棕色边框
+              .style('z-index', 99999)
+              .html(`
+                <div><strong>朝代：</strong>${d.dynasty}</div>
+                <div><strong>年份：</strong>${d.year}年</div>
+                <div><strong>人口：</strong>${numberToChinese(d.population)}</div>
+              `)
+              .style('left', '100px') // 固定位置测试
+              .style('top', '100px'); // 固定位置测试
+              //.style('left', (event.pageX + 10) + 'px')
+              //.style('top', (event.pageY - 10) + 'px');
+          } else {
+            console.error('tooltipRef.current 为空');
+          }
         })
         .on('mouseout', function(event, d) {
+          console.log('数据点鼠标离开');
+          
           d3.select(this).select('.point-glow')
             .transition()
             .duration(200)
@@ -604,7 +642,9 @@ const ProductVis = ({
             .attr('r', 4)
             .attr('fill', 'url(#pointGradient)');
 
-          d3.select(tooltipRef.current).style('opacity', 0);
+          if (tooltipRef.current) {
+            d3.select(tooltipRef.current).style('opacity', 0);
+          }
         });
     }
 
@@ -771,6 +811,9 @@ const ProductVis = ({
 
   // 绘制主视图（包含花瓣图、折线图和气泡图）
   const drawMainView = (data, populationData, bubbleData) => {
+    console.log('drawMainView被调用，showDataPoints:', showDataPoints);
+    console.log('drawMainView接收到的数据:', { data, populationData, bubbleData });
+    
     if (!data || !populationData || !bubbleData) {
       console.error('缺少必要的数据:', { data, populationData, bubbleData });
       return;
@@ -1277,6 +1320,7 @@ const ProductVis = ({
     const loadData = async () => {
       try {
         console.log('开始加载数据...');
+        console.log('showDataPoints参数值:', showDataPoints);
         
         // 等待DOM元素准备好
         await waitForElement();
@@ -1326,11 +1370,17 @@ const ProductVis = ({
         const processedData = processData(data);
         const processedPopulationData = processPopulationData(populationRawData, bubData);
         
+        console.log('原始数据长度:', data.length);
+        console.log('处理后的数据:', processedData);
+        console.log('人口数据:', processedPopulationData);
+        console.log('气泡数据:', bubData);
+        
         setPopulationData(processedPopulationData);
         setBubbleData(bubData);
         setRawData(csvText);
         
         console.log('数据处理完成，开始绘制主视图...');
+        console.log('传递给drawMainView的showDataPoints:', showDataPoints);
         drawMainView(processedData, processedPopulationData, bubData);
 
         // 设置初始化完成标志

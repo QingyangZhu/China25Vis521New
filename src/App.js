@@ -28,6 +28,8 @@ import CorrelationHeatmap from './components/CorrelationHeatmap/CorrelationHeatm
 
 import TrafficHubAnalysis from './components/Traffic/TrafficHubAnalysis';
 import CityDataCharts from './components/Traffic/CityDataCharts';
+import DynastyClusterAnalysis from './components/DynastyClusterAnalysis/DynastyClusterAnalysis';
+import DynastyDataCluster from './components/DynastyClusterAnalysis/DynastyDataCluster';
 
 // 物产可视化控制组件
 const ProductVisControls = ({ showDataPoints, setShowDataPoints, showDetailView, showWordCloud, onCloseDetailView, onCloseWordCloud }) => {
@@ -295,6 +297,8 @@ function App() {
   const [selectedDynastyForDetail, setSelectedDynastyForDetail] = useState(null);
   const [selectedCategoryForDetail, setSelectedCategoryForDetail] = useState(null);
   const [selectedDynastyForWordCloud, setSelectedDynastyForWordCloud] = useState('元'); // 默认选择元朝
+  const [showClusterAnalysis, setShowClusterAnalysis] = useState(false);
+  const [showDataCluster, setShowDataCluster] = useState(false); // 聚类分析视图状态
 
   // 数据状态
   const [riverData, setRiverData] = useState([]);
@@ -309,11 +313,14 @@ function App() {
 
   // 读取数据
   useEffect(() => {
-    d3.csv('/data/1/river_sort.csv').then(setRiverData);
-    d3.csv('/data/1/植被_2.csv').then(setVegetationData);
-    d3.csv('/data/1/气候.csv').then(setClimateData);
-    d3.csv('/data/人口/人口_change.csv').then(setPopulationData);
-  }, []);
+    // 只在非聚类分析模式下加载数据
+    if (!showClusterAnalysis) {
+      d3.csv('/data/1/river_sort.csv').then(setRiverData);
+      d3.csv('/data/1/植被_2.csv').then(setVegetationData);
+      d3.csv('/data/1/气候.csv').then(setClimateData);
+      d3.csv('/data/人口/人口_change.csv').then(setPopulationData);
+    }
+  }, [showClusterAnalysis]);
 
 
 
@@ -452,6 +459,60 @@ function App() {
         <h1>京华时空 - 北京城演化可视分析平台</h1>
         <div className="header-dynasty-info">
           <span>当前选择: {displayText}</span>
+          <button
+            onClick={() => setShowClusterAnalysis(!showClusterAnalysis)}
+            style={{
+              marginLeft: '20px',
+              padding: '8px 16px',
+              background: showClusterAnalysis ? '#8C6D46' : 'white',
+              color: showClusterAnalysis ? 'white' : '#8C6D46',
+              border: '2px solid #8C6D46',
+              borderRadius: '6px',
+              fontSize: '14px',
+              fontFamily: "'Noto Serif SC', serif",
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              if (!showClusterAnalysis) {
+                e.target.style.background = 'rgba(140, 109, 70, 0.1)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!showClusterAnalysis) {
+                e.target.style.background = 'white';
+              }
+            }}
+          >
+            {showClusterAnalysis ? '返回主视图' : '朝代聚类分析'}
+          </button>
+          <button
+            onClick={() => setShowDataCluster(!showDataCluster)}
+            style={{
+              marginLeft: '10px',
+              padding: '8px 16px',
+              background: showDataCluster ? '#B49679' : 'white',
+              color: showDataCluster ? 'white' : '#B49679',
+              border: '2px solid #B49679',
+              borderRadius: '6px',
+              fontSize: '14px',
+              fontFamily: "'Noto Serif SC', serif",
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              if (!showDataCluster) {
+                e.target.style.background = 'rgba(180, 150, 121, 0.1)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!showDataCluster) {
+                e.target.style.background = 'white';
+              }
+            }}
+          >
+            {showDataCluster ? '返回主视图' : '数据聚类分析'}
+          </button>
         </div>
         <div className="header-decoration right"></div>
       </div>
@@ -858,16 +919,44 @@ const rightTop = (
 
   return (
     <div className="App">
-      <GridLayout
-        header={header}
-        leftTop={leftTop}
-        leftBottom={leftBottom}
-        centerTop={centerTop}
-        centerBottom={centerBottom}
-        rightTop={rightTop}
-        rightBottom={rightBottom}
-        timeline={timeline}
-      />
+      {showClusterAnalysis ? (
+        <div style={{ 
+          position: 'fixed', 
+          top: 0, 
+          left: 0, 
+          width: '100vw', 
+          height: '100vh', 
+          zIndex: 1000,
+          background: 'white'
+        }}>
+          {header}
+          <DynastyClusterAnalysis onClose={() => setShowClusterAnalysis(false)} />
+        </div>
+      ) : showDataCluster ? (
+        <div style={{ 
+          position: 'fixed', 
+          top: 0, 
+          left: 0, 
+          width: '100vw', 
+          height: '100vh', 
+          zIndex: 1000,
+          background: 'white'
+        }}>
+          {header}
+          <DynastyDataCluster onClose={() => setShowDataCluster(false)} />
+        </div>
+      ) : (
+        <GridLayout
+          header={header}
+          leftTop={leftTop}
+          leftBottom={leftBottom}
+          centerTop={centerTop}
+          centerBottom={centerBottom}
+          rightTop={rightTop}
+          rightBottom={rightBottom}
+          timeline={timeline}
+        />
+      )}
     </div>
   );
 }
