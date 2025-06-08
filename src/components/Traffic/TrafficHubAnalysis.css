@@ -452,8 +452,8 @@
 
 /* 交通工具展示区域样式 */
 .traffic-tools-section {
-  margin-top: 25px;
-  padding-top: 20px;
+  margin-top: 15px;
+  padding-top: 12px;
   border-top: 1px solid #E6D7C3;
 }
 
@@ -533,14 +533,14 @@
 /* 主要交通工具水平布局 */
 .tools-speed-container {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .main-tools-row {
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   padding: 0 20px;
   min-height: 120px;
 }
@@ -606,7 +606,7 @@
 
 /* 所有交通工具分类展示 */
 .all-tools-display {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .tools-categories {
@@ -649,8 +649,8 @@
 .traffic-tools-stats {
   display: flex;
   gap: 20px;
-  margin-top: 15px;
-  padding-top: 10px;
+  margin-top: 10px;
+  padding-top: 8px;
   border-top: 1px solid #F0EDE6;
 }
 
