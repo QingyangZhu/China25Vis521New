@@ -924,12 +924,12 @@ const HistoricalDataClusterAnalysis = () => {
           textAlign: 'center',
           fontFamily: "'Noto Serif SC', serif",
           color: '#8C6D46',
-          whiteSpace: 'nowrap'
+          whiteSpace: 'nowrap',
+          fontSize: '1.0rem'
         }}>
           历史数据聚类与相关性分析
         </h3>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '13px', color: '#4A4A4A' }}>数据类型:</span>
           <select
             value={selectedDataType}
             onChange={(e) => setSelectedDataType(e.target.value)}
