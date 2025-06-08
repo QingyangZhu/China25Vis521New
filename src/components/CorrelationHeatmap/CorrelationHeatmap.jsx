@@ -44,8 +44,10 @@ const CorrelationHeatmap = () => {
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        const colorScale = d3.scaleSequential(d3.interpolateBrBG)
-            .domain([-1, 1]);
+        // 使用与CityDataCharts一致的配色方案：绿色系→棕色系→暖色系
+        const colorScale = d3.scaleLinear()
+            .domain([-1, -0.5, 0, 0.5, 1])
+            .range(['#A0C1B8', '#B8C8D4', '#E8E0D0', '#B8A48E', '#D49C6A']);  // 绿色系→棕色系→暖色系
 
         const allCorrelations = [];
         data.forEach((row, rowIndex) => {

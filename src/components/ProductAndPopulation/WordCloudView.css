@@ -1,3 +1,10 @@
+/* 强制为词云组件设置楷体字体 */
+.word-cloud-overlay *,
+.word-cloud-container *,
+.word-cloud-embedded * {
+  font-family: "楷体", "KaiTi", "STKaiti", "华文楷体", "AR PL UKai CN", "Kaiti SC", "Noto Serif SC", serif !important;
+}
+
 /* 词云视图覆盖层样式 */
 .word-cloud-overlay {
   position: fixed;
@@ -11,7 +18,7 @@
   justify-content: center;
   align-items: center;
   z-index: 10000;
-  font-family: 'Noto Serif SC', serif;
+  font-family: "楷体", "KaiTi", "STKaiti", "华文楷体", "AR PL UKai CN", "Kaiti SC", "Noto Serif SC", serif !important;
 }
 
 .word-cloud-container {
@@ -43,7 +50,7 @@
   border: 1px solid #c7b299;
   display: flex;
   flex-direction: column;
-  font-family: 'Noto Serif SC', serif;
+  font-family: "楷体", "KaiTi", "STKaiti", "华文楷体", "AR PL UKai CN", "Kaiti SC", "Noto Serif SC", serif !important;
   position: relative;
 }
 
@@ -95,7 +102,7 @@
   height: 100%;
   font-size: 18px;
   color: #6b5d4f;
-  font-family: 'Noto Serif SC', serif;
+  font-family: "楷体", "KaiTi", "STKaiti", "华文楷体", "AR PL UKai CN", "Kaiti SC", "Noto Serif SC", serif !important;
 }
 
 .error {
@@ -114,7 +121,7 @@
 
 /* 工具提示样式 */
 .word-tooltip {
-  font-family: 'Noto Serif SC', serif !important;
+  font-family: "楷体", "KaiTi", "STKaiti", "华文楷体", "AR PL UKai CN", "Kaiti SC", "Noto Serif SC", serif !important;
   line-height: 1.4;
   border: 1px solid rgba(199, 178, 153, 0.5);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -216,7 +223,7 @@
   border-radius: 6px;
   padding: 8px 16px;
   color: #4a3f35;
-  font-family: 'Noto Serif SC', serif;
+  font-family: "楷体", "KaiTi", "STKaiti", "华文楷体", "AR PL UKai CN", "Kaiti SC", "Noto Serif SC", serif !important;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -279,7 +286,7 @@
   border: 1px solid #c7b299;
   border-radius: 8px;
   padding: 8px;
-  font-family: 'Noto Serif SC', serif;
+  font-family: "楷体", "KaiTi", "STKaiti", "华文楷体", "AR PL UKai CN", "Kaiti SC", "Noto Serif SC", serif !important;
   box-shadow: 0 2px 8px rgba(45, 37, 32, 0.1);
 }
 

@@ -7,7 +7,7 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
 
     useEffect(() => {
         const width = 975;
-        const height = 70;
+        const height = 55;
         const margin = { top: 30, right: 20, bottom: 10, left: 10 };
 
         // Clear previous SVG content
@@ -31,6 +31,7 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
             }
 
             const dimensions = ['政权更替', '城市重建', '城区扩展', '人口变化', '经济文化影响'];
+            const dimensionLabels = ['政权更替', '城市重建', '城区扩展', '人口变化', '文经影响'];
             const lineCategories = ['灾害', '战争', '事件'];
 
             const plotData = [];
@@ -66,12 +67,14 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
             const allValues = plotData.flatMap(d => dimensions.map(dim => d[dim]));
             const globalValueExtent = d3.extent(allValues);
 
-            const valueColorScale = d3.scaleSequential(d3.interpolateBrBG)
-                .domain(globalValueExtent);
+            // 使用与CityDataCharts一致的色彩方案，从棕色系到暖色系
+            const valueColorScale = d3.scaleLinear()
+                .domain(globalValueExtent)
+                .range(['#A0C1B8', '#D49C6A']);
 
             const categoricalLineColor = d3.scaleOrdinal()
                 .domain(lineCategories)
-                .range(["#c69c9c", "#507987", "#5d835d"]);
+                .range(["#A0C1B8", "#D49C6A", "#B8A48E"]);  // 使用CityDataCharts的三种主色彩：灾害、战争、事件
 
             const defs = svg.append("defs");
 
@@ -135,10 +138,14 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
                         .style("font-size", "10px");
                 });
 
-            // 只移除维度标签（政权更替等），保留刻度值
-            g.selectAll("text").filter(function() {
-                return d3.select(this).attr("y") === "-9";
-            }).remove();
+            // 添加维度标签
+            g.append("text")
+                .style("text-anchor", "middle")
+                .style("font-size", "10px")
+                .style("font-family", "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif")
+                .style("fill", "#8C6D46")
+                .attr("y", -12)
+                .text(function(d, i) { return dimensionLabels[i]; });
                 
             const tooltip = d3.select("body").append("div")
                 .attr("class", "tooltip")
@@ -155,8 +162,8 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
                     d3.select(this).style("stroke-width", "3px").style("opacity", 1);
 
                     let tooltipContent = `<b>${d.category}</b><br/>`;
-                    dimensions.forEach(dim => {
-                        tooltipContent += `${dim}: ${d[dim].toFixed(2)}<br/>`;
+                    dimensions.forEach((dim, i) => {
+                        tooltipContent += `${dimensionLabels[i]}: ${d[dim].toFixed(2)}<br/>`;
                     });
 
                     tooltip.html(tooltipContent)
@@ -186,7 +193,7 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
 
     return (
         <svg ref={svgRef} style={{
-            fontFamily: 'KaiTi, STKaiti, serif',
+            fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
             display: 'block',
             margin: '20px'
         }}></svg>

@@ -45,18 +45,18 @@ const ProductVisControls = ({ showDataPoints, setShowDataPoints, showDetailView,
             onCloseWordCloud();
           }
         }}
-        style={{
-          padding: '4px 8px',
-          border: '1px solid #8C6D46',
-          borderRadius: '4px',
-          background: '#8C6D46',
-          color: 'white',
-          fontSize: '11px',
-          cursor: 'pointer',
-          fontFamily: "'Noto Serif SC', serif",
-          transition: 'all 0.2s ease',
-          whiteSpace: 'nowrap'
-        }}
+              style={{
+        padding: '4px 8px',
+        border: '1px solid #8C6D46',
+        borderRadius: '4px',
+        background: '#8C6D46',
+        color: 'white',
+        fontSize: '11px',
+        cursor: 'pointer',
+        fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
+        transition: 'all 0.2s ease',
+        whiteSpace: 'nowrap'
+      }}
         onMouseEnter={(e) => {
           e.target.style.background = '#6B5B47';
         }}
@@ -64,7 +64,7 @@ const ProductVisControls = ({ showDataPoints, setShowDataPoints, showDetailView,
           e.target.style.background = '#8C6D46';
         }}
       >
-        ← 返回
+        返回
       </button>
     );
   }
@@ -81,7 +81,7 @@ const ProductVisControls = ({ showDataPoints, setShowDataPoints, showDetailView,
         color: showDataPoints ? 'white' : '#8C6D46',
         fontSize: '11px',
         cursor: 'pointer',
-        fontFamily: "'Noto Serif SC', serif",
+        fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
         transition: 'all 0.2s ease',
         whiteSpace: 'nowrap'
       }}
@@ -173,7 +173,7 @@ const CenterTopViewToggle = () => {
                 color: currentView === view ? 'white' : '#8C6D46',
                 fontSize: '11px',
                 cursor: 'pointer',
-                fontFamily: "'Noto Serif SC', serif",
+                fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
                 transition: 'all 0.2s ease',
                 whiteSpace: 'nowrap'
               }}
@@ -291,10 +291,10 @@ function App() {
   const [selectedView, setSelectedView] = useState('overview');
   const [showDataPoints, setShowDataPoints] = useState(false);
   const [showDetailView, setShowDetailView] = useState(false);
-  const [showWordCloud, setShowWordCloud] = useState(false);
+  const [showWordCloud, setShowWordCloud] = useState(true); // 默认显示词云
   const [selectedDynastyForDetail, setSelectedDynastyForDetail] = useState(null);
   const [selectedCategoryForDetail, setSelectedCategoryForDetail] = useState(null);
-  const [selectedDynastyForWordCloud, setSelectedDynastyForWordCloud] = useState(null);
+  const [selectedDynastyForWordCloud, setSelectedDynastyForWordCloud] = useState('元'); // 默认选择元朝
 
   // 数据状态
   const [riverData, setRiverData] = useState([]);
@@ -353,7 +353,7 @@ function App() {
 
   // 处理打开词云视图
   const handleOpenWordCloud = (dynasty) => {
-    if (dynasty === null) {
+    if (dynasty === null || dynasty === undefined) {
       // 关闭词云视图
       setShowWordCloud(false);
       setSelectedDynastyForWordCloud(null);
@@ -500,7 +500,7 @@ function App() {
                   cursor: 'pointer'
                 }}
               />
-              <span style={{ fontSize: '12px', color: '#8C6D46' }}>概况</span>
+              <span style={{ fontSize: '12px', color: '#8C6D46', fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif" }}>概况</span>
             </label>
             <label style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
               <input
@@ -516,7 +516,7 @@ function App() {
                   cursor: 'pointer'
                 }}
               />
-              <span style={{ fontSize: '12px', color: '#8C6D46' }}>具体</span>
+              <span style={{ fontSize: '12px', color: '#8C6D46', fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif" }}>具体</span>
             </label>
           </div>
         </div>
@@ -557,10 +557,8 @@ function App() {
   const { warData, disasterData, eventData } = cityData;
   const currentDynasty = storeDynasties.includes('overview') ? '全部' : storeDynasties[0];
   
-  // 检查是否有数据需要显示
-  const hasDataToShow = (showCityDataInCharts.war && warData.length > 0) ||
-                       (showCityDataInCharts.disaster && disasterData.length > 0) ||
-                       (showCityDataInCharts.event && eventData.length > 0);
+  // 检查是否有数据需要显示 - 不再依赖showCityDataInCharts，直接检查数据是否存在
+  const hasDataToShow = warData.length > 0 || disasterData.length > 0 || eventData.length > 0;
 
   const centerBottom = (
     <div className="chart-container" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -586,15 +584,6 @@ function App() {
           display: 'flex',
           flexDirection: 'column'
         }}>
-          <h4 style={{ 
-            textAlign: 'center',
-            fontFamily: "'Noto Serif SC', serif",
-            color: '#8C6D46',
-            margin: '0 0 12px 0',
-            fontSize: '14px'
-          }}>
-            属性分析图表
-          </h4>
           
           <div style={{ flex: 1 }}>
             {hasDataToShow ? (
@@ -603,7 +592,11 @@ function App() {
                 disasterData={disasterData}
                 eventData={eventData}
                 selectedDynasty={currentDynasty}
-                showCityData={showCityDataInCharts}
+                showCityData={{
+                  war: warData.length > 0,
+                  disaster: disasterData.length > 0,
+                  event: eventData.length > 0
+                }}
               />
             ) : (
               <div style={{
@@ -618,14 +611,12 @@ function App() {
                 borderRadius: '8px'
               }}>
                 <div style={{ textAlign: 'center' }}>
-                  <p>请在交通路网地图中勾选古城数据项：</p>
-                  <ul style={{ listStyle: 'none', padding: 0, lineHeight: '1.5' }}>
-                    <li>⚔️ 战争数据</li>
-                    <li>🌪️ 灾害数据</li>
-                    <li>📜 事件数据</li>
-                  </ul>
+                  <p>📊 古城数据属性分析</p>
+                  <p style={{ fontSize: '12px', color: '#666', marginTop: '8px' }}>
+                    正在加载古城数据...
+                  </p>
                   <p style={{ fontSize: '10px', color: '#999', marginTop: '8px' }}>
-                    选择后将在此处显示对应的属性分析图表
+                    此处将展示战争、灾害、事件数据的属性分析图表
                   </p>
                 </div>
               </div>
@@ -642,13 +633,13 @@ function App() {
       
           <div className='row' style={{width: '100%', height: '100%', padding: 0}}>
           <div className='col-md-9' style={{padding:2, height: '100%', width:'66%'}}>
-          <div className='row' style={{ width: 760, marginTop: -65,marginLeft: -30, height: '75%',padding:'2px' }}> 
-           <HeatmapChart dynasty={dynasty} startYear={startYear} endYear={endYear} />
-           </div>
-           <div className='row' style={{ width: 920, marginTop: -53,marginLeft: -175, height: '20%',padding:'2px' }}> 
+          <div className='row' style={{ width: 920, marginTop: -40,marginLeft: -200, height: '20%',padding:'1px' }}> 
         
            <ParallelCoordinatesPlot dynasty={dynasty} />
  
+           </div>
+           <div className='row' style={{ width: 760, marginTop: -16,marginLeft: -60, height: '80%',padding:'1px' }}> 
+           <HeatmapChart dynasty={dynasty} startYear={startYear} endYear={endYear} />
            </div>
           </div>
            <div className='col-md-3' style={{marginTop: -20,marginRight:-10,padding:2, height: '100%', width:'34%'}}>
@@ -762,7 +753,8 @@ const rightTop = (
                   fontSize: '12px',
                   margin: '0 5px',
                   transition: 'background-color 0.3s, color 0.3s',
-                  outline: 'none'
+                  outline: 'none',
+                  fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif"
               }}
           >
               <span>综合商业视图</span>
@@ -780,7 +772,8 @@ const rightTop = (
                   fontSize: '12px',
                   margin: '0 5px',
                   transition: 'background-color 0.3s, color 0.3s',
-                  outline: 'none'
+                  outline: 'none',
+                  fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif"
               }}
           >
               <span>分区商业视图</span>

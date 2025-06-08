@@ -485,9 +485,9 @@
 
         /* Tooltip styles */
         .filter-button::after {
-            content: attr(title);
+            content: attr(data-type);
             position: absolute;
-            bottom: -30px;
+            top: -35px;
             left: 50%;
             transform: translateX(-50%);
             background-color: rgba(90, 74, 59, 0.9);
@@ -499,6 +499,20 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        /* 为不同按钮类型自定义悬浮框文本 */
+        .filter-button[data-type="全部"]::after {
+            content: "显示全部";
+        }
+        
+        .filter-button[data-type="period"]::after {
+            content: "历史时期";
+        }
+        
+        .filter-button[data-type="person"]::after {
+            content: "人物";
         }
 
         .filter-button:hover::after {

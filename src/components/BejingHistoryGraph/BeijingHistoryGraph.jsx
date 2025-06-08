@@ -515,7 +515,6 @@ const BeijingHistoryGraph = () => {
     const allButton = buttonContainer.append('button')
       .attr('class', 'filter-button')
       .attr('data-type', '全部')
-      .attr('title', '显示全部')
       .on('click', () => toggleAllNodeTypes(true));
     allButton.append('i')
       .attr('class', 'fas fa-globe');
@@ -531,7 +530,6 @@ const BeijingHistoryGraph = () => {
       const button = groupContainer.append('button')
         .attr('class', 'filter-button')
         .attr('data-type', type)
-        .attr('title', buttonText)
         .on('click', function() {
           toggleGroupType(type, d3.select(this));
         });
@@ -557,7 +555,6 @@ const BeijingHistoryGraph = () => {
       const button = eventContainer.append('button')
         .attr('class', 'filter-button')
         .attr('data-type', type)
-        .attr('title', type)
         .on('click', function() {
           toggleEventType(type, d3.select(this));
         });

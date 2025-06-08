@@ -357,14 +357,18 @@ const TimeControl = ({ onDynastyClick, onOpenWordCloud }) => {
 
                     // 检查是否有该朝代的词云数据，如果有则自动显示词云，否则通过回调关闭词云
                     const availableDynasties = ['元', '明', '清'];
-                    if (availableDynasties.includes(targetDynasty.name) && onOpenWordCloud) {
-                        console.log('选择有词云数据的朝代，自动显示词云:', targetDynasty.name);
-                        onOpenWordCloud(targetDynasty.name);
-                    } else if (onOpenWordCloud) {
-                        // 选择了没有词云数据的朝代，通过传递null来关闭词云
-                        console.log('选择了没有词云数据的朝代，关闭词云:', targetDynasty.name);
-                        onOpenWordCloud(null);
-                    }
+                    
+                    // 使用延迟调用避免状态冲突
+                    setTimeout(() => {
+                        if (availableDynasties.includes(targetDynasty.name) && onOpenWordCloud) {
+                            console.log('选择有词云数据的朝代，自动显示词云:', targetDynasty.name);
+                            onOpenWordCloud(targetDynasty.name);
+                        } else if (onOpenWordCloud) {
+                            // 选择了没有词云数据的朝代，通过传递null来关闭词云
+                            console.log('选择了没有词云数据的朝代，关闭词云:', targetDynasty.name);
+                            onOpenWordCloud(null);
+                        }
+                    }, 100);
 
                     // 调用处理函数 - 单选模式，传递当前选中的朝代信息
                     if (onDynastyClick) {
@@ -378,7 +382,7 @@ const TimeControl = ({ onDynastyClick, onOpenWordCloud }) => {
                                 // 如果选中了具体朝代，传递该朝代的时间范围
                                 onDynastyClick(updatedSelection, targetDynasty.start, targetDynasty.end);
                             }
-                        }, 0);
+                        }, 150);
                     }
                 }
             })

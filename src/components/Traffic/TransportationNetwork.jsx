@@ -42,9 +42,9 @@ const TransportationNetwork = () => {
   const [heatmapLoaded, setHeatmapLoaded] = useState(false);
   const heatmapLayerRef = useRef(null);
   
-  // 古城数据显示控制
+  // 古城数据显示控制（仅控制交通路网地图显示）
   const [showCityData, setShowCityData] = useState({
-    war: false,
+    war: false,  // 交通路网地图默认不显示任何古城数据
     disaster: false,
     event: false
   });
@@ -1067,6 +1067,7 @@ const TransportationNetwork = () => {
   useEffect(() => {
     if (!cityDataLoading) {
       updateCityDataDisplay();
+      // 注意：不再同步更新全局store中的显示状态，交通路网地图的复选框只控制地图显示
     }
   }, [showCityData, selectedDynasty, warData, disasterData, eventData, cityDataLoading]);
 
@@ -1814,10 +1815,7 @@ const TransportationNetwork = () => {
             fontSize: '16px',
             pointerEvents: 'none'
           }}>
-            <div>🗺️ 正在初始化地图...</div>
-            <div style={{ fontSize: '12px', marginTop: '8px' }}>
-              请检查浏览器控制台获取详细信息
-            </div>
+            <div>正在初始化地图...</div>
           </div>
         )}
       </div>

@@ -224,9 +224,9 @@ const useDynastyStore = create((set, get) => ({
     } 
   }),
   
-  // 古城数据显示控制
+  // 古城数据显示控制（仅用于交通路网地图，不影响center-bottom区域图表）
   showCityDataInCharts: {
-    war: false,
+    war: true,  // 交通路网地图默认显示战争数据
     disaster: false,
     event: false
   },

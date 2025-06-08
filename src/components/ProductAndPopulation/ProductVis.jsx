@@ -311,18 +311,30 @@ const ProductVis = ({
       return null;
     }
 
-    if (!svgRef.current) {
-      const width = mainRef.current.clientWidth;
-      const height = mainRef.current.clientHeight;
-
-      svgRef.current = d3.select(mainRef.current)
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .attr('viewBox', [0, 0, width, height])
-        .attr('preserveAspectRatio', 'xMidYMid meet')
-        .attr('id', 'mainSvg'); // 添加ID以便在控制台中查找
+    // 先检查是否已经存在SVG，如果存在则直接返回
+    if (svgRef.current && svgRef.current.node() && document.contains(svgRef.current.node())) {
+      return svgRef.current;
     }
+
+    // 清除任何可能存在的旧SVG元素
+    try {
+      d3.select(mainRef.current).selectAll('svg').remove();
+    } catch (error) {
+      console.warn('清理旧SVG时出错:', error);
+    }
+
+    // 创建新的SVG
+    const width = mainRef.current.clientWidth;
+    const height = mainRef.current.clientHeight;
+
+    svgRef.current = d3.select(mainRef.current)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('viewBox', [0, 0, width, height])
+      .attr('preserveAspectRatio', 'xMidYMid meet')
+      .attr('id', 'mainSvg'); // 添加ID以便在控制台中查找
+
     return svgRef.current;
   };
 
@@ -776,14 +788,31 @@ const ProductVis = ({
     }
 
     const svg = svgRef.current;
-    if (!svg) return;
+    if (!svg || !svg.node()) {
+      console.warn('SVG引用无效，跳过绘制');
+      return;
+    }
 
-    // 彻底清除之前的内容和所有事件监听器
-    svg.selectAll('*').each(function() {
-      // 清除每个元素上的所有事件监听器
-      d3.select(this).on('.click', null).on('.mouseover', null).on('.mouseout', null);
-    }).remove();
-    svg.on('.click', null); // 清除SVG上的点击事件监听器
+    // 安全地清除之前的内容和所有事件监听器
+    try {
+      svg.selectAll('*').each(function() {
+        // 清除每个元素上的所有事件监听器
+        const element = d3.select(this);
+        if (element.node()) {
+          element.on('.click', null).on('.mouseover', null).on('.mouseout', null);
+        }
+      }).remove();
+      svg.on('.click', null); // 清除SVG上的点击事件监听器
+    } catch (error) {
+      console.warn('清理SVG内容时出错:', error);
+      // 如果清理失败，尝试重新初始化SVG
+      svgRef.current = null;
+      const newSvg = initializeSvg();
+      if (!newSvg) {
+        console.error('重新初始化SVG失败');
+        return;
+      }
+    }
 
     // 获取容器的宽度
     const containerWidth = mainRef.current.clientWidth;
@@ -1261,8 +1290,20 @@ const ProductVis = ({
         // 如果从详情视图返回，需要清除并重新初始化SVG
         if (svgRef.current) {
           console.log('清除现有SVG');
-          d3.select(mainRef.current).selectAll('svg').remove();
-          svgRef.current = null;
+          try {
+            // 先检查SVG是否还在DOM中
+            if (svgRef.current.node() && document.contains(svgRef.current.node())) {
+              // 清除事件监听器
+              svgRef.current.selectAll('*').on('.click', null).on('.mouseover', null).on('.mouseout', null);
+              svgRef.current.on('.click', null);
+              // 移除SVG元素
+              svgRef.current.remove();
+            }
+          } catch (error) {
+            console.warn('清理现有SVG时出错:', error);
+          } finally {
+            svgRef.current = null;
+          }
         }
 
         // 初始化SVG
@@ -1341,6 +1382,24 @@ const ProductVis = ({
       if (mainElement) {
         mainElement.removeEventListener('wheel', handleWheel);
       }
+      
+      // 清理SVG和相关资源
+      if (svgRef.current) {
+        try {
+          if (svgRef.current.node() && document.contains(svgRef.current.node())) {
+            // 清除所有事件监听器
+            svgRef.current.selectAll('*').on('.click', null).on('.mouseover', null).on('.mouseout', null);
+            svgRef.current.on('.click', null);
+            // 移除SVG元素
+            svgRef.current.remove();
+          }
+        } catch (error) {
+          console.warn('组件卸载时清理SVG出错:', error);
+        } finally {
+          svgRef.current = null;
+        }
+      }
+      
       // 清理防抖定时器和重置初始化标志
       if (redrawTimeoutRef.current) {
         clearTimeout(redrawTimeoutRef.current);

@@ -31,6 +31,7 @@ const COMMON_ATTRIBUTE_CONFIG = [
 const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, showCityData }) => {
   const chartRef = useRef(null);
   const chartInstanceRef = useRef(null);
+  const [forceUpdateKey, setForceUpdateKey] = useState(0);
 
   // 获取属性对应的颜色
   const getAttributeColor = (attributeConfig, value) => {
@@ -77,8 +78,10 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
   };
 
   const renderCombinedPolarChart = () => {
+    console.log('🔄 CityDataCharts: 开始渲染图表，distance值为:', -20);
     if (!chartRef.current) return;
     
+    // 强制清理旧的图表实例，确保重新渲染
     if (chartInstanceRef.current) {
       chartInstanceRef.current.dispose();
       chartInstanceRef.current = null;
@@ -99,7 +102,7 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
           justify-content: center;
           height: 100%;
           color: #666;
-          font-family: 'Noto Serif SC', serif;
+          font-family: '楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif;
         ">
           请选择古城数据项查看属性分析
         </div>
@@ -188,29 +191,32 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
         show: legendData.length > 1,
         data: legendData,
         orient: 'horizontal',
-        top: 10,
+        top: 5,  // 从10调整为5，缩小图例和图表之间的距离
         left: 'center',
         itemWidth: 12,
         itemHeight: 8,
         itemGap: 15,
         textStyle: { 
-          fontSize: 8,
-          fontFamily: "'Noto Serif SC', serif"
+          fontSize: 10,
+          fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif"
         }
       },
       polar: {
-        radius: [0, '75%'],
-        center: ['50%', '50%']
+        radius: [0, '62%'],  // 减小半径，给标签更多空间
+        center: ['50%', '38%']  // 将图表中心进一步向上移动，从42%改为38%
       },
       angleAxis: {
         type: 'category',
         data: angleAxisData,
         axisLabel: {
           fontSize: 9,
-          fontFamily: "'Noto Serif SC', serif",
+          fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
           color: '#8C6D46',
-          distance: -80,
-          margin: 0
+          distance: 15,  // 尝试较小的正值
+          margin: 5,    // 添加margin
+          rotate: 0,    // 确保文字不旋转
+          verticalAlign: 'middle',
+          align: 'center'
         },
         axisLine: {
           show: false
@@ -246,14 +252,30 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
       series: series
     };
     
-    chart.setOption(option);
+    chart.setOption(option, {
+      notMerge: true,  // 不合并，完全重新渲染
+      replaceMerge: ['series', 'angleAxis', 'radiusAxis'], // 强制替换这些组件
+      silent: false
+    });
+    console.log('✅ CityDataCharts: 图表配置已应用，angleAxis distance:', -20);
     chartInstanceRef.current = chart;
   };
 
+  // 创建稳定的数据变化标识，避免useEffect依赖数组大小变化的警告
+  const dataKey = `${warData.length}-${disasterData.length}-${eventData.length}-${selectedDynasty}-${showCityData.war}-${showCityData.disaster}-${showCityData.event}-${forceUpdateKey}`;
+  
   // 更新图表
   useEffect(() => {
     renderCombinedPolarChart();
-  }, [warData, disasterData, eventData, selectedDynasty, showCityData]);
+  }, [dataKey]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 添加强制更新机制
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setForceUpdateKey(prev => prev + 1);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [warData, disasterData, eventData]);
 
   // 监听窗口尺寸变化 - 使用window resize事件
   useEffect(() => {
@@ -302,7 +324,7 @@ const CityDataCharts = ({ warData, disasterData, eventData, selectedDynasty, sho
         width: '100%',
         height: '100%', 
         minHeight: '200px',
-        fontFamily: "'Noto Serif SC', serif"
+        fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif"
       }}
     />
   );

@@ -104,7 +104,7 @@ const WordCloudView = ({ dynasty, onClose, isEmbedded = false }) => {
           fontSize: isEmbedded ? 18 : 24,
           fontWeight: 'bold',
           color: '#2d2520',
-          fontFamily: "'Noto Serif SC', serif"
+          fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif"
         }
       },
       tooltip: {
@@ -115,7 +115,7 @@ const WordCloudView = ({ dynasty, onClose, isEmbedded = false }) => {
         textStyle: {
           color: '#fff',
           fontSize: 12,
-          fontFamily: "'Noto Serif SC', serif"
+          fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif"
         },
         formatter: function (params) {
           const data = params.data;
@@ -135,7 +135,7 @@ const WordCloudView = ({ dynasty, onClose, isEmbedded = false }) => {
         drawOutOfBound: false,
         layoutAnimation: true,
         textStyle: {
-          fontFamily: "'Noto Serif SC', serif",
+          fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
           fontWeight: 'normal'
         },
         emphasis: {

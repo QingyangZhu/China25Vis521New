@@ -49,7 +49,7 @@ const HeatmapChart = ({ dynasty, startYear, endYear, width = '1100px', height = 
                 }
             },
             grid: {
-                left: '3%',
+                left: '8%',
                 right: '2%',
                 bottom: '3%',
                 containLabel: true
@@ -70,21 +70,29 @@ const HeatmapChart = ({ dynasty, startYear, endYear, width = '1100px', height = 
                 type: 'category',
                 data: eventTypes,
                 splitArea: {
-                    show: true
+                    show: true,
+                    areaStyle: {
+                        color:['transparent', 'transparent'] // 自定义背景色，或者设置为 ['transparent', 'transparent'] 完全透明
+                    }
+                },
+                axisLabel: {
+                    show: false  // 隐藏Y轴标签
+                },
+                axisLine: {
+                    show: false  // 隐藏Y轴线
+                },
+                axisTick: {
+                    show: false  // 隐藏Y轴刻度
                 }
             },
             visualMap: {
-                show: false,
+                show: false,  // 隐藏 visualMap，但保持必要的配置
                 min: 1,
                 max: 5,
-                calculable: true,
+                calculable: false,
                 orient: 'vertical',
-                itemHeight: '80px',
-                right: '5%',
-                top: '30%',
-                height: '150px',
                 inRange: {
-                    color: ['#f7e8d0', '#e6c9a8', '#d4a373', '#bc6c25', '#a47148']
+                    color: ['#E8E0D0', '#D4C2A0', '#B8A48E', '#A68B7A', '#8C6D46']  // 保持基础配置
                 }
             },
             series: []
@@ -200,12 +208,36 @@ const HeatmapChart = ({ dynasty, startYear, endYear, width = '1100px', height = 
                 ];
             });
 
+            // 为每个系列创建独立的颜色映射函数
+            const getDisasterColor = (value) => {
+                const colors = ['#E8F4F1', '#C5E1D8', '#A0C1B8', '#7BA098', '#5A7F78']; // 绿色系渐变
+                const index = Math.min(Math.floor((value - 1) / 4 * colors.length), colors.length - 1);
+                return colors[Math.max(0, index)];
+            };
+            
+            const getWarColor = (value) => {
+                const colors = ['#F5E6D3', '#EAD1B3', '#D49C6A', '#C8864A', '#B8753A']; // 暖色系渐变
+                const index = Math.min(Math.floor((value - 1) / 4 * colors.length), colors.length - 1);
+                return colors[Math.max(0, index)];
+            };
+            
+            const getEventColor = (value) => {
+                const colors = ['#F0EBE5', '#E0D5C5', '#B8A48E', '#A68B7A', '#8C6D46']; // 棕色系渐变
+                const index = Math.min(Math.floor((value - 1) / 4 * colors.length), colors.length - 1);
+                return colors[Math.max(0, index)];
+            };
+
             // Update chart data
             option.series = [
                 {
                     name: '灾害',
                     type: 'heatmap',
-                    data: tangDisasters,
+                    data: tangDisasters.map(item => ({
+                        ...item,
+                        itemStyle: {
+                            color: getDisasterColor(item.value[2])
+                        }
+                    })),
                     label: {
                         show: false
                     },
@@ -219,7 +251,12 @@ const HeatmapChart = ({ dynasty, startYear, endYear, width = '1100px', height = 
                 {
                     name: '战争',
                     type: 'heatmap',
-                    data: tangWars,
+                    data: tangWars.map(item => ({
+                        ...item,
+                        itemStyle: {
+                            color: getWarColor(item.value[2])
+                        }
+                    })),
                     label: {
                         show: false
                     },
@@ -233,7 +270,12 @@ const HeatmapChart = ({ dynasty, startYear, endYear, width = '1100px', height = 
                 {
                     name: '事件',
                     type: 'heatmap',
-                    data: tangEvents,
+                    data: tangEvents.map(item => ({
+                        ...item,
+                        itemStyle: {
+                            color: getEventColor(item.value[2])
+                        }
+                    })),
                     label: {
                         show: false
                     },
@@ -250,8 +292,8 @@ const HeatmapChart = ({ dynasty, startYear, endYear, width = '1100px', height = 
                     data: disasterLineData,
                     symbol: 'none',
                     lineStyle: {
-                        width: 2,
-                        color: '#c69c9c'
+                        width: 1,
+                        color: '#5A7F78'  // 灾害次数 - 最深的绿色系
                     },
                     z: 3,
                     yAxisIndex: 1,
@@ -263,8 +305,8 @@ const HeatmapChart = ({ dynasty, startYear, endYear, width = '1100px', height = 
                     data: warLineData,
                     symbol: 'none',
                     lineStyle: {
-                        width: 2,
-                        color: '#507987'
+                        width: 1,
+                        color: '#B8753A'  // 战争次数 - 最深的暖色系
                     },
                     z: 3,
                     yAxisIndex: 1,
@@ -276,8 +318,8 @@ const HeatmapChart = ({ dynasty, startYear, endYear, width = '1100px', height = 
                     data: eventLineData,
                     symbol: 'none',
                     lineStyle: {
-                        width: 2,
-                        color: '#5d835d'
+                        width: 1,
+                        color: '#8C6D46'  // 事件次数 - 最深的棕色系
                     },
                     z: 3,
                     yAxisIndex: 1,
@@ -290,7 +332,19 @@ const HeatmapChart = ({ dynasty, startYear, endYear, width = '1100px', height = 
                     type: 'category',
                     data: eventTypes,
                     splitArea: {
-                        show: true
+                        show: true,
+                        areaStyle: {
+                            color: ['transparent', 'transparent']
+                        }
+                    },
+                    axisLabel: {
+                        show: false  // 隐藏Y轴标签
+                    },
+                    axisLine: {
+                        show: false  // 隐藏Y轴线
+                    },
+                    axisTick: {
+                        show: false  // 隐藏Y轴刻度
                     }
                 },
                 {
