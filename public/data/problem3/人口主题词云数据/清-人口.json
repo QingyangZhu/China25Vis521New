@@ -1,1277 +1,1357 @@
 {
   "title": "清朝人口文本主题词云数据",
-  "total_words": 154,
+  "total_words": 164,
   "total_topics": 6,
   "topic_info": [
     {
       "topic_id": 1,
       "topic_name": "八旗人口户籍",
-      "topic_color": "#FF6B6B",
-      "word_count": 26
+      "topic_color": "#CD5C5C",
+      "word_count": 27
     },
     {
       "topic_id": 2,
       "topic_name": "内外城居住",
-      "topic_color": "#4ECDC4",
+      "topic_color": "#4682B4",
       "word_count": 25
     },
     {
       "topic_id": 3,
       "topic_name": "人口迁移流动",
-      "topic_color": "#45B7D1",
-      "word_count": 27
+      "topic_color": "#228B22",
+      "word_count": 28
     },
     {
       "topic_id": 4,
       "topic_name": "户口统计管理",
-      "topic_color": "#96CEB4",
-      "word_count": 27
+      "topic_color": "#DAA520",
+      "word_count": 29
     },
     {
       "topic_id": 5,
       "topic_name": "官员兵丁制度",
-      "topic_color": "#FFEAA7",
-      "word_count": 22
+      "topic_color": "#9932CC",
+      "word_count": 28
     },
     {
       "topic_id": 6,
       "topic_name": "清末人口变化",
-      "topic_color": "#DDA0DD",
+      "topic_color": "#A0522D",
       "word_count": 27
     }
   ],
   "word_data": [
     {
-      "word": "北京",
-      "weight": 17.35456200760816,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
+      "word": "八旗",
+      "weight": 28.055772793413553,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
       "normalized_weight": 1.0
     },
     {
-      "word": "八旗",
-      "weight": 14.99186629179571,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.8638573699078862
-    },
-    {
-      "word": "京师",
-      "weight": 14.466553961331167,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.8335879611936675
-    },
-    {
-      "word": "五城",
-      "weight": 13.796107264409294,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.794955658250617
-    },
-    {
-      "word": "增长",
-      "weight": 12.282929432272981,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.7077637238489916
-    },
-    {
-      "word": "生活",
-      "weight": 10.750956490988376,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.6194887826195329
-    },
-    {
-      "word": "康熙",
-      "weight": 10.703909230178342,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.6167778377515836
-    },
-    {
-      "word": "内城",
-      "weight": 10.091830552370551,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.5815088014290617
-    },
-    {
-      "word": "闲散",
-      "weight": 9.939379696060142,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.572724318349421
-    },
-    {
-      "word": "户口",
-      "weight": 8.893140999233745,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.5124382277890409
-    },
-    {
-      "word": "人丁",
-      "weight": 8.87514092024376,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.5114010319795418
-    },
-    {
-      "word": "旗人",
-      "weight": 8.820460877199114,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.508250272944501
-    },
-    {
       "word": "兵丁",
-      "weight": 8.760467580027505,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.5047933549799157
+      "weight": 17.796386427004137,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.6343217332862798
     },
     {
       "word": "城市",
-      "weight": 8.307614666592045,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.4786991837045513
+      "weight": 17.5966166597276,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.6272012818644807
     },
     {
-      "word": "内外",
-      "weight": 8.058407896181535,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.4643394568326626
+      "word": "旗人",
+      "weight": 13.266064511815985,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.4728461628734875
+    },
+    {
+      "word": "户口",
+      "weight": 12.819135011422206,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.4569161258117852
+    },
+    {
+      "word": "康熙",
+      "weight": 12.014024504397437,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.4282193398435947
+    },
+    {
+      "word": "五城",
+      "weight": 11.383384847710394,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.40574126870541194
+    },
+    {
+      "word": "闲散",
+      "weight": 11.318159563133689,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.4034164250785054
     },
     {
       "word": "乾隆",
-      "weight": 8.042381020193222,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.4634159604066919
-    },
-    {
-      "word": "旗下",
-      "weight": 7.754599631672942,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.4468334970524385
-    },
-    {
-      "word": "京城",
-      "weight": 7.713387331983261,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.44445877277696483
-    },
-    {
-      "word": "佐领",
-      "weight": 7.46783214243023,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.43030945633524875
-    },
-    {
-      "word": "一带",
-      "weight": 7.052135425138522,
+      "weight": 11.300551279907943,
       "topic_id": 2,
       "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.4063562896054017
-    },
-    {
-      "word": "满洲",
-      "weight": 6.8925255412566715,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.3971592909250617
-    },
-    {
-      "word": "政策",
-      "weight": 6.885785272508589,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.39677090493496137
-    },
-    {
-      "word": "步军统领",
-      "weight": 6.771155969057837,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.39016576541023584
-    },
-    {
-      "word": "住房",
-      "weight": 6.741099473874873,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.3884338579630881
-    },
-    {
-      "word": "会馆",
-      "weight": 6.149218690041209,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.3543286593660745
-    },
-    {
-      "word": "驻防",
-      "weight": 6.117514560498415,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.35250181236590844
-    },
-    {
-      "word": "宗室",
-      "weight": 6.035164333562213,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.3477566492842876
-    },
-    {
-      "word": "光绪",
-      "weight": 5.978532185313835,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.3444934065574731
-    },
-    {
-      "word": "后期",
-      "weight": 5.9448285865665955,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.34255134666956216
-    },
-    {
-      "word": "清廷",
-      "weight": 5.868256914389489,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.33813915394792865
-    },
-    {
-      "word": "汉人",
-      "weight": 5.779959054501936,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.33305127792726946
-    },
-    {
-      "word": "经济",
-      "weight": 5.762355256511137,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.33203691651710643
-    },
-    {
-      "word": "嘉庆",
-      "weight": 5.722306285503852,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.3297292252604946
-    },
-    {
-      "word": "发展",
-      "weight": 5.691096937008825,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.3279308884035146
-    },
-    {
-      "word": "生计",
-      "weight": 5.655853157642066,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.3259000806337012
-    },
-    {
-      "word": "调查",
-      "weight": 5.396643496159901,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.31096396980771035
-    },
-    {
-      "word": "制度",
-      "weight": 5.348561209015029,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.3081933849249693
-    },
-    {
-      "word": "实行",
-      "weight": 5.310674749290656,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.3060103013237949
-    },
-    {
-      "word": "纷纷",
-      "weight": 5.309170425183739,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.3059236195564154
-    },
-    {
-      "word": "统计",
-      "weight": 5.271977648134952,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.3037805071556252
-    },
-    {
-      "word": "京旗",
-      "weight": 5.22112488605174,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.3008502826958596
-    },
-    {
-      "word": "明代",
-      "weight": 5.2015321116445765,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.29972131301062216
-    },
-    {
-      "word": "这些",
-      "weight": 5.185013165427521,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.2987694626435652
-    },
-    {
-      "word": "城市户口",
-      "weight": 5.106859155824986,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.29426609289166517
-    },
-    {
-      "word": "居住",
-      "weight": 5.0784577929343815,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.2926295570414286
+      "color": "#4682B4",
+      "normalized_weight": 0.40278880796186406
     },
     {
       "word": "增加",
-      "weight": 5.001660065088062,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.28820433859957734
-    },
-    {
-      "word": "迁移",
-      "weight": 4.94624450617849,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.28501119786313706
-    },
-    {
-      "word": "他们",
-      "weight": 4.932127146198438,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.28419773106553864
-    },
-    {
-      "word": "一定",
-      "weight": 4.814290237847818,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.27740776377630594
-    },
-    {
-      "word": "造成",
-      "weight": 4.765724961080038,
+      "weight": 10.574360564444763,
       "topic_id": 2,
       "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.2746093481927557
+      "color": "#4682B4",
+      "normalized_weight": 0.3769049828820694
     },
     {
-      "word": "限制",
-      "weight": 4.66340671548535,
+      "word": "人丁",
+      "weight": 9.885048064315704,
       "topic_id": 6,
       "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.26871359320050453
+      "color": "#A0522D",
+      "normalized_weight": 0.3523356186658435
     },
     {
-      "word": "汉军",
-      "weight": 4.642557277024922,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.2675122123502539
-    },
-    {
-      "word": "逐渐",
-      "weight": 4.642402830473205,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.26750331287173923
-    },
-    {
-      "word": "地方",
-      "weight": 4.626626739080947,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.266594267089694
-    },
-    {
-      "word": "四郊",
-      "weight": 4.609320859219596,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.2655970722395006
-    },
-    {
-      "word": "由于",
-      "weight": 4.607129014984386,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.26547077436841343
-    },
-    {
-      "word": "清政府",
-      "weight": 4.60577242428767,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.26539260525667663
-    },
-    {
-      "word": "清初",
-      "weight": 4.542810803304328,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.2617646473194069
-    },
-    {
-      "word": "城属",
-      "weight": 4.537931500276265,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.2614834934057602
-    },
-    {
-      "word": "土地",
-      "weight": 4.520075153949505,
+      "word": "佐领",
+      "weight": 9.760210385732357,
       "topic_id": 2,
       "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.2604545797219155
-    },
-    {
-      "word": "共计",
-      "weight": 4.43201822569938,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.25538058660059554
-    },
-    {
-      "word": "严重",
-      "weight": 4.329073720477252,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.24944874544107806
-    },
-    {
-      "word": "保甲",
-      "weight": 4.314704080658781,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.24862074184109254
-    },
-    {
-      "word": "户籍制度",
-      "weight": 4.192944857194459,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.24160476394369917
-    },
-    {
-      "word": "圆明园",
-      "weight": 4.188192744410191,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.2413309389527726
-    },
-    {
-      "word": "划分",
-      "weight": 4.1627384673991035,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.23986421930868543
-    },
-    {
-      "word": "初年",
-      "weight": 4.0627133673788105,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.23410059934660038
-    },
-    {
-      "word": "顺治",
-      "weight": 4.036391372794737,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.23258388030912
-    },
-    {
-      "word": "京畿",
-      "weight": 4.001991481961166,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.2306016988620463
-    },
-    {
-      "word": "国家",
-      "weight": 3.9708640371894166,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.2288080814398317
-    },
-    {
-      "word": "参领",
-      "weight": 3.9675672689081387,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.22861811592645068
-    },
-    {
-      "word": "城外",
-      "weight": 3.959117552133104,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.2281312285724898
+      "color": "#4682B4",
+      "normalized_weight": 0.3478859932891847
     },
     {
       "word": "雍正",
-      "weight": 3.9559856504466326,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.22795076295860114
-    },
-    {
-      "word": "会典",
-      "weight": 3.9181281881105856,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.22576935023729763
-    },
-    {
-      "word": "为民",
-      "weight": 3.8439285413683697,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.22149383774037104
-    },
-    {
-      "word": "控制",
-      "weight": 3.7807603970995953,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.217853979572756
-    },
-    {
-      "word": "社会",
-      "weight": 3.7518146118629008,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.2161860731615193
-    },
-    {
-      "word": "村庄",
-      "weight": 3.7497181838556295,
+      "weight": 8.941358487466623,
       "topic_id": 2,
       "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.2160652733391814
+      "color": "#4682B4",
+      "normalized_weight": 0.31869941895044573
     },
     {
-      "word": "来京",
-      "weight": 3.7376838834625823,
+      "word": "增长",
+      "weight": 8.730384187027166,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.3111796011221168
+    },
+    {
+      "word": "内外",
+      "weight": 8.7025861951793,
       "topic_id": 5,
       "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.21537183605233018
+      "color": "#9932CC",
+      "normalized_weight": 0.31018878928269417
     },
     {
-      "word": "及其",
-      "weight": 3.7166706853636984,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.21416101908733434
+      "word": "顺治",
+      "weight": 8.41477729895337,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.299930333800281
     },
     {
-      "word": "包括",
-      "weight": 3.7022376517242406,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.21332936262529684
-    },
-    {
-      "word": "当时",
-      "weight": 3.6895022206302963,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.2125955249699091
-    },
-    {
-      "word": "满族",
-      "weight": 3.6516744341231977,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.21041582222140326
-    },
-    {
-      "word": "大兴",
-      "weight": 3.609490931700747,
+      "word": "内城",
+      "weight": 7.986031499516525,
       "topic_id": 5,
       "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.20798513555792206
-    },
-    {
-      "word": "导致",
-      "weight": 3.6070682781141628,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.20784553805119604
-    },
-    {
-      "word": "疏散",
-      "weight": 3.5806316785391488,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.20632221527511996
-    },
-    {
-      "word": "较为",
-      "weight": 3.5551520617415915,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.20485403550853254
-    },
-    {
-      "word": "三十四年",
-      "weight": 3.500904243925013,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.2017281820417152
-    },
-    {
-      "word": "户籍",
-      "weight": 3.4813466417608643,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.2006012390421987
-    },
-    {
-      "word": "出旗",
-      "weight": 3.4308585928710627,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.1976920299899813
-    },
-    {
-      "word": "分布",
-      "weight": 3.3850824696035984,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.19505433027463293
-    },
-    {
-      "word": "缓慢",
-      "weight": 3.3831221924684893,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.19494137570198225
+      "color": "#9932CC",
+      "normalized_weight": 0.2846484236353435
     },
     {
       "word": "清末",
-      "weight": 3.382517450898319,
-      "topic_id": 6,
-      "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.19490652944254308
+      "weight": 7.580930404663019,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.2702092884941932
     },
     {
-      "word": "约计",
-      "weight": 3.378268706122154,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.19466170939036875
+      "word": "驻防",
+      "weight": 7.549749539052917,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.2690978999097582
     },
     {
-      "word": "清军",
-      "weight": 3.3566660913356574,
+      "word": "地方",
+      "weight": 6.886083866383781,
       "topic_id": 3,
       "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.1934169292122792
+      "color": "#228B22",
+      "normalized_weight": 0.24544267296035333
     },
     {
-      "word": "可以",
-      "weight": 3.329688290831286,
+      "word": "光绪",
+      "weight": 6.861168544465546,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.2445546089564958
+    },
+    {
+      "word": "调查",
+      "weight": 6.759839030636609,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.24094289187512835
+    },
+    {
+      "word": "会馆",
+      "weight": 6.598018319794342,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.23517506961502446
+    },
+    {
+      "word": "社会",
+      "weight": 6.3413302767296065,
       "topic_id": 4,
       "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.19186242149882932
+      "color": "#DAA520",
+      "normalized_weight": 0.22602586367602442
+    },
+    {
+      "word": "清廷",
+      "weight": 6.141768743751968,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.2189128344093885
+    },
+    {
+      "word": "制度",
+      "weight": 6.025042399301682,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.21475232365426544
+    },
+    {
+      "word": "经济",
+      "weight": 6.006603999565803,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.21409511845547627
     },
     {
       "word": "编审",
-      "weight": 3.3239615634941457,
+      "weight": 5.9592338812892915,
       "topic_id": 6,
       "topic_name": "清末人口变化",
-      "color": "#DDA0DD",
-      "normalized_weight": 0.19153243752489613
+      "color": "#A0522D",
+      "normalized_weight": 0.21240669166982623
     },
     {
-      "word": "东北",
-      "weight": 3.3228863056205724,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.19147047929897826
+      "word": "步军统领",
+      "weight": 5.843062485268346,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.20826596110159828
     },
     {
-      "word": "宣统",
-      "weight": 3.2909356217306285,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.18962942540917468
+      "word": "生计",
+      "weight": 5.666638573592598,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.20197763274312347
     },
     {
-      "word": "元年",
-      "weight": 3.2818845764436557,
+      "word": "分布",
+      "weight": 5.596025804258895,
       "topic_id": 1,
       "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.18910788846211693
+      "color": "#CD5C5C",
+      "normalized_weight": 0.19946076144345712
     },
     {
-      "word": "这种",
-      "weight": 3.2616372734777386,
+      "word": "清政府",
+      "weight": 5.510766696702203,
       "topic_id": 1,
       "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.18794120370470035
+      "color": "#CD5C5C",
+      "normalized_weight": 0.19642184648700622
     },
     {
-      "word": "明显",
-      "weight": 3.240417441601673,
-      "topic_id": 4,
-      "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.18671848014263276
+      "word": "城市户口",
+      "weight": 5.403910680067396,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.19261314667247492
     },
     {
-      "word": "之外",
-      "weight": 3.219849235647296,
+      "word": "圆明园",
+      "weight": 5.384189239476827,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.191910209678517
+    },
+    {
+      "word": "限制",
+      "weight": 5.136135738558342,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.18306876721514206
+    },
+    {
+      "word": "满洲",
+      "weight": 5.062695537822744,
       "topic_id": 2,
       "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.18553330439775598
-    },
-    {
-      "word": "咸丰",
-      "weight": 3.2093323688053705,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.18492730426722462
-    },
-    {
-      "word": "四年",
-      "weight": 3.1512619349202398,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.18158118502436082
-    },
-    {
-      "word": "宛二县",
-      "weight": 3.13392423799642,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.1805821568197758
+      "color": "#4682B4",
+      "normalized_weight": 0.18045111696268357
     },
     {
       "word": "流民",
-      "weight": 3.1102344706712435,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.17921711128795595
+      "weight": 4.962183951331032,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.17686855350125902
     },
     {
-      "word": "编户",
-      "weight": 3.069691027957776,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.1768809277129574
-    },
-    {
-      "word": "增长率",
-      "weight": 3.0342259100156497,
+      "word": "发展",
+      "weight": 4.958342382248062,
       "topic_id": 4,
       "topic_name": "户口统计管理",
-      "color": "#96CEB4",
-      "normalized_weight": 0.17483736603006514
+      "color": "#DAA520",
+      "normalized_weight": 0.1767316273466577
     },
     {
-      "word": "规定",
-      "weight": 3.0318523910028206,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.1747005997428037
-    },
-    {
-      "word": "官兵",
-      "weight": 3.0228442482355184,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.17418153491343186
-    },
-    {
-      "word": "地位",
-      "weight": 3.0050482160758234,
+      "word": "村庄",
+      "weight": 4.904507183387564,
       "topic_id": 3,
       "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.17315609663663215
+      "color": "#228B22",
+      "normalized_weight": 0.17481276382944475
     },
     {
-      "word": "大清",
-      "weight": 2.9792946485095495,
+      "word": "这些",
+      "weight": 4.892180087374375,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.17437338559153417
+    },
+    {
+      "word": "居住",
+      "weight": 4.886209069518061,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.17416055888024443
+    },
+    {
+      "word": "迁移",
+      "weight": 4.882345733465239,
       "topic_id": 3,
       "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.17167213135102116
-    },
-    {
-      "word": "不仅",
-      "weight": 2.954909620826206,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.17026702371000704
-    },
-    {
-      "word": "编设",
-      "weight": 2.9458500804772174,
-      "topic_id": 3,
-      "topic_name": "人口迁移流动",
-      "color": "#45B7D1",
-      "normalized_weight": 0.1697449972627238
-    },
-    {
-      "word": "营汛",
-      "weight": 2.937738337377647,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.16927758453885244
-    },
-    {
-      "word": "所属",
-      "weight": 2.8774728199965387,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.16580498077307096
-    },
-    {
-      "word": "巡警",
-      "weight": 2.8434869452550777,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.16384665565218565
-    },
-    {
-      "word": "宣南",
-      "weight": 2.81852654806287,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.16240839422091097
-    },
-    {
-      "word": "中心",
-      "weight": 2.7998466555934125,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.16133202637819224
-    },
-    {
-      "word": "人数",
-      "weight": 2.766521336439166,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.1594117636173322
-    },
-    {
-      "word": "汉官",
-      "weight": 2.7113954558743596,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.15623531465015922
-    },
-    {
-      "word": "南苑",
-      "weight": 2.6888016197473434,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.15493341857712026
-    },
-    {
-      "word": "十四年",
-      "weight": 2.6675599664712997,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.1537094376280919
-    },
-    {
-      "word": "二十年",
-      "weight": 2.6499770898469133,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.15269628174339264
-    },
-    {
-      "word": "作为",
-      "weight": 2.6363808143055625,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.15191284073604308
-    },
-    {
-      "word": "形成",
-      "weight": 2.628260760669445,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.1514449491446242
-    },
-    {
-      "word": "影响",
-      "weight": 2.580049052679198,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.1486669068080264
-    },
-    {
-      "word": "民国",
-      "weight": 2.5642846976087648,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.14775853729322552
-    },
-    {
-      "word": "占籍",
-      "weight": 2.561537963633548,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.14760026571172363
-    },
-    {
-      "word": "三年",
-      "weight": 2.5412614043027717,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.14643189515175864
-    },
-    {
-      "word": "北京地区",
-      "weight": 2.5338823754994944,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.1460067026980371
-    },
-    {
-      "word": "提供",
-      "weight": 2.5201103003416057,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.14521313181149723
-    },
-    {
-      "word": "集中",
-      "weight": 2.5108457942505242,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.14467929488222067
-    },
-    {
-      "word": "天府",
-      "weight": 2.5005957308384437,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.14408866842863532
-    },
-    {
-      "word": "规模",
-      "weight": 2.484590872355398,
-      "topic_id": 1,
-      "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.1431664406895527
-    },
-    {
-      "word": "入关",
-      "weight": 2.4369571625921997,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.14042170361452216
-    },
-    {
-      "word": "壮丁",
-      "weight": 2.4111145492297226,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.13893260735550117
+      "color": "#228B22",
+      "normalized_weight": 0.17402285687925984
     },
     {
       "word": "明末",
-      "weight": 2.3948279849610663,
+      "weight": 4.865363624438862,
       "topic_id": 2,
       "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.13799414723985456
+      "color": "#4682B4",
+      "normalized_weight": 0.17341755867017383
     },
     {
-      "word": "存在",
-      "weight": 2.385211323513761,
+      "word": "统计",
+      "weight": 4.84529383588705,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.1727022054093817
+    },
+    {
+      "word": "初年",
+      "weight": 4.805866529592251,
       "topic_id": 2,
       "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.13744001850741583
+      "color": "#4682B4",
+      "normalized_weight": 0.17129688656163086
     },
     {
-      "word": "胡同",
-      "weight": 2.3721378141451184,
+      "word": "汉人",
+      "weight": 4.727419925561814,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.16850079163285908
+    },
+    {
+      "word": "北京城",
+      "weight": 4.722842365427949,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.1683376323369961
+    },
+    {
+      "word": "参领",
+      "weight": 4.703502067687237,
       "topic_id": 1,
       "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.13668670019474904
+      "color": "#CD5C5C",
+      "normalized_weight": 0.16764828052754419
     },
     {
-      "word": "政权",
-      "weight": 2.366129806176341,
+      "word": "严重",
+      "weight": 4.689221611549161,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.1671392781114201
+    },
+    {
+      "word": "政策",
+      "weight": 4.666713058890353,
       "topic_id": 1,
       "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.13634050834236214
+      "color": "#CD5C5C",
+      "normalized_weight": 0.1663369992783062
     },
     {
-      "word": "具有",
-      "weight": 2.3585672737112495,
+      "word": "土地",
+      "weight": 4.651536835720588,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.16579606877956307
+    },
+    {
+      "word": "嘉庆",
+      "weight": 4.568105266893068,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.1628222933130357
+    },
+    {
+      "word": "京畿",
+      "weight": 4.566094932305795,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.16275063837762985
+    },
+    {
+      "word": "规定",
+      "weight": 4.409371534747629,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.15716450112480185
+    },
+    {
+      "word": "壮丁",
+      "weight": 4.3564403226108706,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.15527785866706192
+    },
+    {
+      "word": "旗下",
+      "weight": 4.305564676610051,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.15346448334586016
+    },
+    {
+      "word": "城属",
+      "weight": 4.298608220734335,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.15321653238307828
+    },
+    {
+      "word": "原因",
+      "weight": 4.268210792961254,
       "topic_id": 1,
       "topic_name": "八旗人口户籍",
-      "color": "#FF6B6B",
-      "normalized_weight": 0.13590474208898298
+      "color": "#CD5C5C",
+      "normalized_weight": 0.1521330680993849
     },
     {
-      "word": "所辖为界",
-      "weight": 2.354128263644596,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.1356489586203649
-    },
-    {
-      "word": "在外",
-      "weight": 2.3341866069511226,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.13449988573193758
-    },
-    {
-      "word": "城乡",
-      "weight": 2.331981278068119,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.1343728108520278
-    },
-    {
-      "word": "众多",
-      "weight": 2.122680962549021,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.12231256321066745
-    },
-    {
-      "word": "基本",
-      "weight": 2.06036923861788,
-      "topic_id": 2,
-      "topic_name": "内外城居住",
-      "color": "#4ECDC4",
-      "normalized_weight": 0.11872205347012639
+      "word": "划分",
+      "weight": 4.247795162230263,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.15140538788607122
     },
     {
       "word": "直省",
-      "weight": 1.8151463809085333,
+      "weight": 4.208535411734813,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.15000604127799394
+    },
+    {
+      "word": "影响",
+      "weight": 4.103881313061088,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.14627582506030723
+    },
+    {
+      "word": "户籍",
+      "weight": 3.9797192411267805,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.14185028052626195
+    },
+    {
+      "word": "北城",
+      "weight": 3.9317604668454287,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.14014087210488313
+    },
+    {
+      "word": "为民",
+      "weight": 3.921479609532962,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.1397744285430476
+    },
+    {
+      "word": "四郊",
+      "weight": 3.91938077183532,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.13969961906575762
+    },
+    {
+      "word": "编设",
+      "weight": 3.891278231072162,
       "topic_id": 5,
       "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.10459188656635539
+      "color": "#9932CC",
+      "normalized_weight": 0.13869795210152575
+    },
+    {
+      "word": "保甲",
+      "weight": 3.8785408262819656,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.1382439491095573
+    },
+    {
+      "word": "北京地区",
+      "weight": 3.87415750888406,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.13808771326354508
+    },
+    {
+      "word": "民国",
+      "weight": 3.8715109136620605,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.1379933799068599
+    },
+    {
+      "word": "会典",
+      "weight": 3.8666467815619328,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.1378200062437659
+    },
+    {
+      "word": "宣南",
+      "weight": 3.805343899373549,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.13563496993627286
+    },
+    {
+      "word": "大兴",
+      "weight": 3.7975537564948723,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.13535730362723766
+    },
+    {
+      "word": "存在",
+      "weight": 3.7836890804553636,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.13486312098106357
+    },
+    {
+      "word": "解决",
+      "weight": 3.778701278214639,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.13468533930748602
+    },
+    {
+      "word": "汉官",
+      "weight": 3.7662234696028647,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.13424058917696371
+    },
+    {
+      "word": "宗室",
+      "weight": 3.752722466027493,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.13375936901329954
+    },
+    {
+      "word": "明代",
+      "weight": 3.7403097010729964,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.13331693725260996
+    },
+    {
+      "word": "疏散",
+      "weight": 3.7364821080079356,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.1331805092492452
+    },
+    {
+      "word": "所属",
+      "weight": 3.7186161072104142,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.1325437062308762
+    },
+    {
+      "word": "官兵",
+      "weight": 3.6503424573250953,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.13011020884023053
+    },
+    {
+      "word": "营汛",
+      "weight": 3.638430300847709,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.12968562041184895
+    },
+    {
+      "word": "后期",
+      "weight": 3.6350908625968152,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.12956659185129268
+    },
+    {
+      "word": "宛二县",
+      "weight": 3.5989548156209157,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.1282785843085319
+    },
+    {
+      "word": "不能",
+      "weight": 3.5872021085317685,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.12785967918067506
+    },
+    {
+      "word": "百姓",
+      "weight": 3.562526523866184,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.1269801602008458
+    },
+    {
+      "word": "出旗",
+      "weight": 3.5110444768040754,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.12514517075175122
+    },
+    {
+      "word": "关系",
+      "weight": 3.5001005157580507,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.12475509199232407
+    },
+    {
+      "word": "四十六年",
+      "weight": 3.4773102684901085,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.12394277263702574
+    },
+    {
+      "word": "三十四年",
+      "weight": 3.4684072599282603,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.12362544013553292
+    },
+    {
+      "word": "京旗",
+      "weight": 3.465123567668884,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.12350839854542754
+    },
+    {
+      "word": "东北",
+      "weight": 3.414142583285069,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.12169126861786471
+    },
+    {
+      "word": "这一",
+      "weight": 3.406184192380112,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.12140760539591185
+    },
+    {
+      "word": "圈占",
+      "weight": 3.4010669074312085,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.1212252085328283
+    },
+    {
+      "word": "南苑",
+      "weight": 3.3920847950603483,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.12090505651146002
+    },
+    {
+      "word": "住房",
+      "weight": 3.3452104758525065,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.11923430163498604
+    },
+    {
+      "word": "清王朝",
+      "weight": 3.3415043175901262,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.11910220196731086
+    },
+    {
+      "word": "构成",
+      "weight": 3.3415017611303237,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.11910211084667692
+    },
+    {
+      "word": "逐渐",
+      "weight": 3.3327486447181522,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.1187901209942988
+    },
+    {
+      "word": "人口数",
+      "weight": 3.3165754670697423,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.11821365575958578
     },
     {
       "word": "管理",
-      "weight": 1.6248660023695332,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.09362760072292228
+      "weight": 3.3147025734480318,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.11814689967214875
     },
     {
-      "word": "职业",
-      "weight": 1.575825319506715,
+      "word": "在外",
+      "weight": 3.296000086042288,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.11748028152038875
+    },
+    {
+      "word": "很大",
+      "weight": 3.2633850945343466,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.11631777597302426
+    },
+    {
+      "word": "西郊",
+      "weight": 3.2567677741604406,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.11608191291472848
+    },
+    {
+      "word": "提供",
+      "weight": 3.2362749570761773,
       "topic_id": 5,
       "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.0908017914146079
+      "color": "#9932CC",
+      "normalized_weight": 0.11535148152596722
+    },
+    {
+      "word": "国家",
+      "weight": 3.2339040324246056,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.11526697397491775
+    },
+    {
+      "word": "道光",
+      "weight": 3.2112125030421885,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.11445817324968005
+    },
+    {
+      "word": "缓慢",
+      "weight": 3.1969025711583585,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.11394812022105026
+    },
+    {
+      "word": "英法联军",
+      "weight": 3.189481792547144,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.11368361926911225
+    },
+    {
+      "word": "集中",
+      "weight": 3.1870700570123986,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.11359765708398535
+    },
+    {
+      "word": "清初",
+      "weight": 3.1630251951162545,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.11274061913770611
+    },
+    {
+      "word": "无余",
+      "weight": 3.136769188719162,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.1118047687303612
+    },
+    {
+      "word": "甚至",
+      "weight": 3.1286938541891685,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.11151693725305863
+    },
+    {
+      "word": "地位",
+      "weight": 3.1075587822367097,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.11076361378882596
+    },
+    {
+      "word": "迁居",
+      "weight": 3.101735261529709,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.11055604436096235
+    },
+    {
+      "word": "减少",
+      "weight": 3.0968858435327933,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.11038319515689214
+    },
+    {
+      "word": "受到",
+      "weight": 3.096463085383608,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.11036812666627176
+    },
+    {
+      "word": "导致",
+      "weight": 3.0712027536086746,
+      "topic_id": 6,
+      "topic_name": "清末人口变化",
+      "color": "#A0522D",
+      "normalized_weight": 0.10946776537660292
+    },
+    {
+      "word": "增长率",
+      "weight": 3.0646391720389374,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.10923381774600058
+    },
+    {
+      "word": "民国初年",
+      "weight": 3.060807919573577,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.10909725930957569
+    },
+    {
+      "word": "宣统",
+      "weight": 3.044220655569409,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.10850603467547607
+    },
+    {
+      "word": "自然",
+      "weight": 3.0374742752033717,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.10826557149466427
+    },
+    {
+      "word": "措施",
+      "weight": 3.028122156861853,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.10793223124378677
+    },
+    {
+      "word": "因而",
+      "weight": 3.007940869540495,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.10721290380019927
+    },
+    {
+      "word": "巡警",
+      "weight": 2.9770803087598834,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.10611293193316673
+    },
+    {
+      "word": "外任",
+      "weight": 2.9768712550727394,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.10610548057231194
+    },
+    {
+      "word": "移居",
+      "weight": 2.976372019765948,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.1060876861843096
+    },
+    {
+      "word": "众多",
+      "weight": 2.9709313870077634,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.1058937641420174
+    },
+    {
+      "word": "中心",
+      "weight": 2.9642271914746727,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.10565480456737097
+    },
+    {
+      "word": "派驻",
+      "weight": 2.9618890290351785,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.10557146476929409
+    },
+    {
+      "word": "大清",
+      "weight": 2.927068730076141,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.104330354812515
+    },
+    {
+      "word": "规模",
+      "weight": 2.9175976787954436,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.10399277540059017
+    },
+    {
+      "word": "清军",
+      "weight": 2.906883099386975,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#228B22",
+      "normalized_weight": 0.10361087255701625
+    },
+    {
+      "word": "前期",
+      "weight": 2.8785315507338565,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.10260033013275714
+    },
+    {
+      "word": "战争",
+      "weight": 2.837788573886045,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.10114811646009095
+    },
+    {
+      "word": "经历",
+      "weight": 2.805594865978902,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.10000062684559347
+    },
+    {
+      "word": "外城",
+      "weight": 2.805062785269462,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.09998166173943303
+    },
+    {
+      "word": "条件",
+      "weight": 2.7990109250623876,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.09976595354092299
+    },
+    {
+      "word": "只有",
+      "weight": 2.7788744038168782,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.09904822170748596
+    },
+    {
+      "word": "总数",
+      "weight": 2.7689288107711745,
+      "topic_id": 5,
+      "topic_name": "官员兵丁制度",
+      "color": "#9932CC",
+      "normalized_weight": 0.0986937280665894
     },
     {
       "word": "商业",
-      "weight": 1.5649311196178683,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.09017404869865399
+      "weight": 2.766503067944844,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.09860726661552932
     },
     {
-      "word": "京郊",
-      "weight": 1.5307113311044982,
-      "topic_id": 5,
-      "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.08820224506002752
+      "word": "咸丰",
+      "weight": 2.711055548867587,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.09663093470389243
     },
     {
-      "word": "畿辅",
-      "weight": 1.3697478829615848,
+      "word": "增编",
+      "weight": 2.7095927040509795,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.09657879410425974
+    },
+    {
+      "word": "万余",
+      "weight": 2.6798688050055244,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.09551933659922772
+    },
+    {
+      "word": "增多",
+      "weight": 2.6729104269264137,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.09527131712279596
+    },
+    {
+      "word": "包衣",
+      "weight": 2.6679644105879086,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.09509502483618085
+    },
+    {
+      "word": "重要",
+      "weight": 2.6446365043628886,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.09426354154763295
+    },
+    {
+      "word": "定鼎",
+      "weight": 2.641665495107469,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.09415764500800468
+    },
+    {
+      "word": "因素",
+      "weight": 2.6340323824568843,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.09388557577267152
+    },
+    {
+      "word": "年间",
+      "weight": 2.625360964346145,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.09357649791641033
+    },
+    {
+      "word": "书吏",
+      "weight": 2.5930308081480797,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.0924241448361325
+    },
+    {
+      "word": "政治",
+      "weight": 2.577393976631193,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.09186679674124923
+    },
+    {
+      "word": "一定",
+      "weight": 2.538042499148852,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.09046418068172728
+    },
+    {
+      "word": "住户",
+      "weight": 2.493267018122361,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.08886823529978424
+    },
+    {
+      "word": "迅速",
+      "weight": 2.4828449456022,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.08849675836357926
+    },
+    {
+      "word": "水井",
+      "weight": 2.440320726210179,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.08698105534926043
+    },
+    {
+      "word": "蒙古",
+      "weight": 2.4317721079369226,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.0866763544830179
+    },
+    {
+      "word": "占籍",
+      "weight": 2.430257705404068,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.08662237619683753
+    },
+    {
+      "word": "明显",
+      "weight": 2.428810799030669,
+      "topic_id": 1,
+      "topic_name": "八旗人口户籍",
+      "color": "#CD5C5C",
+      "normalized_weight": 0.08657080369573221
+    },
+    {
+      "word": "消费",
+      "weight": 2.3803930003049185,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.08484503413371475
+    },
+    {
+      "word": "方式",
+      "weight": 2.346615587669596,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.08364109607490454
+    },
+    {
+      "word": "离散",
+      "weight": 2.334612114998699,
       "topic_id": 5,
       "topic_name": "官员兵丁制度",
-      "color": "#FFEAA7",
-      "normalized_weight": 0.07892725165642865
+      "color": "#9932CC",
+      "normalized_weight": 0.08321325283710519
+    },
+    {
+      "word": "旗兵",
+      "weight": 2.3295970148658287,
+      "topic_id": 2,
+      "topic_name": "内外城居住",
+      "color": "#4682B4",
+      "normalized_weight": 0.08303449817688612
+    },
+    {
+      "word": "皇族",
+      "weight": 2.314874183887068,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.08250972806674974
+    },
+    {
+      "word": "区域",
+      "weight": 2.296422521047427,
+      "topic_id": 4,
+      "topic_name": "户口统计管理",
+      "color": "#DAA520",
+      "normalized_weight": 0.08185205012732857
     }
   ]
 }

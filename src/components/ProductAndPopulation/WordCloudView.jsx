@@ -78,8 +78,8 @@ const WordCloudView = ({ dynasty, onClose, isEmbedded = false }) => {
         value: d.weight,
         textStyle: {
           color: topicColor,
-          fontSize: Math.max(12, Math.min(48, d.normalized_weight * 40 + 12)),
-          fontWeight: d.normalized_weight > 0.7 ? 'bold' : 'normal'
+          fontSize: Math.max(10, Math.min(60, Math.pow(d.normalized_weight, 0.8) * 50 + 10)),
+          fontWeight: d.normalized_weight > 0.6 ? 'bold' : 'normal'
         },
         emphasis: {
           textStyle: {
@@ -128,10 +128,10 @@ const WordCloudView = ({ dynasty, onClose, isEmbedded = false }) => {
       },
       series: [{
         type: 'wordCloud',
-        sizeRange: [12, 48],
+        sizeRange: [10, 60],
         rotationRange: [-45, 45],
         rotationStep: 45,
-        gridSize: 8,
+        gridSize: 6,
         drawOutOfBound: false,
         layoutAnimation: true,
         textStyle: {
