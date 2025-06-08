@@ -78,6 +78,7 @@ body::before {
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--primary-color);
+  font-family: '楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif;
   text-align: center;
   letter-spacing: 1px;
   margin: 0 15px;
@@ -96,7 +97,7 @@ body::before {
 
 /* 标题样式 */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Noto Serif SC', serif;
+  font-family: '楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif;
   color: var(--primary-color);
   font-weight: 600;
 }
@@ -262,7 +263,7 @@ button:hover, select:hover {
   }
   
   h3 {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   
   .header-decoration {
@@ -270,7 +271,7 @@ button:hover, select:hover {
   }
   
   .custom-header h1 {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
   }
 }
 #chart svg {

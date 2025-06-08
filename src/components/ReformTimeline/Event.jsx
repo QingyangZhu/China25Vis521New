@@ -81,6 +81,7 @@ const Event = ({ dynastyName = '秦', startYear = -221, endYear = -207 }) => {
               if (currentData.count > 0) {
                 currentData.events.push({
                   name: d['制度改革名称'],
+                  curryear: +d['具体变革时间'] || 0,
                   importance: +d['变化重要性'] || 0,
                   political: d['政治原因'],
                   ecommerce: d['经济原因'],
@@ -90,6 +91,7 @@ const Event = ({ dynastyName = '秦', startYear = -221, endYear = -207 }) => {
                   result: d['变迁结果']
                 });
               }
+              console.log(currentData.events);
             }
           }
         }
@@ -123,16 +125,18 @@ const Event = ({ dynastyName = '秦', startYear = -221, endYear = -207 }) => {
 
       // 绘制X轴
       const xAxis = d3.axisBottom(xScale)
-        .tickFormat(d => d);
+        .tickFormat("")
+        .tickSize(0);
+
       svg.append("g")
         .attr("transform", `translate(0, ${height - margin.bottom})`)
         .call(xAxis);
 
       svg.append("text")
-        .attr("x", width - margin.right + 5)
-        .attr("y", height - 1)
+        .attr("x", width -35)
+        .attr("y", height)
         .attr("fill", "black")
-        .attr("text-anchor", "end")
+        .attr("text-anchor", "middle")
         .attr("font-size", "11px")
         .attr("font-family", "楷体")
         .text("年份");
@@ -282,6 +286,7 @@ const Event = ({ dynastyName = '秦', startYear = -221, endYear = -207 }) => {
 
                   tooltip.html(`
                     <h4>${event.name || '未命名事件'}</h4>
+                    <p><strong>年份：</strong>${event.curryear || '无'}</p>
                     <p><strong>政治影响：</strong>${event.political || '无'}</p>
                     <p><strong>经济影响：</strong>${event.ecommerce || '无'}</p>
                     <p><strong>社会影响：</strong>${event.society || '无'}</p>

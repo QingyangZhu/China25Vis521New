@@ -5,7 +5,7 @@ import styles from './CorrelationHeatmap.css'; // Import CSS Module
 const CorrelationHeatmap = () => {
     const svgRef = useRef();
      // Move these variables outside useEffect
-     const width = 230;
+     const width = 210;
      const height = 230;
      const margin = { top: 10, right: 20, bottom: 50, left: 10 };
 

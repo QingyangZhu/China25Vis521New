@@ -7,7 +7,7 @@ const MerceArea = ({ dynastyName = '元' }) => {
     // 设置图表尺寸和边距
     const margin = { top: 20, right: 50, bottom: 50, left: 10 };
     const width = 550 - margin.left - margin.right;
-    const height = 150 - margin.top - margin.bottom;
+    const height = 180 - margin.top - margin.bottom;
 
     // 清除旧的 SVG
     d3.select("#chart1").select("svg").remove();

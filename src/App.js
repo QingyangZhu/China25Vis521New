@@ -155,7 +155,7 @@ const CenterTopViewToggle = () => {
           margin: 0,
           flex: 1,
           textAlign: 'center',
-          fontFamily: "'Noto Serif SC', serif",
+          fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
           color: '#8C6D46'
         }}>
           {getViewTitle()}
@@ -539,7 +539,7 @@ function App() {
             margin: 0,
             flex: 1,
             textAlign: 'center',
-            fontFamily: "'Noto Serif SC', serif",
+            fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
             color: '#8C6D46'
           }}>
             山川风物
@@ -626,7 +626,7 @@ function App() {
       {/* 统一标题 */}
       <h3 style={{ 
         textAlign: 'center',
-        fontFamily: "'Noto Serif SC', serif",
+        fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
         color: '#8C6D46',
         margin: '0 0 16px 0'
       }}>
@@ -692,18 +692,18 @@ function App() {
           flexDirection: 'column'
         }}>
       
-          <div className='row' style={{width: '100%', height: '100%', padding: 0}}>
-          <div className='col-md-9' style={{padding:2, height: '100%', width:'66%'}}>
-          <div className='row' style={{ width: 920, marginTop: -40,marginLeft: -200, height: '20%',padding:'1px' }}> 
+          <div className='row' style={{width: '100%', height: '100%', padding: 0, borderLeft: '2px solid transparent', borderImage: 'linear-gradient(90deg, rgba(202,169,132,0.1),rgb(184, 142, 98), rgba(202,169,132,0.1)) 1'}}>
+          <div className='col-md-9' style={{padding:2, height: '100%', width:'69%',borderRight: '2px solid transparent', borderImage: 'linear-gradient(90deg, rgba(202,169,132,0.1), rgb(184, 142, 98), rgba(202,169,132,0.1)) 1'}}>
+          <div className='row' style={{ width: 920, marginTop: -40,marginLeft: -190, height: '20%',padding:'1px' }}> 
         
            <ParallelCoordinatesPlot dynasty={dynasty} />
  
            </div>
-           <div className='row' style={{ width: 760, marginTop: -16,marginLeft: -60, height: '80%',padding:'1px' }}> 
+           <div className='row' style={{ width: 760, marginTop: -16,marginLeft: -50, height: '80%',padding:'1px' }}> 
            <HeatmapChart dynasty={dynasty} startYear={startYear} endYear={endYear} />
            </div>
           </div>
-           <div className='col-md-3' style={{marginTop: -20,marginRight:-10,padding:2, height: '100%', width:'34%'}}>
+           <div className='col-md-3' style={{marginTop: -20,marginLeft:-30,padding:2, height: '100%', width:'31%'}}>
             <CorrelationHeatmap />
           </div>
           </div>
@@ -728,7 +728,7 @@ const rightTop = (
           margin: 0, 
           flex: 1, 
           textAlign: 'center',
-          fontFamily: "'Noto Serif SC', serif",
+          fontFamily: "'楷体', 'KaiTi', 'STKaiti', '华文楷体', 'AR PL UKai CN', 'Kaiti SC', 'Noto Serif SC', serif",
           color: '#8C6D46',
           whiteSpace: 'nowrap'
         }}>
@@ -790,7 +790,7 @@ const rightTop = (
             endYear={endYear}/>
             <div className='row' style={{ 
                 width: 580, 
-                marginTop: 5, 
+                marginTop: -15, 
                 padding: 0, 
                 borderTop: '1px solid transparent',
                 borderImage: 'linear-gradient(90deg, rgba(202,169,132,0.1), #c7a580, rgba(202,169,132,0.1)) 1'

@@ -463,6 +463,30 @@ const BeijingHistoryGraph = () => {
       nodeLegend.appendChild(legendItem);
     });
     legendDiv.appendChild(nodeLegend);
+
+    // 添加事件类型图例
+    const eventTypeSeparator = document.createElement('p');
+    eventTypeSeparator.innerHTML = '<strong>事件类型:</strong>';
+    eventTypeSeparator.style.marginTop = '15px';
+    legendDiv.appendChild(eventTypeSeparator);
+    const eventTypeLegend = document.createElement('div');
+    eventTypeLegend.className = 'legend-group';
+    predefinedNodeTypes.eventTypes.forEach(type => {
+      const legendItem = document.createElement('div');
+      legendItem.className = 'legend-item';
+      const colorBox = document.createElement('span');
+      colorBox.className = 'legend-color';
+      const color = typeColorMap[type] || '#999';
+      colorBox.style.backgroundColor = color;
+      const label = document.createElement('span');
+      label.className = 'legend-label';
+      label.textContent = type;
+      legendItem.appendChild(colorBox);
+      legendItem.appendChild(label);
+      eventTypeLegend.appendChild(legendItem);
+    });
+    legendDiv.appendChild(eventTypeLegend);
+
     const separator = document.createElement('p');
     separator.innerHTML = '<strong>关系类型:</strong>';
     separator.style.marginTop = '15px';
