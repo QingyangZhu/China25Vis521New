@@ -273,7 +273,7 @@ const TimeControl = ({ onDynastyClick, onOpenWordCloud }) => {
         { "历史时期": "远古时代", "政治": 31, "军事": 1.5, "资源": 2.9, "交通": 1.0, "人口": 3, "发展程度": 29 },
         { "历史时期": "夏", "政治": 41, "军事": 1.8, "资源": 3.3, "交通": 1.0, "人口": 2, "发展程度": 23 },
         { "历史时期": "商", "政治": 53, "军事": 4.0, "资源": 3.3, "交通": 1.5, "人口": 3, "发展程度": 50 },
-        { "历史时期": "周", "政治": 56, "军事": 6.5, "资源": 3.6, "交通": 1.5, "人口": 3, "发展程度": 51 },
+        { "历史时期": "周", "政治": 71, "军事": 6.5, "资源": 3.6, "交通": 1.5, "人口": 3, "发展程度": 51 },
         { "历史时期": "秦", "政治": 70, "军事": 8.5, "资源": 3.4, "交通": 1.7, "人口": 3, "发展程度": 68 },
         { "历史时期": "西楚", "政治": 38, "军事": 7.0, "资源": 3.4, "交通": 1.7, "人口": 2, "发展程度": 39 },
         { "历史时期": "汉", "政治": 78, "军事": 8.0, "资源": 3.4, "交通": 1.0, "人口": 4, "发展程度": 63 },
@@ -286,12 +286,12 @@ const TimeControl = ({ onDynastyClick, onOpenWordCloud }) => {
         { "历史时期": "五代十国", "政治": 28, "军事": 3.0, "资源": 3.7, "交通": 1.0, "人口": 2, "发展程度": 24 },
         { "历史时期": "宋", "政治": 63, "军事": 5.5, "资源": 3.7, "交通": 1.0, "人口": 3, "发展程度": 57 },
         { "历史时期": "辽", "政治": 61, "军事": 7.0, "资源": 4.0, "交通": 1.0, "人口": 4, "发展程度": 71 },
-        { "历史时期": "金", "政治": 61, "军事": 7.5, "资源": 3.6, "交通": 1.5, "人口": 4, "发展程度": 72 },
-        { "历史时期": "元", "政治": 63, "军事": 9.5, "资源": 3.7, "交通": 1.6, "人口": 5, "发展程度": 94 },
-        { "历史时期": "明", "政治": 70, "军事": 6.0, "资源": 3.6, "交通": 1.0, "人口": 4, "发展程度": 70 },
-        { "历史时期": "清", "政治": 73, "军事": 7, "资源": 3.6, "交通": 1.3, "人口": 4, "发展程度": 78 },
-        { "历史时期": "民国", "政治": 48, "军事": 4.5, "资源": 3.3, "交通": 1.3, "人口": 5, "发展程度": 83 },
-        { "历史时期": "中国", "政治": 81, "军事": 10.0, "资源": 4.1, "交通": 2.6, "人口": 5, "发展程度": 100 }
+        { "历史时期": "金", "政治": 86, "军事": 7.5, "资源": 3.6, "交通": 1.5, "人口": 4, "发展程度": 72 },
+        { "历史时期": "元", "政治": 88, "军事": 9.5, "资源": 3.7, "交通": 1.6, "人口": 5, "发展程度": 94 },
+        { "历史时期": "明", "政治": 95, "军事": 6.0, "资源": 3.6, "交通": 1.0, "人口": 4, "发展程度": 70 },
+        { "历史时期": "清", "政治": 98, "军事": 7, "资源": 3.6, "交通": 1.3, "人口": 4, "发展程度": 78 },
+        { "历史时期": "民国", "政治": 63, "军事": 4.5, "资源": 3.3, "交通": 1.3, "人口": 5, "发展程度": 83 },
+        { "历史时期": "中国", "政治": 100, "军事": 10.0, "资源": 4.1, "交通": 2.6, "人口": 5, "发展程度": 100 }
     ];
 
     useEffect(() => {
@@ -642,25 +642,80 @@ const TimeControl = ({ onDynastyClick, onOpenWordCloud }) => {
             .attr("width", 8)
             .attr("height", d => Math.max(0, yScaleBars(d.development)))
             .on("mouseover", function(event, d) {
-                // 显示tooltip
+                // 显示tooltip - 智能定位
+                const tooltipWidth = 120;
+                const tooltipHeight = 50;
+                
+                let tooltipLeft = event.pageX + 10;
+                let tooltipTop = event.pageY + 30;
+                
+                // 防止tooltip超出屏幕右边界
+                if (tooltipLeft + tooltipWidth > window.innerWidth) {
+                    tooltipLeft = event.pageX - tooltipWidth - 10;
+                }
+                
+                // 防止tooltip超出屏幕下边界
+                if (tooltipTop + tooltipHeight > window.innerHeight) {
+                    tooltipTop = event.pageY - tooltipHeight - 10;
+                }
+                
+                // 防止tooltip超出屏幕上边界
+                if (tooltipTop < 0) {
+                    tooltipTop = 10;
+                }
+                
+                // 防止tooltip超出屏幕左边界
+                if (tooltipLeft < 0) {
+                    tooltipLeft = 10;
+                }
+
                 tooltip
                     .style("visibility", "visible")
                     .html(`
                         <div style="font-weight: bold; margin-bottom: 5px;">${d.period}</div>
                         <div>发展程度: ${d.development}</div>
                     `)
-                    .style("left", (event.pageX + 10) + "px")
-                    .style("top", (event.pageY + 30) + "px");
+                    .style("left", tooltipLeft + "px")
+                    .style("top", tooltipTop + "px");
 
                 // 显示雷达图
                 const radarWidth = 150;
                 const radarHeight = 150;
                 const radarRadius = Math.min(radarWidth, radarHeight) / 2 - 20;
 
+                // 智能定位雷达图容器，避免超出屏幕边界
+                const mouseX = event.pageX;
+                const mouseY = event.pageY;
+                const containerWidth = radarWidth + 20; // 加上padding
+                const containerHeight = radarHeight + 20;
+                
+                let left = mouseX + 120;
+                let top = mouseY - 100;
+                
+                // 防止右侧超出屏幕
+                if (left + containerWidth > window.innerWidth) {
+                    left = mouseX - containerWidth - 20;
+                }
+                
+                // 防止底部超出屏幕
+                if (top + containerHeight > window.innerHeight) {
+                    top = mouseY - containerHeight - 10;
+                }
+                
+                // 防止顶部超出屏幕
+                if (top < 0) {
+                    top = mouseY + 10;
+                }
+                
+                // 防止左侧超出屏幕
+                if (left < 0) {
+                    left = 10;
+                }
+
                 radarContainer
                     .style("visibility", "visible")
-                    .style("left", (event.pageX + 120) + "px")
-                    .style("top", (event.pageY - 100) + "px")
+                    .style("left", left + "px")
+                    .style("top", top + "px")
                     .html("");
 
                 const radarSvg = radarContainer.append("svg")
