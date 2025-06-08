@@ -1,0 +1,1045 @@
+{
+  "title": "元朝大都人口文本主题词云数据",
+  "total_words": 125,
+  "total_topics": 6,
+  "topic_info": [
+    {
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "topic_color": "#B22222",
+      "word_count": 22
+    },
+    {
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "topic_color": "#4169E1",
+      "word_count": 18
+    },
+    {
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "topic_color": "#2E8B57",
+      "word_count": 21
+    },
+    {
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "topic_color": "#D2691E",
+      "word_count": 23
+    },
+    {
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "topic_color": "#9370DB",
+      "word_count": 20
+    },
+    {
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "topic_color": "#8B4513",
+      "word_count": 21
+    }
+  ],
+  "word_data": [
+    {
+      "word": "弓手",
+      "weight": 7.740957841209631,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 1.0
+    },
+    {
+      "word": "迁移",
+      "weight": 5.724087928546183,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.7394547349261517
+    },
+    {
+      "word": "户口",
+      "weight": 5.573565764228377,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.7200098332220642
+    },
+    {
+      "word": "汉人",
+      "weight": 5.2781966248868954,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.6818531676775164
+    },
+    {
+      "word": "泰定",
+      "weight": 4.93245998349028,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.6371898781352251
+    },
+    {
+      "word": "忽必烈",
+      "weight": 4.712597673271251,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.6087874097677353
+    },
+    {
+      "word": "增长",
+      "weight": 4.534920122445757,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.5858344943184852
+    },
+    {
+      "word": "官员",
+      "weight": 4.382857322907612,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.5661905687659359
+    },
+    {
+      "word": "蒙古人",
+      "weight": 4.1365108753830775,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.5343668006253721
+    },
+    {
+      "word": "新城",
+      "weight": 3.82820370000378,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.4945387610334241
+    },
+    {
+      "word": "逃亡",
+      "weight": 3.6374868778844616,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.46990139366474765
+    },
+    {
+      "word": "站户",
+      "weight": 3.6017341882220073,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.4652827546802899
+    },
+    {
+      "word": "大都城",
+      "weight": 3.5600571424749385,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.45989878972375736
+    },
+    {
+      "word": "人士",
+      "weight": 3.4474960297618056,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.44535780978017664
+    },
+    {
+      "word": "翌年",
+      "weight": 3.370230716827127,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.43537644642442364
+    },
+    {
+      "word": "蒙古",
+      "weight": 3.2937908800853535,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.42550172054297786
+    },
+    {
+      "word": "少数民族",
+      "weight": 3.2478014496975827,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.4195606688887572
+    },
+    {
+      "word": "城市户口",
+      "weight": 3.143752062529278,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.4061192590138204
+    },
+    {
+      "word": "百户",
+      "weight": 3.142172563151518,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.4059152145776976
+    },
+    {
+      "word": "统计",
+      "weight": 3.0879092978935265,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.3989053242810322
+    },
+    {
+      "word": "军户",
+      "weight": 3.0807225066125064,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.39797691316855194
+    },
+    {
+      "word": "民族",
+      "weight": 3.0707561053960504,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.3966894237620861
+    },
+    {
+      "word": "大量",
+      "weight": 3.050841109632986,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.39411674526782464
+    },
+    {
+      "word": "元朝",
+      "weight": 3.0391503568021814,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.3926064989816909
+    },
+    {
+      "word": "民众",
+      "weight": 3.035277231031327,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.3921061570536888
+    },
+    {
+      "word": "地位",
+      "weight": 3.0129684200611466,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.3892242383780156
+    },
+    {
+      "word": "规定",
+      "weight": 3.00504324792778,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.3882004410268434
+    },
+    {
+      "word": "迅速",
+      "weight": 2.9684558470610627,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.3834739715617933
+    },
+    {
+      "word": "即位",
+      "weight": 2.8751312166477385,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.37141801772149424
+    },
+    {
+      "word": "发展",
+      "weight": 2.820776334847838,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.3643962921269512
+    },
+    {
+      "word": "统治者",
+      "weight": 2.777348709559587,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.3587861820890098
+    },
+    {
+      "word": "旧城",
+      "weight": 2.770075407407582,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.3578465952444355
+    },
+    {
+      "word": "减少",
+      "weight": 2.7616618776668767,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.3567597104023666
+    },
+    {
+      "word": "增加",
+      "weight": 2.7570109997702255,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.35615889613725177
+    },
+    {
+      "word": "工匠",
+      "weight": 2.750529656916036,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.3553216169546052
+    },
+    {
+      "word": "影响",
+      "weight": 2.744616201994621,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.35455769922727515
+    },
+    {
+      "word": "关厢",
+      "weight": 2.7416622210819575,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.3541760951708704
+    },
+    {
+      "word": "内聚",
+      "weight": 2.7374617987199295,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.35363347209396034
+    },
+    {
+      "word": "离散",
+      "weight": 2.6746394021708397,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.3455178877130909
+    },
+    {
+      "word": "赋役",
+      "weight": 2.6593677321009763,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.343545047867799
+    },
+    {
+      "word": "分布",
+      "weight": 2.5941053834886327,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.3351142632089659
+    },
+    {
+      "word": "中期",
+      "weight": 2.58419100730054,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.3338334945506853
+    },
+    {
+      "word": "战争",
+      "weight": 2.582963382286018,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.3336749062933011
+    },
+    {
+      "word": "匠户",
+      "weight": 2.574082882992998,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.3325276969330145
+    },
+    {
+      "word": "燕京",
+      "weight": 2.549300646115895,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.32932625372850916
+    },
+    {
+      "word": "军队",
+      "weight": 2.5254138690199306,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.32624048868677213
+    },
+    {
+      "word": "增长率",
+      "weight": 2.520428554116975,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.32559647085264626
+    },
+    {
+      "word": "迁都",
+      "weight": 2.4722254233959013,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.3193694467931093
+    },
+    {
+      "word": "改变",
+      "weight": 2.4667731618684843,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.3186651074026541
+    },
+    {
+      "word": "南城",
+      "weight": 2.4569957842420815,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.3174020366267932
+    },
+    {
+      "word": "政事",
+      "weight": 2.4494621047976195,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.31642881346772167
+    },
+    {
+      "word": "建都",
+      "weight": 2.4093161727121886,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.31124264233632615
+    },
+    {
+      "word": "金中都",
+      "weight": 2.4008547326477543,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.3101495682958774
+    },
+    {
+      "word": "不断",
+      "weight": 2.360361165640147,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.30491848864937215
+    },
+    {
+      "word": "户量",
+      "weight": 2.3463201281968096,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.303104625593745
+    },
+    {
+      "word": "资料",
+      "weight": 2.337705687367607,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.30199178645860036
+    },
+    {
+      "word": "中后期",
+      "weight": 2.3081627229965376,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.29817533829067533
+    },
+    {
+      "word": "中统",
+      "weight": 2.299419484082869,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.29704586063519406
+    },
+    {
+      "word": "居住",
+      "weight": 2.2919778935795074,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.2960845337999353
+    },
+    {
+      "word": "辽金",
+      "weight": 2.2776520051168916,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.2942338728408547
+    },
+    {
+      "word": "上层",
+      "weight": 2.1881093128689475,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.28266648104196695
+    },
+    {
+      "word": "商人",
+      "weight": 2.181403294579572,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.2818001776171278
+    },
+    {
+      "word": "地理",
+      "weight": 2.1710843088057414,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.2804671402869286
+    },
+    {
+      "word": "元年",
+      "weight": 2.1340404088819787,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.2756816989134391
+    },
+    {
+      "word": "贵族",
+      "weight": 2.1316058368923367,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.27536719364941586
+    },
+    {
+      "word": "差发",
+      "weight": 2.1308341594579376,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.27526750605903905
+    },
+    {
+      "word": "色目",
+      "weight": 2.1180324372096524,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.2736137414331507
+    },
+    {
+      "word": "空间",
+      "weight": 2.116377003642445,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.27339988759217065
+    },
+    {
+      "word": "都城",
+      "weight": 2.1090166019946066,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.27244904897519034
+    },
+    {
+      "word": "不得",
+      "weight": 2.108900825381627,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.27243409260734097
+    },
+    {
+      "word": "军人",
+      "weight": 2.052637635176625,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.2651658460467564
+    },
+    {
+      "word": "经济",
+      "weight": 1.9635566769875044,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.25365810242943676
+    },
+    {
+      "word": "发生",
+      "weight": 1.9609677808938102,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.2533236611178058
+    },
+    {
+      "word": "复杂",
+      "weight": 1.9466550717963051,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.25147470270838135
+    },
+    {
+      "word": "历史",
+      "weight": 1.9389527860082245,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.25047969847943735
+    },
+    {
+      "word": "长期",
+      "weight": 1.9218785699298293,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.24827400036963765
+    },
+    {
+      "word": "开始",
+      "weight": 1.9077726219362696,
+      "topic_id": 3,
+      "topic_name": "人口迁移流动",
+      "color": "#2E8B57",
+      "normalized_weight": 0.24645175197571598
+    },
+    {
+      "word": "形成",
+      "weight": 1.8911671343850305,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.24430660561374531
+    },
+    {
+      "word": "此后",
+      "weight": 1.8907912553928374,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.24425804844551063
+    },
+    {
+      "word": "变化",
+      "weight": 1.8813267994063498,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.2430354018195204
+    },
+    {
+      "word": "生活",
+      "weight": 1.8792490551274168,
+      "topic_id": 5,
+      "topic_name": "少数民族构成",
+      "color": "#9370DB",
+      "normalized_weight": 0.24276699262242182
+    },
+    {
+      "word": "定居",
+      "weight": 1.8644858449750048,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.24085983714434664
+    },
+    {
+      "word": "村落",
+      "weight": 1.839962174533064,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.23769179632239734
+    },
+    {
+      "word": "造成",
+      "weight": 1.8350145028804663,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.23705264135551993
+    },
+    {
+      "word": "八亩",
+      "weight": 1.7714100684048506,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.22883603098502905
+    },
+    {
+      "word": "汉语",
+      "weight": 1.7386135716601592,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.22459928181038602
+    },
+    {
+      "word": "官匠",
+      "weight": 1.7319129873839152,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.22373368036755514
+    },
+    {
+      "word": "右丞相",
+      "weight": 1.707082893362127,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.2205260548344973
+    },
+    {
+      "word": "因此",
+      "weight": 1.7009346781668757,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.21973181007546752
+    },
+    {
+      "word": "蒙古国",
+      "weight": 1.6858499963692342,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.21778312593235838
+    },
+    {
+      "word": "现象",
+      "weight": 1.6825963178783774,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.21736280604978062
+    },
+    {
+      "word": "一名",
+      "weight": 1.6603667462654865,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.21449112375039514
+    },
+    {
+      "word": "人中",
+      "weight": 1.6565216170556072,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.2139943985015623
+    },
+    {
+      "word": "僧道",
+      "weight": 1.650216396054313,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.2131798712646708
+    },
+    {
+      "word": "士兵",
+      "weight": 1.646842913532007,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.21274407474032506
+    },
+    {
+      "word": "职务",
+      "weight": 1.6431398920887592,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.21226570739623046
+    },
+    {
+      "word": "内外",
+      "weight": 1.6391995931906087,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.21175668784348545
+    },
+    {
+      "word": "情况",
+      "weight": 1.6179501866683565,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.2090116261911497
+    },
+    {
+      "word": "社会",
+      "weight": 1.6059483312610872,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.20746119074718222
+    },
+    {
+      "word": "军士",
+      "weight": 1.6010337784698367,
+      "topic_id": 4,
+      "topic_name": "城市规划户籍",
+      "color": "#D2691E",
+      "normalized_weight": 0.2068263141734994
+    },
+    {
+      "word": "家眷",
+      "weight": 1.5907255872832762,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.20549467132024885
+    },
+    {
+      "word": "相当",
+      "weight": 1.580068654401932,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.2041179769757052
+    },
+    {
+      "word": "京城",
+      "weight": 1.5545097723753045,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.20081620443658055
+    },
+    {
+      "word": "显然",
+      "weight": 1.5098318055911712,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.19504457155850358
+    },
+    {
+      "word": "签发",
+      "weight": 1.4604118940122355,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.18866036012205256
+    },
+    {
+      "word": "居所",
+      "weight": 1.4439660701233392,
+      "topic_id": 2,
+      "topic_name": "军事管理制度",
+      "color": "#4169E1",
+      "normalized_weight": 0.18653583958774017
+    },
+    {
+      "word": "逐渐",
+      "weight": 1.4010036761683107,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.18098582951969477
+    },
+    {
+      "word": "设置",
+      "weight": 1.3995401378049837,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.18079676527295055
+    },
+    {
+      "word": "职责",
+      "weight": 1.3853523080783126,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.17896393915275893
+    },
+    {
+      "word": "迁徙",
+      "weight": 1.3648507014016205,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.17631548051272475
+    },
+    {
+      "word": "部分",
+      "weight": 1.3074610876356023,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.1689017192000743
+    },
+    {
+      "word": "地方",
+      "weight": 1.2756414496488866,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.16479116355057558
+    },
+    {
+      "word": "户籍",
+      "weight": 1.25766123497589,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.1624684258426814
+    },
+    {
+      "word": "语言",
+      "weight": 1.2144207857628997,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.156882495767879
+    },
+    {
+      "word": "人数",
+      "weight": 1.2133383317990125,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.15674266113938837
+    },
+    {
+      "word": "构成",
+      "weight": 1.2016635577531054,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.15523447904030038
+    },
+    {
+      "word": "末年",
+      "weight": 1.1749965383460925,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.15178955401241187
+    },
+    {
+      "word": "以后",
+      "weight": 1.1698101406171555,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.15111955969965038
+    },
+    {
+      "word": "一般",
+      "weight": 1.1334780381155447,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.14642607043812852
+    },
+    {
+      "word": "一部分",
+      "weight": 1.101833620340276,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.1423381502576559
+    },
+    {
+      "word": "北京",
+      "weight": 1.033497076970022,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.13351023195968265
+    },
+    {
+      "word": "等等",
+      "weight": 0.9946625295955881,
+      "topic_id": 1,
+      "topic_name": "汉人与人口增长",
+      "color": "#B22222",
+      "normalized_weight": 0.12849346941284445
+    },
+    {
+      "word": "属于",
+      "weight": 0.9463513399260828,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.12225248597636108
+    },
+    {
+      "word": "系统",
+      "weight": 0.9238460639581902,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.11934518736686811
+    },
+    {
+      "word": "还有",
+      "weight": 0.9158502569272122,
+      "topic_id": 6,
+      "topic_name": "元代户口制度",
+      "color": "#8B4513",
+      "normalized_weight": 0.11831226518914849
+    }
+  ]
+}

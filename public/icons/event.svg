@@ -1,1 +1,99 @@
-<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1748603299330" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7812" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M512 0c282.8 0 512 229.2 512 512s-229.2 512-512 512S0 794.8 0 512 229.2 0 512 0z m0 96C282.2 96 96 282.2 96 512s186.2 416 416 416 416-186.2 416-416S741.8 96 512 96z m0 576c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64z m0-448c26.5 0 48 21.5 48 48v288c0 26.5-21.5 48-48 48s-48-21.5-48-48V272c0-26.5 21.5-48 48-48z" fill="#FD9D4D" p-id="7813"></path></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- 渐变定义 -->
+    <radialGradient id="primaryGradient" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" style="stop-color:#D4C2A0;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#B5A68C;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9B8A70;stop-opacity:1" />
+    </radialGradient>
+    
+    <radialGradient id="accentGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#E8C4A0;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#C4B79C;stop-opacity:0.7" />
+    </radialGradient>
+    
+    <!-- 阴影滤镜 -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="3" stdDeviation="3" flood-color="#6B5B47" flood-opacity="0.3"/>
+    </filter>
+    
+    <!-- 内发光滤镜 -->
+    <filter id="innerGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 外层装饰环 -->
+  <circle cx="100" cy="100" r="85" 
+          fill="none" 
+          stroke="url(#primaryGradient)" 
+          stroke-width="3" 
+          stroke-dasharray="8,4" 
+          stroke-linecap="round"
+          opacity="0.6"
+          filter="url(#shadow)"/>
+  
+  <!-- 主体圆形背景 -->
+  <circle cx="100" cy="100" r="70" 
+          fill="url(#primaryGradient)" 
+          filter="url(#shadow)"/>
+  
+  <!-- 内层装饰环 -->
+  <circle cx="100" cy="100" r="65" 
+          fill="none" 
+          stroke="#F0E4B8" 
+          stroke-width="1.5" 
+          opacity="0.8"/>
+  
+  <!-- 八角星形装饰 -->
+  <g transform="translate(100,100)" filter="url(#innerGlow)">
+    <path d="M0,-55 L12,-18 L55,-12 L18,0 L12,18 L0,55 L-12,18 L-55,12 L-18,0 L-12,-18 Z" 
+          fill="url(#accentGradient)" 
+          stroke="#8C6D46" 
+          stroke-width="0.8"/>
+  </g>
+  
+  <!-- 中心古代印章风格图案 -->
+  <g transform="translate(100,100)">
+    <!-- 印章背景 -->
+    <rect x="-40" y="-40" width="80" height="80" 
+          rx="8" ry="8" 
+          fill="#FDFCF9" 
+          stroke="#8C6D46" 
+          stroke-width="2.5"/>
+    
+    <!-- 印章内的古体"事"字简化图案 -->
+    <g fill="#8C6D46" stroke="none">
+      <!-- 上横 -->
+      <rect x="-25" y="-20" width="50" height="4" rx="2"/>
+      <!-- 中竖 -->
+      <rect x="-2" y="-20" width="4" height="40" rx="2"/>
+      <!-- 左点 -->
+      <circle cx="-16" cy="-4" r="4"/>
+      <!-- 右点 -->
+      <circle cx="16" cy="-4" r="4"/>
+      <!-- 下横 -->
+      <rect x="-20" y="12" width="40" height="4" rx="2"/>
+    </g>
+  </g>
+  
+  <!-- 点缀装饰 -->
+  <g opacity="0.7">
+    <circle cx="65" cy="65" r="2" fill="#E8C4A0"/>
+    <circle cx="135" cy="65" r="2" fill="#E8C4A0"/>
+    <circle cx="65" cy="135" r="2" fill="#E8C4A0"/>
+    <circle cx="135" cy="135" r="2" fill="#E8C4A0"/>
+  </g>
+  
+  <!-- 外层高光 -->
+  <circle cx="100" cy="100" r="70" 
+          fill="none" 
+          stroke="url(#accentGradient)" 
+          stroke-width="1" 
+          opacity="0.3"/>
+</svg>

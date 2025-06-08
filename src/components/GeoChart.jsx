@@ -29,9 +29,9 @@ const createSvgIcon = (iconUrl, sizeArray) => {
   });
 };
 
-const warIcon = createSvgIcon(`${ICON_BASE_PATH}war.svg`, BASE_SVG_ICON_SIZE);
-const disasterIcon = createSvgIcon(`${ICON_BASE_PATH}disaster.svg`, BASE_SVG_ICON_SIZE);
-const eventIcon = createSvgIcon(`${ICON_BASE_PATH}event.svg`, BASE_SVG_ICON_SIZE);
+const warIcon = createSvgIcon(`${ICON_BASE_PATH}war.png`, BASE_SVG_ICON_SIZE);
+const disasterIcon = createSvgIcon(`${ICON_BASE_PATH}disaster.png`, BASE_SVG_ICON_SIZE);
+const eventIcon = createSvgIcon(`${ICON_BASE_PATH}event.png`, BASE_SVG_ICON_SIZE);
 
 const CHART_CONTAINER_HEIGHT = '190px'; 
 
@@ -80,15 +80,18 @@ const GeoChart = () => {
 
   const getScaledIcon = useCallback((iconType, zoomLevel) => {
     const baseIconUrl = {
-      war: `${ICON_BASE_PATH}war.svg`, disaster: `${ICON_BASE_PATH}disaster.svg`, event: `${ICON_BASE_PATH}event.svg`,
+      war: `${ICON_BASE_PATH}war.png`, disaster: `${ICON_BASE_PATH}disaster.png`, event: `${ICON_BASE_PATH}event.png`,
     };
     let scaleFactor = 1.0; let scaleKey = 'large';
     if (zoomLevel <= 4) { scaleFactor = 0.6; scaleKey = 'small'; } 
     else if (zoomLevel <= 6) { scaleFactor = 0.8; scaleKey = 'medium'; }
     const cacheKey = `${iconType}-${scaleKey}`;
     if (scaledIconCache.current[cacheKey]) return scaledIconCache.current[cacheKey];
-    const newWidth = Math.round(BASE_SVG_ICON_SIZE[0] * scaleFactor);
-    const newHeight = Math.round(BASE_SVG_ICON_SIZE[1] * scaleFactor);
+    
+    // 所有图标都使用相同的基础尺寸
+    const baseSize = BASE_SVG_ICON_SIZE;
+    const newWidth = Math.round(baseSize[0] * scaleFactor);
+    const newHeight = Math.round(baseSize[1] * scaleFactor);
     const newIcon = createSvgIcon(baseIconUrl[iconType], [newWidth, newHeight]);
     scaledIconCache.current[cacheKey] = newIcon;
     return newIcon;
@@ -118,18 +121,40 @@ const GeoChart = () => {
 
   const initializeMap = useCallback(() => {
     if (!mapRef.current || isInitializedRef.current) return false;
+    
+    // 确保容器有有效的尺寸
+    const container = mapRef.current;
+    if (!container.offsetWidth || !container.offsetHeight) {
+      console.warn('地图容器尺寸无效，延迟初始化');
+      setTimeout(() => initializeMap(), 100);
+      return false;
+    }
+    
     try {
       mapInstanceRef.current = L.map(mapRef.current, {
-        center: [39.9042, 116.4074], zoom: 6, preferCanvas: true,
+        center: [39.9042, 116.4074], 
+        zoom: 6, 
+        preferCanvas: false, // 改为false以避免Canvas相关问题
+        renderer: L.svg(), // 明确使用SVG渲染器
+        // 完全禁用Canvas相关选项
+        zoomAnimation: true,
+        fadeAnimation: true,
+        markerZoomAnimation: true
       });
       isInitializedRef.current = true;
+      
+      // 延长等待时间确保DOM完全准备好
       setTimeout(() => {
-        mapInstanceRef.current?.invalidateSize();
-        handleZoomEnd(); 
-      } , 150);
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.invalidateSize();
+          handleZoomEnd(); 
+        }
+      }, 300);
+      
       mapInstanceRef.current.on('zoomend', handleZoomEnd);
       return true;
     } catch (err) {
+      console.error('地图初始化错误:', err);
       setError('地图初始化失败: ' + err.message);
       return false;
     }
@@ -171,7 +196,15 @@ const GeoChart = () => {
           layerToAdd = L.geoJSON(geojson, {
             pointToLayer: (feature, latlng) => {
               const name = feature.properties?.NAME_ZH || feature.properties?.name || '';
-              const marker = L.circleMarker(latlng, { radius: 5, fillColor: '#8C6D46', color: '#000', weight: 1, opacity: 1, fillOpacity: 1 });
+              const marker = L.circleMarker(latlng, { 
+                radius: 5, 
+                fillColor: '#8C6D46', 
+                color: '#000', 
+                weight: 1, 
+                opacity: 1, 
+                fillOpacity: 1,
+                renderer: L.svg() // 强制使用SVG渲染器
+              });
               if (name) marker.bindTooltip(name, { permanent: true, direction: 'center', className: 'label-tooltip' });
               return marker;
             }
@@ -393,7 +426,16 @@ const GeoChart = () => {
   const updateVisualizations = useCallback(() => {
     if (!mapInstanceRef.current || isLoading) return;
 
-    [...warMarkersRef.current, ...disasterMarkersRef.current, ...eventMarkersRef.current].forEach(m => mapInstanceRef.current.removeLayer(m));
+    // 安全地移除现有标记
+    try {
+      [...warMarkersRef.current, ...disasterMarkersRef.current, ...eventMarkersRef.current].forEach(m => {
+        if (m && mapInstanceRef.current && mapInstanceRef.current.hasLayer(m)) {
+          mapInstanceRef.current.removeLayer(m);
+        }
+      });
+    } catch (err) {
+      console.warn('移除标记时出现错误:', err);
+    }
     warMarkersRef.current = []; disasterMarkersRef.current = []; eventMarkersRef.current = [];
 
     const currentDynastyNames = selectedDynasties.filter(d => d !== 'overview').join('、') || '所有时期';
@@ -426,14 +468,41 @@ warToShow = warData;
     // 这样，无论是总览还是特定朝代，只要有数据就会在地图上显示标记
   const currentZoom = mapInstanceRef.current.getZoom();
   
-    const initialWarIcon = getScaledIcon('war', currentZoom);
-  warToShow.forEach(loc => { const marker = L.marker([loc.latitude, loc.longitude], { icon: initialWarIcon }); marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.position || '未知地点'}</h3><p style="margin:0;">${loc.war_name}</p></div>`); marker.addTo(mapInstanceRef.current); warMarkersRef.current.push(marker); });
+    // 创建SVG渲染器实例以确保一致的渲染方式
+  const svgRenderer = L.svg();
+  
+  const initialWarIcon = getScaledIcon('war', currentZoom);
+  warToShow.forEach(loc => { 
+    const marker = L.marker([loc.latitude, loc.longitude], { 
+      icon: initialWarIcon,
+      renderer: svgRenderer 
+    }); 
+    marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.position || '未知地点'}</h3><p style="margin:0;">${loc.war_name}</p></div>`); 
+    marker.addTo(mapInstanceRef.current); 
+    warMarkersRef.current.push(marker); 
+  });
   
   const initialDisasterIcon = getScaledIcon('disaster', currentZoom);
-  disasterToShow.forEach(loc => { const marker = L.marker([loc.latitude, loc.longitude], { icon: initialDisasterIcon }); marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.disaster_type}</h3><p style="margin:0;">${loc.position || ''}</p></div>`); marker.addTo(mapInstanceRef.current); disasterMarkersRef.current.push(marker); });
+  disasterToShow.forEach(loc => { 
+    const marker = L.marker([loc.latitude, loc.longitude], { 
+      icon: initialDisasterIcon,
+      renderer: svgRenderer 
+    }); 
+    marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.disaster_type}</h3><p style="margin:0;">${loc.position || ''}</p></div>`); 
+    marker.addTo(mapInstanceRef.current); 
+    disasterMarkersRef.current.push(marker); 
+  });
   
   const initialEventIcon = getScaledIcon('event', currentZoom);
-  eventToShow.forEach(loc => { const marker = L.marker([loc.latitude, loc.longitude], { icon: initialEventIcon }); marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.event_name}</h3><p style="margin:0;">${loc.position || ''}</p></div>`); marker.addTo(mapInstanceRef.current); eventMarkersRef.current.push(marker); });
+  eventToShow.forEach(loc => { 
+    const marker = L.marker([loc.latitude, loc.longitude], { 
+      icon: initialEventIcon,
+      renderer: svgRenderer 
+    }); 
+    marker.bindPopup(`<div style="text-align:center;"><h3 style="margin:0 0 5px;">${loc.event_name}</h3><p style="margin:0;">${loc.position || ''}</p></div>`); 
+    marker.addTo(mapInstanceRef.current); 
+    eventMarkersRef.current.push(marker); 
+  });
   
   const chartTitleSuffix = isOverview ? "总览概况" : currentDynastyNames;
 
@@ -448,22 +517,46 @@ warToShow = warData;
 
 
   useEffect(() => { // Main map initialization and cleanup
-    if (initializeMap()) {
-      loadBaseMapLayers();
-    }
-    return () => {
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.off('zoomend', handleZoomEnd);
+    const timer = setTimeout(() => {
+      if (initializeMap()) {
+        loadBaseMapLayers();
       }
-      warChartInstanceRef.current?.dispose(); disasterChartInstanceRef.current?.dispose(); eventChartInstanceRef.current?.dispose();
-      mapInstanceRef.current?.remove(); mapInstanceRef.current = null; isInitializedRef.current = false;
+    }, 100); // 延迟初始化以确保DOM准备完成
+    
+    return () => {
+      clearTimeout(timer);
+      try {
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.off('zoomend', handleZoomEnd);
+          mapInstanceRef.current.remove();
+        }
+      } catch (err) {
+        console.warn('地图清理时出现错误:', err);
+      }
+      
+      // 清理图表实例
+      try {
+        warChartInstanceRef.current?.dispose();
+        disasterChartInstanceRef.current?.dispose(); 
+        eventChartInstanceRef.current?.dispose();
+      } catch (err) {
+        console.warn('图表清理时出现错误:', err);
+      }
+      
+      mapInstanceRef.current = null; 
+      isInitializedRef.current = false;
     };
   }, [initializeMap, handleZoomEnd]);
 
   useEffect(() => { // Update visualizations when data or selections change
     if (isInitializedRef.current && mapInstanceRef.current && !isLoading) {
       updateVisualizations();
-      mapInstanceRef.current.invalidateSize(false);
+      // 使用setTimeout异步处理invalidateSize，避免ResizeObserver循环
+      setTimeout(() => {
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.invalidateSize(false);
+        }
+      }, 0);
     }
   }, [selectedDynasties, warData, disasterData, eventData, isLoading, updateVisualizations]);
 
