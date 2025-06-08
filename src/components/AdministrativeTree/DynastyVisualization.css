@@ -35,3 +35,45 @@
     border-radius: 4px;
     font-family: '楷体';
   }
+
+.administrative-tree-container {
+  width: 100%;
+  padding: 10px;
+}
+
+.time-control {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.time-control input[type="range"] {
+  flex: 1;
+  height: 4px;
+  -webkit-appearance: none;
+  background: #b4a293;
+  border-radius: 2px;
+  outline: none;
+}
+
+.time-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #8b7355;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.time-control input[type="range"]::-webkit-slider-thumb:hover {
+  background: #6b4f3d;
+}
+
+.time-control span {
+  font-family: '楷体';
+  font-size: 14px;
+  color: #8b7355;
+  min-width: 60px;
+  text-align: right;
+}

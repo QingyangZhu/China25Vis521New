@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import './TimeControl.css';
 import useDynastyStore, { dynastyNameMapping } from '../../store/dynastyStore';
@@ -10,6 +10,163 @@ const TimeControl = ({ onDynastyClick, onOpenWordCloud }) => {
     const containerRef = useRef(null);
     const chart9Ref = useRef(null);
     const { selectedDynasties, toggleDynasty } = useDynastyStore();
+    
+    // 添加状态来存储新的数据源
+    const [radarDataSources, setRadarDataSources] = useState({
+        merceData: [], // 经济数据
+        populationData: [], // 人口数据
+        productData: [], // 物产资源数据
+        trafficData: [] // 交通发展数据
+    });
+
+    // 加载新的数据源
+    useEffect(() => {
+        const loadRadarDataSources = async () => {
+            try {
+                const [merceData, populationData, productData, trafficData] = await Promise.all([
+                    d3.csv('/data/merce-pj.csv'),
+                    d3.csv('/data/problem3/人口数量统计.csv'),
+                    d3.csv('/data/problem3/物产数据_按朝代排序.csv'),
+                    d3.csv('/data/problem3/交通数据综合分析/analysis_csv_outputs/朝代发展水平等级分布_20250604_213238.csv')
+                ]);
+                
+                setRadarDataSources({
+                    merceData,
+                    populationData,
+                    productData,
+                    trafficData
+                });
+            } catch (error) {
+                console.error('加载雷达图数据源失败:', error);
+            }
+        };
+        
+        loadRadarDataSources();
+    }, []);
+
+    // 朝代名称映射函数
+    const mapDynastyName = (dynastyName) => {
+        const mapping = {
+            '上古时代': '上古',
+            '远古时代': '远古',
+            '西楚': '楚',
+            '三国': '魏晋',
+            '五胡十六国': '十六国',
+            '南北朝': '北朝',
+            '五代十国': '五代',
+            '民国': '近代-民国',
+            '中国': '现代'
+        };
+        return mapping[dynastyName] || dynastyName;
+    };
+
+    // 智能匹配朝代名称（用于处理数据源中的变体）
+    const findMatchingDynasty = (targetDynasty, dataSourceDynasties) => {
+        const mapped = mapDynastyName(targetDynasty);
+        
+        // 精确匹配
+        let match = dataSourceDynasties.find(d => d === mapped);
+        if (match) return match;
+        
+        // 部分匹配
+        match = dataSourceDynasties.find(d => d.includes(mapped) || mapped.includes(d));
+        if (match) return match;
+        
+        // 特殊情况处理
+        const specialMappings = {
+            '夏': ['夏商', '夏商时期'],
+            '商': ['夏商', '夏商时期', '商'],
+            '周': ['西周', '东周', '先秦-西周'],
+            '秦': ['先秦-战国', '秦'],
+            '汉': ['汉-西汉', '汉-东汉'],
+            '晋': ['西晋', '魏晋'],
+            '唐': ['唐'],
+            '宋': ['宋-北宋', '宋-南宋'],
+            '元': ['元'],
+            '明': ['明'],
+            '清': ['清'],
+        };
+        
+        const alternatives = specialMappings[mapped];
+        if (alternatives) {
+            match = dataSourceDynasties.find(d => alternatives.some(alt => d.includes(alt) || alt.includes(d)));
+            if (match) return match;
+        }
+        
+        return null;
+    };
+
+    // 处理朝代数据，计算六维雷达图数据
+    const calculateRadarData = (dynastyName) => {
+        if (!radarDataSources.merceData.length) {
+            // 数据还未加载完成，返回默认值
+            return {
+                political: 0,
+                military: 0,
+                economy: 0,
+                population: 0,
+                resource: 0,
+                traffic: 0
+            };
+        }
+
+        const mappedName = mapDynastyName(dynastyName);
+        
+        // 1. 政治和军事数据（保持原有逻辑）
+        const csvDataItem = csvData.find(item => item['历史时期'] === dynastyName);
+        const political = csvDataItem ? +csvDataItem['政治'] : 0;
+        const military = csvDataItem ? +csvDataItem['军事'] * 10 : 0;
+        
+        // 2. 经济数据（从merce-pj.csv获取）
+        const merceItemDynasties = radarDataSources.merceData.map(item => item['朝代']);
+        const matchedMerceDynasty = findMatchingDynasty(dynastyName, merceItemDynasties);
+        const merceItem = matchedMerceDynasty ? 
+            radarDataSources.merceData.find(item => item['朝代'] === matchedMerceDynasty) : null;
+        const economy = merceItem ? +merceItem['综合评分'] * 20 : 0; // 调整比例
+        
+        // 3. 人口数据（使用硬编码数据，与您提供的人口等级一致）
+        const population = csvDataItem ? +csvDataItem['人口'] * 20 : 0; // 将2-5的范围缩放到40-100
+        
+        // 4. 物产资源数据（从物产数据计算种类数量）
+        const productDynasties = [...new Set(radarDataSources.productData.map(item => item.dynasty))];
+        const matchedProductDynasty = findMatchingDynasty(dynastyName, productDynasties);
+        const productItems = matchedProductDynasty ? 
+            radarDataSources.productData.filter(item => item.dynasty === matchedProductDynasty) :
+            radarDataSources.productData.filter(item => {
+                return item.dynasty.includes(mappedName) || mappedName.includes(item.dynasty);
+            });
+            
+        const uniqueCategories = new Set();
+        productItems.forEach(item => {
+            if (item.product_category) {
+                // 解析产品分类，可能有多个分类用括号分隔
+                const categories = item.product_category.match(/（([^）]+)）/g);
+                if (categories) {
+                    categories.forEach(cat => {
+                        const cleanCat = cat.replace(/[（）]/g, '');
+                        uniqueCategories.add(cleanCat);
+                    });
+                }
+            }
+        });
+        const resource = Math.min(uniqueCategories.size * 8, 100); // 每种类型8分，最高100分
+        
+        // 5. 交通发展数据（从交通数据获取）
+        const trafficDynasties = radarDataSources.trafficData.map(item => item['朝代']);
+        const matchedTrafficDynasty = findMatchingDynasty(dynastyName, trafficDynasties);
+        const trafficItem = matchedTrafficDynasty ? 
+            radarDataSources.trafficData.find(item => item['朝代'] === matchedTrafficDynasty) : null;
+        const traffic = trafficItem ? +trafficItem['综合得分'] : 0;
+        
+        return {
+            political,
+            military,
+            economy,
+            population,
+            resource,
+            traffic
+        };
+    };
 
     // 定义朝代数据
     const dynastyData = [
@@ -425,18 +582,15 @@ const TimeControl = ({ onDynastyClick, onOpenWordCloud }) => {
         const barData = csvData.map(csvItem => {
             const correspondingDynasty = dynastyData.find(dynasty => dynasty.name === csvItem['历史时期']);
             if (correspondingDynasty) {
+                // 计算六维雷达图数据
+                const radarScores = calculateRadarData(csvItem['历史时期']);
+                
                 return {
                     startPos: correspondingDynasty.startPos,
                     duration: correspondingDynasty.duration,
                     development: +csvItem['发展程度'],
                     period: csvItem['历史时期'],
-                    scores: {
-                        political: +csvItem['政治'],
-                        military: +csvItem['军事'] * 10,
-                        resource: +csvItem['资源'] * 20,
-                        traffic: +csvItem['交通'] * 33,
-                        population: +csvItem['人口'] * 20
-                    }
+                    scores: radarScores
                 };
             }
             return null;
@@ -517,7 +671,7 @@ const TimeControl = ({ onDynastyClick, onOpenWordCloud }) => {
                     .attr("transform", `translate(${radarWidth/2},${radarHeight/2})`);
 
                 // 绘制雷达图背景
-                const categories = ['政治', '军事', '资源', '交通', '人口'];
+                const categories = ['政治', '军事', '经济', '人口', '物产资源', '交通发展'];
                 const maxValue = 100;
                 const angleSlice = Math.PI * 2 / categories.length;
 
@@ -559,9 +713,10 @@ const TimeControl = ({ onDynastyClick, onOpenWordCloud }) => {
                 const data = [
                     d.scores.political,
                     d.scores.military,
+                    d.scores.economy,
+                    d.scores.population,
                     d.scores.resource,
-                    d.scores.traffic,
-                    d.scores.population
+                    d.scores.traffic
                 ];
 
                 const lineGenerator = d3.line()
@@ -624,7 +779,7 @@ const TimeControl = ({ onDynastyClick, onOpenWordCloud }) => {
         return () => {
             svg.selectAll("*").remove();
         };
-    }, [selectedDynasties, toggleDynasty, dynastyData]);
+    }, [selectedDynasties, toggleDynasty, dynastyData, radarDataSources]);
 
     useEffect(() => {
         // Load and process CSV data

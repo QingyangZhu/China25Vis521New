@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import L from 'leaflet';
 import Papa from 'papaparse';
+import * as d3 from 'd3';
 import 'leaflet/dist/leaflet.css';
 import useDynastyStore from '../../store/dynastyStore';
 import './TransportationNetwork.css';
@@ -25,6 +26,17 @@ const TransportationNetwork = () => {
   const [detailData, setDetailData] = useState([]);
   const [selectedDynasty, setSelectedDynasty] = useState('元');
   const [loading, setLoading] = useState(true);
+  
+  // 聚类分析相关状态
+  const [clusterData, setClusterData] = useState([]);
+  const [clusterResults, setClusterResults] = useState(null);
+  const [radarDataSources, setRadarDataSources] = useState({
+    merceData: [],
+    populationData: [],
+    productData: [],
+    trafficData: []
+  });
+  const clusterSvgRef = useRef(null);
   
   // 古城地图数据状态
   const [warData, setWarData] = useState([]);
@@ -82,7 +94,895 @@ const TransportationNetwork = () => {
     }
   }, []);
 
+  // 加载聚类分析所需的数据源
+  useEffect(() => {
+    const loadClusterDataSources = async () => {
+      try {
+        const [merceData, populationData, productData, trafficData] = await Promise.all([
+          d3.csv('/data/merce-pj.csv'),
+          d3.csv('/data/problem3/人口数量统计.csv'),
+          d3.csv('/data/problem3/物产数据_按朝代排序.csv'),
+          d3.csv('/data/problem3/交通数据综合分析/analysis_csv_outputs/朝代发展水平等级分布_20250604_213238.csv')
+        ]);
+        
+        setRadarDataSources({
+          merceData,
+          populationData,
+          productData,
+          trafficData
+        });
+      } catch (error) {
+        console.error('加载聚类分析数据源失败:', error);
+      }
+    };
+    
+    loadClusterDataSources();
+  }, []);
 
+    // 自定义聚类分配函数
+  const getCustomCluster = (dynastyName) => {
+    const clusterMapping = {
+      // 聚类0：上古、远古、五胡十六国、宋、西楚
+      '上古时代': 0,
+      '远古时代': 0,
+      '五胡十六国': 0,
+      '宋': 0,
+      '西楚': 0,
+      
+      // 聚类1：商、南北朝、三国、周、五代十国、晋、夏
+      '商': 1,
+      '南北朝': 1,
+      '三国': 1,
+      '周': 1,
+      '五代十国': 1,
+      '晋': 1,
+      '夏': 1,
+      
+      // 聚类2：秦、汉、隋、金
+      '秦': 2,
+      '汉': 2,
+      '隋': 2,
+      '金': 2,
+      
+      // 聚类3：唐、辽、元、明、清、民国
+      '唐': 3,
+      '辽': 3,
+      '元': 3,
+      '明': 3,
+      '清': 3,
+      '民国': 3,
+      
+      // 聚类4：中国（现代）
+      '中国': 4
+    };
+    
+    return clusterMapping[dynastyName] !== undefined ? clusterMapping[dynastyName] : 0;
+  };
+
+  // 执行聚类分析 - 使用自定义聚类替代K-means
+  useEffect(() => {
+    console.log('🔍 开始执行自定义聚类分析...');
+    
+    // 准备所有朝代的六维数据
+    const dynasties = [
+      '上古时代', '远古时代', '夏', '商', '周', '秦', '西楚', '汉', '三国', '晋',
+      '五胡十六国', '南北朝', '隋', '唐', '五代十国', '宋', '辽', '金', '元', '明', '清', '民国', '中国'
+    ];
+    
+    const sixDimensionData = dynasties.map(dynasty => calculateSixDimensionData(dynasty));
+    console.log('📊 六维数据准备完成:', sixDimensionData.slice(0, 3)); // 只打印前3个作为示例
+    setClusterData(sixDimensionData);
+    
+    // 检查数据有效性
+    const validData = sixDimensionData.filter(d => 
+      d.political > 0 || d.military > 0 || d.economy > 0 || 
+      d.population > 0 || d.resource > 0 || d.traffic > 0
+    );
+    
+    if (validData.length < 3) {
+      console.log('❌ 有效数据不足，无法执行聚类分析');
+      return;
+    }
+    
+    // 执行PCA降维
+    const pcaResults = performPCA(sixDimensionData, 2);
+    console.log('🔄 PCA降维完成:', {
+      dataCount: pcaResults.transformedData.length,
+      explainedVariance: pcaResults.explainedVariance
+    });
+    
+    // 使用自定义聚类分配替代K-means
+    const customClusters = pcaResults.transformedData.map(data => ({
+      ...data,
+      cluster: getCustomCluster(data.dynasty)
+    }));
+    
+    // 计算每个聚类的中心点（用于绘制椭圆）
+    const centroids = [];
+    for (let i = 0; i < 5; i++) {
+      const clusterPoints = customClusters.filter(d => d.cluster === i);
+      if (clusterPoints.length > 0) {
+        const avgPc1 = clusterPoints.reduce((sum, p) => sum + p.pc1, 0) / clusterPoints.length;
+        const avgPc2 = clusterPoints.reduce((sum, p) => sum + p.pc2, 0) / clusterPoints.length;
+        centroids.push({ pc1: avgPc1, pc2: avgPc2 });
+      } else {
+        centroids.push({ pc1: 0, pc2: 0 });
+      }
+    }
+    
+    const customResults = {
+      clusters: customClusters,
+      centroids: centroids
+    };
+    
+    console.log('🎯 自定义聚类完成:', {
+      clusterCount: customClusters.length,
+      centroidsCount: centroids.length
+    });
+    
+    const results = {
+      pca: pcaResults,
+      kmeans: customResults
+    };
+    
+    setClusterResults(results);
+    console.log('✅ 自定义聚类结果已设置:', results);
+  }, []); // 移除依赖，让它在组件挂载时立即执行
+
+    // 当外部数据源加载完成时，重新执行聚类分析以获得更准确的结果
+  useEffect(() => {
+    if (radarDataSources.merceData.length > 0 && 
+        radarDataSources.productData.length > 0 && 
+        radarDataSources.trafficData.length > 0) {
+      console.log('🔄 外部数据源加载完成，重新执行自定义聚类分析...');
+      
+      const dynasties = [
+        '上古时代', '远古时代', '夏', '商', '周', '秦', '西楚', '汉', '三国', '晋',
+        '五胡十六国', '南北朝', '隋', '唐', '五代十国', '宋', '辽', '金', '元', '明', '清', '民国', '中国'
+      ];
+      
+      const sixDimensionData = dynasties.map(dynasty => calculateSixDimensionData(dynasty));
+      setClusterData(sixDimensionData);
+      
+      const pcaResults = performPCA(sixDimensionData, 2);
+      
+      // 使用自定义聚类分配
+      const customClusters = pcaResults.transformedData.map(data => ({
+        ...data,
+        cluster: getCustomCluster(data.dynasty)
+      }));
+      
+      // 重新计算聚类中心点
+      const centroids = [];
+      for (let i = 0; i < 5; i++) {
+        const clusterPoints = customClusters.filter(d => d.cluster === i);
+        if (clusterPoints.length > 0) {
+          const avgPc1 = clusterPoints.reduce((sum, p) => sum + p.pc1, 0) / clusterPoints.length;
+          const avgPc2 = clusterPoints.reduce((sum, p) => sum + p.pc2, 0) / clusterPoints.length;
+          centroids.push({ pc1: avgPc1, pc2: avgPc2 });
+        } else {
+          centroids.push({ pc1: 0, pc2: 0 });
+        }
+      }
+      
+      const customResults = {
+        clusters: customClusters,
+        centroids: centroids
+      };
+      
+      setClusterResults({
+        pca: pcaResults,
+        kmeans: customResults
+      });
+      
+      console.log('✅ 使用完整数据重新计算的自定义聚类结果已更新');
+    }
+  }, [radarDataSources]);
+
+  // 绘制聚类图
+  const drawClusterChart = () => {
+    console.log('🖼️ drawClusterChart 被调用');
+    console.log('📊 clusterResults 状态:', !!clusterResults);
+    console.log('🎯 SVG ref 状态:', !!clusterSvgRef.current);
+    
+    // 清理可能残留的悬浮框
+    d3.selectAll('.cluster-info-tooltip').remove();
+    
+    if (!clusterResults) {
+      console.log('❌ 绘制聚类图失败：缺少聚类结果数据');
+      return;
+    }
+
+    if (!clusterSvgRef.current) {
+      console.log('❌ 绘制聚类图失败：SVG引用不存在');
+      return;
+    }
+
+    // 验证SVG元素是否真的在DOM中
+    const svgElement = clusterSvgRef.current;
+    if (!svgElement.parentNode) {
+      console.log('❌ 绘制聚类图失败：SVG元素未挂载到DOM');
+      return;
+    }
+
+    console.log('🎨 开始绘制聚类图');
+    console.log('📊 聚类数据详情:', {
+      pcaData: clusterResults.pca?.transformedData?.length || 0,
+      kmeansData: clusterResults.kmeans?.clusters?.length || 0,
+      centroids: clusterResults.kmeans?.centroids?.length || 0
+    });
+
+    try {
+      const svg = d3.select(svgElement);
+      svg.selectAll("*").remove();
+      console.log('🧹 清除了旧的SVG内容');
+
+          const width = 360; // 增大宽度
+    const height = 300; // 增大高度以容纳下方图例
+    const margin = { top: 20, right: 20, bottom: 70, left: 35 }; // 适当调整边距
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+
+    // 设置比例尺
+    const pc1Extent = d3.extent(clusterResults.kmeans.clusters, d => d.pc1);
+    const pc2Extent = d3.extent(clusterResults.kmeans.clusters, d => d.pc2);
+    
+    const xScale = d3.scaleLinear()
+      .domain(pc1Extent)
+      .range([0, innerWidth])
+      .nice();
+
+    const yScale = d3.scaleLinear()
+      .domain(pc2Extent)
+      .range([innerHeight, 0])
+      .nice();
+
+    // 聚类颜色 - 低饱和度但有区分度的5种颜色，符合系统风格
+    const clusterColors = ['#A68B7A', '#B8A48E', '#8FA68A', '#7A9BC4', '#A68BA6']; // 淡棕、沙褐、橄榄绿、淡蓝、淡紫
+    
+    // 聚类名称 - 根据北京历史发展时期命名
+    const clusterNames = [
+      '古代起源期', // 上古时代、远古时代、五胡十六国、宋、西楚
+      '早期王朝期', // 商、南北朝、三国、周、五代十国、晋、夏
+      '统一奠基期', // 秦、汉、隋、金
+      '帝国鼎盛期', // 唐、辽、元、明、清、民国
+      '现代共和期'  // 中国
+    ];
+
+    const g = svg.append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    // 为每个聚类绘制椭圆边界
+    for (let i = 0; i < clusterColors.length; i++) {
+      const clusterPoints = clusterResults.kmeans.clusters.filter(d => d.cluster === i);
+      
+      if (clusterPoints.length > 0) {
+        // 计算该聚类的边界椭圆
+        const clusterPC1 = clusterPoints.map(d => d.pc1);
+        const clusterPC2 = clusterPoints.map(d => d.pc2);
+        
+        const meanPC1 = clusterPC1.reduce((sum, val) => sum + val, 0) / clusterPC1.length;
+        const meanPC2 = clusterPC2.reduce((sum, val) => sum + val, 0) / clusterPC2.length;
+        
+        let ellipseRx, ellipseRy;
+        
+        if (clusterPoints.length === 1) {
+          // 单个点的聚类使用固定的椭圆大小
+          ellipseRx = 25;
+          ellipseRy = 20;
+        } else {
+          // 多个点的聚类计算标准差，用作椭圆半径
+          const stdPC1 = Math.sqrt(clusterPC1.reduce((sum, val) => sum + Math.pow(val - meanPC1, 2), 0) / clusterPC1.length);
+          const stdPC2 = Math.sqrt(clusterPC2.reduce((sum, val) => sum + Math.pow(val - meanPC2, 2), 0) / clusterPC2.length);
+          
+          // 椭圆半径乘以系数来包含大部分点（约95%的数据在2个标准差内）
+          ellipseRx = Math.max(xScale(stdPC1 * 2.5) - xScale(0), 20);
+          ellipseRy = Math.max(yScale(0) - yScale(stdPC2 * 2.5), 15);
+        }
+        
+        // 绘制椭圆边界
+        g.append('ellipse')
+          .attr('cx', xScale(meanPC1))
+          .attr('cy', yScale(meanPC2))
+          .attr('rx', ellipseRx)
+          .attr('ry', ellipseRy)
+          .attr('fill', clusterColors[i])
+          .attr('fill-opacity', 0.1)
+          .attr('stroke', clusterColors[i])
+          .attr('stroke-width', 2)
+          .attr('stroke-opacity', 0.6)
+          .attr('stroke-dasharray', '5,5')
+          .style('cursor', 'pointer')
+          .on('mouseover', function(event) {
+            // 高亮显示椭圆
+            d3.select(this)
+              .attr('fill-opacity', 0.25)
+              .attr('stroke-width', 3)
+              .attr('stroke-opacity', 0.8);
+
+            // 创建聚类信息悬浮框
+            const clusterDynasties = clusterPoints.map(d => d.dynasty);
+            const tooltip = d3.select('body').append('div')
+              .attr('class', 'cluster-info-tooltip')
+              .style('position', 'absolute')
+              .style('background', 'rgba(255, 255, 255, 0.98)')
+              .style('border', `2px solid ${clusterColors[i]}`)
+              .style('border-radius', '8px')
+              .style('padding', '12px')
+              .style('box-shadow', '0 4px 12px rgba(0,0,0,0.2)')
+              .style('pointer-events', 'none')
+              .style('z-index', '10001')
+              .style('max-width', '280px')
+              .style('font-size', '12px')
+              .html(`
+                <div style="
+                  font-weight: bold; 
+                  color: ${clusterColors[i]};
+                  font-size: 13px;
+                  margin-bottom: 8px;
+                  border-bottom: 1px solid ${clusterColors[i]};
+                  padding-bottom: 5px;
+                ">
+                  ${clusterNames[i]}
+                </div>
+                <div style="margin-bottom: 8px; color: #666;">
+                  共包含 ${clusterDynasties.length} 个朝代：
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                  ${clusterDynasties.map(dynasty => `
+                    <span style="
+                      background-color: ${clusterColors[i]};
+                      color: white;
+                      padding: 2px 6px;
+                      border-radius: 12px;
+                      font-size: 10px;
+                      font-weight: bold;
+                    ">${dynasty}</span>
+                  `).join('')}
+                </div>
+              `);
+
+            // 计算悬浮框位置，避免超出屏幕边界
+            const mouseX = event.pageX;
+            const mouseY = event.pageY;
+            const tooltipWidth = 280;
+            const tooltipHeight = 120;
+            
+            let left = mouseX + 10;
+            let top = mouseY - 10;
+            
+            // 防止右侧超出屏幕
+            if (left + tooltipWidth > window.innerWidth) {
+              left = mouseX - tooltipWidth - 10;
+            }
+            
+            // 防止底部超出屏幕
+            if (top + tooltipHeight > window.innerHeight) {
+              top = mouseY - tooltipHeight - 10;
+            }
+            
+            // 防止顶部超出屏幕
+            if (top < 0) {
+              top = mouseY + 10;
+            }
+            
+            tooltip
+              .style('left', left + 'px')
+              .style('top', top + 'px');
+          })
+          .on('mouseout', function() {
+            // 恢复椭圆样式
+            d3.select(this)
+              .attr('fill-opacity', 0.1)
+              .attr('stroke-width', 2)
+              .attr('stroke-opacity', 0.6);
+            
+            // 移除悬浮框
+            d3.selectAll('.cluster-info-tooltip').remove();
+          });
+      }
+    }
+
+    // 聚类中心圆点已移除（根据用户要求）
+
+    // 绘制数据点
+    g.selectAll('.data-point')
+      .data(clusterResults.kmeans.clusters)
+      .enter()
+      .append('circle')
+      .attr('class', 'data-point')
+      .attr('cx', d => xScale(d.pc1))
+      .attr('cy', d => yScale(d.pc2))
+      .attr('r', 4)
+      .attr('fill', d => clusterColors[d.cluster])
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 1)
+      .attr('opacity', 0.9)
+      .on('mouseover', function(event, d) {
+        // 高亮显示
+        d3.select(this)
+          .attr('r', 6)
+          .attr('stroke-width', 2);
+
+        // 创建工具提示
+        const tooltip = d3.select('body').append('div')
+          .attr('class', 'cluster-tooltip')
+          .style('position', 'absolute')
+          .style('background', 'rgba(0,0,0,0.8)')
+          .style('color', 'white')
+          .style('padding', '8px')
+          .style('border-radius', '4px')
+          .style('font-size', '12px')
+          .style('pointer-events', 'none')
+          .style('z-index', '10000')
+          .html(`
+            <div><strong>${d.dynasty}</strong></div>
+            <div>历史时期: ${clusterNames[d.cluster]}</div>
+            <div>PC1: ${d.pc1.toFixed(2)}</div>
+            <div>PC2: ${d.pc2.toFixed(2)}</div>
+            <div>政治: ${d.original.political.toFixed(1)}</div>
+            <div>军事: ${d.original.military.toFixed(1)}</div>
+            <div>经济: ${d.original.economy.toFixed(1)}</div>
+            <div>人口: ${d.original.population.toFixed(1)}</div>
+            <div>物产: ${d.original.resource.toFixed(1)}</div>
+            <div>交通: ${d.original.traffic.toFixed(1)}</div>
+          `)
+          .style('left', (event.pageX + 10) + 'px')
+          .style('top', (event.pageY - 10) + 'px');
+
+        // 自动移除工具提示
+        setTimeout(() => {
+          tooltip.remove();
+        }, 3000);
+      })
+      .on('mouseout', function() {
+        d3.select(this)
+          .attr('r', 4)
+          .attr('stroke-width', 1);
+        
+        d3.selectAll('.cluster-tooltip').remove();
+      });
+
+    // 添加坐标轴
+    const xAxis = d3.axisBottom(xScale).ticks(5);
+    const yAxis = d3.axisLeft(yScale).ticks(5);
+
+    g.append('g')
+      .attr('transform', `translate(0,${innerHeight})`)
+      .call(xAxis)
+      .append('text')
+      .attr('x', innerWidth / 2)
+      .attr('y', 30)
+      .attr('fill', '#666')
+      .style('font-size', '10px')
+      .style('text-anchor', 'middle')
+      .text(`PC1 (${clusterResults.pca.explainedVariance[0]?.toFixed(1) || 0}%)`);
+
+    g.append('g')
+      .call(yAxis)
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -innerHeight / 2)
+      .attr('y', -25)
+      .attr('fill', '#666')
+      .style('font-size', '10px')
+      .style('text-anchor', 'middle')
+      .text(`PC2 (${clusterResults.pca.explainedVariance[1]?.toFixed(1) || 0}%)`);
+
+    // 添加标题
+    svg.append('text')
+      .attr('x', width / 2)
+      .attr('y', 15)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '12px')
+      .style('font-weight', 'bold')
+      .style('fill', '#333')
+      .text('朝代六维发展聚类分析');
+
+        // 添加图例 - 放在底部，水平排列
+    const legend = svg.append('g')
+      .attr('transform', `translate(${margin.left}, ${height - 45})`);
+
+    // 计算每个图例项的宽度，以便居中排列
+    const legendItemWidth = innerWidth / clusterColors.length;
+
+    clusterColors.forEach((color, i) => {
+      const clusterSize = clusterResults.kmeans.clusters.filter(d => d.cluster === i).length;
+      const x = i * legendItemWidth + legendItemWidth / 2;
+      
+      // 图例圆点
+      legend.append('circle')
+        .attr('cx', x)
+        .attr('cy', 0)
+        .attr('r', 4)
+        .attr('fill', color)
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 1);
+
+      // 图例文字 - 分两行显示
+      legend.append('text')
+        .attr('x', x)
+        .attr('y', 15)
+        .style('font-size', '8px')
+        .style('fill', '#333')
+        .style('font-weight', 'bold')
+        .style('text-anchor', 'middle')
+        .text(clusterNames[i]);
+        
+      legend.append('text')
+        .attr('x', x)
+        .attr('y', 25)
+        .style('font-size', '7px')
+        .style('fill', '#666')
+        .style('text-anchor', 'middle')
+        .text(`(${clusterSize})`);
+    });
+
+      console.log('✅ 聚类图绘制完成');
+
+    } catch (error) {
+      console.error('❌ 绘制聚类图时发生错误:', error);
+      console.error('错误堆栈:', error.stack);
+    }
+  };
+
+  // 绘制聚类图当数据就绪时 - 使用useLayoutEffect确保DOM更新后执行
+  React.useLayoutEffect(() => {
+    if (clusterResults) {
+      console.log('🎨 开始绘制聚类图，数据:', clusterResults);
+      console.log('📍 SVG引用状态:', !!clusterSvgRef.current);
+      
+      // 如果SVG引用不存在，延迟重试
+      if (!clusterSvgRef.current) {
+        console.log('⏳ SVG引用不存在，延迟重试...');
+        const timer = setTimeout(() => {
+          console.log('🔄 延迟重试绘制聚类图');
+          console.log('📍 重试时SVG引用状态:', !!clusterSvgRef.current);
+          if (clusterSvgRef.current) {
+            drawClusterChart();
+          } else {
+            console.log('❌ 延迟重试仍然失败，SVG引用不存在');
+            // 最后一次重试，使用更长延迟
+            const secondTimer = setTimeout(() => {
+              console.log('🔄 最后一次重试绘制聚类图');
+              console.log('📍 最后重试时SVG引用状态:', !!clusterSvgRef.current);
+              if (clusterSvgRef.current) {
+                drawClusterChart();
+              }
+            }, 500);
+            return () => clearTimeout(secondTimer);
+          }
+        }, 100);
+        return () => clearTimeout(timer);
+      } else {
+        drawClusterChart();
+      }
+    } else {
+      console.log('❌ clusterResults 为空，无法绘制聚类图');
+    }
+  }, [clusterResults]);
+
+  // 组件卸载时清理悬浮框
+  useEffect(() => {
+    return () => {
+      d3.selectAll('.cluster-info-tooltip').remove();
+    };
+  }, []);
+
+
+
+  // PCA降维算法
+  const performPCA = (data, dimensions = 2) => {
+    if (data.length === 0) return { transformedData: [], explainedVariance: [] };
+    
+    // 数据标准化
+    const features = ['political', 'military', 'economy', 'population', 'resource', 'traffic'];
+    const matrix = data.map(d => features.map(f => +d[f] || 0));
+    
+    // 计算均值
+    const means = features.map((_, i) => {
+      const sum = matrix.reduce((acc, row) => acc + row[i], 0);
+      return sum / matrix.length;
+    });
+    
+    // 中心化数据
+    const centeredMatrix = matrix.map(row => 
+      row.map((val, i) => val - means[i])
+    );
+    
+    // 计算协方差矩阵
+    const n = centeredMatrix.length;
+    const covMatrix = Array(features.length).fill(0).map(() => Array(features.length).fill(0));
+    
+    for (let i = 0; i < features.length; i++) {
+      for (let j = 0; j < features.length; j++) {
+        let sum = 0;
+        for (let k = 0; k < n; k++) {
+          sum += centeredMatrix[k][i] * centeredMatrix[k][j];
+        }
+        covMatrix[i][j] = sum / (n - 1);
+      }
+    }
+    
+    // 简化的特征值分解（使用数值方法）
+    const eigenVectors = [];
+    const eigenValues = [];
+    
+    // 使用幂迭代法计算主要特征向量
+    for (let dim = 0; dim < dimensions; dim++) {
+      let vector = Array(features.length).fill(0).map(() => Math.random() - 0.5);
+      
+      // 幂迭代
+      for (let iter = 0; iter < 100; iter++) {
+        // 矩阵向量乘法
+        const newVector = Array(features.length).fill(0);
+        for (let i = 0; i < features.length; i++) {
+          for (let j = 0; j < features.length; j++) {
+            newVector[i] += covMatrix[i][j] * vector[j];
+          }
+        }
+        
+        // 归一化
+        const norm = Math.sqrt(newVector.reduce((sum, val) => sum + val * val, 0));
+        if (norm > 0) {
+          vector = newVector.map(val => val / norm);
+        }
+      }
+      
+      eigenVectors.push(vector);
+      
+      // 计算特征值
+      let eigenValue = 0;
+      for (let i = 0; i < features.length; i++) {
+        for (let j = 0; j < features.length; j++) {
+          eigenValue += vector[i] * covMatrix[i][j] * vector[j];
+        }
+      }
+      eigenValues.push(Math.abs(eigenValue));
+      
+      // 从协方差矩阵中移除当前主成分的贡献
+      for (let i = 0; i < features.length; i++) {
+        for (let j = 0; j < features.length; j++) {
+          covMatrix[i][j] -= eigenValue * vector[i] * vector[j];
+        }
+      }
+    }
+    
+    // 投影数据到新空间
+    const transformedData = centeredMatrix.map((row, idx) => {
+      const projected = eigenVectors.map(vector => 
+        row.reduce((sum, val, i) => sum + val * vector[i], 0)
+      );
+      return {
+        dynasty: data[idx].dynasty,
+        pc1: projected[0] || 0,
+        pc2: projected[1] || 0,
+        original: data[idx]
+      };
+    });
+    
+    // 计算解释方差比
+    const totalVariance = eigenValues.reduce((sum, val) => sum + val, 0);
+    const explainedVariance = eigenValues.map(val => (val / totalVariance) * 100);
+    
+    return { transformedData, explainedVariance };
+  };
+
+  // K-means聚类算法
+  const performKMeans = (data, k = 4, maxIterations = 100) => {
+    if (data.length === 0) return { clusters: [], centroids: [] };
+    
+    // 初始化聚类中心
+    let centroids = [];
+    for (let i = 0; i < k; i++) {
+      const randomPoint = data[Math.floor(Math.random() * data.length)];
+      centroids.push({
+        pc1: randomPoint.pc1 + (Math.random() - 0.5) * 0.1,
+        pc2: randomPoint.pc2 + (Math.random() - 0.5) * 0.1
+      });
+    }
+    
+    let clusters = [];
+    let converged = false;
+    let iteration = 0;
+    
+    while (!converged && iteration < maxIterations) {
+      // 分配点到最近的聚类中心
+      clusters = data.map(point => {
+        let minDistance = Infinity;
+        let clusterIndex = 0;
+        
+        centroids.forEach((centroid, i) => {
+          const distance = Math.sqrt(
+            Math.pow(point.pc1 - centroid.pc1, 2) + 
+            Math.pow(point.pc2 - centroid.pc2, 2)
+          );
+          if (distance < minDistance) {
+            minDistance = distance;
+            clusterIndex = i;
+          }
+        });
+        
+        return {
+          ...point,
+          cluster: clusterIndex,
+          distance: minDistance
+        };
+      });
+      
+      // 更新聚类中心
+      const newCentroids = [];
+      for (let i = 0; i < k; i++) {
+        const clusterPoints = clusters.filter(point => point.cluster === i);
+        if (clusterPoints.length > 0) {
+          const avgPc1 = clusterPoints.reduce((sum, p) => sum + p.pc1, 0) / clusterPoints.length;
+          const avgPc2 = clusterPoints.reduce((sum, p) => sum + p.pc2, 0) / clusterPoints.length;
+          newCentroids.push({ pc1: avgPc1, pc2: avgPc2 });
+        } else {
+          newCentroids.push(centroids[i]);
+        }
+      }
+      
+      // 检查收敛
+      converged = centroids.every((centroid, i) => {
+        const newCentroid = newCentroids[i];
+        return Math.abs(centroid.pc1 - newCentroid.pc1) < 0.001 && 
+               Math.abs(centroid.pc2 - newCentroid.pc2) < 0.001;
+      });
+      
+      centroids = newCentroids;
+      iteration++;
+    }
+    
+    return { clusters, centroids };
+  };
+
+  // 朝代名称映射和数据处理
+  const mapDynastyName = (dynastyName) => {
+    const mapping = {
+      '上古时代': '上古',
+      '远古时代': '远古',
+      '西楚': '楚',
+      '三国': '魏晋',
+      '五胡十六国': '十六国',
+      '南北朝': '北朝',
+      '五代十国': '五代',
+      '民国': '近代-民国',
+      '中国': '现代'
+    };
+    return mapping[dynastyName] || dynastyName;
+  };
+
+  const findMatchingDynasty = (targetDynasty, dataSourceDynasties) => {
+    const mapped = mapDynastyName(targetDynasty);
+    
+    let match = dataSourceDynasties.find(d => d === mapped);
+    if (match) return match;
+    
+    match = dataSourceDynasties.find(d => d.includes(mapped) || mapped.includes(d));
+    if (match) return match;
+    
+    const specialMappings = {
+      '夏': ['夏商', '夏商时期'],
+      '商': ['夏商', '夏商时期', '商'],
+      '周': ['西周', '东周', '先秦-西周'],
+      '秦': ['先秦-战国', '秦'],
+      '汉': ['汉-西汉', '汉-东汉'],
+      '晋': ['西晋', '魏晋'],
+      '唐': ['唐'],
+      '宋': ['宋-北宋', '宋-南宋'],
+      '元': ['元'],
+      '明': ['明'],
+      '清': ['清'],
+    };
+    
+    const alternatives = specialMappings[mapped];
+    if (alternatives) {
+      match = dataSourceDynasties.find(d => alternatives.some(alt => d.includes(alt) || alt.includes(d)));
+      if (match) return match;
+    }
+    
+    return null;
+  };
+
+  // 计算六维雷达图数据
+  const calculateSixDimensionData = (dynastyName) => {
+    console.log('📊 计算六维数据 for:', dynastyName);
+    
+    const mappedName = mapDynastyName(dynastyName);
+    
+    // 硬编码的政治、军事和人口数据（来自TimeControl的csvData）
+    const dynastyStaticData = {
+      '上古时代': { political: 21, military: 1.3, population: 2 },
+      '远古时代': { political: 31, military: 1.5, population: 3 },
+      '夏': { political: 41, military: 1.8, population: 2 },
+      '商': { political: 53, military: 4.0, population: 3 },
+      '周': { political: 56, military: 6.5, population: 3 },
+      '秦': { political: 70, military: 8.5, population: 3 },
+      '西楚': { political: 38, military: 7.0, population: 2 },
+      '汉': { political: 78, military: 8.0, population: 4 },
+      '三国': { political: 32, military: 7.5, population: 2 },
+      '晋': { political: 47, military: 4.0, population: 2 },
+      '五胡十六国': { political: 18, military: 3.5, population: 2 },
+      '南北朝': { political: 46, military: 5.0, population: 3 },
+      '隋': { political: 63, military: 6.5, population: 4 },
+      '唐': { political: 84, military: 9.0, population: 4 },
+      '五代十国': { political: 28, military: 3.0, population: 2 },
+      '宋': { political: 63, military: 5.5, population: 3 },
+      '辽': { political: 61, military: 7.0, population: 4 },
+      '金': { political: 61, military: 7.5, population: 4 },
+      '元': { political: 63, military: 9.5, population: 5 },
+      '明': { political: 70, military: 6.0, population: 4 },
+      '清': { political: 73, military: 7, population: 4 },
+      '民国': { political: 48, military: 4.5, population: 5 },
+      '中国': { political: 81, military: 10.0, population: 5 }
+    };
+    
+    const dynastyData = dynastyStaticData[dynastyName] || { political: 0, military: 0, population: 0 };
+    const political = dynastyData.political;
+    const military = dynastyData.military * 10;
+    
+    // 经济数据（从merce-pj.csv获取）
+    let economy = 0;
+    if (radarDataSources.merceData.length > 0) {
+      const merceItemDynasties = radarDataSources.merceData.map(item => item['朝代']);
+      const matchedMerceDynasty = findMatchingDynasty(dynastyName, merceItemDynasties);
+      const merceItem = matchedMerceDynasty ? 
+        radarDataSources.merceData.find(item => item['朝代'] === matchedMerceDynasty) : null;
+      economy = merceItem ? +merceItem['综合评分'] * 20 : 0;
+    }
+    
+    // 人口数据（使用硬编码数据，范围2-5，缩放到40-100）
+    const population = dynastyData.population * 20;
+    
+    // 物产资源数据
+    let resource = 0;
+    if (radarDataSources.productData.length > 0) {
+      const productDynasties = [...new Set(radarDataSources.productData.map(item => item.dynasty))];
+      const matchedProductDynasty = findMatchingDynasty(dynastyName, productDynasties);
+      const productItems = matchedProductDynasty ? 
+        radarDataSources.productData.filter(item => item.dynasty === matchedProductDynasty) :
+        radarDataSources.productData.filter(item => {
+          return item.dynasty.includes(mappedName) || mappedName.includes(item.dynasty);
+        });
+          
+      const uniqueCategories = new Set();
+      productItems.forEach(item => {
+        if (item.product_category) {
+          const categories = item.product_category.match(/（([^）]+)）/g);
+          if (categories) {
+            categories.forEach(cat => {
+              const cleanCat = cat.replace(/[（）]/g, '');
+              uniqueCategories.add(cleanCat);
+            });
+          }
+        }
+      });
+      resource = Math.min(uniqueCategories.size * 8, 100);
+    }
+    
+    // 交通发展数据
+    let traffic = 0;
+    if (radarDataSources.trafficData.length > 0) {
+      const trafficDynasties = radarDataSources.trafficData.map(item => item['朝代']);
+      const matchedTrafficDynasty = findMatchingDynasty(dynastyName, trafficDynasties);
+      const trafficItem = matchedTrafficDynasty ? 
+        radarDataSources.trafficData.find(item => item['朝代'] === matchedTrafficDynasty) : null;
+      traffic = trafficItem ? +trafficItem['综合得分'] : 0;
+    }
+    
+    console.log(`📊 ${dynastyName} 六维数据:`, { political, military, economy, population, resource, traffic });
+    
+    return {
+      dynasty: dynastyName,
+      political,
+      military,
+      economy,
+      population,
+      resource,
+      traffic
+    };
+  };
 
   // 系统主题颜色调色板 - 低饱和度版本
   const systemColorPalette = useMemo(() => [
@@ -1818,6 +2718,56 @@ const TransportationNetwork = () => {
             <div>正在初始化地图...</div>
           </div>
         )}
+
+        {/* 聚类分析图表 - 覆盖在地图右下角 */}
+        <div 
+          className="cluster-chart-overlay"
+          style={{
+            position: 'absolute',
+            bottom: '10px',
+            right: '10px',
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            border: '1px solid #ddd',
+            borderRadius: '8px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+            padding: '8px',
+            zIndex: 1000,
+            backdropFilter: 'blur(4px)',
+            maxWidth: '380px'
+          }}
+        >
+          {clusterResults ? (
+            <svg
+              ref={clusterSvgRef}
+              width="360"
+              height="300"
+              style={{ display: 'block' }}
+            />
+          ) : (
+            <div style={{
+              width: '360px',
+              height: '300px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#666'
+            }}>
+              <div style={{
+                width: '20px',
+                height: '20px',
+                border: '2px solid #ddd',
+                borderTop: '2px solid #8C6D46',
+                borderRadius: '50%',
+                animation: 'spin 1s linear infinite',
+                marginBottom: '10px'
+              }}></div>
+              <div style={{ fontSize: '12px', textAlign: 'center' }}>
+                正在加载聚类分析数据...
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* 底部控制区域：透明度 + 统计信息 */}

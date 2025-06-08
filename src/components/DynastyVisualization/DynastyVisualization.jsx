@@ -16,29 +16,29 @@ function DynastyVisualization({
             d3.select(d3Container.current).selectAll("*").remove();
 
             // Set canvas size and margins
-            const margin = {top: 10, right: 20, bottom: 20, left: 10};
+            const margin = {top: 20, right: 20, bottom: 20, left: 10};
             const width = 600 - margin.left - margin.right;
             const height = 600 - margin.top - margin.bottom;
-            const radius = Math.min(width, height) / 3 + 10;
+            const radius = Math.min(width, height) / 3 + 30;
 
             // Define radius ranges for each section
             const radiusRanges = {
                 river: {
                     inner: radius * 0.5,
-                    middle: radius * 0.7,
-                    outer: radius * 0.9,
+                    middle: radius * 0.75,
+                    outer: radius * 0.93,
                     stat: radius * 1.05
                 },
                 vegetation: {
-                    inner: radius * 0.5,
+                    inner: radius * 0.6,
                     middle: radius * 0.7,
-                    outer: radius * 0.9
+                    outer: radius * 0.88
                 },
                 climate: {
                     inner: radius * 0.65,
-                    middle: radius * 0.7,
-                    outer: radius * 0.9,
-                    image: radius * 1.2
+                    middle: radius * 0.75,
+                    outer: radius * 0.93,
+                    image: radius * 1.1
                 },
                 population: {
                     inner: radius * 0.4,
@@ -117,10 +117,10 @@ function DynastyVisualization({
                 .attr("cy", 0)
                 .attr("r", radius)
                 .style("fill", "none")
-                .style("stroke", "#ab7a4f")
+                .style("stroke", "#ac8e7d")
                 .style("stroke-width", 2);
 
-            // Create year ticks
+                // Create year ticks
             const years = d3.range(startYear, endYear + 1);
             // Calculate the number of ticks to display, at most 20
             const tickCount = Math.min(20, years.length);
@@ -154,24 +154,6 @@ function DynastyVisualization({
                 })
                 .style("stroke", "#ab7a4f");
 
-            // Add year labels
-            ticks.append("text")
-                .attr("x", d => {
-                    const angle = angleScale(d);
-                    return (radius + 20) * Math.sin(angle);
-                })
-                .attr("y", d => {
-                    const angle = angleScale(d);
-                    return -(radius + 20) * Math.cos(angle);
-                })
-                .attr("dy", "0.35em")
-                .style("text-anchor", d => {
-                    const angle = angleScale(d);
-                    return Math.abs(Math.sin(angle)) < 0.5 ? "middle" :
-                           Math.sin(angle) > 0 ? "start" : "end";
-                })
-                .style("font-size", "12px")
-                .text(d => d);
 
             // Add three dividing lines
             const dividerAngles = [0, 2 * Math.PI / 3, 4 * Math.PI / 3];
@@ -381,7 +363,9 @@ function DynastyVisualization({
                             .attr("class", "river-label")
                             .attr("font-size", '10')
                             .attr("transform", `rotate(${labelAngle * 180 / Math.PI - 90}, ${labelRadius * Math.sin(labelAngle)}, ${-labelRadius * Math.cos(labelAngle)})`)
-                            .text(river.河流名称);
+                            .text(river.河流名称)
+                            .append("title")
+                            .text(river.水系支流 || "无支流");
                     } else {
                         const labelAngle = riverStartAngle + (riverEndAngle - riverStartAngle) / 2;
                         const labelRadius = (inner + middle) / 2;
@@ -392,7 +376,9 @@ function DynastyVisualization({
                             .attr("class", "river-label")
                             .attr("data-river", river.河流名称)
                             .attr("transform", `rotate(${labelAngle * 180 / Math.PI - 90}, ${labelRadius * Math.sin(labelAngle)}, ${-labelRadius * Math.cos(labelAngle)})`)
-                            .text(river.河流名称);
+                            .text(river.河流名称)
+                            .append("title")
+                            .text(river.水系支流 || "无支流");
                     }
 
                     currentAngle = riverEndAngle;
@@ -401,7 +387,7 @@ function DynastyVisualization({
                 // Add legend
                 const legend = svg.append("g")
                     .attr("class", "legend")
-                    .attr("transform", `translate(${-radius * 1.5 + 20}, ${-radius * 1.3 + 10})`);
+                    .attr("transform", `translate(${-radius * 1.5 + 30}, ${-radius * 1.25 + 10})`);
 
                 // Add type legend
                 Object.entries(colorSchemes.river.type).forEach(([type, color], i) => {
@@ -439,6 +425,9 @@ function DynastyVisualization({
             function createVegetationSegments(vegetationData, startAngle, endAngle) {
                 const { inner, middle, outer } = radiusRanges.vegetation;
                 const { forest, other, curve, divider } = colorSchemes.vegetation;
+
+                // 定义曲线的基线半径
+                const baseRadiusForCurve = radius * 0.85;
 
                 // Clear existing vegetation segments
                 svg.selectAll(".vegetation-segment, .vegetation-label, .vegetation-curve, .vegetation-divider").remove();
@@ -482,9 +471,11 @@ function DynastyVisualization({
                 currentAngle = startAngle;
 
                 // Add starting point
+                // Ensure starting point is slightly into the second layer to facilitate outward convexity
+                const startCurveRadius = inner; // Start at inner boundary for the curve
                 curvePoints.push({
-                    x: middle * Math.sin(startAngle),
-                    y: -middle * Math.cos(startAngle)
+                    x: startCurveRadius * Math.sin(startAngle),
+                    y: -startCurveRadius * Math.cos(startAngle)
                 });
 
                 // Create first layer segments and calculate curve points
@@ -493,71 +484,76 @@ function DynastyVisualization({
                     const vegetationStartAngle = currentAngle;
                     const vegetationEndAngle = Math.min(currentAngle + vegetationAngle, endAngle);
 
-                    // Create inner segment
+                    // Create segment (now the outer layer)
                     const arc = d3.arc()
-                        .innerRadius(inner)
-                        .outerRadius(middle)
+                        .innerRadius(middle) // Changed to middle
+                        .outerRadius(outer)  // Changed to outer
                         .startAngle(vegetationStartAngle)
                         .endAngle(vegetationEndAngle);
 
                     svg.append("path")
                         .attr("d", arc)
                         .attr("class", "vegetation-segment")
-                        .style("stroke", "#a09080") // 柔和的沙灰色描边
-                        .style("stroke-width", 0.5) // 细描边
+                        .style("stroke", "#a09080")
+                        .style("stroke-width", 0.5)
                         .style("fill", vegetation.具体种类.includes("林") ? forest : other);
 
-                    // Calculate curve points
+                    // Calculate curve points for the inner layer
                     const midAngle = (vegetationStartAngle + vegetationEndAngle) / 2;
-                    const normalizedAbundance = +vegetation.茂盛度 / 5;
-                    const curveRadius = middle + (outer - middle) * normalizedAbundance;
+                    // 将茂盛度（0-5）映射到 inner 到 middle 的范围
+                    const normalizedAbundance = Math.min(Math.max(+vegetation.茂盛度, 0), 5) / 5;
+                    const currentCurveRadius = inner + (middle - inner) * normalizedAbundance;
 
+                    // 添加曲线点
                     curvePoints.push({
-                        x: curveRadius * Math.sin(midAngle),
-                        y: -curveRadius * Math.cos(midAngle)
+                        x: currentCurveRadius * Math.sin(midAngle),
+                        y: -currentCurveRadius * Math.cos(midAngle)
                     });
 
-                    // Add vegetation label
+                    // Add vegetation label (now for the outer segment)
                     const labelAngle = vegetationStartAngle + (vegetationEndAngle - vegetationStartAngle) / 2;
-                    const labelRadius = (inner + middle) / 2;
+                    const labelRadius = (middle + outer) / 2; // Label now in the outer segment
 
                     svg.append("text")
                         .attr("x", labelRadius * Math.sin(labelAngle))
                         .attr("y", -labelRadius * Math.cos(labelAngle))
                         .attr("class", "vegetation-label")
-                        .attr("transform", `rotate(${labelAngle * 180 / Math.PI}, ${labelRadius * Math.sin(labelAngle)}, ${-labelRadius * Math.cos(labelAngle)})`)
+                        .attr("transform", `rotate(${labelAngle * 180 / Math.PI}, ${labelRadius * Math.sin(labelAngle)}, ${-labelRadius * Math.cos(labelAngle)- 5})`)
                         .text(vegetation.具体种类);
 
-                    // Add abundance label
-                    const abundanceLabelRadius = curveRadius;
+                    // Add abundance label at the curve point (now for the inner curve)
+                    const abundanceLabelRadius = currentCurveRadius;
                     svg.append("text")
                         .attr("x", abundanceLabelRadius * Math.sin(labelAngle))
                         .attr("y", -abundanceLabelRadius * Math.cos(labelAngle))
                         .attr("class", "vegetation-label")
-                        .attr("transform", `rotate(${labelAngle * 180 / Math.PI - 90}, ${abundanceLabelRadius * Math.sin(labelAngle)}, ${-abundanceLabelRadius * Math.cos(labelAngle)})`)
+                        .attr("transform", `rotate(${labelAngle * 180 / Math.PI}, ${abundanceLabelRadius * Math.sin(labelAngle)}, ${-abundanceLabelRadius * Math.cos(labelAngle) - 10})`)
                         .text(vegetation.茂盛度);
 
                     currentAngle = vegetationEndAngle;
                 });
 
                 // Add ending point
+                // Ensure ending point is slightly into the second layer
+                const endCurveRadius = inner; // End at inner boundary for the curve
                 curvePoints.push({
-                    x: middle * Math.sin(endAngle),
-                    y: -middle * Math.cos(endAngle)
+                    x: endCurveRadius * Math.sin(endAngle),
+                    y: -endCurveRadius * Math.cos(endAngle)
                 });
 
                 // Create abundance curve
                 const line = d3.line()
                     .x(d => d.x)
                     .y(d => d.y)
-                    .curve(d3.curveBasis);
+                    .curve(d3.curveCatmullRom.alpha(0.8)); // 保持alpha值，可调整控制凸出程度
 
                 svg.append("path")
                     .datum(curvePoints)
                     .attr("class", "vegetation-curve")
                     .attr("d", line)
                     .style("stroke", curve)
-                    .style("stroke-width", 2);
+                    .style("stroke-width", 2)
+                    .style("fill", "none"); // 确保曲线不填充
             }
 
             // Function to create climate segments
@@ -654,9 +650,14 @@ function DynastyVisualization({
                 });
 
                 // Add legend
+                const climateLegendX = -radius * 1.6 + 60;
+                const climateLegendY = -radius * 1.1 ;
+                const mapLegendX = climateLegendX + 130; // 气象评分图例右侧偏移
+                const mapLegendY = climateLegendY;
+
                 const legend = svg.append("g")
                     .attr("class", "climate-legend")
-                    .attr("transform", `translate(${-radius * 1.6 + 40}, ${-radius * 1.2 + 10})`);  // Move to legend area
+                    .attr("transform", `translate(${climateLegendX}, ${climateLegendY})`);
 
                 // Add meteorological score legend
                 const gradient = legend.append("defs")
@@ -688,6 +689,43 @@ function DynastyVisualization({
                     .style("font-size", "10px")
                     .style("fill", colorSchemes.climate.metric.text)
                     .text("气象评分 (0-5)");
+
+                // Add map legend
+                const { map: mapColors } = colorSchemes.population;
+                const mapLegend = svg.append("g")
+                    .attr("class", "map-legend")
+                    .attr("transform", `translate(${mapLegendX}, ${mapLegendY})`);
+                mapLegend.append("circle")
+                    .attr("r", 5)
+                    .style("fill", mapColors.density)
+                    .style("stroke", mapColors.densityBorder);
+                mapLegend.append("text")
+                    .attr("x", 10)
+                    .attr("y", 4)
+                    .style("font-size", "8px")
+                    .text("人口密集区");
+                mapLegend.append("line")
+                    .attr("x1", -5)
+                    .attr("y1", 16)
+                    .attr("x2", 10)
+                    .attr("y2", 16)
+                    .style("stroke", mapColors.river)
+                    .style("stroke-width", 2);
+                mapLegend.append("text")
+                    .attr("x", 15)
+                    .attr("y", 19)
+                    .style("font-size", "8px")
+                    .text("河流");
+                mapLegend.append("circle")
+                    .attr("cx", 0)
+                    .attr("cy", 30)
+                    .attr("r", 4)
+                    .style("fill", mapColors.city);
+                mapLegend.append("text")
+                    .attr("x", 10)
+                    .attr("y", 33)
+                    .style("font-size", "8px")
+                    .text("城市");
             }
 
             // Function to create population and occupation distribution segments
@@ -752,7 +790,7 @@ function DynastyVisualization({
 
                     // Add label
                     const labelAngle = startAngle + anglePerOccupation / 2;
-                    const labelRadius = (inner + outer) / 2;
+                    const labelRadius = (inner + outer) / 2 + 2;
                     const rotationAngle = labelAngle * 180 / Math.PI - 90;
 
                     svg.append("text")
@@ -1134,7 +1172,7 @@ function DynastyVisualization({
                         .attr("x", river.labelX * map)
                         .attr("y", river.labelY * map)
                         .attr("class", "river-label")
-                        .style("font-size", "8px")
+                        .style("font-size", "7px")
                         .style("fill", mapColors.river)
                         .text(river.name);
                 });
@@ -1158,50 +1196,7 @@ function DynastyVisualization({
                         .text(city.name);
                 });
 
-                // Add legend
-                const legend = mapGroup.append("g")
-                    .attr("class", "map-legend")
-                    .attr("transform", `translate(${-map * 0.65}, ${-map * 0.65})`);
-
-                // Population dense area legend
-                legend.append("circle")
-                    .attr("r", 5)
-                    .style("fill", mapColors.density)
-                    .style("stroke", mapColors.densityBorder);
-
-                legend.append("text")
-                    .attr("x", 10)
-                    .attr("y", 4)
-                    .style("font-size", "8px")
-                    .text("人口密集区");
-
-                // River legend
-                legend.append("line")
-                    .attr("x1", 0)
-                    .attr("y1", 15)
-                    .attr("x2", 10)
-                    .attr("y2", 15)
-                    .style("stroke", mapColors.river)
-                    .style("stroke-width", 2);
-
-                legend.append("text")
-                    .attr("x", 15)
-                    .attr("y", 18)
-                    .style("font-size", "8px")
-                    .text("河流");
-
-                // City legend
-                legend.append("circle")
-                    .attr("cx", 0)
-                    .attr("cy", 30)
-                    .attr("r", 4)
-                    .style("fill", mapColors.city);
-
-                legend.append("text")
-                    .attr("x", 10)
-                    .attr("y", 34)
-                    .style("font-size", "8px")
-                    .text("主要城市");
+                
             }
 
 

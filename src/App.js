@@ -25,9 +25,9 @@ import ParallelCoordinatesPlot from './components/ParallelCoordinatesPlot/Parall
 import HeatmapChart from './components/HeatMapChart/HeatMapChart';
 import CorrelationHeatmap from './components/CorrelationHeatmap/CorrelationHeatmap';
 
-
 import TrafficHubAnalysis from './components/Traffic/TrafficHubAnalysis';
 import CityDataCharts from './components/Traffic/CityDataCharts';
+
 
 // 物产可视化控制组件
 const ProductVisControls = ({ showDataPoints, setShowDataPoints, showDetailView, showWordCloud, onCloseDetailView, onCloseWordCloud }) => {
@@ -307,13 +307,13 @@ function App() {
   const [beijingEcologyData, setBeijingEcologyData] = useState([]);
   const beijingEcologyRef = useRef(null);
 
-  // 读取数据
-  useEffect(() => {
-    d3.csv('/data/1/river_sort.csv').then(setRiverData);
-    d3.csv('/data/1/植被_2.csv').then(setVegetationData);
-    d3.csv('/data/1/气候.csv').then(setClimateData);
-    d3.csv('/data/人口/人口_change.csv').then(setPopulationData);
-  }, []);
+    // 读取数据
+    useEffect(() => {
+      d3.csv('/data/1/river_sort.csv').then(setRiverData);
+      d3.csv('/data/1/植被_2.csv').then(setVegetationData);
+      d3.csv('/data/1/气候.csv').then(setClimateData);
+      d3.csv('/data/人口/人口_change.csv').then(setPopulationData);
+    }, []);
 
 
 
@@ -452,6 +452,8 @@ function App() {
         <h1>京华时空 - 北京城演化可视分析平台</h1>
         <div className="header-dynasty-info">
           <span>当前选择: {displayText}</span>
+        
+
         </div>
         <div className="header-decoration right"></div>
       </div>
@@ -631,18 +633,18 @@ function App() {
           flexDirection: 'column'
         }}>
       
-          <div className='row' style={{width: '100%', height: '100%', padding: 0}}>
-          <div className='col-md-9' style={{padding:2, height: '100%', width:'66%'}}>
-          <div className='row' style={{ width: 920, marginTop: -40,marginLeft: -200, height: '20%',padding:'1px' }}> 
+          <div className='row' style={{width: '100%', height: '100%', padding: 0, borderLeft: '2px solid transparent', borderImage: 'linear-gradient(90deg, rgba(202,169,132,0.1),rgb(184, 142, 98), rgba(202,169,132,0.1)) 1'}}>
+          <div className='col-md-9' style={{padding:2, height: '100%', width:'69%',borderRight: '2px solid transparent', borderImage: 'linear-gradient(90deg, rgba(202,169,132,0.1), rgb(184, 142, 98), rgba(202,169,132,0.1)) 1'}}>
+          <div className='row' style={{ width: 920, marginTop: -40,marginLeft: -190, height: '20%',padding:'1px' }}> 
         
            <ParallelCoordinatesPlot dynasty={dynasty} />
  
            </div>
-           <div className='row' style={{ width: 760, marginTop: -16,marginLeft: -60, height: '80%',padding:'1px' }}> 
+           <div className='row' style={{ width: 760, marginTop: -16,marginLeft: -50, height: '80%',padding:'1px' }}> 
            <HeatmapChart dynasty={dynasty} startYear={startYear} endYear={endYear} />
            </div>
           </div>
-           <div className='col-md-3' style={{marginTop: -20,marginRight:-10,padding:2, height: '100%', width:'34%'}}>
+           <div className='col-md-3' style={{marginTop: -20,marginLeft:-30,padding:2, height: '100%', width:'31%'}}>
             <CorrelationHeatmap />
           </div>
           </div>
@@ -729,7 +731,7 @@ const rightTop = (
             endYear={endYear}/>
             <div className='row' style={{ 
                 width: 580, 
-                marginTop: 5, 
+                marginTop: -15, 
                 padding: 0, 
                 borderTop: '1px solid transparent',
                 borderImage: 'linear-gradient(90deg, rgba(202,169,132,0.1), #c7a580, rgba(202,169,132,0.1)) 1'
@@ -858,7 +860,7 @@ const rightTop = (
 
   return (
     <div className="App">
-      <GridLayout
+       <GridLayout
         header={header}
         leftTop={leftTop}
         leftBottom={leftBottom}

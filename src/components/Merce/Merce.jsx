@@ -6,7 +6,7 @@ const Merce = ({ dynastyName = '金', startYear = 1115, endYear = 1234 }) => {
   useEffect(() => {
     const margin = { top: 5, right: 10, bottom: 10, left: 20 };
     const width = 580;
-    const height = 100;
+    const height = 120;
     // 清除旧的 SVG
     d3.select("#chart1").select("svg").remove();
 

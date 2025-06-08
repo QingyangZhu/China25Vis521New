@@ -24,6 +24,7 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
 
         d3.csv("/data/processed_历史时期影响分析.csv").then(function(data) {
             const tangDataRow = data.find(d => d['历史时期'] === dynasty);
+        
 
             if (!tangDataRow) {
                 console.warn(`No data found for '${dynasty}' dynasty in the CSV.`);
@@ -47,6 +48,7 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
                         lineObj[dim] = null;
                     }
                 });
+                console.log(`Data for ${lineCat}:`, lineObj);
                 if (dimensions.every(dim => lineObj[dim] !== null)) {
                     plotData.push(lineObj);
                 }
@@ -57,12 +59,22 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
                 return;
             }
 
+            // 确保y轴比例尺的范围足够大，以显示负值
             dimensions.forEach(function(d) {
                 const valuesForDim = plotData.map(p => p[d]);
+                const extent = d3.extent(valuesForDim);
+                // 确保比例尺能显示所有值，包括负值
                 y[d] = d3.scaleLinear()
-                    .domain(d3.extent(valuesForDim))
-                    .range([height, 0]);
+                    .domain([extent[0], extent[1]])
+                    .range([height, 0])
+                    .nice(); // 使用nice()来优化刻度范围
             });
+
+            console.log("Y scales:", dimensions.map(d => ({
+                dimension: d,
+                domain: y[d].domain(),
+                range: y[d].range()
+            })));
 
             const allValues = plotData.flatMap(d => dimensions.map(dim => d[dim]));
             const globalValueExtent = d3.extent(allValues);
@@ -100,17 +112,38 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
                 .domain(dimensions);
 
             const path = function(d) {
-                return d3.line()(dimensions.map(function(p) {
-                    return [x(p), y[p](d[p])];
-                }));
+                return d3.line()
+                    .x(p => x(p))
+                    .y(p => y[p](d[p]))
+                    .curve(d3.curveMonotoneX)(dimensions);
             };
+
+            // 添加调试日志
+            console.log("Drawing lines with data:", plotData);
+            plotData.forEach(d => {
+                console.log(`Drawing line for ${d.category}:`, dimensions.map(p => [p, d[p], y[p](d[p])]));
+            });
 
             svg.selectAll(".line")
                 .data(plotData)
                 .enter().append("path")
                 .attr("class", "line")
                 .attr("d", path)
-                .attr("stroke", d => `url(#gradient-${d.category})`);
+                .attr("stroke", d => `url(#gradient-${d.category})`)
+                .style("stroke-width", 2)
+                .style("opacity", 0.7);
+
+            // 添加调试用的点
+            plotData.forEach(d => {
+                dimensions.forEach(p => {
+                    svg.append("circle")
+                        .attr("cx", x(p))
+                        .attr("cy", y[p](d[p]))
+                        .attr("r", 3)
+                        .attr("fill", "#b4a293")  // 使用系统主色调
+                        .attr("opacity", 0.6);
+                });
+            });
 
             const g = svg.selectAll(".dimension")
                 .data(dimensions)
@@ -159,7 +192,7 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
 
             svg.selectAll(".line")
                 .on("mouseover", function(event, d) {
-                    d3.select(this).style("stroke-width", "3px").style("opacity", 1);
+                    d3.select(this).style("stroke-width", "4px").style("opacity", 1);
 
                     let tooltipContent = `<b>${d.category}</b><br/>`;
                     dimensions.forEach((dim, i) => {
@@ -174,7 +207,7 @@ const ParallelCoordinatesPlot = ({ dynasty }) => {
                         .style("opacity", .9);
                 })
                 .on("mouseout", function(event, d) {
-                    d3.select(this).style("stroke-width", "1.5px").style("opacity", 0.7);
+                    d3.select(this).style("stroke-width", "2px").style("opacity", 0.7);
                     tooltip.transition()
                         .duration(500)
                         .style("opacity", 0);
