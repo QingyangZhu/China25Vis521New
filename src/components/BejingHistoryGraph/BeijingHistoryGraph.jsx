@@ -302,8 +302,50 @@ const BeijingHistoryGraph = () => {
         .on("click", function(event, d) {
           if (dragMoved) return;
           event.stopPropagation();
-          setSelectedNode(d);
-          displayNodeDetails(d);
+          
+          // 如果点击的是当前选中的节点，则取消选中
+          if (selectedNode === d) {
+            setSelectedNode(null);
+            // 取消固定位置
+            d.fx = null;
+            d.fy = null;
+            // 移除高亮
+            d3.select(this)
+              .transition()
+              .duration(200)
+              .attr("r", d => {
+                if (d.group === 'period') return 30;
+                if (d.group === 'event') return 15;
+                if (d.group === 'person') return 10;
+                return 5;
+              })
+              .style("fill", d => {
+                if (d.group === 'period') return groupColorMap['period'];
+                if (d.group === 'person') return groupColorMap['person'];
+                if (d.group === 'event') return typeColorMap[d.type] || groupColorMap['event'];
+                return '#cccccc';
+              });
+            // 隐藏详情面板
+            if (detailsPanelRef.current) {
+              detailsPanelRef.current.classList.remove('visible');
+            }
+            // 重置所有节点和边的样式
+            nodeElements.style("opacity", 1).style("stroke-width", 1);
+            linkElements.style("opacity", 1).style("stroke-width", 1);
+          } else {
+            // 如果之前有选中的节点，取消其固定位置
+            if (selectedNode) {
+              selectedNode.fx = null;
+              selectedNode.fy = null;
+            }
+            setSelectedNode(d);
+            // 固定当前节点位置
+            d.fx = d.x;
+            d.fy = d.y;
+            displayNodeDetails(d);
+          }
+          // 重启模拟以应用位置变化
+          simulation.alpha(0.3).restart();
         })
         .call(
           d3.drag()
@@ -539,7 +581,12 @@ const BeijingHistoryGraph = () => {
     const allButton = buttonContainer.append('button')
       .attr('class', 'filter-button')
       .attr('data-type', '全部')
-      .on('click', () => toggleAllNodeTypes(true));
+      .classed('active', true)  // 初始状态设为激活
+      .on('click', function() {
+        const isActive = d3.select(this).classed('active');
+        toggleAllNodeTypes(!isActive);
+        d3.select(this).classed('active', !isActive);
+      });
     allButton.append('i')
       .attr('class', 'fas fa-globe');
     allButton.append('text')
@@ -604,16 +651,31 @@ const BeijingHistoryGraph = () => {
 
   // 切换所有节点类型
   const toggleAllNodeTypes = (show) => {
-    predefinedNodeTypes.groups.forEach(type => {
-      nodeTypeVisibility.groups[type] = show;
-      const button = d3.select(`button[data-type="${type}"]`);
-      button.classed('active', show);
-    });
-    predefinedNodeTypes.eventTypes.forEach(type => {
-      nodeTypeVisibility.eventTypes[type] = show;
-      const button = d3.select(`button[data-type="${type}"]`);
-      button.classed('active', show);
-    });
+    // 如果是显示全部，则只显示历史时期节点
+    if (show) {
+      predefinedNodeTypes.groups.forEach(type => {
+        nodeTypeVisibility.groups[type] = type === 'period';
+        const button = d3.select(`button[data-type="${type}"]`);
+        button.classed('active', type === 'period');
+      });
+      predefinedNodeTypes.eventTypes.forEach(type => {
+        nodeTypeVisibility.eventTypes[type] = false;
+        const button = d3.select(`button[data-type="${type}"]`);
+        button.classed('active', false);
+      });
+    } else {
+      // 如果是隐藏全部，则显示所有节点
+      predefinedNodeTypes.groups.forEach(type => {
+        nodeTypeVisibility.groups[type] = true;
+        const button = d3.select(`button[data-type="${type}"]`);
+        button.classed('active', true);
+      });
+      predefinedNodeTypes.eventTypes.forEach(type => {
+        nodeTypeVisibility.eventTypes[type] = true;
+        const button = d3.select(`button[data-type="${type}"]`);
+        button.classed('active', true);
+      });
+    }
     updateGraphVisibility();
   };
 
